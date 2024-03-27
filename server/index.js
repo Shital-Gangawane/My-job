@@ -12,6 +12,10 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
+app.get("/", (req, res) => {
+  res.write("App running!");
+});
+
 app.use("/api", adminRouter);
 
 app.listen(process.env.PORT, () =>
