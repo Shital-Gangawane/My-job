@@ -46,14 +46,14 @@ const Nav = () => {
               </div>
             </div>
           </div>
-          <div className="hidden md:block">
+          <div className="block">
             <div className="ml-4 flex items-center md:ml-6">
               <motion.button
                 onClick={() => navigate("/login")}
                 whileHover={{ border: "2px gray solid", scale: 1.1 }}
-                className=" hover:border-gray-300  text-white px-4 py-3 rounded-full text-sm font-medium"
+                className=" border-2 border-gray-300 hover:border-gray-300  text-white px-6 py-3 rounded-full text-sm font-medium"
               >
-                Login / Register
+                Login
               </motion.button>
               {/* <button className="ml-4 bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-md text-sm font-medium">
                 Register
