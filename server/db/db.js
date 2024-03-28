@@ -3,7 +3,7 @@ import mongoose from "mongoose";
 export const connectDb = async () => {
   const mongoURI = process.env.MONGO_URL;
   await mongoose
-    .connect(mongoURI, { useNewUrlParser: true, useUnifiedTopology: true })
+    .connect(mongoURI)
     .then(() => {
       console.log("MongoDB connected");
     })
