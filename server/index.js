@@ -2,7 +2,7 @@ import express from "express";
 import dotenv from "dotenv";
 import cors from "cors";
 import { fileURLToPath } from "url";
-import { join, dirname } from "path";
+import path, { join, dirname } from "path";
 import { connectDb } from "./db/db.js";
 import adminRouter from "./routes/admin/admin.js";
 
@@ -16,7 +16,7 @@ const __dirname = dirname(__filename);
 app.use(cors());
 app.use(express.json());
 
-app.use("/", express.static("build"));
+app.use("/", express.static(path.join(__dirname, "build")));
 
 app.use("/api", adminRouter);
 
@@ -24,6 +24,5 @@ app.get("/*", (req, res) => {
   res.sendFile(join(__dirname, "./build", "index.html"));
 });
 
-app.listen(process.env.PORT, () =>
-  console.log(`listening on port ${process.env.PORT}`)
-);
+const port = process.env.PORT || 3000;
+app.listen(port, () => console.log(`listening on port ${port}`));
