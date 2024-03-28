@@ -18,10 +18,6 @@ app.use(express.json());
 
 app.use("/", express.static("build"));
 
-app.get("/", (req, res) => {
-  res.send("App running!");
-});
-
 app.use("/api", adminRouter);
 
 app.get("/*", (req, res) => {
