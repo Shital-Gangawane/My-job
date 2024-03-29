@@ -20,8 +20,8 @@ app.use("/", express.static(path.join(__dirname, "build")));
 
 app.use("/api", adminRouter);
 
-app.get("/*", (req, res) => {
-  res.sendFile(join(__dirname, "./build", "index.html"));
+app.get("/*", function (req, res) {
+  res.sendFile(path.join(__dirname, "build", "index.html"));
 });
 
 const port = process.env.PORT;
