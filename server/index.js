@@ -18,11 +18,11 @@ app.use(express.json());
 
 app.use("/", express.static(path.join(__dirname, "build")));
 
-// app.use("/api", adminRouter);
+app.use("/api", adminRouter);
 
 app.get("/*", function (req, res) {
   res.sendFile(path.join(__dirname, "build", "index.html"));
 });
 
-const port = process.env.PORT;
-app.listen(port, () => console.log(`listening on port ${port}`));
+const PORT = process.env.PORT;
+app.listen(PORT, () => console.log(`listening on port ${PORT}`));
