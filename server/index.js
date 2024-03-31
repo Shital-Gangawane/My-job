@@ -7,7 +7,7 @@ import { connectDb } from "./db/db.js";
 import adminRouter from "./routes/admin/admin.js";
 
 dotenv.config(); // env config.
-connectDb().catch((err) => console.error("Database connection error:", err)); // db connection with error handling
+connectDb(); // db connection with error handling
 
 const app = express();
 const __filename = fileURLToPath(import.meta.url);
