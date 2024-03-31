@@ -26,6 +26,7 @@ app.use("/api", adminRouter);
 app.get("/*", (req, res) => {
   res.sendFile(path.resolve(__dirname, "build", "index.html"));
 });
+console.log("PORT:", process.env.PORT);
 
-const PORT = process.env.PORT || 3000; // Default to port 3000 if PORT environment variable is not defined
+const PORT = process.env.PORT; // Default to port 3000 if PORT environment variable is not defined
 app.listen(PORT, () => console.log(`Server is running on port ${PORT}`));
