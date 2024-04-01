@@ -17,14 +17,14 @@ app.use(cors());
 app.use(express.json());
 
 // Serve static files from the build directory
-app.use("/", express.static(path.resolve(__dirname, "build")));
+app.use("/", express.static(path.join(__dirname, "build")));
 
 // API routes
 app.use("/api", adminRouter);
 
 // Serve the main HTML file for any other routes
 app.get("/*", (req, res) => {
-  res.sendFile(path.resolve(__dirname, "build", "index.html"));
+  res.sendFile(path.join(__dirname, "build", "index.html"));
 });
 console.log("PORT:", process.env.PORT);
 
