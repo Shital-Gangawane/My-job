@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const url = "http://localhost:8000";
+const url = "https://app.gigworker.co.in:8000";
 
 //Admin register
 export const registerAdmin = async (email, password) => {
