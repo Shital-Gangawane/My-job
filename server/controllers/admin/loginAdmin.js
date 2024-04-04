@@ -29,17 +29,15 @@ export const loginAdmin = async (req, res) => {
     const token = jwt.sign(
       { id: existingAdmin._id, email: existingAdmin.email },
       process.env.JWT_SECRET,
-      { expiresIn: "1h" } // Token expiration time
+      { expiresIn: "5h" } // Token expiration time
     );
 
-    res
-      .status(201)
-      .json({
-        success: true,
-        message: "Logged in successfully",
-        existingAdmin,
-        token,
-      });
+    res.status(201).json({
+      success: true,
+      message: "Logged in successfully",
+      existingAdmin,
+      token,
+    });
   } catch (error) {
     res.status(500).json({ success: false, message: "Internal server error" });
   }

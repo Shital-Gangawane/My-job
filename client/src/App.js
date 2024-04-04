@@ -18,11 +18,20 @@ import CandidateModule from "./pages/Admin/CandidateModule";
 import Jobs from "./pages/Admin/Jobs";
 import Employers from "./pages/Admin/Employers";
 import AdminApp from "./pages/Admin/AdminApp";
+import AdminModule from "./pages/Admin/AdminModule";
+import SearchedJobs from "./pages/Candidate/SearchedJobs";
+import Job from "./pages/Job/Job";
+import ViewJob from "./pages/Job/ViewJob";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<Layout />}>
       <Route path="" element={<LandingPage />} />
+      {/*searched Jobs on landing page*/}
+      <Route path="job" element={<Job />}>
+        <Route path="search-results" element={<SearchedJobs />} />
+        <Route path=":jobTitle" element={<ViewJob />} />
+      </Route>
       <Route path="login" element={<Login />} />
       <Route path="register" element={<Register />} />
       <Route path="admin" element={<AdminApp />}>
@@ -30,8 +39,8 @@ const router = createBrowserRouter(
         <Route path="candidates" element={<CandidateModule />} />
         <Route path="employers" element={<Employers />} />
         <Route path="jobs" element={<Jobs />} />
+        <Route path="admins" element={<AdminModule />} />
       </Route>
-
       <Route path="candidate" element={<Candidate />}>
         <Route path="dashboard" element={<CandidateDashboard />} />
       </Route>

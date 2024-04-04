@@ -1,42 +1,51 @@
 import React, { useState } from "react";
+import { postJobByAdmin } from "../../api/admin/axios";
+import { useAdminContext } from "../../context/adminContext";
 
 const PostJob = ({ setIsAddJobOn }) => {
-  const [jobTitle, setJobTitle] = useState("");
-  const [jobDescription, setJobDescription] = useState("");
-  const [jobLocation, setJobLocation] = useState("");
-  const [experienceRequired, setExperienceRequired] = useState("");
-  const [isRemoteOrHybrid, setIsRemoteOrHybrid] = useState(false);
-  const [salaryRange, setSalaryRange] = useState("");
-  const [keySkills, setKeySkills] = useState("");
+  const [jobData, setJobData] = useState({
+    jobTitle: "",
+    company: "",
+    jobDescription: "",
+    jobLocation: "",
+    experienceRequired: "",
+    isRemote: false,
+    salaryRange: "",
+    keySkills: "",
+  });
+  const { adminToken } = useAdminContext();
 
-  const handleSubmit = (e) => {
+  const handleChange = (e) => {
+    const { name, value, type, checked } = e.target;
+    setJobData((prevJobData) => ({
+      ...prevJobData,
+      [name]: type === "checkbox" ? checked : value,
+    }));
+  };
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Send job details to backend for processing
-    const jobData = {
-      title: jobTitle,
-      description: jobDescription,
-      location: jobLocation,
-      experienceRequired: experienceRequired,
-      isRemoteOrHybrid: isRemoteOrHybrid,
-      salaryRange: salaryRange,
-      keySkills: keySkills,
-    };
     console.log(jobData);
+    const res = await postJobByAdmin(jobData, adminToken);
+    console.log(res);
     // Reset form fields after submission
-    setJobTitle("");
-    setJobDescription("");
-    setJobLocation("");
-    setExperienceRequired("");
-    setIsRemoteOrHybrid(false);
-    setSalaryRange("");
-    setKeySkills("");
+    setJobData({
+      jobTitle: "",
+      company: "",
+      jobDescription: "",
+      jobLocation: "",
+      experienceRequired: "",
+      isRemote: false,
+      salaryRange: "",
+      keySkills: "",
+    });
   };
 
   return (
     <div className="absolute top-0 w-full h-full bg-black bg-opacity-45 flex flex-col items-center justify-center">
       <form
         onSubmit={handleSubmit}
-        className="bg-slate-700 rounded-md space-y-4 w-1/2 p-6 px-11 overflow-y-auto"
+        className="bg-slate-700 rounded-md space-y-4 w-full md:w-1/2 p-6 px-11 overflow-y-auto"
       >
         <h2 className="text-2xl mb-4 font-bold">Post a Job</h2>
         <div>
@@ -46,8 +55,23 @@ const PostJob = ({ setIsAddJobOn }) => {
           <input
             type="text"
             id="jobTitle"
-            value={jobTitle}
-            onChange={(e) => setJobTitle(e.target.value)}
+            name="jobTitle"
+            value={jobData.jobTitle}
+            onChange={handleChange}
+            className="w-full px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:border-blue-500"
+            required
+          />
+        </div>
+        <div>
+          <label htmlFor="company" className="block font-medium">
+            Company
+          </label>
+          <input
+            type="text"
+            id="company"
+            name="company"
+            value={jobData.company}
+            onChange={handleChange}
             className="w-full px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:border-blue-500"
             required
           />
@@ -58,8 +82,9 @@ const PostJob = ({ setIsAddJobOn }) => {
           </label>
           <textarea
             id="jobDescription"
-            value={jobDescription}
-            onChange={(e) => setJobDescription(e.target.value)}
+            name="jobDescription"
+            value={jobData.jobDescription}
+            onChange={handleChange}
             className="w-full px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:border-blue-500"
             required
           />
@@ -71,8 +96,9 @@ const PostJob = ({ setIsAddJobOn }) => {
           <input
             type="text"
             id="jobLocation"
-            value={jobLocation}
-            onChange={(e) => setJobLocation(e.target.value)}
+            name="jobLocation"
+            value={jobData.jobLocation}
+            onChange={handleChange}
             className="w-full px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:border-blue-500"
             required
           />
@@ -84,8 +110,9 @@ const PostJob = ({ setIsAddJobOn }) => {
           <input
             type="text"
             id="experienceRequired"
-            value={experienceRequired}
-            onChange={(e) => setExperienceRequired(e.target.value)}
+            name="experienceRequired"
+            value={jobData.experienceRequired}
+            onChange={handleChange}
             className="w-full px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:border-blue-500"
           />
         </div>
@@ -96,8 +123,9 @@ const PostJob = ({ setIsAddJobOn }) => {
           <input
             type="text"
             id="salaryRange"
-            value={salaryRange}
-            onChange={(e) => setSalaryRange(e.target.value)}
+            name="salaryRange"
+            value={jobData.salaryRange}
+            onChange={handleChange}
             className="w-full px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:border-blue-500"
           />
         </div>
@@ -108,21 +136,23 @@ const PostJob = ({ setIsAddJobOn }) => {
           <input
             type="text"
             id="keySkills"
-            value={keySkills}
-            onChange={(e) => setKeySkills(e.target.value)}
+            name="keySkills"
+            value={jobData.keySkills}
+            onChange={handleChange}
             className="w-full px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:border-blue-500"
           />
         </div>
         <div>
-          <label htmlFor="isRemoteOrHybrid" className="flex items-center">
+          <label htmlFor="isRemote" className="flex items-center">
             <input
               type="checkbox"
-              id="isRemoteOrHybrid"
-              checked={isRemoteOrHybrid}
-              onChange={(e) => setIsRemoteOrHybrid(e.target.checked)}
+              id="isRemote"
+              name="isRemote"
+              checked={jobData.isRemoteOrHybrid}
+              onChange={handleChange}
               className="mr-2"
             />
-            Remote or Hybrid
+            Remote
           </label>
         </div>
         <div className="flex justify-between">

@@ -11,11 +11,19 @@ const Login = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    const isCandidateLoggedIn = localStorage.getItem("candidateToken");
+    if (isCandidateLoggedIn) {
+      return;
+    }
 
     const res = await loginAdmin(email, password);
     console.log(res);
     if (res?.data?.success) {
       sessionStorage.setItem("adminToken", res?.data?.token);
+      sessionStorage.setItem(
+        "adminData",
+        JSON.stringify(res?.data?.existingAdmin)
+      );
       setAdminToken(res?.data?.token);
       setAdminData(res?.data?.existingAdmin);
     }

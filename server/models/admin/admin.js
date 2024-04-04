@@ -39,7 +39,7 @@ const adminSchema = new mongoose.Schema({
   },
   postedJobs: [
     {
-      type: Schema.Types.ObjectId,
+      type: mongoose.Schema.Types.ObjectId,
       ref: "Job",
     },
   ],

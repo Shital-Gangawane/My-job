@@ -4,7 +4,8 @@ import cors from "cors";
 import { fileURLToPath } from "url";
 import path, { dirname } from "path";
 import { connectDb } from "./db/db.js";
-import adminRouter from "./routes/admin/admin.js";
+import adminRouter from "./routes/admin/admin.routes.js";
+import candidateRouter from "./routes/candidate/candidate.routes.js";
 
 dotenv.config(); // env config.
 connectDb(); // db connection with error handling
@@ -21,6 +22,7 @@ app.use("/", express.static(path.join(__dirname, "build")));
 
 // API routes
 app.use("/api", adminRouter);
+app.use("/api", candidateRouter);
 
 // Serve the main HTML file for any other routes
 app.get("/*", (req, res) => {

@@ -8,8 +8,13 @@ export default function Layout() {
   return (
     <div>
       {!location.pathname.startsWith("/admin") && <Nav />}{" "}
-      {/* Render Nav component if the path doesn't start with "/admin/" */}
-      <Outlet />
+      <div
+        className={` h-screen w-screen ${
+          location.pathname.startsWith("/admin") ? "" : "pt-24"
+        }`}
+      >
+        <Outlet />
+      </div>
     </div>
   );
 }

@@ -6,12 +6,18 @@ const NavLink = ({ to, icon, label, location }) => {
   return (
     <Link
       to={to}
-      className={`w-full p-1 hover:bg-gray-700 transition duration-300 flex items-center gap-1 ${
-        isActive ? "bg-gray-700" : ""
+      className={`w-full p-2 hover:bg-orange-700 transition duration-300 flex items-center gap-1 ${
+        isActive ? "bg-orange-700 rounded-sm" : ""
       }`}
     >
       {icon}
-      <p className={`text-start ${isActive ? "text-white" : ""}`}>{label}</p>
+      <p
+        className={` hidden md:block text-start ${
+          isActive ? "text-white" : ""
+        }`}
+      >
+        {label}
+      </p>
     </Link>
   );
 };

@@ -9,13 +9,13 @@ const Nav = () => {
       initial={{ y: -100 }}
       animate={{ y: 0 }}
       transition={{ duration: 1 }}
-      className="fixed w-full p-3 z-20 border-b border-b-purple-800"
+      className="fixed w-full p-3 z-20 border-b bg-gradient-radial-circle border-b-purple-800"
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 ">
         <div className="flex items-center justify-between h-16  ">
           <div className="flex items-center">
             <div className="flex-shrink-0 text-white text-3xl">
-              Job<span className=" text-green-600 font-bold">Portal</span>
+              Employ<span className=" text-green-600 font-bold">Ease</span>
             </div>
             <div className="hidden md:block">
               <div className="ml-10 flex items-baseline space-x-4">

@@ -29,7 +29,7 @@ export default function Dashboard() {
         />
         {adminData?.isSuperAdmin && (
           <Card
-            title="Admin"
+            title="admins"
             count="30"
             icon={<RiAdminFill size={70} color="purple" />}
           />

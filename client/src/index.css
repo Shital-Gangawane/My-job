@@ -11,3 +11,11 @@ body {
   );
   overflow-x: hidden;
 }
+
+.bg-gradient-radial-circle {
+  background-image: radial-gradient(
+    circle,
+    rgba(100, 0, 123, 1) 0%,
+    rgba(62, 20, 86, 1) 100%
+  );
+}

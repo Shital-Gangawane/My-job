@@ -7,7 +7,7 @@ const Card = ({ title, count, icon }) => {
   const navigate = useNavigate();
   return (
     <motion.div
-      className="w-64 aspect-square bg-white p-4 rounded-lg shadow-md flex flex-col items-center justify-center gap-2"
+      className=" aspect-square bg-white p-10 px-16 rounded-lg shadow-md flex flex-col items-center justify-center gap-2"
       whileHover={{ scale: 1.05 }}
       whileTap={{ scale: 0.95 }}
       onClick={() => navigate(`/admin/${title}`)}
