@@ -21,7 +21,7 @@ export default function Jobs() {
       }
     };
     fetchJobs();
-  }, [setFilteredJobs, adminToken]);
+  }, [setFilteredJobs, adminToken, adminData, isAddJobOn]);
 
   const filterAllJob = () => {
     setFilteredJobs(jobs);
@@ -67,7 +67,7 @@ export default function Jobs() {
 
       {isAddJobOn && <PostJob setIsAddJobOn={setIsAddJobOn} />}
 
-      <div className="flex-grow p-6 border">
+      <div className="flex-grow p-6 border overflow-y-auto">
         <JobList jobs={filteredJobs} />
       </div>
     </div>

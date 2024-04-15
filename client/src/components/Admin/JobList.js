@@ -31,7 +31,7 @@ export default function JobList({ jobs }) {
   return (
     <div>
       {jobs ? (
-        jobs?.map((job) => (
+        jobs?.reverse().map((job) => (
           <div
             key={job._id}
             className="bg-white shadow-md rounded-md p-4 mb-4 text-xs"

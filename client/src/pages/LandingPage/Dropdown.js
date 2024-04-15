@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef, useMemo } from "react";
 import { motion } from "framer-motion";
 
-export const Dropdown = ({ options, onSelect }) => {
+export const Dropdown = ({ options, onSelect, landingpage }) => {
   const [searchQuery, setSearchQuery] = useState("");
   const [filteredOptions, setFilteredOptions] = useState(options);
   const dropdownRef = useRef(null);
@@ -24,7 +24,11 @@ export const Dropdown = ({ options, onSelect }) => {
   };
 
   return (
-    <div className="dropdown absolute bottom-0  w-full h-full">
+    <div
+      className={`dropdown absolute bottom-0  w-full ${
+        !landingpage ? "" : "h-full"
+      } `}
+    >
       <input
         type="text"
         value={searchQuery}

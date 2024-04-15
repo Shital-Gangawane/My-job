@@ -31,6 +31,7 @@ export default function JobContextProvider({ children }) {
 
   useEffect(() => {
     const fetchResult = async () => {
+      if (!keyword) return;
       const res = await searchJobs(keyword, city);
       if (res.data.success) {
         let filteredResults = res.data.jobs;

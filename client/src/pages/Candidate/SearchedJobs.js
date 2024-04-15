@@ -30,7 +30,7 @@ export default function SearchedJobs() {
   };
 
   useEffect(() => {
-    setSearchResults(location?.state?.res);
+    setSearchResults(location?.state?.jobs);
     handleKeywordChange(location?.state?.keyword);
     handleCityChange(location?.state?.city);
   }, []);

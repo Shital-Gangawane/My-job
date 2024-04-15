@@ -1,4 +1,5 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
+import { fetchAllAdmins, fetchPostedJobs } from "../api/admin/axios";
 
 const adminContext = createContext();
 
@@ -6,6 +7,7 @@ export default function AdminContextProvider({ children }) {
   const [adminData, setAdminData] = useState("");
   const [adminToken, setAdminToken] = useState("");
   const [jobs, setJobs] = useState([]);
+  const [allAdmins, setAllAdmins] = useState([]);
 
   useEffect(() => {
     // Fetch token from sessionStorage
@@ -15,7 +17,29 @@ export default function AdminContextProvider({ children }) {
       const data = sessionStorage.getItem("adminData");
       setAdminData(JSON.parse(data));
     }
-  }, [setAdminToken]);
+
+    // Fetch all admins
+    const fetchAllAdmin = async () => {
+      try {
+        const response = await fetchAllAdmins(token); // Assuming fetchAllAdmins is a function to fetch all admins
+        setAllAdmins(response?.data?.allAdmins);
+      } catch (error) {
+        console.error("Error fetching all admins:", error);
+      }
+    };
+
+    const fetchJobs = async () => {
+      if (adminToken) {
+        const res = await fetchPostedJobs(adminToken);
+        if (res && res.data && res.data.allJobs) {
+          setJobs(res.data.allJobs);
+        }
+      }
+    };
+    fetchJobs();
+
+    fetchAllAdmin();
+  }, [adminToken]);
 
   return (
     <adminContext.Provider
@@ -26,6 +50,8 @@ export default function AdminContextProvider({ children }) {
         setAdminToken,
         jobs,
         setJobs,
+        allAdmins,
+        setAllAdmins,
       }}
     >
       {children}

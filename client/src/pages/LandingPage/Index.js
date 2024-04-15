@@ -31,10 +31,11 @@ const LandingPage = () => {
 
   const submitHandler = async (e) => {
     e.preventDefault();
+    console.log(searchText, selectedCity);
     const res = await searchJobs(searchText, selectedCity);
     if (res?.data?.success) {
       const state = {
-        res: res?.data?.jobs,
+        jobs: res?.data?.jobs,
         keyword: searchText,
         city: selectedCity,
       };
@@ -108,7 +109,11 @@ const LandingPage = () => {
               </div>
 
               {isDropdownOpen && (
-                <Dropdown options={citiesInIndia} onSelect={handleCitySelect} />
+                <Dropdown
+                  options={citiesInIndia}
+                  onSelect={handleCitySelect}
+                  landingpage
+                />
               )}
             </div>
             <motion.button

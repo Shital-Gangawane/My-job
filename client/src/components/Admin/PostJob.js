@@ -42,10 +42,10 @@ const PostJob = ({ setIsAddJobOn }) => {
   };
 
   return (
-    <div className="absolute top-0 w-full h-full bg-black bg-opacity-45 flex flex-col items-center justify-center">
+    <div className="fixed inset-0 top-0 w-full h-full bg-black bg-opacity-45 flex flex-col items-center justify-center">
       <form
         onSubmit={handleSubmit}
-        className="bg-slate-700 rounded-md space-y-4 w-full md:w-1/2 p-6 px-11 overflow-y-auto"
+        className="bg-gray-50 rounded-md space-y-4 w-full md:w-1/2 p-6 px-11 overflow-y-auto"
       >
         <h2 className="text-2xl mb-4 font-bold">Post a Job</h2>
         <div>
@@ -118,7 +118,7 @@ const PostJob = ({ setIsAddJobOn }) => {
         </div>
         <div>
           <label htmlFor="salaryRange" className="block font-medium">
-            Salary Range
+            Salary
           </label>
           <input
             type="text"

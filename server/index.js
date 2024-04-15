@@ -1,18 +1,17 @@
-import express from "express";
-import dotenv from "dotenv";
-import cors from "cors";
-import { fileURLToPath } from "url";
-import path, { dirname } from "path";
-import { connectDb } from "./db/db.js";
-import adminRouter from "./routes/admin/admin.routes.js";
-import candidateRouter from "./routes/candidate/candidate.routes.js";
+const express = require("express");
+const dotenv = require("dotenv").config();
+const cors = require("cors");
+const { fileURLToPath } = require("url");
+const path = require("path");
+const { connectDb } = require("./db/db.js");
+const adminRouter = require("./routes/admin/admin.routes.js");
+const candidateRouter = require("./routes/candidate/candidate.routes.js");
 
-dotenv.config(); // env config.
 connectDb(); // db connection with error handling
 
 const app = express();
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
+// const __filename = fileURLToPath(import.meta.url);
+// const __dirname = dirname(__filename);
 
 app.use(cors());
 app.use(express.json());
@@ -30,5 +29,5 @@ app.get("/*", (req, res) => {
 });
 console.log("PORT:", process.env.PORT);
 
-const PORT = process.env.PORT; // Default to port 3000 if PORT environment variable is not defined
+const PORT = process.env.PORT || 8000; // Default to port 3000 if PORT environment variable is not defined
 app.listen(PORT, () => console.log(`Server is running on port ${PORT}`));

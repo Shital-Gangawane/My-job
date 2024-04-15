@@ -12,7 +12,7 @@ export default function Admin() {
       {!adminToken ? (
         <Login />
       ) : (
-        <div className="flex">
+        <div className="flex  h-screen">
           <Sidebar />
           <Outlet />
         </div>

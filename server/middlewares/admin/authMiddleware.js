@@ -1,6 +1,6 @@
-import jwt from "jsonwebtoken";
+const jwt = require("jsonwebtoken");
 
-export const authMiddleware = (req, res, next) => {
+module.exports.authMiddleware = (req, res, next) => {
   // Extract the token from the request headers
   const token = req.headers.authorization;
 

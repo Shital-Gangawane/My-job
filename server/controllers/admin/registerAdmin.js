@@ -1,9 +1,20 @@
-import bcrypt from "bcryptjs";
-import Admin from "../../models/admin/admin.js";
+const bcrypt = require("bcryptjs");
+const Admin = require("../../models/admin/admin.js");
 
-export const registerAdmin = async (req, res) => {
+module.exports.registerAdmin = async (req, res) => {
   try {
-    const { email, password } = req.body;
+    const {
+      name,
+      email,
+      phone,
+      roleType,
+      password,
+      designation,
+      city,
+      category,
+      skill,
+      isAdmin,
+    } = req.body;
 
     // Check if the email is already registered
     const existingAdmin = await Admin.findOne({ email });
@@ -16,16 +27,28 @@ export const registerAdmin = async (req, res) => {
 
     // Create a new admin
     const newAdmin = new Admin({
+      name,
       email,
+      phone,
+      roleType,
       password: hashedPassword,
+      designation,
+      cityAssigned: city, // Adjusted field name
+      categoryAssigned: category, // Adjusted field name
+      skillAssigned: skill, // Adjusted field name
+      isAdmin,
     });
 
     // Save the admin to the database
     await newAdmin.save();
 
-    res
-      .status(201)
-      .json({ success: true, message: "Admin registered successfully" });
+    const allAdmins = await Admin.find();
+
+    res.status(201).json({
+      success: true,
+      message: "Admin registered successfully",
+      allAdmins,
+    });
   } catch (error) {
     res.status(500).json({ message: "Internal server error" });
   }

@@ -1,6 +1,6 @@
-import Job from "../../models/admin/job.js";
+const Job = require("../../models/admin/job.js");
 
-export const searchJobs = async (req, res) => {
+module.exports.searchJobs = async (req, res) => {
   try {
     const { searchText, city } = req.query;
 

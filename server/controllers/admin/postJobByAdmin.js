@@ -1,6 +1,6 @@
-import Job from "../../models/admin/job.js";
+const Job = require("../../models/admin/job.js");
 
-export const postJobByAdmin = async (req, res) => {
+module.exports.postJobByAdmin = async (req, res) => {
   try {
     const { jobData } = req.body;
 

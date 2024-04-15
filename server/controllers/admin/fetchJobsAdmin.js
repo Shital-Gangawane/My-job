@@ -1,6 +1,6 @@
-import Job from "../../models/admin/job.js";
+const Job = require("../../models/admin/job.js");
 
-export const fetchJobsAdmin = async (req, res) => {
+module.exports.fetchJobsAdmin = async (req, res) => {
   try {
     const allJobs = await Job.find();
 

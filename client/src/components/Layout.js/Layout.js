@@ -9,7 +9,7 @@ export default function Layout() {
     <div>
       {!location.pathname.startsWith("/admin") && <Nav />}{" "}
       <div
-        className={` h-screen w-screen ${
+        className={` h-screen w-screen overflow-x-hidden ${
           location.pathname.startsWith("/admin") ? "" : "pt-24"
         }`}
       >

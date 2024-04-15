@@ -1,8 +1,8 @@
-import bcrypt from "bcryptjs";
-import jwt from "jsonwebtoken";
-import Admin from "../../models/admin/admin.js";
+const bcrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken");
+const Admin = require("../../models/admin/admin.js");
 
-export const loginAdmin = async (req, res) => {
+module.exports.loginAdmin = async (req, res) => {
   try {
     const { email, password } = req.body;
 
@@ -24,6 +24,14 @@ export const loginAdmin = async (req, res) => {
         .status(400)
         .json({ success: false, message: "Incorrect credentials" });
     }
+
+    if (!existingAdmin.isSuperAdmin && !existingAdmin.isApproved)
+      return res
+        .status(400)
+        .json({
+          success: false,
+          message: "You've not been authorized by the admin yet to log in.",
+        });
 
     // Generate JWT token
     const token = jwt.sign(
