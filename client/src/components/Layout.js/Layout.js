@@ -7,10 +7,12 @@ export default function Layout() {
 
   return (
     <div>
-      {!location.pathname.startsWith("/admin") && <Nav />}{" "}
+      {/* {!location.pathname.startsWith("/admin") && location.pathname !== "/" && (
+        <Nav bgColor={"bg-white"} />
+      )}{" "} */}
       <div
         className={` h-screen w-screen overflow-x-hidden ${
-          location.pathname.startsWith("/admin") ? "" : "pt-24"
+          location.pathname.startsWith("/admin") ? "" : ""
         }`}
       >
         <Outlet />

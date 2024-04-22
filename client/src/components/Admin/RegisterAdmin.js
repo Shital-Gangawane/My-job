@@ -216,7 +216,7 @@ const RegisterAdmin = ({ setIsAddAdminOn, editing, data }) => {
             )}
             <div className="relative">
               <div className=" flex flex-wrap">
-                {cities.length
+                {cities?.length
                   ? cities?.map((city, i) => (
                       <div
                         key={i}
@@ -245,7 +245,7 @@ const RegisterAdmin = ({ setIsAddAdminOn, editing, data }) => {
             </div>
             <div className="relative">
               <div className=" flex flex-wrap">
-                {categories.length
+                {categories?.length
                   ? categories?.map((category, i) => (
                       <div
                         key={i}
@@ -292,7 +292,7 @@ const RegisterAdmin = ({ setIsAddAdminOn, editing, data }) => {
             </div>
             <div className="relative">
               <div className=" flex flex-wrap">
-                {skills.length
+                {skills?.length
                   ? skills?.map((skill, i) => (
                       <div
                         key={i}

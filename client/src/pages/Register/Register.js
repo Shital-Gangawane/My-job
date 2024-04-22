@@ -3,43 +3,79 @@ import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { BsPerson } from "react-icons/bs";
 import { BiShoppingBag } from "react-icons/bi";
+import { registerEmployer } from "../../api/employer/axios";
+import Loader from "../../components/Utility/Loader";
+import Nav from "../../components/Nav/Nav";
 
 const Register = () => {
   const [identity, setIdentity] = useState("candidate");
-  const handleSubmit = (e) => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false); // Add loading state
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Implement register logic here
-    console.log("Register submitted!");
+
+    if (password !== confirmPassword) {
+      setError("Passwords do not match.");
+      return;
+    } else {
+      setError("");
+    }
+
+    if (identity === "employer") {
+      setLoading(true); // Set loading to true when submitting
+      try {
+        const res = await registerEmployer(email, password);
+        console.log(res); // Handle success response
+      } catch (error) {
+        console.error(error); // Handle error response
+      } finally {
+        setLoading(false); // Set loading to false after request completes
+        setEmail("");
+        setPassword("");
+        setConfirmPassword("");
+      }
+    } else {
+      console.log("Candidate Register submitted!");
+      // Handle candidate registration
+    }
   };
 
   return (
-    <div className="min-h-screen flex justify-center items-center bg-black bg-opacity-40  px-2 sm:px-10">
+    <div className="h-full w-full relative flex justify-center items-center   px-2 sm:px-10">
+      {loading && <Loader />}
+      <Nav bgColor={" fixed top-0"} />
       <motion.form
         initial={{ y: -100 }}
         animate={{ y: 0 }}
         transition={{ duration: 0.7 }}
         onSubmit={handleSubmit}
-        className="bg-white w-full md:max-w-xl p-8 rounded-lg shadow-md z-50"
+        className="bg-white w-full md:max-w-xl p-8 rounded-lg shadow-md "
       >
         <h2 className="text-2xl font-bold mb-4">Register</h2>
         <div className="flex gap-4">
           <button
-            onClick={() => setIdentity("candidate")}
+            type="button"
+            onClick={(e) => setIdentity("candidate")}
             className={`w-full ${
               identity === "candidate"
-                ? "bg-green-500 text-white"
-                : "bg-green-200 text-green-400"
-            }   flex items-center justify-center gap-2 overflow-hidden   py-4 rounded-lg transition duration-300 ease-in-out`}
+                ? "bg-[#6ad61d] text-white"
+                : "bg-[#6ad61d46] text-[#6ad61d]"
+            }   flex items-center justify-center gap-2 overflow-hidden py-4 rounded-lg transition duration-300 ease-in-out`}
           >
             <BsPerson size={20} />
             Candidate
           </button>
           <button
+            type="button"
             onClick={() => setIdentity("employer")}
             className={`w-full ${
               identity === "employer"
-                ? "bg-green-500 text-white"
-                : "bg-green-200 text-green-400"
+                ? "bg-[#6ad61d] text-white"
+                : "bg-[#6ad61d46] text-[#6ad61d]"
             }   flex items-center justify-center gap-2 overflow-hidden  py-4 rounded-lg transition duration-300 ease-in-out`}
           >
             <BiShoppingBag size={20} />
@@ -54,6 +90,9 @@ const Register = () => {
           <input
             type="email"
             id="email"
+            required
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
             className="w-full px-4 py-4 rounded-lg border bg-gray-100 border-gray-300 focus:outline-none focus:border-blue-500"
           />
         </div>
@@ -64,24 +103,31 @@ const Register = () => {
           <input
             type="password"
             id="password"
+            required
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
             className="w-full px-4 py-4 rounded-lg border bg-gray-100 border-gray-300 focus:outline-none focus:border-blue-500"
           />
         </div>
         <div className="mb-4">
-          <label htmlFor="name" className="block text-gray-700">
+          <label htmlFor="confirmPassword" className="block text-gray-700">
             Confirm Password <span className=" text-red-500">*</span>
           </label>
           <input
             type="password"
-            id="password"
+            id="confirmPassword"
+            value={confirmPassword}
+            onChange={(e) => setConfirmPassword(e.target.value)}
             className="w-full px-4 py-4 rounded-lg border bg-gray-100 border-gray-300 focus:outline-none focus:border-blue-500"
           />
+          {error && <p className="text-red-500 text-sm">{error}</p>}
         </div>
         <button
           type="submit"
-          className="w-full bg-green-500 hover:bg-green-600 text-white py-4 rounded-lg transition duration-300 ease-in-out"
+          className="  w-full bg-[#6ad61d] hover:bg-blue-600 text-white py-4 rounded-lg transition duration-300 ease-in-out"
+          disabled={loading} // Disable button when loading
         >
-          Register
+          Register Now
         </button>
         <p className=" text-center mt-4">
           Already have an account?{" "}

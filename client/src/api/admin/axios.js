@@ -153,3 +153,48 @@ export const deleteAdmin = async (adminId) => {
     return error.response;
   }
 };
+
+//Employer Module
+
+// export const fetchAllEmployer = async (token) => {
+//   try {
+//     // Make a GET request to fetch all jobs
+//     const response = await axios.get(`${url}/api/admin/fetchAdmins`, {
+//       headers: {
+//         Authorization: token,
+//       },
+//     });
+//     // Update jobs state with the fetched jobs
+//     return response;
+//   } catch (error) {
+//     return error;
+//   }
+// };
+
+//Approve Employer
+export const approveEmployer = async (employerId, token) => {
+  try {
+    const res = await axios.patch(
+      `${url}/api/admin/approveEmployer`,
+      { employerId },
+      {
+        headers: {
+          Authorization: token,
+        },
+      }
+    );
+    return res;
+  } catch (error) {
+    return error.response;
+  }
+};
+
+//Delete Employer
+export const deleteEmployer = async (employerId) => {
+  try {
+    const res = await axios.delete(`${url}/api/admin/employer/${employerId}`);
+    return res;
+  } catch (error) {
+    return error.response;
+  }
+};

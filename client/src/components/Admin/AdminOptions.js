@@ -1,14 +1,27 @@
+// AdminOptions.jsx
+
 import React, { useEffect, useRef, useState } from "react";
 import { SlOptionsVertical } from "react-icons/sl";
-import { deleteAdmin, editAdmin } from "../../api/admin/axios";
+import { deleteAdmin, deleteEmployer, editAdmin } from "../../api/admin/axios";
 import RegisterAdmin from "./RegisterAdmin";
 import { useAdminContext } from "../../context/adminContext";
+import EmployerEditor from "./EmployerEditor";
+import { useNavigate } from "react-router-dom";
 
-const AdminOptions = ({ data }) => {
+const AdminOptions = ({
+  data,
+  employer,
+  isEditing,
+  setIsEditing,
+  setIsEmployerDetailsOn,
+  setFilteredEmployers,
+  setSelectedEmployer,
+}) => {
   const [isOpen, setIsOpen] = useState(false);
-  const [isEditing, setIsEditing] = useState(false);
+  // const [isEditing, setIsEditing] = useState(false);
   const dropdownRef = useRef(null);
-  const { setAllAdmins } = useAdminContext();
+  const { setAllAdmins, setAllEmployers } = useAdminContext();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -36,12 +49,27 @@ const AdminOptions = ({ data }) => {
   };
 
   const onDelete = async () => {
-    console.log("delete");
-    const res = await deleteAdmin(data?._id);
-    if (res?.data?.success) {
-      setAllAdmins(res?.data?.allAdmin);
-      setIsOpen(false);
+    if (!employer) {
+      const res = await deleteAdmin(data?._id);
+      if (res?.data?.success) {
+        setAllAdmins(res?.data?.allAdmin);
+        setIsOpen(false);
+        setIsEditing(false);
+      }
+    } else {
+      const res = await deleteEmployer(data?._id);
+      if (res?.data?.success) {
+        setAllEmployers(res?.data?.allEmployers);
+        setIsOpen(false);
+        setFilteredEmployers(res?.data?.allEmployers);
+      }
     }
+  };
+
+  const onViewDetails = () => {
+    setSelectedEmployer(data);
+    setIsEmployerDetailsOn(true);
+    setIsOpen(false);
   };
 
   return (
@@ -53,6 +81,14 @@ const AdminOptions = ({ data }) => {
       />
       {isOpen && (
         <div className="absolute right-0 mt-2 w-48 border bg-white rounded-md shadow-2xl py-1 z-10">
+          {employer && (
+            <button
+              onClick={onViewDetails} // Change this to onViewDetails
+              className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 w-full text-left"
+            >
+              View
+            </button>
+          )}
           <button
             onClick={onEdit}
             className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 w-full text-left"
@@ -68,9 +104,19 @@ const AdminOptions = ({ data }) => {
           {/* Add more options as needed */}
         </div>
       )}
-      {isEditing && (
+      {!employer && isEditing && (
         <div className="fixed inset-0 h-screen w-full flex flex-col ">
           <RegisterAdmin setIsAddAdminOn={setIsEditing} data={data} editing />
+        </div>
+      )}
+
+      {employer && isEditing && (
+        <div className="fixed inset-0 h-screen w-full flex flex-col ">
+          <EmployerEditor
+            setFilteredEmployers={setFilteredEmployers}
+            employerData={data}
+            setIsEditing={setIsEditing}
+          />
         </div>
       )}
     </div>

@@ -6,6 +6,7 @@ const path = require("path");
 const { connectDb } = require("./db/db.js");
 const adminRouter = require("./routes/admin/admin.routes.js");
 const candidateRouter = require("./routes/candidate/candidate.routes.js");
+const employerRouter = require("./routes/employer/employer.routes.js");
 
 connectDb(); // db connection with error handling
 
@@ -22,6 +23,7 @@ app.use("/", express.static(path.join(__dirname, "build")));
 // API routes
 app.use("/api", adminRouter);
 app.use("/api", candidateRouter);
+app.use("/api", employerRouter);
 
 // Serve the main HTML file for any other routes
 app.get("/*", (req, res) => {

@@ -22,7 +22,8 @@ export default function SearchPanel() {
     setSearchResults(res?.data?.jobs);
   };
   return (
-    <div className="hidden w-1/2 max-w-96 h-full md:flex flex-col gap-8 bg-white p-4 py-8 overflow-y-auto">
+    <div className="hidden w-1/2 max-w-96 h-full md:flex flex-col gap-8 bg-white p-4 py-8 overflow-y-auto  border border-gray-300 rounded-md m-2">
+      <h1 className=" font-bold text-lg">Filters</h1>
       <div>
         <label className="font-bold mb-2" htmlFor="keyword">
           Keyword

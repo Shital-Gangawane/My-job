@@ -22,6 +22,8 @@ import AdminModule from "./pages/Admin/AdminModule";
 import SearchedJobs from "./pages/Candidate/SearchedJobs";
 import Job from "./pages/Job/Job";
 import ViewJob from "./pages/Job/ViewJob";
+import Employer from "./pages/Employer/Employer";
+import EmployerDetails from "./components/Admin/EmployerDetails";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -37,11 +39,16 @@ const router = createBrowserRouter(
       <Route path="admin" element={<AdminApp />}>
         <Route path="dashboard" element={<AdminDashboard />} />
         <Route path="candidates" element={<CandidateModule />} />
-        <Route path="employers" element={<Employers />} />
+        <Route path="employers" element={<Employers />}>
+          <Route path=":_id" element={<EmployerDetails />} />
+        </Route>
         <Route path="jobs" element={<Jobs />} />
         <Route path="admins" element={<AdminModule />} />
       </Route>
       <Route path="candidate" element={<Candidate />}>
+        <Route path="dashboard" element={<CandidateDashboard />} />
+      </Route>
+      <Route path="employer" element={<Employer />}>
         <Route path="dashboard" element={<CandidateDashboard />} />
       </Route>
     </Route>

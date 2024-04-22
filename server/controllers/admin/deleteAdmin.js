@@ -1,4 +1,4 @@
-const Admin = require("../../models/admin/admin");
+const Admin = require("../../models/admin/admin.js");
 
 module.exports.deleteAdmin = async (req, res) => {
   try {

@@ -8,6 +8,7 @@ export default function AdminContextProvider({ children }) {
   const [adminToken, setAdminToken] = useState("");
   const [jobs, setJobs] = useState([]);
   const [allAdmins, setAllAdmins] = useState([]);
+  const [allEmployers, setAllEmployers] = useState([]);
 
   useEffect(() => {
     // Fetch token from sessionStorage
@@ -23,6 +24,8 @@ export default function AdminContextProvider({ children }) {
       try {
         const response = await fetchAllAdmins(token); // Assuming fetchAllAdmins is a function to fetch all admins
         setAllAdmins(response?.data?.allAdmins);
+        setAllEmployers(response?.data?.allEmployers);
+        console.log(response);
       } catch (error) {
         console.error("Error fetching all admins:", error);
       }
@@ -39,7 +42,7 @@ export default function AdminContextProvider({ children }) {
     fetchJobs();
 
     fetchAllAdmin();
-  }, [adminToken]);
+  }, [adminToken, setAllEmployers]);
 
   return (
     <adminContext.Provider
@@ -52,6 +55,8 @@ export default function AdminContextProvider({ children }) {
         setJobs,
         allAdmins,
         setAllAdmins,
+        allEmployers,
+        setAllEmployers,
       }}
     >
       {children}

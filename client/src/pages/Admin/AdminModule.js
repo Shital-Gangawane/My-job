@@ -7,7 +7,7 @@ import AdminOptions from "../../components/Admin/AdminOptions";
 export default function AdminModule() {
   const { allAdmins, adminData, adminToken, setAllAdmins } = useAdminContext();
   const [isAddAdminOn, setIsAddAdminOn] = useState(false);
-
+  const [isEditing, setIsEditing] = useState(false);
   const approveAdminClickHandler = async (adminId) => {
     const res = await approveAdmin(adminId, adminToken);
     console.log(res);
@@ -18,7 +18,7 @@ export default function AdminModule() {
     <div className="h-screen w-full flex flex-col bg-gray-400 relative">
       {isAddAdminOn && <RegisterAdmin setIsAddAdminOn={setIsAddAdminOn} />}
       <div className="w-full bg-gray-800 text-white p-6">Admins</div>
-      <div className="w-full p-3 ">
+      <div className="w-full p-3">
         <button
           onClick={() => setIsAddAdminOn(true)}
           className="bg-purple-500 p-2 px-5 rounded-md text-white"
@@ -122,7 +122,11 @@ export default function AdminModule() {
                     </button>
                   </td>
                   <td className="px-1 py-4 text-center whitespace-nowrap text-sm text-gray-500">
-                    <AdminOptions data={admin} />
+                    <AdminOptions
+                      data={admin}
+                      setIsEditing={setIsEditing}
+                      isEditing={isEditing}
+                    />
                   </td>
                 </tr>
               ))}

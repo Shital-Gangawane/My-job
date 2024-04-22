@@ -36,9 +36,9 @@ export default function SearchedJobs() {
   }, []);
 
   return (
-    <div className="flex w-full h-screen">
+    <div className="flex w-screen h-screen overflow-hidden scroll">
       <SearchPanel />
-      <div className="w-full bg-slate-400 overflow-y-auto">
+      <div className="w-full bg-slate-100 rounded-s overflow-y-auto ">
         <div className="flex flex-col gap-7 p-5">
           <p>
             {searchResults?.length
@@ -47,7 +47,7 @@ export default function SearchedJobs() {
           </p>
           {searchResults?.map((job) => (
             <div
-              className="bg-white p-8 rounded-md shadow-lg cursor-pointer"
+              className="bg-white p-8 rounded-md shadow-md cursor-pointer"
               key={job._id}
               onClick={() => handleJobClick(job)} // Handle click event
             >

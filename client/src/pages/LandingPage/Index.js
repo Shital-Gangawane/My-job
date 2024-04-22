@@ -5,14 +5,15 @@ import { citiesInIndia } from "./cityData";
 import { Dropdown } from "./Dropdown";
 import { IoIosSearch } from "react-icons/io";
 import { IoLocationSharp } from "react-icons/io5";
-import girl from "../../assets/girl.png";
 import { searchJobs } from "../../api/candidate/axios";
+import Nav from "../../components/Nav/Nav";
 
 const LandingPage = () => {
   const [selectedCity, setSelectedCity] = useState("");
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [searchText, setSearchText] = useState("");
   const [searchResults, setSearchResults] = useState([]);
+  const [isLoginOn, setIsLoginOn] = useState(false);
   const navigate = useNavigate();
 
   const handleCitySelect = (city) => {
@@ -52,40 +53,41 @@ const LandingPage = () => {
   }, []);
 
   return (
-    <div className=" relative h-full flex flex-col justify-center items-center">
-      <section className=" relative w-full h-full flex flex-col justify-center items-center">
-        <motion.img
+    <div className=" relative h-full flex flex-col justify-center items-center overflow-y-auto">
+      <section className=" relative w-full h-auto flex flex-col justify-center items-center   ">
+        {/* <motion.img
           initial={{ x: -1000 }}
           animate={{ x: 0 }}
           transition={{ duration: 1 }}
           className=" h-fit absolute -z-20 bottom-0 right-0 opacity-10"
           src={girl}
-        />
-        <div className="w-full flex justify-center  flex-col items-center px-4 sm:px-10 py-8">
+        /> */}
+        <div className="w-full h-screen flex justify-cen flex-col items-center px-4 sm:px-10 py-8 section-one  overflow-hidden ">
+          <Nav />
           <motion.h1
             initial={{ opacity: 0, y: -100 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1 }}
-            className="text-4xl md:text-6xl font-bold text-center text-white mb-8"
+            className="text-4xl md:text-5xl  text-center text-black mb-8"
           >
-            Welcome to EmployEase
+            We find the best jobs for you
           </motion.h1>
           <motion.p
             initial={{ opacity: 0, x: -100 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 1 }}
-            className="text-lg md:text-xl text-gray-200 text-center mb-8"
+            className="text-sm md:text-sm text-gray-800 text-center mb-8"
           >
-            Find your dream job or recruit the perfect candidate.
+            Search your career opportunity through 12,0800 jobs
           </motion.p>
           <motion.form
             initial={{ opacity: 0, y: 100 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1 }}
             onSubmit={submitHandler}
-            className=" w-full lg:w-2/3 flex flex-col md:flex-row items-center justify-center gap-2 md:gap-0 "
+            className=" w-full lg:w-2/3 p-2 px-4 rounded-full shadow-xl bg-white border border-gray-300 flex flex-col md:flex-row items-center justify-center gap-2 md:gap-0 "
           >
-            <div className=" w-full px-4 flex items-center bg-white border border-gray-300 shadow-md">
+            <div className=" w-full px-4 flex items-center  ">
               <IoIosSearch size={20} />
               <motion.input
                 type="text"
@@ -94,11 +96,11 @@ const LandingPage = () => {
                 whileTap={{ scale: 0.95 }}
                 value={searchText}
                 onChange={(e) => setSearchText(e.target.value)}
-                className="w-full  px-4 py-7  focus:outline-none focus:border-blue-500 bg-transparent"
+                className="w-full  px-4 py-6  focus:outline-none focus:border-blue-500 bg-transparent"
               />
             </div>
-            <div className="relative flex flex-col  w-full md:max-w-60  ">
-              <div className=" w-full px-4 flex items-center bg-white border border-gray-300 shadow-md">
+            <div className="relative flex flex-col  w-full md:max-w-60 border-l ">
+              <div className=" w-full px-4 flex items-center ">
                 <IoLocationSharp size={20} />
                 <p
                   className="cursor-pointer w-full  px-4 py-7 text-start text-gray-400  focus:outline-none focus:border-blue-500 "
@@ -118,9 +120,9 @@ const LandingPage = () => {
             </div>
             <motion.button
               type="submit"
-              className="bg-blue-500 w-full md:max-w-60  hover:bg-blue-600 text-white px-6 py-7 text-lg md:text-xl shadow-md transition duration-300 ease-in-out transform "
+              className="bg-stone-900  md:max-w-60 rounded-full  hover:bg-stone-500 text-white px-10 whitespace-nowrap py-5 text-sm md:text-sm shadow-md transition duration-300 ease-in-out transform "
             >
-              Search
+              Find Jobs
             </motion.button>
           </motion.form>
         </div>
