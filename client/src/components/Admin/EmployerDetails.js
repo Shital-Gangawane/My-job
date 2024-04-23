@@ -11,6 +11,7 @@ const EmployerDetails = ({
   data,
   setIsEmployerDetailsOn,
   setFilteredEmployers,
+  setSelectedEmployer,
 }) => {
   const { adminToken, setAllEmployers, allEmployers } = useAdminContext();
   const [empData, setEmpData] = useState(data);
@@ -22,38 +23,46 @@ const EmployerDetails = ({
   useEffect(() => {
     const fetchAllAdmin = async () => {
       try {
-        const response = await fetchAllAdmins(adminToken); // Assuming fetchAllAdmins is a function to fetch all admins
+        const response = await fetchAllAdmins(adminToken);
         setAllEmployers(response?.data?.allEmployers);
-        // setEmpData(allEmployers.filter((emp) => emp._id === data._id));
+        setFilteredEmployers(response?.data?.allEmployers);
         console.log(response);
       } catch (error) {
         console.error("Error fetching all admins:", error);
       }
     };
     fetchAllAdmin();
-  }, []);
+  }, [adminToken, setAllEmployers, setFilteredEmployers, isEditing]);
 
   useEffect(() => {
     // Filter the allEmployers array to find the matching employer data
-    const filteredEmployer = allEmployers.find((emp) => emp._id === data._id);
+    const filteredEmployer = allEmployers?.find(
+      (emp) => emp?._id === data?._id
+    );
 
     // Update the empData state with the filtered employer data
     setEmpData(filteredEmployer);
   }, [allEmployers, data]);
 
+  useEffect(() => {
+    // Update empData when data prop changes (for initial rendering)
+    setEmpData(data);
+  }, [data]);
+
   return (
     <div className="fixed inset-0 flex flex-col items-center justify-center w-screen h-screen p-8 text-start ">
       {isEditing && (
         <EmployerEditor
-          employerData={data}
+          employerData={empData}
           setIsEditing={setIsEditing}
           setFilteredEmployers={setFilteredEmployers}
+          setSelectedEmployer={setSelectedEmployer}
         />
       )}
       <div className="relative bg-white w-full h-full p-6 rounded-lg shadow-md overflow-hidden">
         <button
           onClick={() => setIsEmployerDetailsOn(false)}
-          className=" absolute right-2 top-2 text-black font-thin  text-4xl hover:text-gray-400 active:text-gray-300 "
+          className="absolute right-2 top-2 text-black font-thin text-4xl hover:text-gray-400 active:text-gray-300 "
         >
           <AiOutlineClose />
         </button>
@@ -76,7 +85,7 @@ const EmployerDetails = ({
 
         <button
           onClick={toggleEditing}
-          className="bg-blue-500 hover:bg-blue-600 text-white py-2 rounded-lg px-3  mb-4 transition duration-300 ease-in-out"
+          className="bg-blue-500 hover:bg-blue-600 text-white py-2 rounded-lg px-3 mb-4 transition duration-300 ease-in-out"
         >
           {isEditing ? "Cancel Editing" : "Edit Details"}
         </button>

@@ -7,15 +7,13 @@ module.exports.fetchAllAdmins = async (req, res) => {
 
     const allEmployers = await Employer.find();
 
-    return res
-      .status(200)
-      .json({
-        message: true,
-        message: "Fetched all admins!",
-        allAdmins,
-        allEmployers,
-      });
+    return res.status(200).json({
+      success: true,
+      message: "Fetched all admins!",
+      allAdmins,
+      allEmployers,
+    });
   } catch (error) {
-    return res.status(500).json({ message: false, message: "Server error" });
+    return res.status(500).json({ success: false, message: "Server error" });
   }
 };

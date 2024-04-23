@@ -7,21 +7,24 @@ import RegisterAdmin from "./RegisterAdmin";
 import { useAdminContext } from "../../context/adminContext";
 import EmployerEditor from "./EmployerEditor";
 import { useNavigate } from "react-router-dom";
+import EmployerDetails from "./EmployerDetails";
 
 const AdminOptions = ({
   data,
-  employer,
-  isEditing,
-  setIsEditing,
+  employerModule,
+  isEmployerDetailsOn,
   setIsEmployerDetailsOn,
   setFilteredEmployers,
   setSelectedEmployer,
+  selectedEmployer,
 }) => {
   const [isOpen, setIsOpen] = useState(false);
-  // const [isEditing, setIsEditing] = useState(false);
+  const [isEditing, setIsEditing] = useState(false);
+  // const [isEmployerDetailsOn, setIsEmployerDetailsOn] = useState(false);
   const dropdownRef = useRef(null);
   const { setAllAdmins, setAllEmployers } = useAdminContext();
   const navigate = useNavigate();
+  console.log("emp data", data._id);
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -43,13 +46,17 @@ const AdminOptions = ({
 
   const onEdit = async () => {
     console.log("editing");
+    console.log("teston", selectedEmployer);
+    // if (employer) setSelectedEmployer(data);
+    // setSelectedEmployer(data);
     setIsEditing(true);
     // const res = await editAdmin()
+
     setIsOpen(false);
   };
 
   const onDelete = async () => {
-    if (!employer) {
+    if (!employerModule) {
       const res = await deleteAdmin(data?._id);
       if (res?.data?.success) {
         setAllAdmins(res?.data?.allAdmin);
@@ -67,7 +74,7 @@ const AdminOptions = ({
   };
 
   const onViewDetails = () => {
-    setSelectedEmployer(data);
+    // setSelectedEmployer(data);
     setIsEmployerDetailsOn(true);
     setIsOpen(false);
   };
@@ -81,7 +88,7 @@ const AdminOptions = ({
       />
       {isOpen && (
         <div className="absolute right-0 mt-2 w-48 border bg-white rounded-md shadow-2xl py-1 z-10">
-          {employer && (
+          {employerModule && (
             <button
               onClick={onViewDetails} // Change this to onViewDetails
               className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 w-full text-left"
@@ -104,18 +111,21 @@ const AdminOptions = ({
           {/* Add more options as needed */}
         </div>
       )}
-      {!employer && isEditing && (
+      {!employerModule && isEditing && (
         <div className="fixed inset-0 h-screen w-full flex flex-col ">
           <RegisterAdmin setIsAddAdminOn={setIsEditing} data={data} editing />
         </div>
       )}
 
-      {employer && isEditing && (
+      {employerModule && isEditing && (
         <div className="fixed inset-0 h-screen w-full flex flex-col ">
           <EmployerEditor
-            setFilteredEmployers={setFilteredEmployers}
             employerData={data}
             setIsEditing={setIsEditing}
+            setFilteredEmployers={setFilteredEmployers}
+            setIsEmployerDetailsOn={setIsEmployerDetailsOn}
+            setSelectedEmployer={setSelectedEmployer}
+            option
           />
         </div>
       )}

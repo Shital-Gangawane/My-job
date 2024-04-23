@@ -6,11 +6,15 @@ const EmployerEditor = ({
   employerData,
   setIsEditing,
   setFilteredEmployers,
+  setIsEmployerDetailsOn,
+  setSelectedEmployer,
+  setEmpData,
+  option,
 }) => {
   const [companyName, setCompanyName] = useState(employerData?.companyName);
   const [aboutCompany, setAboutCompany] = useState(employerData?.aboutCompany);
   const [industries, setIndustries] = useState(
-    employerData.industries.join(", ")
+    employerData?.industries.join(", ")
   );
   const [phoneNumber, setPhoneNumber] = useState(employerData?.phoneNumber);
   const [email, setEmail] = useState(employerData?.email);
@@ -31,10 +35,16 @@ const EmployerEditor = ({
       website,
       isApproved
     );
-    console.log(res);
+
     if (res?.data?.success) {
+      setAllEmployers(res?.data?.allEmployers);
       setFilteredEmployers(res?.data?.allEmployers);
-      console.log(res);
+      // setIsEmployerDetailsOn(false);
+      const updatedEmployer = res?.data?.allEmployers?.find(
+        (emp) => emp._id === employerData._id
+      );
+      // setSelectedEmployer(updatedEmployer);
+      // setEmpData(updatedEmployer); // Pass the updated employer data back to EmployerDetails
       setIsEditing(false);
     }
   };
