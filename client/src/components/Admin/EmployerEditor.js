@@ -22,8 +22,6 @@ const EmployerEditor = ({
   const [isApproved, setIsApproved] = useState(employerData?.isApproved);
   const { setAllEmployers } = useAdminContext();
 
-  console.log(employerData);
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     // Handle form submission
@@ -37,12 +35,11 @@ const EmployerEditor = ({
       website,
       isApproved
     );
-    console.log(res);
+
     if (res?.data?.success) {
       setAllEmployers(res?.data?.allEmployers);
       setFilteredEmployers(res?.data?.allEmployers);
       // setIsEmployerDetailsOn(false);
-      console.log("check", res?.data?.allEmployers);
       const updatedEmployer = res?.data?.allEmployers?.find(
         (emp) => emp._id === employerData._id
       );

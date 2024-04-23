@@ -75,13 +75,11 @@ export default function Employers() {
       try {
         const response = await fetchAllAdmins(adminToken);
         if (response?.data?.success) {
-          setIsLoading(false);
-          setAllEmployers(response?.data?.allEmployers);
+          // setIsLoading(false);
           setFilteredEmployers(response?.data?.allEmployers);
+          setAllEmployers(response?.data?.allEmployers);
+          console.log(filteredEmployers);
         }
-
-        // setFilteredEmployers(response?.data?.allEmployers);
-        console.log(response);
       } catch (error) {
         console.error("Error fetching all admins:", error);
       }
@@ -89,7 +87,7 @@ export default function Employers() {
     };
     fetchAllAdmin();
     setIsLoading(false);
-  }, [isEmployerDetailsOn, filteredEmployers, isEditing, selectedEmployer]);
+  }, [isEmployerDetailsOn, isEditing, selectedEmployer, isLoading]);
 
   return (
     <div className="relative w-full h-full bg-gray-400">
@@ -115,6 +113,9 @@ export default function Employers() {
                 S.no.
               </th>
               <th className="px-6 py-3 text-xs font-medium text-white uppercase tracking-wider">
+                Email
+              </th>
+              <th className="px-6 py-3 text-xs font-medium text-white uppercase tracking-wider">
                 Company Name
               </th>
               <th className="px-6 py-3 text-xs font-medium text-white uppercase tracking-wider">
@@ -123,9 +124,7 @@ export default function Employers() {
               <th className="px-6 py-3 text-xs font-medium text-white uppercase tracking-wider">
                 Phone Number
               </th>
-              <th className="px-6 py-3 text-xs font-medium text-white uppercase tracking-wider">
-                Email
-              </th>
+
               <th className="px-6 py-3 text-xs font-medium text-white uppercase tracking-wider">
                 Approved
               </th>
@@ -140,6 +139,9 @@ export default function Employers() {
                 <td className="px-1 py-4 text-center whitespace-nowrap text-sm font-medium text-gray-900">
                   {index + 1}.
                 </td>
+                <td className="px-1 py-4 text-center whitespace-nowrap text-sm text-gray-500">
+                  {employer?.email}
+                </td>
                 <td className="px-1 py-4 text-center whitespace-nowrap text-sm font-medium text-gray-900">
                   {employer?.companyName}
                 </td>
@@ -149,9 +151,7 @@ export default function Employers() {
                 <td className="px-1 py-4 text-center whitespace-nowrap text-sm text-gray-500">
                   {employer?.phoneNumber}
                 </td>
-                <td className="px-1 py-4 text-center whitespace-nowrap text-sm text-gray-500">
-                  {employer?.email}
-                </td>
+
                 <td className="px-1 py-4 text-center whitespace-nowrap text-sm text-gray-500">
                   <button
                     onClick={() => approveEmployerClickHandler(employer?._id)}
