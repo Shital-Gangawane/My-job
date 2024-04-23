@@ -6,17 +6,23 @@ const EmployerEditor = ({
   employerData,
   setIsEditing,
   setFilteredEmployers,
+  setIsEmployerDetailsOn,
+  setSelectedEmployer,
+  setEmpData,
+  option,
 }) => {
   const [companyName, setCompanyName] = useState(employerData?.companyName);
   const [aboutCompany, setAboutCompany] = useState(employerData?.aboutCompany);
   const [industries, setIndustries] = useState(
-    employerData.industries.join(", ")
+    employerData?.industries.join(", ")
   );
   const [phoneNumber, setPhoneNumber] = useState(employerData?.phoneNumber);
   const [email, setEmail] = useState(employerData?.email);
   const [website, setWebsite] = useState(employerData?.website);
   const [isApproved, setIsApproved] = useState(employerData?.isApproved);
   const { setAllEmployers } = useAdminContext();
+
+  console.log(employerData);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -33,8 +39,15 @@ const EmployerEditor = ({
     );
     console.log(res);
     if (res?.data?.success) {
+      setAllEmployers(res?.data?.allEmployers);
       setFilteredEmployers(res?.data?.allEmployers);
-      console.log(res);
+      // setIsEmployerDetailsOn(false);
+      console.log("check", res?.data?.allEmployers);
+      const updatedEmployer = res?.data?.allEmployers?.find(
+        (emp) => emp._id === employerData._id
+      );
+      // setSelectedEmployer(updatedEmployer);
+      // setEmpData(updatedEmployer); // Pass the updated employer data back to EmployerDetails
       setIsEditing(false);
     }
   };

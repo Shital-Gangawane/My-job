@@ -7,7 +7,7 @@ import { RiAdminFill } from "react-icons/ri";
 import { useAdminContext } from "../../context/adminContext";
 
 export default function Dashboard() {
-  const { adminData, allAdmins, jobs } = useAdminContext();
+  const { adminData, allAdmins, jobs, allEmployers } = useAdminContext();
   return (
     <div className="w-full flex flex-col h-screen bg-gray-400">
       <div className="w-full bg-gray-800 text-white p-6 flex justify-between">
@@ -22,7 +22,7 @@ export default function Dashboard() {
         />
         <Card
           title="Employers"
-          count="1400"
+          count={allEmployers?.length}
           icon={<BiShoppingBag size={70} color="blue" />}
         />
         <Card

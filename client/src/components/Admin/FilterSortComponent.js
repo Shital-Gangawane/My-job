@@ -26,7 +26,7 @@ const FilterSortComponent = ({
   }, [filterOption]); // You only need to depend on filterOption
 
   return (
-    <div className="flex items-center justify-between mb-4">
+    <div className="flex items-center gap-5  p-4">
       <div>
         <select
           value={filterOption}

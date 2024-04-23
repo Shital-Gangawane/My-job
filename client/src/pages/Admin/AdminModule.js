@@ -5,13 +5,15 @@ import { approveAdmin } from "../../api/admin/axios";
 import AdminOptions from "../../components/Admin/AdminOptions";
 
 export default function AdminModule() {
-  const { allAdmins, adminData, adminToken, setAllAdmins } = useAdminContext();
+  const { allAdmins, adminData, adminToken, setAllAdmins, setAllEmployers } =
+    useAdminContext();
   const [isAddAdminOn, setIsAddAdminOn] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
   const approveAdminClickHandler = async (adminId) => {
     const res = await approveAdmin(adminId, adminToken);
     console.log(res);
     setAllAdmins(res?.data?.allAdmins);
+    setAllEmployers(res?.data?.allEmployers);
   };
 
   return (
