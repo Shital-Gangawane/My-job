@@ -1,7 +1,7 @@
 import axios from "axios";
 
-// const url = process.env.REACT_APP_SERVER_API_URL || "http://localhost:8000";
-const url = "http://localhost:8000";
+const url = process.env.REACT_APP_SERVER_API_URL || "http://localhost:8000";
+// const url = "http://localhost:8000";
 
 //Employer Register
 export const registerEmployer = async (email, password) => {
