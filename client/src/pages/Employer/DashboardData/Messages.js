@@ -2,7 +2,9 @@ import React from 'react'
 
 function Messages() {
   return (
-    <div>Messages</div>
+    <div className='mt-50'>
+      Messages
+    </div>
   )
 }
 
