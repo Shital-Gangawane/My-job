@@ -33,7 +33,7 @@ export const navigationLinks = [
   },
   {
     label: "Employers",
-    url: "#",
+    url: "/employer",
     hasDropdown: true,
     dropdownOptions: [
       {
