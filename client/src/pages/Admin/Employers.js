@@ -51,12 +51,13 @@ export default function Employers() {
         );
         setFilteredEmployers(pendingData);
         break;
-      case "Approved":
+      case "Published":
         const approvedData = allEmployers.filter(
           (employer) => employer.isApproved
         );
         setFilteredEmployers(approvedData);
         break;
+
       default:
         setFilteredEmployers(allEmployers);
         break;
@@ -87,7 +88,13 @@ export default function Employers() {
     };
     fetchAllAdmin();
     setIsLoading(false);
-  }, [isEmployerDetailsOn, isEditing, selectedEmployer, isLoading]);
+  }, [
+    isEmployerDetailsOn,
+    isEditing,
+    selectedEmployer,
+    setFilterOption,
+    isLoading,
+  ]);
 
   return (
     <div className="relative w-full h-full bg-gray-400">
@@ -98,7 +105,7 @@ export default function Employers() {
       <FilterSortComponent
         data={allEmployers}
         onFilter={onFilter}
-        filterOptions={["Company", "Pending", "Approved"]}
+        filterOptions={["Filter by", "Company", "Pending", "Published"]}
         setFilterOption={setFilterOption}
         filterOption={filterOption}
         filterValue={filterValue}
@@ -114,6 +121,9 @@ export default function Employers() {
               </th>
               <th className="px-6 py-3 text-xs font-medium text-white uppercase tracking-wider">
                 Email
+              </th>
+              <th className="px-6 py-3 text-xs font-medium text-white uppercase tracking-wider">
+                Status
               </th>
               <th className="px-6 py-3 text-xs font-medium text-white uppercase tracking-wider">
                 Company Name
@@ -141,6 +151,9 @@ export default function Employers() {
                 </td>
                 <td className="px-1 py-4 text-center whitespace-nowrap text-sm text-gray-500">
                   {employer?.email}
+                </td>
+                <td className="px-1 py-4 text-center whitespace-nowrap text-sm text-gray-500">
+                  {employer?.isApproved ? "Published" : "Pending"}
                 </td>
                 <td className="px-1 py-4 text-center whitespace-nowrap text-sm font-medium text-gray-900">
                   {employer?.companyName}
