@@ -40,9 +40,9 @@ const statsData = [
 ];
 function Userdashboard() {
   return (
-    <div className="mt-20 px-14 overflow-y-auto">
-      <h2 className=" text-3xl mb-10">Applications statistics</h2>
-      <div className=" w-full flex gap-8 justify-center items-center">
+    <div className=" h-auto  lg:mt-14 px-4 lg:px-14 overflow-y-auto py-7">
+      <h2 className=" text-lg lg:text-3xl mb-10">Applications statistics</h2>
+      <div className=" h-full w-full flex gap-8 justify-center items-center flex-wrap">
         {statsData?.map((stat, i) => (
           <Col
             key={i}

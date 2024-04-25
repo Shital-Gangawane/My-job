@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Navcontents from "../../components/Nav/Navcontents";
 import { Link, Outlet, useNavigate } from "react-router-dom";
 import Slidebar from "./DashboardData/Slidebar";
@@ -28,6 +28,8 @@ import { GiVideoConference } from "react-icons/gi";
 import { RiLockPasswordLine } from "react-icons/ri";
 import { RiDeleteBin5Line } from "react-icons/ri";
 import { TfiPowerOff } from "react-icons/tfi";
+import { IoMenuSharp } from "react-icons/io5";
+import { motion, AnimatePresence } from "framer-motion";
 
 const buttons = [
   {
@@ -86,6 +88,22 @@ const buttons = [
 
 const Empdashboard = () => {
   const [isSelected, setIsSelected] = useState(0);
+  const [isMobile, setIsMobile] = useState(false);
+  const [isSideBarOpen, setIsSideBarOpen] = useState(false);
+
+  // Function to check if the screen is mobile
+  const checkMobileScreen = () => {
+    setIsMobile(window.innerWidth <= 768); // Adjust the breakpoint as needed
+  };
+
+  // Run the check on component mount and on window resize
+  useEffect(() => {
+    checkMobileScreen();
+    window.addEventListener("resize", checkMobileScreen);
+    return () => {
+      window.removeEventListener("resize", checkMobileScreen);
+    };
+  }, []);
 
   const RenderComponent = ({ index }) => {
     switch (index) {
@@ -120,14 +138,53 @@ const Empdashboard = () => {
     }
   };
 
+  // Function to toggle sidebar state
+  const toggleSidebar = () => {
+    setIsSideBarOpen(!isSideBarOpen);
+  };
+
   return (
-    <div className="flex h-screen overflow-hidden">
-      <Slidebar
-        buttons={buttons}
-        isSelected={isSelected}
-        setIsSelected={setIsSelected}
-      />
-      <div className="flex-1 bg-[#f5f7fc]">
+    <div
+      className={`flex ${
+        isMobile && "flex-col"
+      } h-screen w-screen overflow-hidden`}
+    >
+      {!isMobile && (
+        <Slidebar
+          buttons={buttons}
+          isSelected={isSelected}
+          setIsSelected={setIsSelected}
+        />
+      )}
+      {isMobile && (
+        <>
+          <div
+            onClick={toggleSidebar}
+            className="bg-[#f5f7fc] py-7 px-4 flex items-center gap-1 text-[#6ad61d] cursor-pointer"
+          >
+            <IoMenuSharp size={20} />
+            <p>Show Sidebar</p>
+          </div>
+          <AnimatePresence>
+            {isSideBarOpen && (
+              <motion.div
+                initial={{ x: -300 }} // Off-screen to the left
+                animate={{ x: 0 }} // Sliding animation to the left edge of the screen
+                exit={{ x: -300 }} // Sliding animation to go off-screen to the left
+                transition={{ duration: 0.3 }} // Duration of the animation
+                className="sidebar-mobile"
+              >
+                <Slidebar
+                  buttons={buttons}
+                  isSelected={isSelected}
+                  setIsSelected={setIsSelected}
+                />
+              </motion.div>
+            )}
+          </AnimatePresence>
+        </>
+      )}
+      <div className="flex-1 bg-[#f5f7fc] overflow-y-auto">
         <RenderComponent index={isSelected} />
       </div>
     </div>

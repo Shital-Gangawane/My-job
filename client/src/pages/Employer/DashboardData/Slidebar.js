@@ -1,9 +1,14 @@
 import React from "react";
 import { FaRegUserCircle } from "react-icons/fa";
+import { motion } from "framer-motion";
 
 function Slidebar({ buttons, isSelected, setIsSelected }) {
   return (
-    <div className="flex">
+    <motion.div
+      initial={{ x: -300 }} // Off-screen to the left
+      animate={{ x: 0 }} // Sliding animation to the left edge of the screen
+      className="h-screen lg:h-auto lg:flex absolute lg:left-0 lg:top-0 lg:relative"
+    >
       <div className="h-screen overflow-y-auto flex flex-col bg-white w-96 items-center">
         <div className="flex gap-3 mb-3 mt-4">
           <FaRegUserCircle size={40} />
@@ -18,11 +23,10 @@ function Slidebar({ buttons, isSelected, setIsSelected }) {
 
         <div className=" w-full flex flex-1 mt-5 px-8 py-2 border-t flex-col gap-1">
           {buttons.map((button, index) => {
-            // w-full  py-3 ps-4 text-gray-400 text-left hover:bg-blue-100 hover:text-[#6ad61d] rounded-lg transition duration-300 ease-in-out
             return (
               <button
                 key={index}
-                type="submit"
+                type="button" // Change type to "button" since it's not a form submission
                 onClick={() => setIsSelected(index)}
                 className={`w-full py-3 ps-4 text-left ${
                   isSelected === index
@@ -38,9 +42,8 @@ function Slidebar({ buttons, isSelected, setIsSelected }) {
             );
           })}
         </div>
-        {/* <div className=''>Logout</div> */}
       </div>
-    </div>
+    </motion.div>
   );
 }
 
