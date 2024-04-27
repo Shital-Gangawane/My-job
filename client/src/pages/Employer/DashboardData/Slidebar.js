@@ -7,7 +7,7 @@ function Slidebar({ buttons, isSelected, setIsSelected }) {
     <motion.div
       initial={{ x: -300 }} // Off-screen to the left
       animate={{ x: 0 }} // Sliding animation to the left edge of the screen
-      className="h-screen lg:h-auto lg:flex absolute lg:left-0 lg:top-0 lg:relative"
+      className="h-screen  lg:h-auto lg:flex absolute left-0 top-0 lg:left-0 lg:top-0 lg:relative z-50 lg:z-0"
     >
       <div className="h-screen overflow-y-auto flex flex-col bg-white w-96 items-center">
         <div className="flex gap-3 mb-3 mt-4">
