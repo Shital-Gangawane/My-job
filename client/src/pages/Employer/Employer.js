@@ -1,12 +1,17 @@
-import React from "react";
-import { Outlet } from "react-router-dom";
+import React, { useEffect } from "react";
+import { Outlet, useNavigate } from "react-router-dom";
 import Nav from "../../components/Nav/Nav";
 
 export default function Employer() {
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    navigate("/employer/dashboard");
+  }, []);
   return (
-    <div className=" w-full h-full">
-      <Nav bgColor="bg-white fixed" />
-      <div className=" pt-24">
+    <div className=" w-full h-auto bg-white">
+      <Nav bgColor="bg-white fixed shadow-md" />
+      <div className=" ">
         <Outlet />
       </div>
     </div>

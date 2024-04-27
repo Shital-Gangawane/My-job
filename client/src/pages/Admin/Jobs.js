@@ -34,8 +34,8 @@ export default function Jobs() {
 
   return (
     <div className="flex flex-col w-full bg-gray-400">
-      <div className="bg-gray-800 text-white py-4 px-6">
-        <h1 className="text-2xl font-bold">Jobs</h1>
+      <div className="w-full bg-gray-800 text-white p-6">
+        <h1 className="text-lg font-semibold ms-12 ">Jobs</h1>
       </div>
 
       <div className="px-6 py-2 flex justify-between">

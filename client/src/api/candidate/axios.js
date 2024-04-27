@@ -17,3 +17,59 @@ export const searchJobs = async (searchText, city) => {
     return error;
   }
 };
+
+//Candidate Register
+export const registerCandidate = async (email, password) => {
+  try {
+    const res = await axios.post(`${url}/api/candidate/register`, {
+      email,
+      password,
+    });
+    return res;
+  } catch (error) {
+    return error.response;
+  }
+};
+
+//Candidate login
+export const loginCandidate = async (email, password) => {
+  try {
+    const res = await axios.post(`${url}/api/candidate/login`, {
+      email,
+      password,
+    });
+    return res;
+  } catch (error) {
+    return error.response;
+  }
+};
+
+//Edit Candidate
+// export const updateCandidate = async (
+//   employerId,
+//   companyName,
+//   aboutCompany,
+//   industries,
+//   phoneNumber,
+//   email,
+//   website,
+//   isApproved
+// ) => {
+//   try {
+//     const res = await axios.put(
+//       `${url}/api/admin/employer/update/${employerId}`,
+//       {
+//         companyName,
+//         aboutCompany,
+//         industries,
+//         phoneNumber,
+//         email,
+//         website,
+//         isApproved,
+//       }
+//     );
+//     return res;
+//   } catch (error) {
+//     return error.response;
+//   }
+// };

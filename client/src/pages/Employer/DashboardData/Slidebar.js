@@ -7,9 +7,9 @@ function Slidebar({ buttons, isSelected, setIsSelected }) {
     <motion.div
       initial={{ x: -300 }} // Off-screen to the left
       animate={{ x: 0 }} // Sliding animation to the left edge of the screen
-      className="h-screen  lg:h-auto lg:flex absolute left-0 top-0 lg:left-0 lg:top-0 lg:relative z-50 lg:z-0"
+      className="h-full   lg:h-auto lg:flex absolute left-0 top-0 lg:left-0 lg:top-0 lg:relative z-50 lg:z-0 shadow-lg"
     >
-      <div className="h-screen overflow-y-auto flex flex-col bg-white w-96 items-center">
+      <div className="h-full overflow-y-auto flex flex-col pt-10 bg-white w-96 items-center">
         <div className="flex gap-3 mb-3 mt-4">
           <FaRegUserCircle size={40} />
           <span className="gap-2 mt-2 font-bold">User Name</span>{" "}

@@ -52,6 +52,18 @@ const FilterSortComponent = ({
           />
         </div>
       )}
+
+      {filterOption === "Email" && (
+        <div>
+          <input
+            type="text"
+            value={filterValue}
+            onChange={handleFilterValueChange}
+            placeholder="Search by email..."
+            className="px-4 py-2 rounded-md border focus:outline-none focus:border-blue-500"
+          />
+        </div>
+      )}
     </div>
   );
 };

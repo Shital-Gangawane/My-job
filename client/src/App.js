@@ -51,7 +51,6 @@ import Slidebar from "./pages/Employer/DashboardData/Slidebar";
 // import Login from "./pages/Login/Login";
 // import Home from "./components/home/Home";
 
-
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<Layout />}>
@@ -68,7 +67,6 @@ const router = createBrowserRouter(
         <Route path="candidates" element={<CandidateModule />} />
         <Route path="employers" element={<Employers />}>
           <Route path=":_id" element={<EmployerDetails />} />
-          
         </Route>
         <Route path="jobs" element={<Jobs />} />
         <Route path="admins" element={<AdminModule />} />
@@ -77,29 +75,26 @@ const router = createBrowserRouter(
         <Route path="dashboard" element={<CandidateDashboard />} />
       </Route>
       <Route path="employer" element={<Employer />}>
-        <Route path="dashboard" element={<CandidateDashboard />} />
-        <Route path="empdashboard" element={<Empdashboard />} />
+        <Route path="dashboard" element={<Empdashboard />} />
       </Route>
       <Route>
-      <Route path="empdashboard" element={<Empdashboard />} />
-      <Route path="slidebar" element={<Slidebar />} />
-      <Route path="userdashboard" element={<Userdashboard />} />
-      <Route path="profile" element={<Profile />} />
-      <Route path="mujobs" element={<Myjobs />} />
-      <Route path="submitjobs" element={<Submitjobs />} />
-      <Route path="applicantjobs" element={<Applicantsjobs />} />
-      <Route path="shortlistcandidate" element={<Shortlistcandidate />} />
-      <Route path="candidatealerts" element={<Candidatealerts />} />
-      <Route path="packages" element={<Packages />} />
-      <Route path="messages" element={<Messages />} />
-      <Route path="meeting" element={<Meeting />} />
-      <Route path="changepassword" element={<Changepassword />} />
-      <Route path="deleteprofile" element={<Deleteprofile />} />
-      <Route path="logout" element={<Logout />} />
+        <Route path="empdashboard" element={<Empdashboard />} />
+        <Route path="slidebar" element={<Slidebar />} />
+        <Route path="userdashboard" element={<Userdashboard />} />
+        <Route path="profile" element={<Profile />} />
+        <Route path="mujobs" element={<Myjobs />} />
+        <Route path="submitjobs" element={<Submitjobs />} />
+        <Route path="applicantjobs" element={<Applicantsjobs />} />
+        <Route path="shortlistcandidate" element={<Shortlistcandidate />} />
+        <Route path="candidatealerts" element={<Candidatealerts />} />
+        <Route path="packages" element={<Packages />} />
+        <Route path="messages" element={<Messages />} />
+        <Route path="meeting" element={<Meeting />} />
+        <Route path="changepassword" element={<Changepassword />} />
+        <Route path="deleteprofile" element={<Deleteprofile />} />
+        <Route path="logout" element={<Logout />} />
       </Route>
-
     </Route>
-   
   )
 );
 
@@ -118,12 +113,7 @@ function App() {
   //   </div>
   // )
 
-  return(
-  <RouterProvider router={router} />
- 
-
-) 
-   
+  return <RouterProvider router={router} />;
 }
 
 export default App;

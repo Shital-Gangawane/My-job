@@ -45,6 +45,17 @@ export default function Employers() {
         }
 
         break;
+      case "Email":
+        if (value) {
+          const filteredData = allEmployers.filter((employer) =>
+            employer?.email?.toLowerCase().includes(value?.toLowerCase())
+          );
+          setFilteredEmployers(filteredData);
+        } else {
+          setFilteredEmployers(allEmployers);
+        }
+
+        break;
       case "Pending":
         const pendingData = allEmployers.filter(
           (employer) => !employer.isApproved
@@ -97,15 +108,23 @@ export default function Employers() {
   ]);
 
   return (
-    <div className="relative w-full h-full bg-gray-400">
-      <div className="w-full bg-gray-800 text-white p-6">Employers</div>
+    <div className="relative w-screen md:w-full  h-full bg-gray-400">
+      <div className="w-full bg-gray-800 text-white p-6">
+        <p className="text-lg font-semibold ms-12 ">Employers</p>
+      </div>
 
       {isLoading && <Loader />}
 
       <FilterSortComponent
         data={allEmployers}
         onFilter={onFilter}
-        filterOptions={["Filter by", "Company", "Pending", "Published"]}
+        filterOptions={[
+          "Filter by",
+          "Company",
+          "Email",
+          "Pending",
+          "Published",
+        ]}
         setFilterOption={setFilterOption}
         filterOption={filterOption}
         filterValue={filterValue}

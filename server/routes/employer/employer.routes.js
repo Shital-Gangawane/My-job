@@ -1,7 +1,5 @@
 const express = require("express");
-const {
-  loginEmployer,
-} = require("../../controllers/employer/loginEmployer.js");
+const { login } = require("../../controllers/login.js");
 const {
   registerEmployer,
 } = require("../../controllers/employer/registerEmployer.js");
@@ -10,6 +8,6 @@ const router = express.Router();
 
 //Authentication
 router.post("/employer/register", registerEmployer);
-router.post("/employer/login", loginEmployer);
+router.post("/employer/login", login);
 
 module.exports = router;

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
-import { loginEmployer } from "../../api/employer/axios";
+import { login } from "../../api/employer/axios";
 import Loader from "../../components/Utility/Loader";
 import Nav from "../../components/Nav/Nav";
 
@@ -16,10 +16,17 @@ const Login = () => {
     e.preventDefault();
     setLoading(true); // Set loading to true when submitting
     try {
-      const res = await loginEmployer(email, password);
+      const res = await login(email, password);
       console.log(res); // Handle success response
-      if (res?.data?.success) navigate("/employer");
-      else setError(res?.data?.message);
+      if (res?.data?.success) {
+        if (res?.data?.isEmployer) {
+          navigate("/employer");
+        } else {
+          navigate("/candidate");
+        }
+      } else {
+        setError(res?.data?.message);
+      }
     } catch (error) {
       console.error(error); // Handle error response
       setError("Invalid email or password.");

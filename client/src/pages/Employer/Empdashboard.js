@@ -93,7 +93,7 @@ const Empdashboard = () => {
 
   // Function to check if the screen is mobile
   const checkMobileScreen = () => {
-    setIsMobile(window.innerWidth <= 768); // Adjust the breakpoint as needed
+    setIsMobile(window.innerWidth <= 1039); // Adjust the breakpoint as needed
   };
 
   // Run the check on component mount and on window resize
@@ -147,7 +147,7 @@ const Empdashboard = () => {
     <div
       className={`flex ${
         isMobile && "flex-col"
-      } h-screen w-screen overflow-hidden`}
+      } h-screen w-screen overflow-hidden pt-16 lg:pt-28`}
     >
       {!isMobile && (
         <Slidebar
@@ -184,7 +184,7 @@ const Empdashboard = () => {
           </AnimatePresence>
         </>
       )}
-      <div className="flex-1 bg-[#f5f7fc] overflow-y-auto">
+      <div className=" w-full h-full bg-[#f5f7fc] overflow-y-auto">
         <RenderComponent index={isSelected} />
       </div>
     </div>
