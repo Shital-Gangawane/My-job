@@ -1,16 +1,16 @@
 {
   "files": {
-    "main.css": "/static/css/main.07842ae3.css",
-    "main.js": "/static/js/main.d4e23ae5.js",
+    "main.css": "/static/css/main.7fdd7ede.css",
+    "main.js": "/static/js/main.20026c41.js",
     "static/media/header.jpg": "/static/media/header.5cb03f0ed3bc8fce81d9.jpg",
     "static/media/projob-logo1.png": "/static/media/projob-logo1.12fc55031a756ac453bf.png",
     "static/media/user.png": "/static/media/user.961568814dceb733c85a.png",
     "index.html": "/index.html",
-    "main.07842ae3.css.map": "/static/css/main.07842ae3.css.map",
-    "main.d4e23ae5.js.map": "/static/js/main.d4e23ae5.js.map"
+    "main.7fdd7ede.css.map": "/static/css/main.7fdd7ede.css.map",
+    "main.20026c41.js.map": "/static/js/main.20026c41.js.map"
   },
   "entrypoints": [
-    "static/css/main.07842ae3.css",
-    "static/js/main.d4e23ae5.js"
+    "static/css/main.7fdd7ede.css",
+    "static/js/main.20026c41.js"
   ]
 }
