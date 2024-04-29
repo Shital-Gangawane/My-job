@@ -66,7 +66,7 @@ const router = createBrowserRouter(
         <Route path="dashboard" element={<AdminDashboard />} />
         <Route path="candidates" element={<CandidateModule />} />
         <Route path="employers" element={<Employers />}>
-          <Route path=":_id" element={<EmployerDetails />} />
+          {/* <Route path=":_id" element={<EmployerDetails />} /> */}
         </Route>
         <Route path="jobs" element={<Jobs />} />
         <Route path="admins" element={<AdminModule />} />
@@ -76,13 +76,10 @@ const router = createBrowserRouter(
       </Route>
       <Route path="employer" element={<Employer />}>
         <Route path="dashboard" element={<Empdashboard />} />
-      </Route>
-      <Route>
-        <Route path="empdashboard" element={<Empdashboard />} />
-        <Route path="slidebar" element={<Slidebar />} />
+        {/* <Route path="slidebar" element={<Slidebar />} /> */}
         <Route path="userdashboard" element={<Userdashboard />} />
         <Route path="profile" element={<Profile />} />
-        <Route path="mujobs" element={<Myjobs />} />
+        <Route path="myjobs" element={<Myjobs />} />
         <Route path="submitjobs" element={<Submitjobs />} />
         <Route path="applicantjobs" element={<Applicantsjobs />} />
         <Route path="shortlistcandidate" element={<Shortlistcandidate />} />

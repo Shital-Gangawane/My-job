@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { login } from "../../api/employer/axios";
@@ -19,6 +19,14 @@ const Login = () => {
       const res = await login(email, password);
       console.log(res); // Handle success response
       if (res?.data?.success) {
+        // Store token and user type in sessionStorage
+        sessionStorage.setItem("token", res?.data?.token);
+        sessionStorage.setItem(
+          "userType",
+          res?.data?.isEmployer ? "employer" : "candidate"
+        );
+
+        // Redirect based on user type
         if (res?.data?.isEmployer) {
           navigate("/employer");
         } else {
@@ -34,6 +42,14 @@ const Login = () => {
       setLoading(false); // Set loading to false after request completes
     }
   };
+
+  useEffect(() => {
+    const token = sessionStorage.getItem("token");
+    const userType = sessionStorage.getItem("userType");
+    if (token && userType) {
+      navigate(`/${userType}`);
+    }
+  }, []);
 
   return (
     <div className=" w-full h-full flex justify-center items-center  px-2 sm:px-10 pt-10 ">

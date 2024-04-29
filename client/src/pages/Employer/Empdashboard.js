@@ -35,54 +35,67 @@ const buttons = [
   {
     name: "User Dashboard",
     icon: <MdOutlineSpaceDashboard size={25} />,
+    path: "dashboard", // Example path for User Dashboard
   },
   {
     name: "Profile",
     icon: <LiaUserTieSolid size={25} />,
+    path: "profile", // Example path for Profile
   },
   {
     name: "My Jobs",
     icon: <HiOutlineBriefcase size={25} />,
+    path: "myjobs", // Example path for My Jobs
   },
   {
     name: "Submit Jobs",
     icon: <GoPencil size={25} />,
+    path: "submitjobs", // Example path for Submit Jobs
   },
   {
     name: "Application Jobs",
     icon: <HiOutlineSpeakerphone size={25} />,
+    path: "applicationjobs", // Example path for Application Jobs
   },
   {
     name: "Shortlist Candidates",
     icon: <IoBookmarkOutline size={25} />,
+    path: "shortlistcandidates", // Example path for Shortlist Candidates
   },
   {
     name: "Candidate Alerts",
     icon: <AiOutlineAlert size={25} />,
+    path: "candidatealerts", // Example path for Candidate Alerts
   },
   {
     name: "Packages",
     icon: <PiPackage size={25} />,
+    path: "packages", // Example path for Packages
   },
   {
     name: "Messages",
     icon: <PiWechatLogoLight size={25} />,
+    path: "messages", // Example path for Messages
   },
   {
     name: "Meetings",
     icon: <GiVideoConference size={25} />,
+    path: "meetings", // Example path for Meetings
   },
   {
     name: "Change Password",
     icon: <RiLockPasswordLine size={25} />,
+    path: "changepassword", // Example path for Change Password
   },
   {
     name: "Delete Profile",
     icon: <RiDeleteBin5Line size={25} />,
+    path: "deleteprofile", // Example path for Delete Profile
   },
   {
     name: "Logout",
     icon: <TfiPowerOff size={25} />,
+    path: "logout", // Example path for Logout
   },
 ];
 
