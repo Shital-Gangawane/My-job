@@ -1,9 +1,10 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
-import { loginEmployer } from "../../api/employer/axios";
+import { login } from "../../api/employer/axios";
 import Loader from "../../components/Utility/Loader";
 import Nav from "../../components/Nav/Nav";
+import Navcontents from "../../components/Nav/Navcontents";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -16,10 +17,17 @@ const Login = () => {
     e.preventDefault();
     setLoading(true); // Set loading to true when submitting
     try {
-      const res = await loginEmployer(email, password);
+      const res = await login(email, password);
       console.log(res); // Handle success response
-      if (res?.data?.success) navigate("/employer");
-      else setError(res?.data?.message);
+      if (res?.data?.success) {
+        if (res?.data?.isEmployer) {
+          navigate("/employer");
+        } else {
+          navigate("/candidate");
+        }
+      } else {
+        setError(res?.data?.message);
+      }
     } catch (error) {
       console.error(error); // Handle error response
       setError("Invalid email or password.");
@@ -31,7 +39,7 @@ const Login = () => {
   return (
     <div className=" w-full h-full flex justify-center items-center  px-2 sm:px-10 pt-10 ">
       {loading && <Loader />}
-      <Nav bgColor={" fixed top-0"} />
+      <Navcontents bgColor={" fixed top-0"} />
       <motion.form
         initial={{ y: -100 }}
         animate={{ y: 0 }}

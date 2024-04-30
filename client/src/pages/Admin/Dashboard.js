@@ -11,7 +11,7 @@ export default function Dashboard() {
   return (
     <div className="w-full flex flex-col h-screen bg-gray-400">
       <div className="w-full bg-gray-800 text-white p-6 flex justify-between">
-        <p className="text-lg font-semibold">Dashboard</p>
+        <p className="text-lg font-semibold ms-12 ">Dashboard</p>
         <p>Hi, {adminData?.name.split(" ")[0]}!</p>
       </div>
       <div className="overflow-auto flex flex-wrap justify-evenly mt-6 gap-2 p-6">

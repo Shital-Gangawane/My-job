@@ -5,7 +5,9 @@ import logo from "../../assets/projob-logo1.png";
 import { RiArrowDropDownLine } from "react-icons/ri";
 import { navigationLinks } from "./navData";
 
-const Nav = ({ bgColor }) => {
+const Nav = ( {bgColor }) => {
+  // {bgColor }
+ 
   const [activeDropdown, setActiveDropdown] = useState(null);
   const navigate = useNavigate();
   const location = useLocation();
@@ -24,14 +26,14 @@ const Nav = ({ bgColor }) => {
       transition={{ duration: 1 }}
       className={` ${
         location.pathname === "/" ? "" : bgColor
-      } w-full py-5 z-50 opacity-100`}
+      } w-full lg:py-8 z-50 opacity-100`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 ">
         <div className="flex items-center justify-between h-16  ">
           <div className="flex items-center">
             <div className="flex-shrink-0 text-black text-3xl ">
               {/* Employ<span className=" text-green-600 font-bold">Ease</span> */}
-              <img className=" h-10" src={logo} />
+              <img className=" h-5 lg:h-14" src={logo} />
             </div>
             <div className="hidden md:block">
               <div className="ml-10 flex items-baseline space-x-4">

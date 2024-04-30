@@ -1,3 +1,4 @@
+
 import React, { useEffect } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { RxDashboard } from "react-icons/rx";
@@ -26,7 +27,7 @@ const Sidebar = () => {
   };
 
   return (
-    <div className="bg-gray-800  text-white h-screen md:w-52 lg:w-80  flex flex-col items-center">
+    <div className="bg-gray-800 text-white h-screen md:w-52 lg:w-80  flex flex-col items-center pt-14 md:pt-0">
       <div className=" p-4 flex gap-1  w-full mb-3">
         <div className=" border-2 h-8 rounded-full aspect-square overflow-hidden p-1 cursor-pointer">
           <img className="w-full h-full" src={dp} />

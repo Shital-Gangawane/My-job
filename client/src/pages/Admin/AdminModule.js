@@ -17,9 +17,11 @@ export default function AdminModule() {
   };
 
   return (
-    <div className="h-screen w-full flex flex-col bg-gray-400 relative">
+    <div className="h-screen w-screen flex flex-col bg-gray-400 relative">
       {isAddAdminOn && <RegisterAdmin setIsAddAdminOn={setIsAddAdminOn} />}
-      <div className="w-full bg-gray-800 text-white p-6">Admins</div>
+      <div className="w-full bg-gray-800 text-white p-6">
+        <p className="text-lg font-semibold ms-12 ">Admins</p>
+      </div>
       <div className="w-full p-3">
         <button
           onClick={() => setIsAddAdminOn(true)}

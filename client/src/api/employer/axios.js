@@ -16,8 +16,8 @@ export const registerEmployer = async (email, password) => {
   }
 };
 
-//Employer login
-export const loginEmployer = async (email, password) => {
+//Employer or candidate login
+export const login = async (email, password) => {
   try {
     const res = await axios.post(`${url}/api/employer/login`, {
       email,

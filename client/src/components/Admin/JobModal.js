@@ -1,3 +1,4 @@
+
 import React, { useState } from "react";
 
 export default function JobModal({ job, onClose, onSave }) {
@@ -19,7 +20,7 @@ export default function JobModal({ job, onClose, onSave }) {
   };
 
   return (
-    <div className="fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 flex flex-col justify-center items-center">
+    <div className="fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 flex flex-col justify-center items-center z-30">
       <div className="bg-white p-6 w-full rounded-t-md overflow-y-auto">
         <h1 className="text-xl font-semibold">
           Company:{" "}

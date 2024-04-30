@@ -50,7 +50,7 @@ const EmployerDetails = ({
   }, [data]);
 
   return (
-    <div className="fixed inset-0 flex flex-col items-center justify-center w-screen h-screen p-8 text-start ">
+    <div className="fixed inset-0 flex flex-col items-center justify-center w-screen h-screen p-1 z-50 text-start ">
       {isEditing && (
         <EmployerEditor
           employerData={empData}
@@ -66,31 +66,31 @@ const EmployerDetails = ({
         >
           <AiOutlineClose />
         </button>
-        <h2 className="text-2xl font-bold text-start w-full ">
+        <h2 className=" text-lg lg:text-2xl font-bold text-start w-full ">
           Employer Details
         </h2>
-        <div className=" flex justify-between mb-5 mt-4">
-          <p>
+        <div className=" flex flex-col justify-between mb-5 mt-4">
+          <p className=" text-xs lg:text-sm">
             <span className="font-bold">Company Name:</span>{" "}
             {empData?.companyName}
           </p>
-          <p>
+          <p className=" text-xs lg:text-sm">
             <span className="font-bold">Phone Number:</span>{" "}
             {empData?.phoneNumber}
           </p>
-          <p>
+          <p className=" text-xs lg:text-sm">
             <span className="font-bold">Email:</span> {empData?.email}
           </p>
         </div>
 
         <button
           onClick={toggleEditing}
-          className="bg-blue-500 hover:bg-blue-600 text-white py-2 rounded-lg px-3 mb-4 transition duration-300 ease-in-out"
+          className="bg-blue-500 hover:bg-blue-600 text-xs  text-white py-2 rounded-lg px-3 mb-4 transition duration-300 ease-in-out"
         >
           {isEditing ? "Cancel Editing" : "Edit Details"}
         </button>
         <hr />
-        <div className="w-full h-full flex p-4 whitespace-normal">
+        <div className="w-full h-full flex flex-col lg:flex-row p-4 whitespace-normal">
           <div className="w-full h-full flex-1 pb-10 px-3 overflow-hidden">
             <p className="">
               <span className="font-bold">About Company:</span>{" "}
@@ -99,7 +99,7 @@ const EmployerDetails = ({
               <p className="text-start">{empData?.aboutCompany}</p>
             </div>
           </div>
-          <div className="border shadow-sm w-72 p-4 rounded-md text-sm h-96 mt-7">
+          <div className="border shadow-sm w-72 p-4 rounded-md text-sm h-auto lg:h-96 mt-7">
             <p>
               <span className="font-bold">Industries:</span>{" "}
               {empData?.industries?.join(", ")}
