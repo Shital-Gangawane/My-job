@@ -132,7 +132,7 @@ export default function Employers() {
       />
 
       <div className="w-full h-full overflow-x-auto p-1">
-        <table className="w-full divide-gray-200">
+        <table className="w-full divide-gray-200 overflow-x-auto">
           <thead className="bg-gray-800 text-center">
             <tr>
               <th className="px-6 py-3 text-xs font-medium text-white uppercase tracking-wider">

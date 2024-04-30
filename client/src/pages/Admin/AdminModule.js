@@ -17,7 +17,7 @@ export default function AdminModule() {
   };
 
   return (
-    <div className="h-screen w-screen flex flex-col bg-gray-400 relative">
+    <div className=" w-screen h-full md:w-full flex flex-col bg-gray-400 relative overflow-x-auto">
       {isAddAdminOn && <RegisterAdmin setIsAddAdminOn={setIsAddAdminOn} />}
       <div className="w-full bg-gray-800 text-white p-6">
         <p className="text-lg font-semibold ms-12 ">Admins</p>
@@ -31,10 +31,10 @@ export default function AdminModule() {
         </button>
       </div>
       <div className="w-full h-full overflow-x-auto p-1">
-        <table className="w-full  divide-gray-200">
+        <table className="min-w-full divide-gray-200">
           <thead className="bg-gray-800 text-center">
             <tr>
-              <th className="px-6 py-3 text-xs font-medium text-white uppercase tracking-wider">
+              <th className="px-2 py-3 text-xs font-medium text-white uppercase tracking-wider">
                 S.no.
               </th>
               <th className="px-6 py-3 text-xs font-medium text-white uppercase tracking-wider">
@@ -46,7 +46,7 @@ export default function AdminModule() {
               <th className="px-6 py-3 text-xs font-medium text-white uppercase tracking-wider">
                 Phone
               </th>
-              <th className="px-6 py-3 text-xs font-medium text-white uppercase tracking-wider">
+              <th className="px-1 py-3 text-xs font-medium text-white uppercase tracking-wider">
                 Designation
               </th>
               <th className="px-6 py-3 text-xs font-medium text-white uppercase tracking-wider">
@@ -61,13 +61,13 @@ export default function AdminModule() {
               <th className="px-6 py-3 text-xs font-medium text-white uppercase tracking-wider">
                 Skills Assigned
               </th>
-              <th className="px-6 py-3 text-xs font-medium text-white uppercase tracking-wider">
+              <th className="px-2 py-3 text-xs font-medium text-white uppercase tracking-wider">
                 Admin
               </th>
               <th className="px-6 py-3 text-xs font-medium text-white uppercase tracking-wider">
                 Approved
               </th>
-              <th className="px-6 py-3 text-xs font-medium text-white uppercase tracking-wider">
+              <th className="px-2 py-3 text-xs font-medium text-white uppercase tracking-wider">
                 Options
               </th>
             </tr>

@@ -18,7 +18,7 @@ const Admin = () => {
       {!adminToken ? (
         <Login />
       ) : (
-        <div className="flex h-screen overflow-hidden">
+        <div className="flex h-full w-full ">
           <button
             className=" md:hidden fixed top-5 left-3 z-20   p-2 rounded-full"
             onClick={toggleSidebar}
@@ -36,7 +36,7 @@ const Admin = () => {
           >
             <Sidebar />
           </div>
-          <div className="flex-1">
+          <div className="flex-1 md:w-screen overflow-x-auto">
             <Outlet />
           </div>
         </div>
