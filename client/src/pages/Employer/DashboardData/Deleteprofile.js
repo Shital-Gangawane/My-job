@@ -28,4 +28,8 @@ function Deleteprofile() {
   );
 }
 
+<<<<<<< HEAD
 export default Deleteprofile;
+=======
+export default Deleteprofile;
+>>>>>>> fa409242698a4f1a712c0949421441beef547860

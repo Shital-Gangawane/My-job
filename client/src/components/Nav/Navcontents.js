@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { RiArrowDropDownLine } from "react-icons/ri";
 import { FaRegBell } from "react-icons/fa6";
+import { LuUser2 } from "react-icons/lu";
 import { navigationLinks } from "./navData";
 import logo from "../../assets/projob-logo1.png";
 import Button from "react-bootstrap/Button";
@@ -39,7 +40,7 @@ const Navcontents = ({ bgColor }) => {
         transition={{ duration: 1 }}
         className={` ${
           location.pathname === "/" ? "" : bgColor
-        } w-full  z-50 opacity-100`}
+        } w-full pt-3 z-50 opacity-100`}
       >
         {["lg"].map((expand) => (
           <Navbar key={expand} expand={expand} className="">
@@ -48,9 +49,19 @@ const Navcontents = ({ bgColor }) => {
                 <img className=" h-10" src={logo} />{" "}
               </Navbar.Brand>
 
+              <div className=" ms-auto lg:hidden flex">
+              <Nav.Link href="#"  className="  ms-auto float-end mr-5 font-bold">
+              <LuUser2 size={23} className="hover:text-[#6ad61d]"/>
+                  </Nav.Link>
+              <Nav.Link href="#" className="ms-auto ps-0 pe-2 mr-5">
+                    <FaRegBell  size={23} className="hover:text-[#6ad61d]"/>
+                  </Nav.Link>
+                  </div>
               <Navbar.Toggle
                 aria-controls={`offcanvasNavbar-expand-${expand}`}
+                 className="border-none"
               />
+
               <Navbar.Offcanvas
                 id={`offcanvasNavbar-expand-${expand}`}
                 aria-labelledby={`offcanvasNavbarLabel-expand-${expand}`}
@@ -122,9 +133,9 @@ const Navcontents = ({ bgColor }) => {
                   <Nav.Link href="/Login" className=" ms-4 me-3 mr-sm-2 mb-1">
                   <motion.button
                    onClick={() => setShowForm(true)}
-                  className="bg-stone-900  md:max-w-60 rounded-full  hover:bg-blue-600 text-white  whitespace-nowrap py-3 px-10 text-sm md:text-md shadow-md transition duration-300 ease-in-out transform "
+                  className="bg-stone-900  md:max-w-60 rounded-full  hover:bg-blue-600 text-white  whitespace-nowrap py-3 px-4  text-sm md:text-md shadow-md transition duration-300 ease-in-out transform "
                 >
-                  Login
+                  Add Jobs
                 </motion.button>
                   </Nav.Link>
 
