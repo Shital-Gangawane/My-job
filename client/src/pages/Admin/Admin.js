@@ -45,8 +45,4 @@ const Admin = () => {
   );
 };
 
-<<<<<<< HEAD
 export default Admin;
-=======
-export default Admin;
->>>>>>> fa409242698a4f1a712c0949421441beef547860

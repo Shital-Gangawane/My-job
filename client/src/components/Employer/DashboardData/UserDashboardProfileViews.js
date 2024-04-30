@@ -1,7 +1,3 @@
-<<<<<<< HEAD
-
-=======
->>>>>>> fa409242698a4f1a712c0949421441beef547860
 import React from "react";
 
 export default function UserDashboardProfileViews() {

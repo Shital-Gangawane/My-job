@@ -4,7 +4,6 @@ import { motion } from "framer-motion";
 import { login } from "../../api/employer/axios";
 import Loader from "../../components/Utility/Loader";
 import Nav from "../../components/Nav/Nav";
-import Navcontents from "../../components/Nav/Navcontents";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -20,8 +19,6 @@ const Login = () => {
       const res = await login(email, password);
       console.log(res); // Handle success response
       if (res?.data?.success) {
-<<<<<<< HEAD
-=======
         // Store token and user type in sessionStorage
         sessionStorage.setItem("token", res?.data?.token);
         sessionStorage.setItem(
@@ -30,7 +27,6 @@ const Login = () => {
         );
 
         // Redirect based on user type
->>>>>>> fa409242698a4f1a712c0949421441beef547860
         if (res?.data?.isEmployer) {
           navigate("/employer");
         } else {
@@ -58,7 +54,7 @@ const Login = () => {
   return (
     <div className=" w-full h-full flex justify-center items-center  px-2 sm:px-10 pt-10 ">
       {loading && <Loader />}
-      <Navcontents bgColor={" fixed top-0"} />
+      <Nav bgColor={" fixed top-0"} />
       <motion.form
         initial={{ y: -100 }}
         animate={{ y: 0 }}

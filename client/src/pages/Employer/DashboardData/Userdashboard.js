@@ -1,7 +1,8 @@
-
 import React from "react";
+import Container from "react-bootstrap/Container";
 import Card from "react-bootstrap/Card";
 import Col from "react-bootstrap/Col";
+import Row from "react-bootstrap/Row";
 import { HiOutlineBriefcase } from "react-icons/hi2";
 import { SlNote } from "react-icons/sl";
 import { AiOutlineMessage } from "react-icons/ai";
@@ -15,7 +16,7 @@ const statsData = [
     name: "Posted Jobs",
     count: 0,
     url: "#",
-    icon: <HiOutlineBriefcase size={35} className=" text-blue-600 rounded " />,
+    icon: <HiOutlineBriefcase size={35} className="  text-blue-600 rounded " />,
     color: "blue",
     bgColor: "bg-blue-100",
   },
@@ -23,7 +24,7 @@ const statsData = [
     name: "Application",
     count: 0,
     url: "#",
-    icon: <SlNote size={35} className=" text-red-600 rounded " />,
+    icon: <SlNote size={35} className="  text-red-600 rounded " />,
     color: "red",
     bgColor: "bg-red-100",
   },
@@ -39,7 +40,7 @@ const statsData = [
     name: "Shortlisted",
     count: 0,
     url: "#",
-    icon: <IoBookmarkOutline size={35} className=" text-green-600 rounded" />,
+    icon: <IoBookmarkOutline size={35} className="  text-green-600 rounded" />,
     color: "green",
     bgColor: "bg-green-100",
   },
@@ -47,16 +48,6 @@ const statsData = [
 function Userdashboard() {
   return (
     <div className=" w-full h-auto lg:mt-14 px-4 lg:px-14 overflow-y-auto py-7 pb-14">
-<<<<<<< HEAD
-      <h2 className=" px-3 text-lg text-[#202124] lg:text-3xl mb-10 font-medium">
-        Applications statistics
-      </h2>
-      <div className=" h-full w-full flex gap-8 lg:gap-8 justify-center flex-wrap items-center flex-col lg:flex-row">
-        {statsData?.map((stat, i) => (
-          <Col
-            key={i}
-            className=" bg-white   flex-1 w-full rounded-lg border border-gray-100 shadow-sm"
-=======
       <h2 className=" text-lg text-[#202124] lg:text-3xl mb-10 font-medium">
         Applications statistics
       </h2>
@@ -65,15 +56,10 @@ function Userdashboard() {
           <Col
             key={i}
             className=" bg-white p-8 flex-1 w-full rounded-lg border border-gray-100 shadow-sm"
->>>>>>> fa409242698a4f1a712c0949421441beef547860
           >
-            <Card className=" flex flex-row  ">
+            <Card className=" flex flex-col ">
               <Card.Body className="flex gap-2 items-center">
-<<<<<<< HEAD
-                <div className={`${stat.bgColor} p-3 rounded-md`}>
-=======
                 <div className={`${stat.bgColor} p-5 rounded-md`}>
->>>>>>> fa409242698a4f1a712c0949421441beef547860
                   {stat.icon}
                 </div>
 
