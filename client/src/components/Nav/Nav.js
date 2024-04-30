@@ -5,7 +5,13 @@ import logo from "../../assets/projob-logo1.png";
 import { RiArrowDropDownLine } from "react-icons/ri";
 import { navigationLinks } from "./navData";
 
+<<<<<<< HEAD
+const Nav = ( {bgColor }) => {
+  // {bgColor }
+ 
+=======
 const Nav = ({ bgColor, employer }) => {
+>>>>>>> fa409242698a4f1a712c0949421441beef547860
   const [activeDropdown, setActiveDropdown] = useState(null);
   const navigate = useNavigate();
   const location = useLocation();

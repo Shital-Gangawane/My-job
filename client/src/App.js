@@ -66,7 +66,11 @@ const router = createBrowserRouter(
         <Route path="dashboard" element={<AdminDashboard />} />
         <Route path="candidates" element={<CandidateModule />} />
         <Route path="employers" element={<Employers />}>
+<<<<<<< HEAD
+          <Route path=":_id" element={<EmployerDetails />} />
+=======
           {/* <Route path=":_id" element={<EmployerDetails />} /> */}
+>>>>>>> fa409242698a4f1a712c0949421441beef547860
         </Route>
         <Route path="jobs" element={<Jobs />} />
         <Route path="admins" element={<AdminModule />} />
@@ -76,6 +80,26 @@ const router = createBrowserRouter(
       </Route>
       <Route path="employer" element={<Employer />}>
         <Route path="dashboard" element={<Empdashboard />} />
+<<<<<<< HEAD
+      </Route>
+      <Route>
+        <Route path="empdashboard" element={<Empdashboard />} />
+        <Route path="slidebar" element={<Slidebar />} />
+        <Route path="userdashboard" element={<Userdashboard />} />
+        <Route path="profile" element={<Profile />} />
+        <Route path="mujobs" element={<Myjobs />} />
+        <Route path="submitjobs" element={<Submitjobs />} />
+        <Route path="applicantjobs" element={<Applicantsjobs />} />
+        <Route path="shortlistcandidate" element={<Shortlistcandidate />} />
+        <Route path="candidatealerts" element={<Candidatealerts />} />
+        <Route path="packages" element={<Packages />} />
+        <Route path="messages" element={<Messages />} />
+        <Route path="meeting" element={<Meeting />} />
+        <Route path="changepassword" element={<Changepassword />} />
+        <Route path="deleteprofile" element={<Deleteprofile />} />
+        <Route path="logout" element={<Logout />} />
+      </Route>
+=======
         {/* <Route path="slidebar" element={<Slidebar />} /> */}
         <Route path="userdashboard" element={<Userdashboard />} />
         <Route path="profile" element={<Profile />} />
@@ -91,6 +115,7 @@ const router = createBrowserRouter(
         <Route path="deleteprofile" element={<Deleteprofile />} />
         <Route path="logout" element={<Logout />} />
       </Route>
+>>>>>>> fa409242698a4f1a712c0949421441beef547860
     </Route>
   )
 );
