@@ -1,5 +1,6 @@
 const bcrypt = require("bcryptjs");
 const Employer = require("../../models/employer/employer.js");
+const Candidate = require("../../models/candidate/candidate.js");
 
 module.exports.registerEmployer = async (req, res) => {
   try {
@@ -7,8 +8,20 @@ module.exports.registerEmployer = async (req, res) => {
 
     // Check if the email is already registered
     const existingEmployer = await Employer.findOne({ email });
+    const existingCandidate = await Candidate.findOne({ email });
+
+    if (existingCandidate) {
+      return res
+        .status(400)
+        .json({
+          success: false,
+          message: "Email is already registered as candidate",
+        });
+    }
     if (existingEmployer) {
-      return res.status(400).json({ message: "Email is already registered" });
+      return res
+        .status(400)
+        .json({ success: false, message: "Email is already registered" });
     }
 
     // Hash the password
@@ -31,6 +44,6 @@ module.exports.registerEmployer = async (req, res) => {
       allEmployer,
     });
   } catch (error) {
-    res.status(500).json({ message: "Internal server error" });
+    res.status(500).json({ success: false, message: "Internal server error" });
   }
 };

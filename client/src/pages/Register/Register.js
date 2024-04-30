@@ -6,6 +6,7 @@ import { BiShoppingBag } from "react-icons/bi";
 import { registerEmployer } from "../../api/employer/axios";
 import Loader from "../../components/Utility/Loader";
 import Nav from "../../components/Nav/Nav";
+import { registerCandidate } from "../../api/candidate/axios";
 
 const Register = () => {
   const [identity, setIdentity] = useState("candidate");
@@ -25,10 +26,12 @@ const Register = () => {
       setError("");
     }
 
+    setLoading(true); // Set loading to true when submitting
+
     if (identity === "employer") {
-      setLoading(true); // Set loading to true when submitting
       try {
         const res = await registerEmployer(email, password);
+        if (!res?.data?.success) setError(res?.data?.message);
         console.log(res); // Handle success response
       } catch (error) {
         console.error(error); // Handle error response
@@ -41,6 +44,18 @@ const Register = () => {
     } else {
       console.log("Candidate Register submitted!");
       // Handle candidate registration
+      try {
+        const res = await registerCandidate(email, password);
+        if (!res?.data?.success) setError(res?.data?.message);
+        console.log(res); // Handle success response
+      } catch (error) {
+        console.error(error); // Handle error response
+      } finally {
+        setLoading(false); // Set loading to false after request completes
+        setEmail("");
+        setPassword("");
+        setConfirmPassword("");
+      }
     }
   };
 
@@ -59,7 +74,10 @@ const Register = () => {
         <div className="flex gap-4">
           <button
             type="button"
-            onClick={(e) => setIdentity("candidate")}
+            onClick={(e) => {
+              setError("");
+              setIdentity("candidate");
+            }}
             className={`w-full ${
               identity === "candidate"
                 ? "bg-[#6ad61d] text-white"
@@ -71,7 +89,10 @@ const Register = () => {
           </button>
           <button
             type="button"
-            onClick={() => setIdentity("employer")}
+            onClick={() => {
+              setError("");
+              setIdentity("employer");
+            }}
             className={`w-full ${
               identity === "employer"
                 ? "bg-[#6ad61d] text-white"

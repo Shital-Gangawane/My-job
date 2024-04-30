@@ -5,9 +5,13 @@ import logo from "../../assets/projob-logo1.png";
 import { RiArrowDropDownLine } from "react-icons/ri";
 import { navigationLinks } from "./navData";
 
+<<<<<<< HEAD
 const Nav = ( {bgColor }) => {
   // {bgColor }
  
+=======
+const Nav = ({ bgColor, employer }) => {
+>>>>>>> fa409242698a4f1a712c0949421441beef547860
   const [activeDropdown, setActiveDropdown] = useState(null);
   const navigate = useNavigate();
   const location = useLocation();
@@ -90,9 +94,11 @@ const Nav = ( {bgColor }) => {
               >
                 Login
               </motion.button>
-              {/* <button className="ml-4 bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-md text-sm font-medium">
-                Register
-              </button> */}
+              {employer && (
+                <button className="ml-4 bg-[#6ad61d] hover:bg-blue-600 text-white px-7 py-3 rounded-md text-sm font-medium">
+                  Job Post
+                </button>
+              )}
             </div>
           </div>
         </div>

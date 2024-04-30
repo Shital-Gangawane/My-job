@@ -11,8 +11,13 @@ export default function Employer() {
   }, []);
   return (
     <div className=" w-full h-auto bg-white">
+<<<<<<< HEAD
       <Navcontents bgColor="bg-white fixed shadow-md" />
       <div className=" ">
+=======
+      <Nav bgColor="bg-white fixed shadow-md" employer />
+      <div className="">
+>>>>>>> fa409242698a4f1a712c0949421441beef547860
         <Outlet />
       </div>
     </div>
