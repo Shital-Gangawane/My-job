@@ -157,10 +157,18 @@ const Empdashboard = () => {
   };
 
   return (
+    <div>
+       <div className='sticky top-0 z-50 bg-white shadow-md'>
+        <Navcontents className='bg-white fixed top-0 w-full shadow-md pt-16 lg:pt-28 ' />
+      </div>
     <div
       className={`flex ${
         isMobile && "flex-col"
+<<<<<<< HEAD
+      } h-screen w-screen overflow-hidden `}
+=======
       } h-screen w-screen overflow-hidden pt-16 lg:pt-28`}
+>>>>>>> fa409242698a4f1a712c0949421441beef547860
     >
       {!isMobile && (
         <Slidebar
@@ -173,10 +181,10 @@ const Empdashboard = () => {
         <>
           <div
             onClick={toggleSidebar}
-            className="bg-[#f5f7fc] py-7 px-4 flex items-center gap-1 text-[#6ad61d] cursor-pointer"
+            className="bg-[#f5f7fc] py-3 px-4 flex items-center gap-1 text-[#6ad61d] cursor-pointer"
           >
             <IoMenuSharp size={20} />
-            <p>Show Sidebar</p>
+            <p className="pt-3 ps-1">Show Sidebar</p>
           </div>
           <AnimatePresence>
             {isSideBarOpen && (
@@ -200,6 +208,7 @@ const Empdashboard = () => {
       <div className=" w-full h-full bg-[#f5f7fc] overflow-y-auto">
         <RenderComponent index={isSelected} />
       </div>
+    </div>
     </div>
   );
 };

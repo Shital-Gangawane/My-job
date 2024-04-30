@@ -1,3 +1,7 @@
+<<<<<<< HEAD
+
+=======
+>>>>>>> fa409242698a4f1a712c0949421441beef547860
 import React, { useState } from "react";
 
 function Myjobs() {

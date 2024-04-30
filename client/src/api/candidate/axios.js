@@ -72,4 +72,8 @@ export const loginCandidate = async (email, password) => {
 //   } catch (error) {
 //     return error.response;
 //   }
+<<<<<<< HEAD
 // };
+=======
+// };
+>>>>>>> fa409242698a4f1a712c0949421441beef547860

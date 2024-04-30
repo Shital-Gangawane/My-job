@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef, useMemo } from "react";
+import 'bootstrap/dist/css/bootstrap.min.css';
 import { Outlet, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { citiesInIndia } from "./cityData";
@@ -7,6 +8,7 @@ import { IoIosSearch } from "react-icons/io";
 import { IoLocationSharp } from "react-icons/io5";
 import { searchJobs } from "../../api/candidate/axios";
 import Nav from "../../components/Nav/Nav";
+import Navcontents from "../../components/Nav/Navcontents";
 
 const LandingPage = () => {
   const [selectedCity, setSelectedCity] = useState("");
@@ -54,21 +56,21 @@ const LandingPage = () => {
 
   return (
     <div className=" relative h-full flex flex-col justify-center items-center overflow-y-auto">
-      <section className=" relative w-full h-auto flex flex-col justify-center items-center   ">
-        {/* <motion.img
+      <section className="relative w-full h-auto flex flex-col justify-center items-center   ">
+     {/* <motion.img
           initial={{ x: -1000 }}
           animate={{ x: 0 }}
           transition={{ duration: 1 }}
           className=" h-fit absolute -z-20 bottom-0 right-0 opacity-10"
           src={girl}
-        /> */}
-        <div className="w-full h-screen flex justify-cen flex-col items-center px-4 sm:px-10 py-8 section-one  overflow-hidden ">
-          <Nav />
+        />  */}
+        <div className="w-full h-screen flex justify-cen flex-col items-center px-4 sm:px-10 py-4 section-one  overflow-hidden ">
+          <Navcontents />
           <motion.h1
             initial={{ opacity: 0, y: -100 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1 }}
-            className="text-4xl md:text-5xl  text-center text-black mb-8"
+            className="text-4xl md:text-5xl  text-center text-black mt-5 mb-8"
           >
             We find the best jobs for you
           </motion.h1>
@@ -85,7 +87,7 @@ const LandingPage = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1 }}
             onSubmit={submitHandler}
-            className=" w-full lg:w-2/3 p-2 px-4 rounded-full shadow-xl bg-white border border-gray-300 flex flex-col md:flex-row items-center justify-center gap-2 md:gap-0 "
+            className="w-full container p-4 lg:rounded-full rounded-xl shadow-xl bg-white border border-gray-300 flex flex-col md:flex-row items-center justify-center "
           >
             <div className=" w-full px-4 flex items-center  ">
               <IoIosSearch size={20} />
@@ -96,14 +98,14 @@ const LandingPage = () => {
                 whileTap={{ scale: 0.95 }}
                 value={searchText}
                 onChange={(e) => setSearchText(e.target.value)}
-                className="w-full  px-4 py-6  focus:outline-none focus:border-blue-500 bg-transparent"
+                className="w-full px-4 py-3 focus:outline-none focus:border-blue-500 bg-transparent"
               />
             </div>
-            <div className="relative flex flex-col  w-full md:max-w-60 border-l ">
+            <div className="relative flex flex-col  w-full  lg:border-l md:border-l ">
               <div className=" w-full px-4 flex items-center ">
                 <IoLocationSharp size={20} />
                 <p
-                  className="cursor-pointer w-full  px-4 py-7 text-start text-gray-400  focus:outline-none focus:border-blue-500 "
+                  className="cursor-pointer w-full px-3  py-3 text-start text-gray-400  focus:outline-none focus:border-blue-500 "
                   onClick={toggleDropdown}
                 >
                   {selectedCity || "Select City"}
@@ -120,7 +122,7 @@ const LandingPage = () => {
             </div>
             <motion.button
               type="submit"
-              className="bg-stone-900  md:max-w-60 rounded-full  hover:bg-stone-500 text-white px-10 whitespace-nowrap py-5 text-sm md:text-sm shadow-md transition duration-300 ease-in-out transform "
+              className="bg-stone-900 md:max-w-40 w-full rounded-full hover:bg-blue-500 text-white lg:px-2 whitespace-nowrap py-3 text-sm md:text-sm shadow-md transition duration-300 ease-in-out transform"
             >
               Find Jobs
             </motion.button>
