@@ -86,7 +86,7 @@ input:focus {
 
 .section-one {
   background-image: url("../src/assets/header.jpg");
-  background-size: cover;
+  background-size: auto;
   background-repeat: no-repeat;
   background-color: white;
   background-position: top left;

@@ -25,37 +25,43 @@ export const Dropdown = ({ options, onSelect, landingpage }) => {
 
   return (
     <div
-      className={`dropdown absolute bottom-0  w-full ${
-        !landingpage ? "" : "h-full"
+      className={`dropdown absolute  px-7 z-20    w-full ${
+        !landingpage ? " " : "h-full -bottom-10"
       } `}
     >
-      <input
-        type="text"
-        value={searchQuery}
-        onChange={handleInputChange}
-        placeholder="Search City"
-        className="w-full px-4 py-3  focus:outline-none focus:border-blue-500 bg-white border border-gray-300 shadow-md"
-      />
-      <motion.ul
-        initial={{ opacity: 0, y: -50 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5 }}
-        className="absolute z-10 mt-1 w-full max-h-48 overflow-y-auto overflow-x-hidden bg-white rounded-md shadow-lg"
-      >
-        {filteredOptions
-          .sort((a, b) => a.localeCompare(b))
-          .map((city, index) => (
-            <motion.li
-              key={index}
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              onClick={() => handleCitySelect(city)}
-              className="cursor-pointer px-4 py-2 hover:bg-gray-100 hover:text-green-500 text-start"
-            >
-              {city}
-            </motion.li>
-          ))}
-      </motion.ul>
+      <div className=" w-full  bg-white shadow-lg rounded-lg border-gray-300  p-7 ">
+        <input
+          type="text"
+          value={searchQuery}
+          onChange={handleInputChange}
+          autoFocus
+          placeholder="Search City"
+          className="w-full px-4 py-3 rounded-lg  outline-[#6ad61d]   bg-white border  border-[#6ad61d]  shadow-md"
+        />
+
+        <motion.ul
+          initial={{ opacity: 0, y: -50 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+          className=" z-10 mt-1 w-full max-h-48 overflow-y-auto overflow-x-hidden"
+        >
+          {filteredOptions
+            .sort((a, b) => a.localeCompare(b))
+            .map((city, index) => (
+              <motion.li
+                key={index}
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                onClick={() => handleCitySelect(city)}
+                className={`cursor-pointer px-4 py-2 hover:bg-gray-100 hover:text-green-500 text-start ${
+                  index === 0 ? "text-green-500" : ""
+                }`}
+              >
+                {city}
+              </motion.li>
+            ))}
+        </motion.ul>
+      </div>
     </div>
   );
 };
