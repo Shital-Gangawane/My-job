@@ -108,7 +108,7 @@ export default function Employers() {
   ]);
 
   return (
-    <div className="relative w-screen md:w-full  h-full bg-gray-400">
+    <div className="relative w-screen md:w-full overflow-hidden  h-full bg-gray-400">
       <div className="w-full bg-gray-800 text-white p-6">
         <p className="text-lg font-semibold ms-12 ">Employers</p>
       </div>

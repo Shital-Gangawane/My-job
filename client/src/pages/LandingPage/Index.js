@@ -8,6 +8,7 @@ import { IoLocationSharp } from "react-icons/io5";
 import { searchJobs } from "../../api/candidate/axios";
 import Nav from "../../components/Nav/Nav";
 import Carousel from "./Carousel";
+import FeaturedJobsCarousel from "./FeaturedJobsCarousel";
 
 const LandingPage = () => {
   const [selectedCity, setSelectedCity] = useState("");
@@ -54,8 +55,8 @@ const LandingPage = () => {
   }, []);
 
   return (
-    <div className=" relative h-auto flex flex-col justify-center items-center overflow-y-auto">
-      <section className=" relative w-full h-[50%] xl:h-[130%] flex flex-col justify-center items-center section-one">
+    <div className=" relativ min-h-screen  h-auto flex flex-col justify-center items-center overflow-y-auto">
+      <section className=" relative w-full h-auto xl:h-[130%] flex flex-col justify-center bg-contain bg-left items-center section-one">
         {/* <motion.img
           initial={{ x: -1000 }}
           animate={{ x: 0 }}
@@ -64,7 +65,7 @@ const LandingPage = () => {
           src={girl}
         /> */}
         <Nav bgColor=" bg-opacity-0 " />
-        <div className="w-full h-screen flex justify-cen flex-col items-center px-4 sm:px-10 py-8  overflow-hidden ">
+        <div className="w-full h-auto lg:h-screen flex justify-cen flex-col items-center px-4 sm:px-10 py-8  overflow-hidden ">
           <motion.h1
             initial={{ opacity: 0, y: -100 }}
             animate={{ opacity: 1, y: 0 }}
@@ -131,6 +132,7 @@ const LandingPage = () => {
         </div>
       </section>
       <Carousel />
+      <FeaturedJobsCarousel />
     </div>
   );
 };

@@ -46,7 +46,7 @@ const Nav = ({ bgColor, employer }) => {
                 onClick={() => navigate("/")}
               />
             </div>
-            <div className="hidden lg:block">
+            <div className="hidden xl:block">
               <div className="ml-5 flex items-center space-x-1">
                 {navigationLinks.map((link, index) => (
                   <div

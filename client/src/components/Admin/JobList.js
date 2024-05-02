@@ -34,7 +34,7 @@ export default function JobList({ jobs }) {
         jobs?.reverse().map((job) => (
           <div
             key={job._id}
-            className="bg-white shadow-md rounded-md p-4 mb-4 text-xs"
+            className="bg-white shadow-md rounded-md p-4 mb-2 text-xs"
           >
             <div className=" flex items-center justify-between">
               <h2

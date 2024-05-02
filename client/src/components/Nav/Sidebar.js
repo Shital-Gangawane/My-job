@@ -15,10 +15,10 @@ const Sidebar = ({ isOpen, onClose }) => {
 
   return (
     <motion.div
-      className="fixed top-0 left-0 w-full h-full bg-gray-800 bg-opacity-50 z-50"
+      className="fixed top-0 left-0 w-full h-full bg-gray-800 bg-opacity-20  z-50"
       onClick={handleClose} // Close sidebar when clicking outside
-      initial={{ x: "-100%" }}
-      animate={{ x: isOpen ? 0 : "-100%" }}
+      initial={{ x: "-100%", opacity: 0 }}
+      animate={{ x: isOpen ? 0 : "-100%", opacity: 1 }}
       transition={{ type: "spring", stiffness: 200, damping: 25 }}
     >
       <div className="absolute flex flex-col items-center top-0 left-0 me-10 w-full max-w-72 h-full bg-zinc-800 shadow sidebar-content">

@@ -89,5 +89,18 @@ input:focus {
   background-size: auto;
   background-repeat: no-repeat;
   background-color: white;
-  background-position: top left;
+  /* background-position: top left; */
+}
+/* 
+.slick-slide {
+  background-color: white;
+  margin: 0 10px;
+} */
+
+.slick-slide {
+  height: auto !important; /* Reset height to auto */
+}
+
+.featured-job-slide {
+  padding: 10px; /* Adjust as needed */
 }

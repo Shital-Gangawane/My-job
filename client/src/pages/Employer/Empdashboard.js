@@ -160,7 +160,7 @@ const Empdashboard = () => {
     <div
       className={`flex ${
         isMobile && "flex-col"
-      } h-screen w-screen overflow-hidden pt-16 lg:pt-28`}
+      } h-screen w-screen overflow-hidden pt-16 xl:pt-28`}
     >
       {!isMobile && (
         <Slidebar
@@ -191,6 +191,9 @@ const Empdashboard = () => {
                   buttons={buttons}
                   isSelected={isSelected}
                   setIsSelected={setIsSelected}
+                  onClose={toggleSidebar}
+                  isOpen={isSideBarOpen}
+                  isMobile
                 />
               </motion.div>
             )}
