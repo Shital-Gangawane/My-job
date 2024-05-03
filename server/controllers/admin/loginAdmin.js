@@ -1,6 +1,6 @@
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
-const Admin = require("../../models/admin/admin.js");
+const { conn, Admin } = require("../../models/admin/admin.js");
 
 module.exports.loginAdmin = async (req, res) => {
   try {
@@ -45,12 +45,10 @@ module.exports.loginAdmin = async (req, res) => {
       token,
     });
   } catch (error) {
-    res
-      .status(500)
-      .json({
-        success: false,
-        message: "Internal server error",
-        err: error.message,
-      });
+    res.status(500).json({
+      success: false,
+      message: "Internal server error",
+      err: error.message,
+    });
   }
 };

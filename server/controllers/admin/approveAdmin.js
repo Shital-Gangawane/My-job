@@ -1,4 +1,4 @@
-const Admin = require("../../models/admin/admin.js");
+const { conn, Admin } = require("../../models/admin/admin.js");
 
 module.exports.approveAdmin = async (req, res) => {
   try {

@@ -1,4 +1,4 @@
-const Admin = require("../../models/admin/admin.js");
+const { conn, Admin } = require("../../models/admin/admin.js");
 const Candidate = require("../../models/candidate/candidate.js");
 const Employer = require("../../models/employer/employer.js");
 
