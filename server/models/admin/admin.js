@@ -1,9 +1,5 @@
 const mongoose = require("mongoose");
 
-// Create a separate connection
-const conn = mongoose.createConnection(process.env.MONGODB_URL);
-
-// Define your schema
 const adminSchema = new mongoose.Schema({
   name: {
     type: String,
@@ -61,10 +57,6 @@ const adminSchema = new mongoose.Schema({
   ],
 });
 
-// Create model using the connection instance
-const Admin = conn.model("Admin", adminSchema);
+const Admin = mongoose.model("Admin", adminSchema);
 
-module.exports = {
-  conn, // Export the connection instance
-  Admin, // Export the model
-};
+module.exports = Admin;
