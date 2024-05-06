@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { Outlet, useNavigate } from "react-router-dom";
 import Nav from "../../components/Nav/Nav";
+import EmployerContextProvider from "../../context/userContext";
 
 export default function Employer() {
   const navigate = useNavigate();

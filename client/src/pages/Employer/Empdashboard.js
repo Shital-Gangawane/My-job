@@ -30,6 +30,7 @@ import { RiDeleteBin5Line } from "react-icons/ri";
 import { TfiPowerOff } from "react-icons/tfi";
 import { IoMenuSharp } from "react-icons/io5";
 import { motion, AnimatePresence } from "framer-motion";
+import { useUserContext } from "../../context/userContext";
 
 const buttons = [
   {
@@ -103,6 +104,7 @@ const Empdashboard = () => {
   const [isSelected, setIsSelected] = useState(0);
   const [isMobile, setIsMobile] = useState(false);
   const [isSideBarOpen, setIsSideBarOpen] = useState(false);
+  const { user } = useUserContext();
 
   // Function to check if the screen is mobile
   const checkMobileScreen = () => {
@@ -164,16 +166,17 @@ const Empdashboard = () => {
     >
       {!isMobile && (
         <Slidebar
+          data={user}
           buttons={buttons}
           isSelected={isSelected}
           setIsSelected={setIsSelected}
         />
       )}
       {isMobile && (
-        <>
+        <div>
           <div
             onClick={toggleSidebar}
-            className="bg-[#f5f7fc] py-7 px-4 flex items-center gap-1 text-[#6ad61d] cursor-pointer"
+            className="bg-[#f5f7fc] py-7 px-4 inline-flex  items-center gap-1 text-[#6ad61d] cursor-pointer"
           >
             <IoMenuSharp size={20} />
             <p>Show Sidebar</p>
@@ -188,6 +191,7 @@ const Empdashboard = () => {
                 className="sidebar-mobile"
               >
                 <Slidebar
+                  data={user}
                   buttons={buttons}
                   isSelected={isSelected}
                   setIsSelected={setIsSelected}
@@ -198,7 +202,7 @@ const Empdashboard = () => {
               </motion.div>
             )}
           </AnimatePresence>
-        </>
+        </div>
       )}
       <div className=" w-full h-full bg-[#f5f7fc] overflow-y-auto">
         <RenderComponent index={isSelected} />

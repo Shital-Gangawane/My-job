@@ -8,13 +8,16 @@ const PostJob = ({ setIsAddJobOn }) => {
     company: "",
     jobDescription: "",
     jobLocation: "",
-    experienceRequired: "",
+    minExperience: "",
+    maxExperience: "",
     isRemote: false,
-    salaryRange: "",
+    minSalary: "",
+    maxSalary: "",
     keySkills: "",
   });
-  const { adminToken } = useAdminContext();
+  const { adminToken, allEmployers } = useAdminContext();
 
+  const approvedEmployers = allEmployers?.filter((emp) => emp?.isApproved);
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
     setJobData((prevJobData) => ({
@@ -34,9 +37,11 @@ const PostJob = ({ setIsAddJobOn }) => {
       company: "",
       jobDescription: "",
       jobLocation: "",
-      experienceRequired: "",
+      minExperience: "",
+      maxExperience: "",
       isRemote: false,
-      salaryRange: "",
+      minSalary: "",
+      maxSalary: "",
       keySkills: "",
     });
   };
@@ -66,7 +71,7 @@ const PostJob = ({ setIsAddJobOn }) => {
           <label htmlFor="company" className="block font-medium">
             Company
           </label>
-          <input
+          <select
             type="text"
             id="company"
             name="company"
@@ -74,8 +79,16 @@ const PostJob = ({ setIsAddJobOn }) => {
             onChange={handleChange}
             className="w-full px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:border-blue-500"
             required
-          />
+          >
+            <option value="">Select company</option>
+            {approvedEmployers?.map((employer) => (
+              <option key={employer?._id} value={employer?.companyName}>
+                {employer?.companyName}
+              </option>
+            ))}
+          </select>
         </div>
+
         <div>
           <label htmlFor="jobDescription" className="block font-medium">
             Job Description
@@ -105,29 +118,53 @@ const PostJob = ({ setIsAddJobOn }) => {
         </div>
         <div>
           <label htmlFor="experienceRequired" className="block font-medium">
-            Years of Experience Required
+            Experience
           </label>
-          <input
-            type="text"
-            id="experienceRequired"
-            name="experienceRequired"
-            value={jobData.experienceRequired}
-            onChange={handleChange}
-            className="w-full px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:border-blue-500"
-          />
+          <div className="flex w-full gap-4">
+            <input
+              type="text"
+              id="minExperience"
+              placeholder="min"
+              name="minExperience"
+              value={jobData.minExperience}
+              onChange={handleChange}
+              className="w-full px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:border-blue-500"
+            />
+            <input
+              type="text"
+              id="maxExperience"
+              name="maxExperience"
+              placeholder="max"
+              value={jobData.maxExperience}
+              onChange={handleChange}
+              className="w-full px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:border-blue-500"
+            />
+          </div>
         </div>
         <div>
           <label htmlFor="salaryRange" className="block font-medium">
             Salary
           </label>
-          <input
-            type="text"
-            id="salaryRange"
-            name="salaryRange"
-            value={jobData.salaryRange}
-            onChange={handleChange}
-            className="w-full px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:border-blue-500"
-          />
+          <div className=" flex w-full gap-4">
+            <input
+              type="text"
+              id="minSalary"
+              name="minSalary"
+              placeholder="min"
+              value={jobData.minSalary}
+              onChange={handleChange}
+              className="w-full px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:border-blue-500"
+            />
+            <input
+              type="text"
+              id="maxSalary"
+              name="maxSalary"
+              placeholder="max"
+              value={jobData.maxSalary}
+              onChange={handleChange}
+              className="w-full px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:border-blue-500"
+            />
+          </div>
         </div>
         <div>
           <label htmlFor="keySkills" className="block font-medium">

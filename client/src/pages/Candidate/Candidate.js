@@ -1,11 +1,19 @@
-import React from "react";
-import { Link, NavLink, Outlet } from "react-router-dom";
+import React, { useEffect } from "react";
+import { Outlet, useNavigate } from "react-router-dom";
+import Nav from "../../components/Nav/Nav";
 
 export default function Candidate() {
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    navigate("/candidate/dashboard");
+  }, []);
   return (
-    <div className=" pt-32">
-      <NavLink to={"/candidate/dashboard"}>Go to dashboard</NavLink>
-      <Outlet />
+    <div className=" w-full h-auto bg-white">
+      <Nav bgColor="bg-white fixed shadow-md" employer />
+      <div className="">
+        <Outlet />
+      </div>
     </div>
   );
 }

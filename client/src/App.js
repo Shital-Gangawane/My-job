@@ -14,7 +14,7 @@ import Login from "./pages/Login/Login";
 import Register from "./pages/Register/Register";
 import Admin from "./pages/Admin/Admin";
 import AdminDashboard from "./pages/Admin/Dashboard";
-import CandidateDashboard from "./pages/Candidate/Dashboard";
+import CandidateDashboard from "./pages/Candidate/CandidateDashboard";
 import Candidate from "./pages/Candidate/Candidate";
 import CandidateModule from "./pages/Admin/CandidateModule";
 import Jobs from "./pages/Admin/Jobs";
@@ -40,7 +40,7 @@ import Changepassword from "./pages/Employer/DashboardData/Changepassword";
 import Deleteprofile from "./pages/Employer/DashboardData/Deleteprofile";
 import Logout from "./pages/Employer/DashboardData/Logout";
 import Meeting from "./pages/Employer/DashboardData/Meeting";
-import Slidebar from "./pages/Employer/DashboardData/Slidebar";
+import UserContextProvider from "./context/userContext";
 
 // import { useSelector } from "react-redux";
 // import { SelectUser } from "./features/userSlice";
@@ -110,7 +110,11 @@ function App() {
   //   </div>
   // )
 
-  return <RouterProvider router={router} />;
+  return (
+    <UserContextProvider>
+      <RouterProvider router={router}></RouterProvider>
+    </UserContextProvider>
+  );
 }
 
 export default App;

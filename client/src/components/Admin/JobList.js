@@ -48,7 +48,7 @@ export default function JobList({ jobs }) {
             <div className=" flex justify-between">
               <p className="text-gray-500">Location: {job.jobLocation}</p>
               <p className="text-gray-500">
-                Exp: {job.experienceRequired} years
+                Exp: {job.minExperience}-{job.maxExperience} years
               </p>
               <p className="text-gray-500">Skills: {job.keySkills}</p>
             </div>

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Container from "react-bootstrap/Container";
 import Card from "react-bootstrap/Card";
 import Col from "react-bootstrap/Col";
@@ -10,42 +10,69 @@ import { IoBookmarkOutline } from "react-icons/io5";
 import UserDashboardProfileViews from "../../../components/Employer/DashboardData/UserDashboardProfileViews";
 import UserDashboardNotifications from "../../../components/Employer/DashboardData/UserDashboardNotifications";
 import UserDashboardRecent from "../../../components/Employer/DashboardData/UserDashboardRecent";
+import { useUserContext } from "../../../context/userContext";
+import { fetchUser } from "../../../api/employer/axios";
 
-const statsData = [
-  {
-    name: "Posted Jobs",
-    count: 0,
-    url: "#",
-    icon: <HiOutlineBriefcase size={35} className="  text-blue-600 rounded " />,
-    color: "blue",
-    bgColor: "bg-blue-100",
-  },
-  {
-    name: "Application",
-    count: 0,
-    url: "#",
-    icon: <SlNote size={35} className="  text-red-600 rounded " />,
-    color: "red",
-    bgColor: "bg-red-100",
-  },
-  {
-    name: "Review",
-    count: 0,
-    url: "#",
-    icon: <AiOutlineMessage size={35} className="  text-yellow-600 rounded " />,
-    color: "yellow",
-    bgColor: "bg-yellow-100",
-  },
-  {
-    name: "Shortlisted",
-    count: 0,
-    url: "#",
-    icon: <IoBookmarkOutline size={35} className="  text-green-600 rounded" />,
-    color: "green",
-    bgColor: "bg-green-100",
-  },
-];
 function Userdashboard() {
+  const { user, setUser, fetchData } = useUserContext();
+  const [userData, setUserData] = useState(user);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const userType = sessionStorage.getItem("userType");
+      if (userType && user?._id) {
+        const res = await fetchUser(userType, user?._id);
+        const newUser = res?.data?.employer;
+        if (JSON.stringify(user) !== JSON.stringify(newUser)) {
+          sessionStorage.setItem("user", JSON.stringify(newUser));
+          setUser(newUser);
+        }
+      }
+    };
+
+    fetchData();
+  }, [user?._id, setUser]); // Depend on user._id specifically if that's the main identifier
+
+  const statsData = [
+    {
+      name: "Posted Jobs",
+      count: userData?.postedJobs?.length,
+      url: "#",
+      icon: (
+        <HiOutlineBriefcase size={35} className="  text-blue-600 rounded " />
+      ),
+      color: "blue",
+      bgColor: "bg-blue-100",
+    },
+    {
+      name: "Application",
+      count: 0,
+      url: "#",
+      icon: <SlNote size={35} className="  text-red-600 rounded " />,
+      color: "red",
+      bgColor: "bg-red-100",
+    },
+    {
+      name: "Review",
+      count: 0,
+      url: "#",
+      icon: (
+        <AiOutlineMessage size={35} className="  text-yellow-600 rounded " />
+      ),
+      color: "yellow",
+      bgColor: "bg-yellow-100",
+    },
+    {
+      name: "Shortlisted",
+      count: 0,
+      url: "#",
+      icon: (
+        <IoBookmarkOutline size={35} className="  text-green-600 rounded" />
+      ),
+      color: "green",
+      bgColor: "bg-green-100",
+    },
+  ];
   return (
     <div className=" w-full h-auto lg:mt-14 px-4 lg:px-14 overflow-y-auto py-7 pb-14">
       <h2 className=" text-lg text-[#202124] lg:text-3xl mb-10 font-medium">

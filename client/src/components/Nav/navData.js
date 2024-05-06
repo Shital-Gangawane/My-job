@@ -17,7 +17,7 @@ export const navigationLinks = [
   },
   {
     label: "Find Jobs",
-    url: "#",
+    url: "/job/search-results",
     hasDropdown: true,
     dropdownOptions: [
       {
@@ -33,7 +33,7 @@ export const navigationLinks = [
   },
   {
     label: "Employers",
-    url: "/employer",
+    url: "/employer/dashboard",
     hasDropdown: true,
     dropdownOptions: [
       {
@@ -49,7 +49,7 @@ export const navigationLinks = [
   },
   {
     label: "Candidates",
-    url: "/candidate",
+    url: "/candidate/dashboard",
     hasDropdown: true,
     dropdownOptions: [
       {
