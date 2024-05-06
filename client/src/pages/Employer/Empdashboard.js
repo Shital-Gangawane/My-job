@@ -31,6 +31,7 @@ import { TfiPowerOff } from "react-icons/tfi";
 import { IoMenuSharp } from "react-icons/io5";
 import { motion, AnimatePresence } from "framer-motion";
 import { useUserContext } from "../../context/userContext";
+import Footer from "./DashboardData/Footer";
 
 const buttons = [
   {
@@ -108,7 +109,7 @@ const Empdashboard = () => {
 
   // Function to check if the screen is mobile
   const checkMobileScreen = () => {
-    setIsMobile(window.innerWidth <= 1039); // Adjust the breakpoint as needed
+    setIsMobile(window.innerWidth <= 1039); //Adjust the breakpoint as needed
   };
 
   // Run the check on component mount and on window resize
@@ -206,6 +207,7 @@ const Empdashboard = () => {
       )}
       <div className=" w-full h-full bg-[#f5f7fc] overflow-y-auto">
         <RenderComponent index={isSelected} />
+        <Footer />
       </div>
     </div>
   );

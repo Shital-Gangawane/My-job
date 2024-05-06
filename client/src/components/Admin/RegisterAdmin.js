@@ -282,7 +282,7 @@ const RegisterAdmin = ({ setIsAddAdminOn, editing, data }) => {
                       key={cat}
                       value={cat}
                       onClick={() => handleCategorySelect(cat)}
-                      className=" cursor-pointer hover:bg-gray-50"
+                      className="cursor-pointer hover:bg-gray-50"
                     >
                       {cat}
                     </li>

@@ -41,6 +41,9 @@ import Deleteprofile from "./pages/Employer/DashboardData/Deleteprofile";
 import Logout from "./pages/Employer/DashboardData/Logout";
 import Meeting from "./pages/Employer/DashboardData/Meeting";
 import UserContextProvider from "./context/userContext";
+import Slidebar from "./pages/Employer/DashboardData/Slidebar";
+import RegisterAdmin from "./components/Admin/RegisterAdmin";
+import ProfileMembers from "./pages/Employer/DashboardData/ProfileMembers/ProfileMembers";
 
 // import { useSelector } from "react-redux";
 // import { SelectUser } from "./features/userSlice";
@@ -54,6 +57,8 @@ import UserContextProvider from "./context/userContext";
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<Layout />}>
+      <Route path="profilemember" element={<ProfileMembers />} />
+
       <Route path="" element={<LandingPage />} />
       {/*searched Jobs on landing page*/}
       <Route path="job" element={<Job />}>
