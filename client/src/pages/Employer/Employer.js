@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { Outlet, useNavigate } from "react-router-dom";
 import Nav from "../../components/Nav/Nav";
+import Footer from "./DashboardData/Footer";
 
 export default function Employer() {
   const navigate = useNavigate();
@@ -13,6 +14,7 @@ export default function Employer() {
       <Nav bgColor="bg-white fixed shadow-md" employer />
       <div className="">
         <Outlet />
+       
       </div>
     </div>
   );
