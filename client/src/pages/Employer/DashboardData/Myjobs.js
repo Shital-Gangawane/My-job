@@ -3,7 +3,8 @@ import React, { useState } from "react";
 function Myjobs() {
   const [myJobs, setMyJobs] = useState([]);
   return (
-    <div className=" w-full h-auto  lg:mt-14 px-4 lg:px-14 overflow-y-auto py-7 pb-14">
+    //className= lg:mt-14 px-4 lg:px-14 py-7 
+    <div className=" w-full h-auto   overflow-y-auto pb-14">
       <h1 className=" text-lg text-[#202124] lg:text-3xl mb-10 font-medium">
         Manage Jobs
       </h1>

@@ -50,7 +50,7 @@ function Profile() {
   }, []);
 
   return (
-    <div className=" w-full h-auto lg:mt-14 px-4 lg:px-14 overflow-y-auto py-7 pb-14">
+    <div className=" w-full h-auto  overflow-y-auto ">
       <h2 className=" text-lg text-[#202124] lg:text-3xl mb-10 font-medium">
         Edit Profile
       </h2>
@@ -99,7 +99,7 @@ function Profile() {
               <input
                 type="email"
                 id="large-input"
-                className="block w-full p-5  bg-gray-100 border-gray-300 focus:outline-[#6ad61d] text-gray-900 border rounded-lg text-base focus:ring-[#6ad61d] focus:border-[#6ad61d] dark:bg-gray-100 dark:border-none dark:placeholder-gray-400 dark:gray-900 dark:focus:ring-[#6ad61d] dark:focus:border-[#6ad61d]"
+                className="block w-full p-5 bg-gray-100 border-gray-300 focus:outline-[#6ad61d] text-gray-900 border rounded-lg text-base focus:ring-[#6ad61d] focus:border-[#6ad61d] dark:bg-gray-100 dark:border-none dark:placeholder-gray-400 dark:gray-900 dark:focus:ring-[#6ad61d] dark:focus:border-[#6ad61d]"
                 placeholder="name@gmail.com"
                 required
               />

@@ -30,6 +30,7 @@ import { RiDeleteBin5Line } from "react-icons/ri";
 import { TfiPowerOff } from "react-icons/tfi";
 import { IoMenuSharp } from "react-icons/io5";
 import { motion, AnimatePresence } from "framer-motion";
+import { useUserContext } from "../../context/userContext";
 import Footer from "./DashboardData/Footer";
 
 const buttons = [
@@ -104,6 +105,7 @@ const Empdashboard = () => {
   const [isSelected, setIsSelected] = useState(0);
   const [isMobile, setIsMobile] = useState(false);
   const [isSideBarOpen, setIsSideBarOpen] = useState(false);
+  const { user } = useUserContext();
 
   // Function to check if the screen is mobile
   const checkMobileScreen = () => {
@@ -165,6 +167,7 @@ const Empdashboard = () => {
     >
       {!isMobile && (
         <Slidebar
+        data={user}
           buttons={buttons}
           isSelected={isSelected}
           setIsSelected={setIsSelected}
@@ -189,16 +192,20 @@ const Empdashboard = () => {
                 className="sidebar-mobile"
               >
                 <Slidebar
+                  data={user}
                   buttons={buttons}
                   isSelected={isSelected}
                   setIsSelected={setIsSelected}
+                  onClose={toggleSidebar}
+                  isOpen={isSideBarOpen}
+                  isMobile
                 />
               </motion.div>
             )}
           </AnimatePresence>
         </>
       )}
-      <div className=" w-full h-full bg-[#f5f7fc] overflow-y-auto">
+      <div className=" lg:px-14 py-16 px-14 w-full h-full bg-[#f5f7fc] overflow-y-auto">
         <RenderComponent index={isSelected} />
         <Footer/>
       </div>
