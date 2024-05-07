@@ -7,17 +7,18 @@ import { RiAdminFill } from "react-icons/ri";
 import { useAdminContext } from "../../context/adminContext";
 
 export default function Dashboard() {
-  const { adminData, allAdmins, jobs, allEmployers } = useAdminContext();
+  const { adminData, allAdmins, jobs, allEmployers, allCandidates } =
+    useAdminContext();
   return (
     <div className="w-full flex flex-col h-screen bg-gray-400">
       <div className="w-full bg-gray-800 text-white p-6 flex justify-between">
         <p className="text-lg font-semibold ms-12 ">Dashboard</p>
         <p>Hi, {adminData?.name.split(" ")[0]}!</p>
       </div>
-      <div className="overflow-auto flex flex-wrap justify-evenly mt-6 gap-2 p-6">
+      <div className="overflow-auto flex flex-wrap justify-evenly  gap-2 p-6">
         <Card
           title="Candidates"
-          count="2500"
+          count={allCandidates?.length}
           icon={<BsPerson size={70} color="orange" />}
         />
         <Card
@@ -37,6 +38,11 @@ export default function Dashboard() {
             icon={<RiAdminFill size={70} color="purple" />}
           />
         )}
+        <div className=" w-full mt-6 pb-5 lg:px-16">
+          <div className=" w-full h-96 bg-white rounded-lg shadow-lg p-7">
+            <p className="text-lg font-medium">Recent Activities</p>
+          </div>
+        </div>
       </div>
     </div>
   );

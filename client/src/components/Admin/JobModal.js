@@ -67,30 +67,48 @@ export default function JobModal({ job, onClose, onSave }) {
           <p className="text-gray-500">
             <span className="font-bold">Experience:</span>{" "}
             {isEditMode ? (
-              <input
-                className=" border px-2"
-                type="text"
-                name="experienceRequired"
-                value={editableJob.experienceRequired}
-                onChange={handleChange}
-              />
+              <>
+                <input
+                  className=" border px-2"
+                  type="text"
+                  name="experienceRequired"
+                  value={editableJob.minExperience}
+                  onChange={handleChange}
+                />
+                <input
+                  className=" border px-2"
+                  type="text"
+                  name="experienceRequired"
+                  value={editableJob.maxExperience}
+                  onChange={handleChange}
+                />
+              </>
             ) : (
-              job.experienceRequired
+              `${job.minExperience}-${job.maxExperience}`
             )}{" "}
             years
           </p>
           <p className="text-gray-500">
             <span className="font-bold">Salary:</span>{" "}
             {isEditMode ? (
-              <input
-                className=" border px-2 "
-                type="text"
-                name="salaryRange"
-                value={editableJob.salaryRange}
-                onChange={handleChange}
-              />
+              <>
+                <input
+                  className=" border px-2 "
+                  type="text"
+                  name="salaryRange"
+                  value={editableJob.minSalary}
+                  onChange={handleChange}
+                />
+                <input
+                  className=" border px-2 "
+                  type="text"
+                  name="salaryRange"
+                  value={editableJob.maxSalary}
+                  onChange={handleChange}
+                />
+              </>
             ) : (
-              job.salaryRange
+              `${job.minSalary}-${job.maxSalary}`
             )}
             /month
           </p>

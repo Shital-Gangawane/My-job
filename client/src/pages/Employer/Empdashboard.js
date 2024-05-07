@@ -109,7 +109,7 @@ const Empdashboard = () => {
 
   // Function to check if the screen is mobile
   const checkMobileScreen = () => {
-    setIsMobile(window.innerWidth <= 1039);    //Adjust the breakpoint as needed
+    setIsMobile(window.innerWidth <= 1039); //Adjust the breakpoint as needed
   };
 
   // Run the check on component mount and on window resize
@@ -163,21 +163,20 @@ const Empdashboard = () => {
     <div
       className={`flex ${
         isMobile && "flex-col"
-      } h-screen w-screen overflow-hidden pt-16 lg:pt-28 `}
+      } h-screen w-screen overflow-hidden pt-16 xl:pt-28`}
     >
       {!isMobile && (
         <Slidebar
-        data={user}
           buttons={buttons}
           isSelected={isSelected}
           setIsSelected={setIsSelected}
         />
       )}
       {isMobile && (
-        <>
+        <div className="bg-[#f5f7fc]">
           <div
             onClick={toggleSidebar}
-            className="bg-[#f5f7fc] py-7 px-4 flex items-center gap-1 text-[#6ad61d] cursor-pointer"
+            className="bg-[#f5f7fc] py-7 px-4 inline-flex  items-center gap-1 text-[#6ad61d] cursor-pointer"
           >
             <IoMenuSharp size={20} />
             <p>Show Sidebar</p>
@@ -203,15 +202,13 @@ const Empdashboard = () => {
               </motion.div>
             )}
           </AnimatePresence>
-        </>
+        </div>
       )}
-      <div className=" lg:px-14 py-16 px-14 w-full h-full bg-[#f5f7fc] overflow-y-auto">
+      <div className=" w-full h-full bg-[#f5f7fc] overflow-y-auto">
         <RenderComponent index={isSelected} />
-        <Footer/>
+        <Footer />
       </div>
-      
     </div>
-    
   );
 };
 

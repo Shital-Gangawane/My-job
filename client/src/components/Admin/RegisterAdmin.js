@@ -357,7 +357,7 @@ const RegisterAdmin = ({ setIsAddAdminOn, editing, data }) => {
           </div>
 
           <div className="flex flex-col space-y-1 ">
-            <button type="submit" className="primary-btn">
+            <button type="submit" className="primary-btn capitalize">
               {editing ? "Save" : "Create Admin"}
             </button>
             <button

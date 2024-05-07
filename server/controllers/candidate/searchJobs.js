@@ -22,6 +22,8 @@ module.exports.searchJobs = async (req, res) => {
 
     return res.status(200).json({ success: true, jobs });
   } catch (error) {
-    return res.status(500).json({ success: false, message: "Server error" });
+    return res
+      .status(500)
+      .json({ success: false, message: "Server error", err: error.message });
   }
 };

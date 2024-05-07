@@ -1,4 +1,4 @@
-import React, { useState ,useEffect, useRef} from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { BsTypeBold } from "react-icons/bs";
 import { BiItalic } from "react-icons/bi";
 import { RiDoubleQuotesL } from "react-icons/ri";
@@ -22,15 +22,13 @@ import { LuUndo2 } from "react-icons/lu";
 import { GrRedo } from "react-icons/gr";
 import GoogleMap from "./GoogleMap";
 import SelectCategories from "./SelectCategories/SelectCategories";
-import ProfileMembersForm from "./ProfileMembers/ProfileMembersForm";
 import ProfileMembers from "./ProfileMembers/ProfileMembers";
 // import { Dropdown } from "./SelectCategories/DropdownForCategories";
 // import { Category } from "./SelectCategories/Categories";
 
 function Profile() {
   const [isOpen, setIsOpen] = useState(false);
-  
- 
+
   const toggleDropdown = () => {
     setIsOpen(!isOpen);
   };
@@ -44,8 +42,8 @@ function Profile() {
   const targetDivRef = useRef(null);
 
   useEffect(() => {
-    if (window.location.hash === '#scrollIntoView') {
-      targetDivRef.current.scrollIntoView({ behavior: 'smooth' });
+    if (window.location.hash === "#scrollIntoView") {
+      targetDivRef.current.scrollIntoView({ behavior: "smooth" });
     }
   }, []);
 
@@ -54,10 +52,12 @@ function Profile() {
       <h2 className=" text-lg text-[#202124] lg:text-3xl mb-10 font-medium">
         Edit Profile
       </h2>
-      <div className="bg-white p-6 px-10 rounded-lg" id="scrollIntoView"  ref={targetDivRef}>
-        <h2 className=" text-lg text-[#202124]  mb-6 font-bold">
-          Edit Profile
-        </h2>
+      <div
+        className="bg-white p-6 px-10 rounded-lg"
+        // id="scrollIntoView"
+        // ref={targetDivRef}
+      >
+        <h2 className=" text-lg text-[#202124]  mb-6 font-bold">My Profile</h2>
 
         <div className="pb-5">
           <label
@@ -155,8 +155,7 @@ function Profile() {
               />
             </div>
           </div>
-             
-             
+
           <div className="flex flex-wrap -mx-2">
             <div className="mb-5 w-full md:w-1/2 px-2">
               <label
@@ -165,7 +164,7 @@ function Profile() {
               >
                 Categories <span className="">*</span>
               </label>
-              <SelectCategories/>
+              <SelectCategories />
             </div>
 
             <div className="mb-5 w-full md:w-1/2 px-2">
@@ -383,7 +382,7 @@ function Profile() {
               <div className="w-full flex flex-wrap items-center justify-between px-3 py-1  bg-gray-100 border-gray-300 sm:divide-x sm:rtl:divide-x-reverse text-sm sm:text-base">
                 <div className="flex flex-wrap items-center divide-gray-200 sm:divide-x sm:rtl:divide-x-reverse dark:divide-gray-600 text-sm sm:text-base">
                   <div className=" flex  flex-wrap  items-center space-x-1 rtl:space-x-reverse text-sm sm:text-base">
-                    <form class="max-w-sm text-sm sm:text-base">
+                    <form className="max-w-sm text-sm sm:text-base">
                       <select
                         id="countries"
                         className="text-gray-600 bg-white  focus:ring-2 focus:outline-none text-sm px-1 text-center inline-flex items-center dark:bg-white dark:hover:bg-white dark:focus:ring-blue-800"
@@ -397,14 +396,12 @@ function Profile() {
                       </select>
                     </form>
 
-                   
-
                     <button
                       data-tooltip-target="tooltip-default"
                       type="button"
                       className=" text-gray-600 p-2 rounded cursor-pointer  hover:bg-gray-100  focus:ring-2 focus:outline-none text-sm px-2 py-1 text-center inline-flex items-center dark:focus:ring-blue-800 dark:hover:ring-blue-800"
                     >
-                      <BsTypeBold size={20}/>
+                      <BsTypeBold size={20} />
                     </button>
 
                     <div
@@ -420,25 +417,25 @@ function Profile() {
                       type="button"
                       className=" text-gray-600 p-2 rounded cursor-pointer  hover:bg-gray-100  focus:ring-2 focus:outline-none text-sm px-2 py-1 text-center inline-flex items-center dark:focus:ring-blue-800"
                     >
-                      <BiItalic size={20}/>
+                      <BiItalic size={20} />
                     </button>
                     <button
                       type="button"
                       className=" text-gray-600 p-2 rounded cursor-pointer  hover:bg-gray-100  focus:ring-2 focus:outline-none text-sm px-2 py-1 text-center inline-flex items-center dark:focus:ring-blue-800"
                     >
-                      <RiDoubleQuotesL size={20}/>
+                      <RiDoubleQuotesL size={20} />
                     </button>
                     <button
                       type="button"
                       className=" text-gray-600 p-2 rounded cursor-pointer  hover:bg-gray-100  focus:ring-2 focus:outline-none text-sm px-2 py-1 text-center inline-flex items-center dark:focus:ring-blue-800"
                     >
-                      <MdFormatListBulleted size={20}/>
+                      <MdFormatListBulleted size={20} />
                     </button>
                     <button
                       type="button"
                       className=" text-gray-600 p-2 rounded cursor-pointer  hover:bg-gray-100  focus:ring-2 focus:outline-none text-sm px-2 py-1 text-center inline-flex items-center dark:focus:ring-blue-800"
                     >
-                      <MdFormatListNumbered size={20}/>
+                      <MdFormatListNumbered size={20} />
                     </button>
 
                     <button
@@ -486,7 +483,7 @@ function Profile() {
                     <button
                       type="button"
                       className=" text-gray-600 p-2 rounded cursor-pointer  hover:bg-gray-100  focus:ring-2 focus:outline-none text-sm px-2 py-1 text-center inline-flex items-center dark:focus:ring-blue-800"
-                      >
+                    >
                       <GrRedo size={20} />
                     </button>
                   </div>
@@ -497,33 +494,37 @@ function Profile() {
               <div className=" flex flex-wrap w-full items-center justify-between px-3  border-b bg-gray-100 border-gray-300 sm:divide-x sm:rtl:divide-x-reverse text-sm sm:text-base">
                 <div className=" flex flex-wrap items-center divide-gray-200 sm:divide-x sm:rtl:divide-x-reverse dark:divide-gray-600 text-sm sm:text-base">
                   <div className="flex flex-wrap items-center space-x-1 rtl:space-x-reverse text-sm sm:text-base">
-                  <form class="flex flex-wrap max-w-sm text-sm sm:text-base">
-
-<select id="countries" className="text-gray-600 bg-white  focus:ring-2 focus:outline-none text-sm px-1 text-center inline-flex items-center dark:bg-white dark:hover:bg-white dark:focus:ring-blue-800"
-  ><option selected>Arial Blank</option>
-<option value="US">Monospace</option>
-<option value="CA">arial</option>
-<option value="FR">Times in romans</option>
-<option value="DE">impacts</option>
-<option value="DE">Terminal</option>
-</select>
-</form>
-<form class="max-w-sm ">
-
-<select id="countries" className="text-gray-600 bg-white px-6 ms-2 focus:ring-2 focus:outline-none text-sm text-center inline-flex items-center dark:bg-white dark:hover:bg-white dark:focus:ring-blue-800"
-  ><option selected>12pt</option>
-<option value="US">14pt</option>
-<option value="CA">16pt</option>
-<option value="FR">18pt</option>
-<option value="DE">20pt</option>
-</select>
-</form>
+                    <form className="flex flex-wrap max-w-sm text-sm sm:text-base">
+                      <select
+                        id="countries"
+                        className="text-gray-600 bg-white  focus:ring-2 focus:outline-none text-sm px-1 text-center inline-flex items-center dark:bg-white dark:hover:bg-white dark:focus:ring-blue-800"
+                      >
+                        <option selected>Arial Blank</option>
+                        <option value="US">Monospace</option>
+                        <option value="CA">arial</option>
+                        <option value="FR">Times in romans</option>
+                        <option value="DE">impacts</option>
+                        <option value="DE">Terminal</option>
+                      </select>
+                    </form>
+                    <form className="max-w-sm ">
+                      <select
+                        id="countries"
+                        className="text-gray-600 bg-white px-6 ms-2 focus:ring-2 focus:outline-none text-sm text-center inline-flex items-center dark:bg-white dark:hover:bg-white dark:focus:ring-blue-800"
+                      >
+                        <option selected>12pt</option>
+                        <option value="US">14pt</option>
+                        <option value="CA">16pt</option>
+                        <option value="FR">18pt</option>
+                        <option value="DE">20pt</option>
+                      </select>
+                    </form>
                     <button
                       data-tooltip-target="tooltip-default"
                       type="button"
                       className=" text-gray-600 p-2 rounded cursor-pointer  hover:bg-gray-100  focus:ring-2 focus:outline-none text-sm px-2 py-1 text-center inline-flex items-center dark:focus:ring-blue-800"
                     >
-                      <MdFormatIndentDecrease size={20}/>
+                      <MdFormatIndentDecrease size={20} />
                     </button>
 
                     <div
@@ -539,41 +540,39 @@ function Profile() {
                       type="button"
                       className=" text-gray-600 p-2 rounded cursor-pointer  hover:bg-gray-100  focus:ring-2 focus:outline-none text-sm px-2 py-1 text-center inline-flex items-center dark:focus:ring-blue-800"
                     >
-                      <MdFormatIndentIncrease size={20}/>
+                      <MdFormatIndentIncrease size={20} />
                     </button>
                     <button
                       type="button"
                       className=" text-gray-600 p-2 rounded cursor-pointer  hover:bg-gray-100  focus:ring-2 focus:outline-none text-sm px-2 py-1 text-center inline-flex items-center dark:focus:ring-blue-800"
                     >
-                      <MdContentPaste size={20}/>
+                      <MdContentPaste size={20} />
                     </button>
                     <button
                       type="button"
                       className=" text-gray-600 p-2 rounded cursor-pointer  hover:bg-gray-100  focus:ring-2 focus:outline-none text-sm px-2 py-1 text-center inline-flex items-center dark:focus:ring-blue-800"
                     >
-                      <MdFormatClear size={20}/>
+                      <MdFormatClear size={20} />
                     </button>
                     <button
                       type="button"
                       className=" text-gray-600 p-2 rounded cursor-pointer  hover:bg-gray-100  focus:ring-2 focus:outline-none text-sm px-2 py-1 text-center inline-flex items-center dark:focus:ring-blue-800"
                     >
-                      <MdInsertPageBreak size={20}/>
+                      <MdInsertPageBreak size={20} />
                     </button>
 
                     <button
                       type="button"
                       className=" text-gray-600 p-2 rounded cursor-pointer  hover:bg-gray-100  focus:ring-2 focus:outline-none text-sm px-2 py-1 text-center inline-flex items-center dark:focus:ring-blue-800"
                     >
-                      <BsTable size={20}/>
+                      <BsTable size={20} />
                     </button>
                     <button
                       type="button"
                       className=" text-gray-600 p-2 rounded cursor-pointer  hover:bg-gray-100  focus:ring-2 focus:outline-none text-sm px-2 py-1 text-center inline-flex items-center dark:focus:ring-blue-800"
                     >
-                      <FaQuestionCircle size={20}/>
+                      <FaQuestionCircle size={20} />
                     </button>
-                    
-                 
                   </div>
                 </div>
               </div>
@@ -603,115 +602,110 @@ function Profile() {
         </button>
       </div>
 
-        <div>
-          {/* <ProfileMembers/> */}
-        </div>
+      <div>
+        <ProfileMembers />
+      </div>
 
       <div className="bg-white p-6 mt-5 px-10 rounded-lg block">
-      <h2 className=" text-lg text-[#202124]  mb-6 font-bold">
+        <h2 className=" text-lg text-[#202124]  mb-6 font-bold">
           Social Networks
         </h2>
       </div>
 
       <div className="bg-white p-6 mt-5 px-10 rounded-lg block">
-      <h2 className=" text-lg text-[#202124]  mb-6 font-bold">
+        <h2 className=" text-lg text-[#202124]  mb-6 font-bold">
           Contact Information
         </h2>
         <form className="">
-        <div className="flex flex-wrap -mx-2">
-                <div className="mb-5 w-full  ">
-                  <label
-                    htmlFor="name"
-                    className="block  text-sm font-bold text-gray-900 pt-2 px-5 py-2"
-                  > Location
-                  </label>
-                
-                <select id="countries large-input" className="block w-full p-5  bg-gray-100 border-gray-300 focus:outline-[#6ad61d] text-gray-900 border rounded-lg text-base focus:ring-[#6ad61d] focus:border-[#6ad61d] dark:bg-gray-100 dark:border-none dark:placeholder-gray-400 dark:gray-900 dark:focus:ring-[#6ad61d] dark:focus:border-[#6ad61d]
-                    ">
-               <option selected>Choose a country</option>
-               </select>
-               </div>
-                </div>
-               
-               <div className="flex flex-wrap -mx-2">
-               <div className="mb-5 w-full  ">
-                  <label
-                    htmlFor="name"
-                    className="block  text-sm font-bold text-gray-900 pt-2 px-5 py-2"
-                  >
-                    Friendly Location
-                  </label>
-                  
-                  <input
-                    type="text"
-                    name="location"
-                    id="large-input"
-                    className="block w-full p-5  bg-gray-100 border-gray-300 focus:outline-[#6ad61d] text-gray-900 border rounded-lg text-base focus:ring-[#6ad61d] focus:border-[#6ad61d] dark:bg-gray-100 dark:border-none dark:placeholder-gray-400 dark:gray-900 dark:focus:ring-[#6ad61d] dark:focus:border-[#6ad61d]"
-                    
-                  />
-                </div>
-                </div>
+          <div className="flex flex-wrap -mx-2">
+            <div className="mb-5 w-full  ">
+              <label
+                htmlFor="name"
+                className="block  text-sm font-bold text-gray-900 pt-2 px-5 py-2"
+              >
+                {" "}
+                Location
+              </label>
 
-                <div className="flex flex-wrap -mx-2">
-               <div className="mb-5 w-full  ">
-                  <label
-                    htmlFor="name"
-                    className="block  text-sm font-bold text-gray-900 pt-2 px-5 py-2"
-                  >
-                   Map Location
-                  </label>
-                  
-                  <input
-                    type="text"
-                    name="location"
-                    id="large-input"
-                    className="block w-full p-5  bg-gray-100 border-gray-300 focus:outline-[#6ad61d] text-gray-900 border rounded-lg text-base focus:ring-[#6ad61d] focus:border-[#6ad61d] dark:bg-gray-100 dark:border-none dark:placeholder-gray-400 dark:gray-900 dark:focus:ring-[#6ad61d] dark:focus:border-[#6ad61d]"
-                    
-                  />
-                </div>
-                </div>
-                <div className="flex flex-wrap -mx-2">
-                <div className="w-full mb-5">
-                  <GoogleMap  />
-                </div>
-                </div>
+              <select
+                id="countries large-input"
+                className="block w-full p-5  bg-gray-100 border-gray-300 focus:outline-[#6ad61d] text-gray-900 border rounded-lg text-base focus:ring-[#6ad61d] focus:border-[#6ad61d] dark:bg-gray-100 dark:border-none dark:placeholder-gray-400 dark:gray-900 dark:focus:ring-[#6ad61d] dark:focus:border-[#6ad61d]
+                    "
+              >
+                <option selected>Choose a country</option>
+              </select>
+            </div>
+          </div>
 
-                <div className="flex flex-wrap -mx-2">
-               <div className="mb-5 w-full md:w-1/2 px-2">
-               <input
-               placeholder="Latitude"
-                    type="text"
-                    name="location"
-                    id="large-input"
-                    className="block w-full p-5  bg-gray-100 border-gray-300 focus:outline-[#6ad61d] text-gray-900 border rounded-lg text-base focus:ring-[#6ad61d] focus:border-[#6ad61d] dark:bg-gray-100 dark:border-none dark:placeholder-gray-400 dark:gray-900 dark:focus:ring-[#6ad61d] dark:focus:border-[#6ad61d]"
-                    
-                  />
-                  </div>
-               <div className="mb-5 w-full md:w-1/2 px-2">
-                  
-                  <input
-                  placeholder="longitude"
-                    type="text"
-                    name="location"
-                    id="large-input"
-                    className="block w-full p-5 bg-gray-100 border-gray-300 focus:outline-[#6ad61d] text-gray-900 border rounded-lg text-base focus:ring-[#6ad61d] focus:border-[#6ad61d] dark:bg-gray-100 dark:border-none dark:placeholder-gray-400 dark:gray-900 dark:focus:ring-[#6ad61d] dark:focus:border-[#6ad61d]"
-                    
-                  />
-                </div>
-                </div>
+          <div className="flex flex-wrap -mx-2">
+            <div className="mb-5 w-full  ">
+              <label
+                htmlFor="name"
+                className="block  text-sm font-bold text-gray-900 pt-2 px-5 py-2"
+              >
+                Friendly Location
+              </label>
 
+              <input
+                type="text"
+                name="location"
+                id="large-input"
+                className="block w-full p-5  bg-gray-100 border-gray-300 focus:outline-[#6ad61d] text-gray-900 border rounded-lg text-base focus:ring-[#6ad61d] focus:border-[#6ad61d] dark:bg-gray-100 dark:border-none dark:placeholder-gray-400 dark:gray-900 dark:focus:ring-[#6ad61d] dark:focus:border-[#6ad61d]"
+              />
+            </div>
+          </div>
 
-            </form>
+          <div className="flex flex-wrap -mx-2">
+            <div className="mb-5 w-full  ">
+              <label
+                htmlFor="name"
+                className="block  text-sm font-bold text-gray-900 pt-2 px-5 py-2"
+              >
+                Map Location
+              </label>
 
+              <input
+                type="text"
+                name="location"
+                id="large-input"
+                className="block w-full p-5  bg-gray-100 border-gray-300 focus:outline-[#6ad61d] text-gray-900 border rounded-lg text-base focus:ring-[#6ad61d] focus:border-[#6ad61d] dark:bg-gray-100 dark:border-none dark:placeholder-gray-400 dark:gray-900 dark:focus:ring-[#6ad61d] dark:focus:border-[#6ad61d]"
+              />
+            </div>
+          </div>
+          <div className="flex flex-wrap -mx-2">
+            <div className="w-full mb-5">
+              <GoogleMap />
+            </div>
+          </div>
+
+          <div className="flex flex-wrap -mx-2">
+            <div className="mb-5 w-full md:w-1/2 px-2">
+              <input
+                placeholder="Latitude"
+                type="text"
+                name="location"
+                id="large-input"
+                className="block w-full p-5  bg-gray-100 border-gray-300 focus:outline-[#6ad61d] text-gray-900 border rounded-lg text-base focus:ring-[#6ad61d] focus:border-[#6ad61d] dark:bg-gray-100 dark:border-none dark:placeholder-gray-400 dark:gray-900 dark:focus:ring-[#6ad61d] dark:focus:border-[#6ad61d]"
+              />
+            </div>
+            <div className="mb-5 w-full md:w-1/2 px-2">
+              <input
+                placeholder="longitude"
+                type="text"
+                name="location"
+                id="large-input"
+                className="block w-full p-5 bg-gray-100 border-gray-300 focus:outline-[#6ad61d] text-gray-900 border rounded-lg text-base focus:ring-[#6ad61d] focus:border-[#6ad61d] dark:bg-gray-100 dark:border-none dark:placeholder-gray-400 dark:gray-900 dark:focus:ring-[#6ad61d] dark:focus:border-[#6ad61d]"
+              />
+            </div>
+          </div>
+        </form>
       </div>
       <button
-          type="submit"
-          className="lg:w-auto mt-5 py-3 px-8 bg-[#6ad61d] hover:bg-blue-600 text-white  rounded-lg transition duration-300 ease-in-out"
-          
-        >
-          Save Profile
-        </button>
-
+        type="submit"
+        className="lg:w-auto mt-5 py-3 px-8 bg-[#6ad61d] hover:bg-blue-600 text-white  rounded-lg transition duration-300 ease-in-out"
+      >
+        Save Profile
+      </button>
     </div>
   );
 }

@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import { login } from "../../api/employer/axios";
 import Loader from "../../components/Utility/Loader";
 import Nav from "../../components/Nav/Nav";
+import { useUserContext } from "../../context/userContext";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -11,6 +12,7 @@ const Login = () => {
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false); // Add loading state
   const navigate = useNavigate();
+  const { setUser, setToken } = useUserContext();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -25,9 +27,12 @@ const Login = () => {
           "userType",
           res?.data?.isEmployer ? "employer" : "candidate"
         );
+        sessionStorage.setItem("user", JSON.stringify(res?.data?.user));
 
         // Redirect based on user type
         if (res?.data?.isEmployer) {
+          setUser(res?.data?.user);
+          setToken(res?.data?.token);
           navigate("/employer");
         } else {
           navigate("/candidate");

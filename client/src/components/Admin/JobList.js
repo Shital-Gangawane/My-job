@@ -34,7 +34,7 @@ export default function JobList({ jobs }) {
         jobs?.reverse().map((job) => (
           <div
             key={job._id}
-            className="bg-white shadow-md rounded-md p-4 mb-4 text-xs"
+            className="bg-white shadow-md rounded-md p-4 mb-2 text-xs"
           >
             <div className=" flex items-center justify-between">
               <h2
@@ -48,7 +48,7 @@ export default function JobList({ jobs }) {
             <div className=" flex justify-between">
               <p className="text-gray-500">Location: {job.jobLocation}</p>
               <p className="text-gray-500">
-                Exp: {job.experienceRequired} years
+                Exp: {job.minExperience}-{job.maxExperience} years
               </p>
               <p className="text-gray-500">Skills: {job.keySkills}</p>
             </div>

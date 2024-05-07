@@ -1,5 +1,3 @@
-// AdminOptions.jsx
-
 import React, { useEffect, useRef, useState } from "react";
 import { SlOptionsVertical } from "react-icons/sl";
 import { deleteAdmin, deleteEmployer, editAdmin } from "../../api/admin/axios";
@@ -8,10 +6,12 @@ import { useAdminContext } from "../../context/adminContext";
 import EmployerEditor from "./EmployerEditor";
 import { useNavigate } from "react-router-dom";
 import EmployerDetails from "./EmployerDetails";
+import CandidateEditor from "../Candidate/CandidateEditor";
 
 const AdminOptions = ({
   data,
   employerModule,
+  candidateModule,
   isEmployerDetailsOn,
   setIsEmployerDetailsOn,
   setFilteredEmployers,
@@ -111,7 +111,7 @@ const AdminOptions = ({
           {/* Add more options as needed */}
         </div>
       )}
-      {!employerModule && isEditing && (
+      {!employerModule && !candidateModule && isEditing && (
         <div className="fixed inset-0 h-screen w-full flex flex-col ">
           <RegisterAdmin setIsAddAdminOn={setIsEditing} data={data} editing />
         </div>
@@ -127,6 +127,12 @@ const AdminOptions = ({
             setSelectedEmployer={setSelectedEmployer}
             option
           />
+        </div>
+      )}
+
+      {candidateModule && isEditing && (
+        <div className="fixed inset-0 h-screen w-full flex flex-col ">
+          <CandidateEditor setIsEditing={setIsEditing} data={data} editing />
         </div>
       )}
     </div>

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Sidebar from "./Sidebar";
 import { Outlet } from "react-router-dom";
 import { useAdminContext } from "../../context/adminContext";
@@ -8,6 +8,20 @@ import { IoMenuSharp } from "react-icons/io5";
 const Admin = () => {
   const { adminData, adminToken } = useAdminContext();
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+
+  const checkMobileScreen = () => {
+    setIsMobile(window.innerWidth <= 768); // Adjust the breakpoint as needed
+  };
+
+  // Run the check on component mount and on window resize
+  useEffect(() => {
+    checkMobileScreen();
+    window.addEventListener("resize", checkMobileScreen);
+    return () => {
+      window.removeEventListener("resize", checkMobileScreen);
+    };
+  }, []);
 
   const toggleSidebar = () => {
     setIsSidebarOpen(!isSidebarOpen);
@@ -20,7 +34,7 @@ const Admin = () => {
       ) : (
         <div className="flex h-full w-full ">
           <button
-            className=" md:hidden fixed top-5 left-3 z-20   p-2 rounded-full"
+            className=" md:hidden fixed top-5 left-5 z-20   p-2 rounded-full"
             onClick={toggleSidebar}
           >
             <IoMenuSharp
@@ -29,13 +43,13 @@ const Admin = () => {
               className=" active:bg-orange-600"
             />
           </button>
-          <div
-            className={`${
-              isSidebarOpen ? "translate-x-0" : "-translate-x-full"
-            } transform transition-transform duration-300 md:static fixed md:translate-x-0 top-0 left-0 bottom-0 z-10`}
-          >
-            <Sidebar />
-          </div>
+
+          <Sidebar
+            isMobile={isMobile}
+            onClose={toggleSidebar}
+            isSidebarOpen={isSidebarOpen}
+          />
+
           <div className="flex-1 md:w-screen overflow-x-auto">
             <Outlet />
           </div>

@@ -14,11 +14,19 @@ const jobSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    experienceRequired: {
+    minExperience: {
       type: String,
       required: true,
     },
-    salaryRange: {
+    maxExperience: {
+      type: String,
+      required: true,
+    },
+    minSalary: {
+      type: String,
+      required: true,
+    },
+    maxSalary: {
       type: String,
       required: true,
     },
@@ -37,6 +45,10 @@ const jobSchema = new mongoose.Schema(
     createdBy: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Admin",
+    },
+    createdByEmp: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Employer",
     },
   },
   { timestamps: true } // Enables automatic timestamps

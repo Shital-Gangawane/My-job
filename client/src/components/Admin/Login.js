@@ -13,11 +13,12 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsLoading(true);
-    const isCandidateLoggedIn = localStorage.getItem("candidateToken");
-    if (isCandidateLoggedIn) {
-      setIsLoading(false);
-      return;
-    }
+    const userType = sessionStorage.getItem("userType");
+    // if (userType) {
+    //   setIsLoading(false);
+    //   setMsg(`Already logged in as ${userType}. Please logout first. `);
+    //   return;
+    // }
     const res = await loginAdmin(email, password);
     console.log(res);
     if (res?.data?.success) {

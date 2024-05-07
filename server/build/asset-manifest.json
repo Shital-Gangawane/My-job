@@ -1,16 +1,25 @@
 {
   "files": {
-    "main.css": "/static/css/main.7fdd7ede.css",
-    "main.js": "/static/js/main.ff367d78.js",
+    "main.css": "/static/css/main.2eda1d72.css",
+    "main.js": "/static/js/main.017921bd.js",
     "static/media/header.jpg": "/static/media/header.5cb03f0ed3bc8fce81d9.jpg",
     "static/media/projob-logo1.png": "/static/media/projob-logo1.12fc55031a756ac453bf.png",
     "static/media/user.png": "/static/media/user.961568814dceb733c85a.png",
+    "static/media/Wipro-Infotech-Limited.webp": "/static/media/Wipro-Infotech-Limited.0d311bc6190abc252261.webp",
+    "static/media/Amazon-Seller-Central.webp": "/static/media/Amazon-Seller-Central.4e777104fc52151d8573.webp",
+    "static/media/Tata-Steel-Downstream-Products.webp": "/static/media/Tata-Steel-Downstream-Products.c626d48e6d0598291351.webp",
+    "static/media/slick.svg": "/static/media/slick.2630a3e3eab21c607e21.svg",
+    "static/media/slick.eot": "/static/media/slick.a4e97f5a2a64f0ab1323.eot",
     "index.html": "/index.html",
-    "main.7fdd7ede.css.map": "/static/css/main.7fdd7ede.css.map",
-    "main.ff367d78.js.map": "/static/js/main.ff367d78.js.map"
+    "static/media/slick.ttf": "/static/media/slick.c94f7671dcc99dce43e2.ttf",
+    "static/media/Zomato.webp": "/static/media/Zomato.d6f80ceb5c35fbb151ed.webp",
+    "static/media/Infosys.webp": "/static/media/Infosys.5c86464769ab734ceb0b.webp",
+    "static/media/slick.woff": "/static/media/slick.295183786cd8a1389865.woff",
+    "main.2eda1d72.css.map": "/static/css/main.2eda1d72.css.map",
+    "main.017921bd.js.map": "/static/js/main.017921bd.js.map"
   },
   "entrypoints": [
-    "static/css/main.7fdd7ede.css",
-    "static/js/main.ff367d78.js"
+    "static/css/main.2eda1d72.css",
+    "static/js/main.017921bd.js"
   ]
 }

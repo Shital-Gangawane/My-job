@@ -33,7 +33,7 @@ export default function Jobs() {
   };
 
   return (
-    <div className="flex flex-col w-full bg-gray-400">
+    <div className="flex flex-col w-full h-full overflow-hidden bg-gray-400">
       <div className="w-full bg-gray-800 text-white p-6">
         <h1 className="text-lg font-semibold ms-12 ">Jobs</h1>
       </div>

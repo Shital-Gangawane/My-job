@@ -58,3 +58,15 @@ export const updateEmployer = async (
     return error.response;
   }
 };
+
+//Get Employer or candidate info
+export const fetchUser = async (userType, userId) => {
+  try {
+    const res = await axios.get(
+      `${url}/api/${userType}/fetch?userId=${userId}`
+    );
+    return res;
+  } catch (error) {
+    return error.response;
+  }
+};

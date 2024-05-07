@@ -1,89 +1,132 @@
-import React ,{useState} from 'react'
-import { useMembersContext } from '../../../../context/profileMembersContext';
-import { memberData } from '../../../../utils/MembersData';
+import React, { useState } from "react";
 
-export default function ProfileMembersForm({index}) {
+export default function ProfileMembersForm({
+  index,
+  data,
+  onChange,
+  setStateArr,
+}) {
+  const [isDropdownOn, setIsDropdownOn] = useState(false);
 
-  const [isOpen, setIsOpen] = useState(false);
-  
- 
-  const toggleDropdown = () => {
-    setIsOpen(!isOpen);
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+    onChange(index, { [name]: value });
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    // Perform form submission logic here
-    // You can access form data using e.target.elements
-    console.log("Form submitted");
-  };
-
-    const { state, updateNestedState, removeMemberState } = useMembersContext();
-    const [currentIndex, setCurrentIndex] = useState(0);
-  
-    const handleProgramChange = (e) => {
-      updateNestedState("profile", index, e.target.name, e.target.value);
-      console.log("currInd", currentIndex);
-      if (e.target.name === "program") {
-        setCurrentIndex(
-          memberData.length - 1 &&
-            memberData.indexOf(memberData.find((ed) => ed.program === e.target.value))
-        );
-      }
-    };
-    return (
-        <div>
-<div className="bg-white p-6 mt-5 px-10 rounded-lg block">
-        <h2 className=" text-lg text-[#202124]  mb-6 font-bold">Members</h2>
-
-        <div className="relative block">
-          <div
-            
-            placeholder="Click to open form"
-              id="large-input"
-                className="  text-start  flex-wrap cursor-pointer mb-5  block w-full p-5 py-7 px-3  bg-gray-100 border-gray-300 focus:outline-[#6ad61d] text-gray-900 border rounded-lg text-base focus:ring-[#6ad61d] focus:border-[#6ad61d] dark:bg-gray-100 dark:border-none dark:placeholder-gray-400 dark:gray-900 dark:focus:ring-[#6ad61d] dark:focus:border-[#6ad61d]"
-                onChange={handleProgramChange}
-                onClick={toggleDropdown}
-               
-              >
-                 {/* Categories */}
-              </div>
-          {isOpen && (
-            <form
-              onSubmit={handleSubmit}
-              className="absolute w-full mt-2 p-4 bg-white  "
+  return (
+    <div className="flex flex-col gap-3">
+      <p
+        onClick={() => setIsDropdownOn(!isDropdownOn)}
+        className="block w-full p-5 cursor-pointer bg-gray-100 border-gray-300 focus:outline-[#6ad61d] text-gray-900 border rounded-lg text-base focus:ring-[#6ad61d] focus:border-[#6ad61d] dark:bg-gray-100 dark:border-none dark:placeholder-gray-400 dark:gray-900 dark:focus:ring-[#6ad61d] dark:focus:border-[#6ad61d]"
+      >
+        Member {index + 1}
+      </p>
+      {isDropdownOn && (
+        <div className="flex flex-col gap-3">
+          {/* Input fields for each member attribute */}
+          <InputField
+            label="Name"
+            name="name"
+            value={data.name}
+            onChange={handleChange}
+          />
+          <InputField
+            label="Designation"
+            name="designation"
+            value={data.designation}
+            onChange={handleChange}
+          />
+          <InputField
+            label="Experience"
+            name="experience"
+            value={data.experience}
+            onChange={handleChange}
+          />
+          <InputField
+            label="Profile Image URL"
+            name="profileImage"
+            value={data.profileImage}
+            onChange={handleChange}
+          />
+          <InputField
+            label="Facebook URL"
+            name="fbUrl"
+            value={data.fbUrl}
+            onChange={handleChange}
+          />
+          <InputField
+            label="Twitter URL"
+            name="twitterUrl"
+            value={data.twitterUrl}
+            onChange={handleChange}
+          />
+          <InputField
+            label="Google URL"
+            name="googleUrl"
+            value={data.googleUrl}
+            onChange={handleChange}
+          />
+          <InputField
+            label="LinkedIn URL"
+            name="linkedinUrl"
+            value={data.linkedinUrl}
+            onChange={handleChange}
+          />
+          <InputField
+            label="Dribbble URL"
+            name="dribbleUrl"
+            value={data.dribbleUrl}
+            onChange={handleChange}
+          />
+          <TextArea
+            label="Description"
+            name="description"
+            value={data.description}
+            onChange={handleChange}
+          />
+          {index !== 0 && (
+            <button
+              className="text-[#6ad61d] bg-[#6ad61d23] rounded-lg transition duration-300 mt-4 ease-in-out focus:outline-none text-sm w-full sm:w-auto px-5 py-3 text-center dark:bg-[#6ad61d23] dark:hover:bg-[#6ad61d] dark:hover:text-white dark:focus:ring-[#6ad61d]"
+              onClick={() =>
+                setStateArr((prev) => {
+                  return prev.filter((el, i) => i !== index);
+                })
+              }
             >
-              {/* Your form fields */}
-              <div className="flex flex-wrap -mx-2">
-                <div className="mb-5 w-full md:w-1/6 px-2">
-                  <label
-                    htmlFor="name"
-                    className="block mb-2 text-sm font-bold text-gray-900  w-20 py-5 "
-                  >
-                    Name
-                  </label>
-                </div>
-                <div className="mb-5 w-full md:w-3/4 px-2">
-                  <input
-                    placeholder="Name"
-                    type="text"
-                    id="name"
-                    name="name"
-                    className="w-full p-2 border border-gray-300 rounded-md"
-                    onChange={handleProgramChange}
-                  />
-                </div>
-              </div>
-              <button
-                type="submit"
-                className="block w-full py-2 bg-blue-500 text-white rounded-b-md"
-              >
-                Submit
-              </button>
-            </form>
+              Remove Member
+            </button>
           )}
         </div>
-      </div>
-      </div>
-  )
+      )}
+    </div>
+  );
+}
+
+function InputField({ label, name, value, onChange }) {
+  return (
+    <div className="flex justify-between">
+      <label className="font-bold">{label}</label>
+      <input
+        name={name}
+        value={value}
+        onChange={onChange}
+        className="block w-2/3 p-5 cursor-pointer bg-gray-100 border-gray-300 focus:outline-[#6ad61d] text-gray-900 border rounded-lg text-base focus:ring-[#6ad61d] focus:border-[#6ad61d] dark:bg-gray-100 dark:border-none dark:placeholder-gray-400 dark:gray-900 dark:focus:ring-[#6ad61d] dark:focus:border-[#6ad61d]"
+      />
+    </div>
+  );
+}
+
+function TextArea({ label, name, value, onChange }) {
+  return (
+    <div className="flex justify-between">
+      <label className="font-bold">{label}</label>
+      <textarea
+        name={name}
+        value={value}
+        onChange={onChange}
+        className="block w-2/3 p-5 cursor-pointer bg-gray-100 border-gray-300 focus:outline-[#6ad61d] text-gray-900 border rounded-lg focus:ring-[#6ad61d] focus:border-[#6ad61d] dark:bg-gray-100 dark:border-none dark:placeholder-gray-400 dark:gray-900 dark:focus:ring-[#6ad61d] dark:focus:border-[#6ad61d]"
+        rows="4"
+      ></textarea>
+    </div>
+  );
 }

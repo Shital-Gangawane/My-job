@@ -14,7 +14,6 @@ export default function Employer() {
       <Nav bgColor="bg-white fixed shadow-md" employer />
       <div className="">
         <Outlet />
-       
       </div>
     </div>
   );

@@ -14,7 +14,7 @@ import Login from "./pages/Login/Login";
 import Register from "./pages/Register/Register";
 import Admin from "./pages/Admin/Admin";
 import AdminDashboard from "./pages/Admin/Dashboard";
-import CandidateDashboard from "./pages/Candidate/Dashboard";
+import CandidateDashboard from "./pages/Candidate/CandidateDashboard";
 import Candidate from "./pages/Candidate/Candidate";
 import CandidateModule from "./pages/Admin/CandidateModule";
 import Jobs from "./pages/Admin/Jobs";
@@ -40,6 +40,7 @@ import Changepassword from "./pages/Employer/DashboardData/Changepassword";
 import Deleteprofile from "./pages/Employer/DashboardData/Deleteprofile";
 import Logout from "./pages/Employer/DashboardData/Logout";
 import Meeting from "./pages/Employer/DashboardData/Meeting";
+import UserContextProvider from "./context/userContext";
 import Slidebar from "./pages/Employer/DashboardData/Slidebar";
 import RegisterAdmin from "./components/Admin/RegisterAdmin";
 import ProfileMembers from "./pages/Employer/DashboardData/ProfileMembers/ProfileMembers";
@@ -56,14 +57,13 @@ import ProfileMembers from "./pages/Employer/DashboardData/ProfileMembers/Profil
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<Layout />}>
-    <Route path="profilemember" element={<ProfileMembers />}/>
+      <Route path="profilemember" element={<ProfileMembers />} />
 
       <Route path="" element={<LandingPage />} />
       {/*searched Jobs on landing page*/}
       <Route path="job" element={<Job />}>
         <Route path="search-results" element={<SearchedJobs />} />
         <Route path=":jobTitle" element={<ViewJob />} />
-
       </Route>
       <Route path="login" element={<Login />} />
       <Route path="register" element={<Register />} />
@@ -96,7 +96,6 @@ const router = createBrowserRouter(
         <Route path="deleteprofile" element={<Deleteprofile />} />
         <Route path="logout" element={<Logout />} />
       </Route>
-      
     </Route>
   )
 );
@@ -116,7 +115,11 @@ function App() {
   //   </div>
   // )
 
-  return <RouterProvider router={router} />;
+  return (
+    <UserContextProvider>
+      <RouterProvider router={router}></RouterProvider>
+    </UserContextProvider>
+  );
 }
 
 export default App;

@@ -62,6 +62,12 @@ const employerSchema = new mongoose.Schema({
     type: Boolean,
     default: false,
   },
+  postedJobs: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Job",
+    },
+  ],
 });
 
 const Employer = mongoose.model("Employer", employerSchema);
