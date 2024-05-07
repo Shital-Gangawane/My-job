@@ -174,7 +174,7 @@ const Empdashboard = () => {
         />
       )}
       {isMobile && (
-        <div>
+        <div className="bg-[#f5f7fc]">
           <div
             onClick={toggleSidebar}
             className="bg-[#f5f7fc] py-7 px-4 inline-flex  items-center gap-1 text-[#6ad61d] cursor-pointer"
@@ -205,7 +205,7 @@ const Empdashboard = () => {
           </AnimatePresence>
         </div>
       )}
-      <div className=" w-full h-full bg-[#f5f7fc] overflow-y-auto">
+      <div className=" w-full h-auto bg-[#f5f7fc] overflow-y-auto">
         <RenderComponent index={isSelected} />
         <Footer />
       </div>
