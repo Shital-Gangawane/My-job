@@ -11,7 +11,9 @@ export default function ViewJob() {
         <h2 className="font-bold text-lg">{job.jobTitle}</h2>
         <p>{job.keySkills}</p>
         <p>{job.jobLocation}</p>
-        <p>{job.salaryRange}</p>
+        <p>
+          {job.minSalary}-{job.maxSalary}
+        </p>
         <p>{job.isRemote ? "Remote" : "Onsite"}</p>
         <p>{job.jobDescription}</p>
         <div className=" w-full text-end pe-10">
