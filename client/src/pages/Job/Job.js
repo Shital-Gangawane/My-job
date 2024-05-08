@@ -6,7 +6,7 @@ import Nav from "../../components/Nav/Nav";
 export default function Job() {
   return (
     <JobContextProvider>
-      <Nav bgColor="bg-white shadow-md" />
+      <Nav bgColor="bg-white shadow-lg" />
       <Outlet />
     </JobContextProvider>
   );
