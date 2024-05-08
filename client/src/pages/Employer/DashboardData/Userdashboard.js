@@ -74,7 +74,8 @@ function Userdashboard() {
     },
   ];
   return (
-    <div className=" w-full h-auto lg:mt-14 px-4 lg:px-14 overflow-y-auto py-7 pb-14">
+    
+    <div className=" w-full h-auto  overflow-y-auto  lg:mt-14 px-4 lg:px-14 py-7 pb-14">
       <h2 className=" text-lg text-[#202124] lg:text-3xl mb-10 font-medium">
         Applications statistics
       </h2>
@@ -82,7 +83,7 @@ function Userdashboard() {
         {statsData?.map((stat, i) => (
           <Col
             key={i}
-            className=" bg-white p-8 flex-1 w-full rounded-lg border border-gray-100 shadow-sm"
+            className=" bg-white  lg:p-7 md:p-8 flex-1 w-full rounded-lg border border-gray-100 shadow-sm"
           >
             <Card className=" flex flex-col ">
               <Card.Body className="flex gap-2 items-center">
@@ -105,6 +106,8 @@ function Userdashboard() {
           </Col>
         ))}
       </div>
+
+
       <div className=" flex flex-col md:flex-row h-[550px] w-full  md:justify-between gap-6 mt-8">
         <div className=" h-96 w-full flex-1">
           <UserDashboardProfileViews />

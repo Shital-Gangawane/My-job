@@ -167,7 +167,6 @@ const Empdashboard = () => {
     >
       {!isMobile && (
         <Slidebar
-          data={user}
           buttons={buttons}
           isSelected={isSelected}
           setIsSelected={setIsSelected}
@@ -205,7 +204,7 @@ const Empdashboard = () => {
           </AnimatePresence>
         </div>
       )}
-      <div className=" w-full h-auto bg-[#f5f7fc] overflow-y-auto">
+      <div className=" w-full h-full bg-[#f5f7fc] overflow-y-auto">
         <RenderComponent index={isSelected} />
         <Footer />
       </div>
