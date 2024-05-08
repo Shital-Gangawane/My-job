@@ -102,7 +102,7 @@ const cardData = [
 function Submitjobs() {
   return (
    
-    <div className=' '>
+    <div className=' w-full h-auto  overflow-y-auto lg:mt-14 px-4 lg:px-14 py-7  pb-14 '>
     <h2 className=" text-lg text-[#202124] lg:text-3xl mb-10 font-medium">
         Packages
       </h2>

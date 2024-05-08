@@ -16,7 +16,7 @@ function Footer() {
     </div>
 
     <div
-     className=" bottom-0 right-0 m-9 me-10 px-3 py-3 bg-[#6ad61d23]  hover:bg-[#6ad61d] hover:text-white text-[#6ad61d] rounded-full cursor-pointer transition duration-300"
+     className="fixed bottom-0 right-0 m-9 me-10 px-3 py-3 bg-[#6ad61d23]  hover:bg-[#6ad61d] hover:text-white text-[#6ad61d] rounded-full cursor-pointer transition duration-300"
     //  onClick={scrollToTop}
     >
       <RiArrowUpSLine size={23}/>

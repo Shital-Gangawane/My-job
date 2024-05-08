@@ -4,8 +4,8 @@ import { IoIosSearch } from "react-icons/io";
 function Myjobs() {
   const [myJobs, setMyJobs] = useState([]);
   return (
-    //className= lg:mt-14 px-4 lg:px-14 py-7 
-    <div className=" w-full h-auto   overflow-y-auto pb-14">
+   
+    <div className=" w-full h-auto   overflow-y-auto lg:mt-14 px-4 lg:px-14 py-7 pb-14">
       <h1 className=" text-lg text-[#202124] lg:text-3xl mb-10 font-medium">
         Manage Jobs
       </h1>
