@@ -12,7 +12,7 @@ function Slidebar({
   data,
 }) {
   const navigate = useNavigate(); // Access the navigate function from React Router DOM
-  console.log(data);
+
   const handleButtonClick = (index, path) => {
     setIsSelected(index); // Set the selected index
     navigate(`/employer/${path}`); // Navigate to the specified path

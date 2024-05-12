@@ -70,20 +70,3 @@ export const fetchUser = async (userType, userId) => {
     return error.response;
   }
 };
-
-export const saveProfile = async (formData, id) => {
-  try {
-    const res = await axios.put(
-      `${url}/api/employer/saveProfile/${id}`,
-      formData,
-      {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      }
-    );
-    return res;
-  } catch (error) {
-    return error.response;
-  }
-};

@@ -1,129 +1,97 @@
-import React from "react";
-import GoogleMap from "../GoogleMap";
-import { useUserContext } from "../../../../context/userContext";
+import React from 'react'
+import GoogleMap from '../GoogleMap'
 
-const countries = ["India", "USA", "UK"];
-
-function ContactInformation({ contactInfo, setContactInfo }) {
-  const { user } = useUserContext();
-  const handleContactInfoChange = (e) => {
-    const { name, value } = e.target;
-    setContactInfo((prev) => ({ ...prev, [name]: value }));
-  };
-
-  const handleLocationChange = (name, value) => {
-    setContactInfo((prev) => ({
-      ...prev,
-      location: { ...prev.location, [name]: value },
-    }));
-  };
-
+function ContactInformation() {
   return (
     <div className="bg-white p-6 mt-5 px-10 rounded-lg block">
-      <h2 className="text-lg text-[#202124] mb-6 font-bold">
-        Contact Information
-      </h2>
-      <form>
-        {/* Location Selector */}
-        <div className="mb-5">
+    <h2 className=" text-lg text-[#202124]  mb-6 font-bold">
+      Contact Information
+    </h2>
+    <form className="">
+      <div className="flex flex-wrap -mx-2">
+        <div className="mb-5 w-full  ">
           <label
-            htmlFor="country"
-            className="block text-sm font-bold text-gray-900"
+            htmlFor="name"
+            className="block  text-sm font-bold text-gray-900 pt-2 px-5 py-2"
           >
-            Country
+            {" "}
+            Location
           </label>
+
           <select
-            name="country"
-            value={contactInfo.country || ""}
-            onChange={handleContactInfoChange}
-            className="block w-full p-3 bg-gray-100 border-gray-300 rounded-lg focus:outline-none focus:border-[#6ad61d] focus:ring-[#6ad61d]"
+            id="countries large-input"
+            className="block w-full p-5  bg-gray-100 border-gray-300 focus:outline-[#6ad61d] text-gray-900 border rounded-lg text-base focus:ring-[#6ad61d] focus:border-[#6ad61d] dark:bg-gray-100 dark:border-none dark:placeholder-gray-400 dark:gray-900 dark:focus:ring-[#6ad61d] dark:focus:border-[#6ad61d]
+                "
           >
-            <option value="">Choose a country</option>
-            {countries.map((country) => (
-              <option key={country} value={country}>
-                {country}
-              </option>
-            ))}
+            <option selected>Choose a country</option>
           </select>
         </div>
+      </div>
 
-        {/* Phone Number Input */}
-        <div className="mb-5">
+      <div className="flex flex-wrap -mx-2">
+        <div className="mb-5 w-full  ">
           <label
-            htmlFor="phoneNumber"
-            className="block text-sm font-bold text-gray-900"
+            htmlFor="name"
+            className="block  text-sm font-bold text-gray-900 pt-2 px-5 py-2"
           >
-            Phone number
+            Friendly Location
           </label>
+
           <input
             type="text"
-            name="phoneNumber"
-            value={contactInfo.phoneNumber || ""}
-            onChange={handleContactInfoChange}
-            className="block w-full p-3 bg-gray-100 border-gray-300 rounded-lg focus:outline-none focus:border-[#6ad61d] focus:ring-[#6ad61d]"
+            name="location"
+            id="large-input"
+            className="block w-full p-5  bg-gray-100 border-gray-300 focus:outline-[#6ad61d] text-gray-900 border rounded-lg text-base focus:ring-[#6ad61d] focus:border-[#6ad61d] dark:bg-gray-100 dark:border-none dark:placeholder-gray-400 dark:gray-900 dark:focus:ring-[#6ad61d] dark:focus:border-[#6ad61d]"
           />
         </div>
+      </div>
 
-        {/* Email Input */}
-        <div className="mb-5">
+      <div className="flex flex-wrap -mx-2">
+        <div className="mb-5 w-full  ">
           <label
-            htmlFor="email"
-            className="block text-sm font-bold text-gray-900"
+            htmlFor="name"
+            className="block  text-sm font-bold text-gray-900 pt-2 px-5 py-2"
           >
-            Email
+            Map Location
           </label>
-          <input
-            disabled
-            type="email"
-            name="email"
-            value={user?.email}
-            onChange={handleContactInfoChange}
-            className="block w-full p-3 bg-gray-100 border-gray-300 rounded-lg focus:outline-none focus:border-[#6ad61d] focus:ring-[#6ad61d]"
-          />
-        </div>
 
-        {/* Address Input */}
-        <div className="mb-5">
-          <label
-            htmlFor="address"
-            className="block text-sm font-bold text-gray-900"
-          >
-            Address
-          </label>
           <input
             type="text"
-            name="address"
-            value={contactInfo.address || ""}
-            onChange={handleContactInfoChange}
-            className="block w-full p-3 bg-gray-100 border-gray-300 rounded-lg focus:outline-none focus:border-[#6ad61d] focus:ring-[#6ad61d]"
+            name="location"
+            id="large-input"
+            className="block w-full p-5  bg-gray-100 border-gray-300 focus:outline-[#6ad61d] text-gray-900 border rounded-lg text-base focus:ring-[#6ad61d] focus:border-[#6ad61d] dark:bg-gray-100 dark:border-none dark:placeholder-gray-400 dark:gray-900 dark:focus:ring-[#6ad61d] dark:focus:border-[#6ad61d]"
           />
         </div>
+      </div>
+      <div className="flex flex-wrap -mx-2">
+        <div className="w-full mb-5">
+          <GoogleMap />
+        </div>
+      </div>
 
-        {/* Map Location Inputs */}
-        <div className="mb-5 grid grid-cols-2 gap-4">
+      <div className="flex flex-wrap -mx-2">
+        <div className="mb-5 w-full md:w-1/2 px-2">
           <input
-            type="text"
-            name="latitude"
             placeholder="Latitude"
-            value={contactInfo.location?.latitude || ""}
-            onChange={(e) => handleLocationChange("latitude", e.target.value)}
-            className="block w-full p-3 bg-gray-100 border-gray-300 rounded-lg focus:outline-none focus:border-[#6ad61d] focus:ring-[#6ad61d]"
-          />
-          <input
             type="text"
-            name="longitude"
-            placeholder="Longitude"
-            value={contactInfo.location?.longitude || ""}
-            onChange={(e) => handleLocationChange("longitude", e.target.value)}
-            className="block w-full p-3 bg-gray-100 border-gray-300 rounded-lg focus:outline-none focus:border-[#6ad61d] focus:ring-[#6ad61d]"
+            name="location"
+            id="large-input"
+            className="block w-full p-5  bg-gray-100 border-gray-300 focus:outline-[#6ad61d] text-gray-900 border rounded-lg text-base focus:ring-[#6ad61d] focus:border-[#6ad61d] dark:bg-gray-100 dark:border-none dark:placeholder-gray-400 dark:gray-900 dark:focus:ring-[#6ad61d] dark:focus:border-[#6ad61d]"
           />
         </div>
-
-        {/* Google Map Display */}
-        <div className="w-full mb-5">{/* <GoogleMap /> */}</div>
-      </form>
-    </div>
-  );
+        <div className="mb-5 w-full md:w-1/2 px-2">
+          <input
+            placeholder="longitude"
+            type="text"
+            name="location"
+            id="large-input"
+            className="block w-full p-5 bg-gray-100 border-gray-300 focus:outline-[#6ad61d] text-gray-900 border rounded-lg text-base focus:ring-[#6ad61d] focus:border-[#6ad61d] dark:bg-gray-100 dark:border-none dark:placeholder-gray-400 dark:gray-900 dark:focus:ring-[#6ad61d] dark:focus:border-[#6ad61d]"
+          />
+        </div>
+      </div>
+    </form>
+  </div>
+  )
 }
 
-export default ContactInformation;
+export default ContactInformation

@@ -27,8 +27,7 @@ const Login = () => {
           "userType",
           res?.data?.isEmployer ? "employer" : "candidate"
         );
-        const userData = JSON.stringify(res?.data?.user);
-        sessionStorage.setItem("user", userData);
+        sessionStorage.setItem("user", JSON.stringify(res?.data?.user));
 
         // Redirect based on user type
         if (res?.data?.isEmployer) {
@@ -36,8 +35,6 @@ const Login = () => {
           setToken(res?.data?.token);
           navigate("/employer");
         } else {
-          setUser(res?.data?.user);
-          setToken(res?.data?.token);
           navigate("/candidate");
         }
       } else {

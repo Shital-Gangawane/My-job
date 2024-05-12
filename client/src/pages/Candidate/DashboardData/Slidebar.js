@@ -3,14 +3,7 @@ import { FaRegUserCircle } from "react-icons/fa";
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 
-function Slidebar({
-  data,
-  buttons,
-  isSelected,
-  setIsSelected,
-  onClose,
-  isMobile,
-}) {
+function Slidebar({ buttons, isSelected, setIsSelected, onClose, isMobile }) {
   const navigate = useNavigate(); // Access the navigate function from React Router DOM
 
   const handleButtonClick = (index, path) => {
@@ -36,10 +29,7 @@ function Slidebar({
       <div className="h-full overflow-y-auto flex flex-col py-10 bg-white w-60 md:w-96 items-center sidebar-content">
         <div className="flex gap-3 mb-3 mt-4">
           <FaRegUserCircle size={40} />
-          <span className="gap-2 mt-2 font-bold">
-            {" "}
-            {data?.email?.split("@")[0] || "user name"}
-          </span>{" "}
+          <span className="gap-2 mt-2 font-bold">User Name</span>{" "}
         </div>
         <div>
           <button className="w-full py-2 px-2 ms-auto bg-[#6ad61d] text-white rounded-lg transition duration-300 ease-in-out">

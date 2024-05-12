@@ -4,7 +4,6 @@ import { useAdminContext } from "../../context/adminContext";
 
 const PostJob = ({ setIsAddJobOn }) => {
   const [jobData, setJobData] = useState({
-    empId: "",
     jobTitle: "",
     company: "",
     jobDescription: "",
@@ -21,7 +20,6 @@ const PostJob = ({ setIsAddJobOn }) => {
   const approvedEmployers = allEmployers?.filter((emp) => emp?.isApproved);
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
-    console.log(jobData.empId);
     setJobData((prevJobData) => ({
       ...prevJobData,
       [name]: type === "checkbox" ? checked : value,
@@ -77,23 +75,14 @@ const PostJob = ({ setIsAddJobOn }) => {
             type="text"
             id="company"
             name="company"
-            value={jobData?.company}
+            value={jobData.company}
             onChange={handleChange}
             className="w-full px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:border-blue-500"
             required
           >
             <option value="">Select company</option>
             {approvedEmployers?.map((employer) => (
-              <option
-                onClick={() =>
-                  setJobData((prev) => ({
-                    ...prev,
-                    [prev.empId]: employer?._id,
-                  }))
-                }
-                key={employer?._id}
-                value={employer?.companyName}
-              >
+              <option key={employer?._id} value={employer?.companyName}>
                 {employer?.companyName}
               </option>
             ))}

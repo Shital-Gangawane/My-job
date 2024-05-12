@@ -88,35 +88,22 @@ const Nav = ({ bgColor, employer }) => {
                             : { opacity: 0, y: -10 }
                         }
                         transition={{ duration: 0.3 }}
-                        className={`absolute left-0 mt-2 min-w-40 ${
-                          activeDropdown === index ? "flex" : "hidden"
+                        className={`absolute left-0 mt-2 ${
+                          activeDropdown === index ? "block" : "hidden"
                         }  bg-white border-t-2 whitespace-nowrap ${
                           location.pathname === "/"
                             ? "border-t-blue-600"
                             : "border-t-[#6ad61d]"
-                        }  rounded-b-md shadow-lg py-4`}
+                        }  rounded-b-md shadow-lg`}
                       >
                         {link.dropdownOptions.map((option, optionIndex) => (
-                          <div
+                          <Link
                             key={optionIndex}
-                            className="flex gap-4 px-8 py-2 text-gray-700  z-40"
+                            to={option.url}
+                            className="block px-8 py-2 text-sm text-gray-700 hover:bg-blue-100 z-40"
                           >
-                            <div>
-                              <h2 className="font-medium mb-4">
-                                {option?.label}
-                              </h2>
-                              <ul className=" space-y-4">
-                                {option?.options?.map((el, i) => (
-                                  <li
-                                    className=" text-zinc-500 hover:text-[#6ad61d]"
-                                    key={i}
-                                  >
-                                    <Link to={el?.url}>{el?.label}</Link>
-                                  </li>
-                                ))}
-                              </ul>
-                            </div>
-                          </div>
+                            {option.label}
+                          </Link>
                         ))}
                       </motion.div>
                     )}
@@ -127,16 +114,9 @@ const Nav = ({ bgColor, employer }) => {
           </div>
           <div className="block">
             <div className="ml-4 flex items-center md:ml-6">
-              {token ? (
+              {user && token ? (
                 <div className=" hidden xl:flex items-center gap-4">
-                  <div
-                    onClick={() =>
-                      navigate(
-                        `/${sessionStorage.getItem("userType")}/dashboard`
-                      )
-                    }
-                    className=" flex items-center cursor-pointer hover:text-[#6ad61d] gap-3"
-                  >
+                  <div className=" flex items-center cursor-pointer hover:text-[#6ad61d] gap-3">
                     <img
                       className=" h-12"
                       src={user?.logo ? user?.logo : userDp}
@@ -158,7 +138,6 @@ const Nav = ({ bgColor, employer }) => {
               )}
               <div className=" flex xl:hidden gap-4 pe-2 md:pe-10 items-center">
                 <GoPerson
-                  onClick={() => navigate("/login")}
                   size={27}
                   className="text-zinc-700 xl:hover:text-blue-700 hover:text-[#6ad61d]"
                 />
