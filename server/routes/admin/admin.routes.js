@@ -13,6 +13,12 @@ const {
 } = require("../../controllers/admin/approveEmployer.js");
 const { updateEmployer } = require("../../controllers/admin/updateEmployer.js");
 const { deleteEmployer } = require("../../controllers/admin/deleteEmployer.js");
+const {
+  approveCandidate,
+} = require("../../controllers/admin/approveCandidate.js");
+const {
+  deleteCandidate,
+} = require("../../controllers/admin/deleteCandidate.js");
 
 const router = express.Router();
 
@@ -36,4 +42,7 @@ router.patch("/admin/approveEmployer", authMiddleware, approveEmployer);
 router.put("/admin/employer/update/:employerId", updateEmployer);
 router.delete("/admin/employer/:employerId", deleteEmployer);
 
+//Candidate Module
+router.patch("/admin/approveCandidate", authMiddleware, approveCandidate);
+router.delete("/admin/candidate/:candidateId", deleteCandidate);
 module.exports = router;

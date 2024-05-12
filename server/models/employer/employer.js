@@ -4,7 +4,25 @@ const employerSchema = new mongoose.Schema({
   companyName: {
     type: String,
   },
+  employerName: {
+    type: String,
+  },
+  foundedDate: {
+    type: String,
+  },
+  companySize: {
+    type: String,
+  },
+  categories: {
+    type: Array,
+  },
+  introVideoUrl: {
+    type: String,
+  },
   logoImage: {
+    type: String,
+  },
+  coverImage: {
     type: String,
   },
   aboutCompany: {
@@ -25,6 +43,20 @@ const employerSchema = new mongoose.Schema({
     required: true,
   },
   website: {
+    type: String,
+  },
+  country: {
+    type: String,
+  },
+  location: {
+    latitude: {
+      type: String,
+    },
+    longitude: {
+      type: String,
+    },
+  },
+  address: {
     type: String,
   },
   companyAddress: {
@@ -68,6 +100,13 @@ const employerSchema = new mongoose.Schema({
       ref: "Job",
     },
   ],
+  members: {
+    type: Array,
+  },
+
+  socialNetworks: {
+    type: Array,
+  },
 });
 
 const Employer = mongoose.model("Employer", employerSchema);

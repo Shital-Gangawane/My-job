@@ -5,6 +5,7 @@ export const Dropdown = ({ options, onSelect, landingpage }) => {
   const [searchQuery, setSearchQuery] = useState("");
   const [filteredOptions, setFilteredOptions] = useState(options);
   const dropdownRef = useRef(null);
+  // const { city } = useContext(JobContext);
 
   useEffect(() => {
     setFilteredOptions(options);

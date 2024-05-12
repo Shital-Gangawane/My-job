@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { BsTypeBold } from "react-icons/bs";
 import { BiItalic } from "react-icons/bi";
 import { RiDoubleQuotesL } from "react-icons/ri";
@@ -20,36 +20,8 @@ import { BsTable } from "react-icons/bs";
 import { FaQuestionCircle } from "react-icons/fa";
 import { LuUndo2 } from "react-icons/lu";
 import { GrRedo } from "react-icons/gr";
-// import SelectCategories from "./SelectCategories/SelectCategories";
-import SelectCategories from "../SelectCategories/SelectCategories";
 
-const baseUrl = "http://localhost:8000";
-function MyProfile({
-  profileInfo,
-  onChange,
-  onImageChange,
-  handleCategoryChange,
-}) {
-  const [preview, setPreview] = useState({ logoImage: "", coverImage: "" });
-
-  useEffect(() => {
-    if (profileInfo.logoImage && profileInfo.logoImage instanceof Blob) {
-      const logoImageUrl = URL.createObjectURL(profileInfo.logoImage);
-      setPreview((prev) => ({ ...prev, logoImage: logoImageUrl }));
-    }
-    if (profileInfo.coverImage && profileInfo.coverImage instanceof Blob) {
-      const coverImageUrl = URL.createObjectURL(profileInfo.coverImage);
-      setPreview((prev) => ({ ...prev, coverImage: coverImageUrl }));
-    }
-  }, [profileInfo.logoImage, profileInfo.coverImage]);
-
-  // Remember to revoke the URL when the component unmounts or the image changes
-  useEffect(() => {
-    return () => {
-      URL.revokeObjectURL(preview.logoImage);
-      URL.revokeObjectURL(preview.coverImage);
-    };
-  }, [preview]);
+function MyProfile() {
   return (
     <div
       className="bg-white p-6 px-10 rounded-lg"
@@ -58,206 +30,137 @@ function MyProfile({
     >
       <h2 className=" text-lg text-[#202124]  mb-6 font-bold">My Profile</h2>
 
-      <div>
-        {/* Logo Image Upload */}
-        <div className="pb-5">
-          <label
-            htmlFor="logoImage"
-            className="block text-sm font-bold text-gray-900"
-          >
-            Logo Image
-          </label>
-          <input
-            type="file"
-            name="logoImage"
-            id="logoImage"
-            onChange={(e) => onImageChange(e, "logoImage")}
-            className="w-full text-sm text-gray-900 py-2.5 px-4 border border-gray-300 rounded-lg focus:outline-none focus:border-[#6ad61d] focus:ring-[#6ad61d]"
-          />
-          {profileInfo?.logoImage && (
-            <img
-              className=" h-10"
-              src={
-                preview?.logoImage ||
-                `${baseUrl}/uploads/${profileInfo?.logoImage}`
-              }
-              alt="Logo Preview"
+      <div className="pb-5">
+        <label
+          for="logo-img"
+          className="block mb-5 text-sm font-bold text-gray-900 "
+        >
+          Logo Image
+        </label>
+        <button
+          type="submit"
+          className="text-[#6ad61d] bg-[#6ad61d23] rounded-lg transition duration-300 ease-in-out focus:ring-4 focus:outline-none focus:ring-[#6ad61d] font-medium  text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-[#6ad61d23] dark:hover:bg-[#6ad61d] dark:hover:text-white dark:focus:ring-[#6ad61d]"
+        >
+          Browser
+        </button>
+
+        <label
+          for="logo-img"
+          className="block mb-5 mt-9 text-sm font-bold text-gray-900 "
+        >
+          Cover Photo
+        </label>
+        <button
+          type="submit"
+          className="text-[#6ad61d] bg-[#6ad61d23] rounded-lg transition duration-300 ease-in-out focus:ring-4 focus:outline-none focus:ring-[#6ad61d] font-medium  text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-[#6ad61d23] dark:hover:bg-[#6ad61d] dark:hover:text-white dark:focus:ring-[#6ad61d]"
+        >
+          Browser
+        </button>
+      </div>
+
+      <form className="">
+        <div className="flex flex-wrap -mx-2">
+          <div className="mb-5 w-full md:w-1/2 px-2">
+            <label
+              for="email"
+              className="block mb-2 text-sm font-bold text-gray-900 "
+            >
+              Employer Name
+            </label>
+            <input
+              type="email"
+              id="large-input"
+              className="block w-full p-5 bg-gray-100 border-gray-300 focus:outline-[#6ad61d] text-gray-900 border rounded-lg text-base focus:ring-[#6ad61d] focus:border-[#6ad61d] dark:bg-gray-100 dark:border-none dark:placeholder-gray-400 dark:gray-900 dark:focus:ring-[#6ad61d] dark:focus:border-[#6ad61d]"
+              placeholder="name@gmail.com"
+              required
             />
-          )}
-        </div>
+          </div>
 
-        {/* Cover Photo Upload */}
-        <div className="pb-5">
-          <label
-            htmlFor="coverImage"
-            className="block text-sm font-bold text-gray-900"
-          >
-            Cover Photo
-          </label>
-          <input
-            type="file"
-            name="coverImage"
-            id="coverImage"
-            onChange={(e) => onImageChange(e, "coverImage")}
-            className="w-full text-sm text-gray-900 py-2.5 px-4 border border-gray-300 rounded-lg focus:outline-none focus:border-[#6ad61d] focus:ring-[#6ad61d]"
-          />
-          {profileInfo?.coverImage && (
-            <img
-              className=" h-10"
-              src={
-                preview?.coverImage ||
-                `${baseUrl}/uploads/${profileInfo?.coverImage}`
-              }
-              alt="Cover Preview"
+          <div className="mb-5 w-full md:w-1/2 px-2">
+            <label
+              for="password"
+              className="block mb-2 text-sm font-bold text-gray-900"
+            >
+              Website
+            </label>
+            <input
+              type="text"
+              // id="password"
+              id="large-input"
+              className="block w-full p-5  bg-gray-100 border-gray-300 focus:outline-[#6ad61d] text-gray-900 border rounded-lg text-base focus:ring-[#6ad61d] focus:border-[#6ad61d] dark:bg-gray-100 dark:border-none dark:placeholder-gray-400 dark:gray-900 dark:focus:ring-[#6ad61d] dark:focus:border-[#6ad61d]"
+              required
             />
-          )}
+          </div>
         </div>
 
-        {/* Employer Name Input */}
-        <div className="mb-5">
-          <label
-            htmlFor="employerName"
-            className="block text-sm font-bold text-gray-900"
-          >
-            Employer Name
-          </label>
-          <input
-            type="text"
-            name="employerName"
-            value={profileInfo?.employerName}
-            onChange={onChange}
-            className="block w-full p-3 mt-2 bg-gray-100 border border-gray-300 rounded-lg focus:outline-none focus:ring-[#6ad61d] focus:border-[#6ad61d]"
-            placeholder="Enter employer name"
-            required
-          />
+        <div className="flex flex-wrap -mx-2">
+          <div className="mb-5 w-full md:w-1/2 px-2">
+            <label
+              for="email"
+              className="block mb-2 text-sm font-bold text-gray-900 "
+            >
+              Founded Date
+            </label>
+            <input
+              type="date"
+              id="large-input"
+              className="block w-full p-5  bg-gray-100 border-gray-300 focus:outline-[#6ad61d] text-gray-900 border rounded-lg text-base focus:ring-[#6ad61d] focus:border-[#6ad61d] dark:bg-gray-100 dark:border-none dark:placeholder-gray-400 dark:gray-900 dark:focus:ring-[#6ad61d] dark:focus:border-[#6ad61d]"
+              placeholder="name@gmail.com"
+              required
+            />
+          </div>
+
+          <div className="mb-5 w-full md:w-1/2 px-2">
+            <label
+              for="password"
+              className="block mb-2 text-sm font-bold text-gray-900"
+            >
+              Company Size
+            </label>
+            <input
+              type="text"
+              // id="password"
+              id="large-input"
+              className="block w-full p-5  bg-gray-100 border-gray-300 focus:outline-[#6ad61d] text-gray-900 border rounded-lg text-base focus:ring-[#6ad61d] focus:border-[#6ad61d] dark:bg-gray-100 dark:border-none dark:placeholder-gray-400 dark:gray-900 dark:focus:ring-[#6ad61d] dark:focus:border-[#6ad61d]"
+              required
+            />
+          </div>
         </div>
 
-        {/* Company Name Input */}
-        <div className="mb-5">
-          <label
-            htmlFor="companyName"
-            className="block text-sm font-bold text-gray-900"
-          >
-            Company Name
-          </label>
-          <input
-            type="text"
-            name="companyName"
-            value={profileInfo?.companyName}
-            onChange={onChange}
-            className="block w-full p-3 mt-2 bg-gray-100 border border-gray-300 rounded-lg focus:outline-none focus:ring-[#6ad61d] focus:border-[#6ad61d]"
-            placeholder="Enter employer name"
-            required
-          />
-        </div>
+        <div className="flex flex-wrap -mx-2">
+          <div className="mb-5 w-full md:w-1/2 px-2">
+            <label
+              for="countries"
+              className="block mb-2 text-sm font-bold text-gray-900 "
+            >
+              Categories <span className="">*</span>
+            </label>
+            {/* <SelectCategories /> */}
+          </div>
 
-        {/* Website Input */}
-        <div className="mb-5">
-          <label
-            htmlFor="website"
-            className="block text-sm font-bold text-gray-900"
-          >
-            Website
-          </label>
-          <input
-            type="text"
-            name="website"
-            value={profileInfo?.website}
-            onChange={onChange}
-            className="block w-full p-3 mt-2 bg-gray-100 border border-gray-300 rounded-lg focus:outline-none focus:ring-[#6ad61d] focus:border-[#6ad61d]"
-            placeholder="https://example.com"
-            required
-          />
-        </div>
-
-        {/* Founded Date Input */}
-        <div className="mb-5">
-          <label
-            htmlFor="foundedDate"
-            className="block text-sm font-bold text-gray-900"
-          >
-            Founded Date
-          </label>
-          <input
-            type="date"
-            name="foundedDate"
-            value={profileInfo?.foundedDate}
-            onChange={onChange}
-            className="block w-full p-3 mt-2 bg-gray-100 border border-gray-300 rounded-lg focus:outline-none focus:ring-[#6ad61d] focus:border-[#6ad61d]"
-            required
-          />
-        </div>
-
-        {/* Company Size Input */}
-        <div className="mb-5">
-          <label
-            htmlFor="companySize"
-            className="block text-sm font-bold text-gray-900"
-          >
-            Company Size
-          </label>
-          <input
-            type="text"
-            name="companySize"
-            value={profileInfo?.companySize}
-            onChange={onChange}
-            className="block w-full p-3 mt-2 bg-gray-100 border border-gray-300 rounded-lg focus:outline-none focus:ring-[#6ad61d] focus:border-[#6ad61d]"
-            placeholder="Enter company size"
-            required
-          />
-        </div>
-
-        {/* Categories Input */}
-        <div className="mb-5">
-          <label
-            htmlFor="categories"
-            className="block text-sm font-bold text-gray-900"
-          >
-            Categories
-          </label>
-          <SelectCategories
-            value={profileInfo?.categories}
-            onChange={handleCategoryChange}
-          />
-        </div>
-
-        {/* Introduction Video URL Input */}
-        <div className="mb-5">
-          <label
-            htmlFor="introVideoUrl"
-            className="block text-sm font-bold text-gray-900"
-          >
-            Introduction Video URL
-          </label>
-          <input
-            type="text"
-            name="introVideoUrl"
-            value={profileInfo?.introVideoUrl}
-            onChange={onChange}
-            className="block w-full p-3 mt-2 bg-gray-100 border border-gray-300 rounded-lg focus:outline-none focus:ring-[#6ad61d] focus:border-[#6ad61d]"
-            placeholder="https://youtu.be/example"
-            required
-          />
+          <div className="mb-5 w-full md:w-1/2 px-2">
+            <label
+              for="text"
+              className="block mb-2 text-sm font-bold text-gray-900"
+            >
+              Introduction Video URL
+            </label>
+            <input
+              type="text"
+              id="video-url large-input"
+              name="video-url"
+              // id="password"
+              className="block w-full p-5  bg-gray-100 border-gray-300 focus:outline-[#6ad61d] text-gray-900 border rounded-lg text-base focus:ring-[#6ad61d] focus:border-[#6ad61d] dark:bg-gray-100 dark:border-none dark:placeholder-gray-400 dark:gray-900 dark:focus:ring-[#6ad61d] dark:focus:border-[#6ad61d]"
+              required
+            />
+          </div>
         </div>
 
         <h2 className=" text-lg text-[#202124]  mb-6 font-bold">
           About Company
         </h2>
-        <div className="w-full bg-gray-100 rounded-b-lg dark:bg-white">
-          <textarea
-            id="editor"
-            rows="10"
-            name="aboutCompany"
-            value={profileInfo?.aboutCompany}
-            onChange={onChange}
-            className="block w-full p-3 text-sm text-black bg-white focus:outline-gray-200   border"
-            placeholder=""
-            required
-          ></textarea>
-        </div>
-      </div>
 
-      {/* <div className="flex flex-wrap text-black">
+        <form className="flex flex-wrap text-black">
           <div className="flex flex-wrap w-full  border  bg-white border-gray-300">
             <div className="flex flex-wrap w-full items-start  py-1 border-b  ">
               <button
@@ -447,7 +350,7 @@ function MyProfile({
               </div>
             </div>
             {/* first icon row */}
-      {/* <div className="w-full flex flex-wrap items-center justify-between px-3 py-1  bg-gray-100 border-gray-300 sm:divide-x sm:rtl:divide-x-reverse text-sm sm:text-base">
+            <div className="w-full flex flex-wrap items-center justify-between px-3 py-1  bg-gray-100 border-gray-300 sm:divide-x sm:rtl:divide-x-reverse text-sm sm:text-base">
               <div className="flex flex-wrap items-center divide-gray-200 sm:divide-x sm:rtl:divide-x-reverse dark:divide-gray-600 text-sm sm:text-base">
                 <div className=" flex  flex-wrap  items-center space-x-1 rtl:space-x-reverse text-sm sm:text-base">
                   <form className="max-w-sm text-sm sm:text-base">
@@ -556,10 +459,10 @@ function MyProfile({
                   </button>
                 </div>
               </div>
-            </div> */}
+            </div>
 
-      {/* Second icon row */}
-      {/* <div className=" flex flex-wrap w-full items-center justify-between px-3  border-b bg-gray-100 border-gray-300 sm:divide-x sm:rtl:divide-x-reverse text-sm sm:text-base">
+            {/* Second icon row */}
+            <div className=" flex flex-wrap w-full items-center justify-between px-3  border-b bg-gray-100 border-gray-300 sm:divide-x sm:rtl:divide-x-reverse text-sm sm:text-base">
               <div className=" flex flex-wrap items-center divide-gray-200 sm:divide-x sm:rtl:divide-x-reverse dark:divide-gray-600 text-sm sm:text-base">
                 <div className="flex flex-wrap items-center space-x-1 rtl:space-x-reverse text-sm sm:text-base">
                   <form className="flex flex-wrap max-w-sm text-sm sm:text-base">
@@ -653,8 +556,9 @@ function MyProfile({
                 required
               ></textarea>
             </div>
-          </div> 
-        </div> */}
+          </div>
+        </form>
+      </form>
     </div>
   );
 }

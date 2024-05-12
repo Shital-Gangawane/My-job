@@ -50,6 +50,18 @@ const jobSchema = new mongoose.Schema(
       type: mongoose.Schema.Types.ObjectId,
       ref: "Employer",
     },
+    applications: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Candidate",
+      },
+    ],
+    shortlisted: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Candidate",
+      },
+    ],
   },
   { timestamps: true } // Enables automatic timestamps
 );
