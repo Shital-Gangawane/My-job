@@ -33,9 +33,7 @@ export default function ProfileMembersForm({
           />
         )}
         Member {index + 1}
-        <FaChevronDown
-          className={`ms-auto mt-1.5 ${isDropdownOn ? "rotate-180" : ""}`}
-        />
+        <FaChevronDown className='ms-auto mt-1.5'/>
       </p>
       {isDropdownOn && (
         <div className="flex flex-col gap-3">
@@ -101,6 +99,7 @@ export default function ProfileMembersForm({
             onChange={handleChange}
           />
         </div>
+        
       )}
       {index !== 0 && (
         <button

@@ -9,6 +9,7 @@ import { searchJobs } from "../../api/candidate/axios";
 import Nav from "../../components/Nav/Nav";
 import Carousel from "./Carousel";
 import FeaturedJobsCarousel from "./FeaturedJobsCarousel";
+import BrowseByCategory from "./BrowseByCategory";
 
 const LandingPage = () => {
   const [selectedCity, setSelectedCity] = useState("");
@@ -133,6 +134,7 @@ const LandingPage = () => {
       </section>
       <Carousel />
       <FeaturedJobsCarousel />
+      <BrowseByCategory/>
     </div>
   );
 };

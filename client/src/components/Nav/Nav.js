@@ -16,7 +16,7 @@ const Nav = ({ bgColor, employer }) => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
-  const { user, token } = useUserContext();
+  const { user } = useUserContext();
 
   const handleMouseOver = (index) => {
     setActiveDropdown(index);
@@ -114,7 +114,7 @@ const Nav = ({ bgColor, employer }) => {
           </div>
           <div className="block">
             <div className="ml-4 flex items-center md:ml-6">
-              {user && token ? (
+              {user ? (
                 <div className=" hidden xl:flex items-center gap-4">
                   <div className=" flex items-center cursor-pointer hover:text-[#6ad61d] gap-3">
                     <img

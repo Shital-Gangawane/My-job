@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-// import { Dropdown } from "../../pages/LandingPage/Dropdown";
-import { Dropdown } from "../../../LandingPage/Dropdown";
 import { skillsByCategory } from "../../../../components/Admin/skillsByCategory";
+import { FaChevronDown } from "react-icons/fa";
 // import { Dropdown } from "./DropdownForCategories";
 
 function SelectCategories() {
@@ -10,14 +9,12 @@ function SelectCategories() {
   const [isCategoryDropdownOpen, setIsCategoryDropdownOpen] = useState(false);
   const [isDeletingTag, setIsDeletingTag] = useState(false);
 
-
-  
    const toggleCategoryDropdown = () => {
     setIsCategoryDropdownOpen(!isCategoryDropdownOpen);
   };
 
   const handleCategorySelect = (category) => {
-    setCategories((prev) => [...prev, category]);
+    setCategories((prev) => [...prev, category]); //previous category and add new category 
     setIsCategoryDropdownOpen(false);
   };
   const removeTagsHandler = (tag, setState) => {
@@ -63,19 +60,24 @@ function SelectCategories() {
     return (
       <div>
          <div className="relative">
+         <div
+         id="large-input"
+         className="text-start  flex-wrap cursor-pointer mb-5  block w-full py-7 p-1 px-3  bg-gray-100 border-gray-300 focus:outline-[#6ad61d] text-gray-900 border rounded-lg text-base focus:ring-[#6ad61d] focus:border-[#6ad61d] dark:bg-gray-100 dark:border-none dark:placeholder-gray-400 dark:gray-900 dark:focus:ring-[#6ad61d] dark:focus:border-[#6ad61d]"
+         onClick={toggleCategoryDropdown}
+       >
               <div className=" flex flex-wrap">
                 {categories?.length
                   ? categories?.map((category, i) => (
                       <div
                         key={i}
-                        className=" inline-block relative border p-1 px-5 rounded-sm bg-[#6ad61d] text-white text-xs"
+                        className=" inline-block relative border p-1 px-5 rounded-full bg-[#6ad61d] text-white text-xs"
                       >
                         {category}
                         <p
                           onClick={() =>
                             removeTagsHandler(category, setCategories)
                           }
-                          className=" absolute right-1 -top-1 text-black cursor-pointer hover:text-white"
+                          className=" absolute right-2 top-1 text-black cursor-pointer hover:text-white"
                         >
                           x
                         </p>
@@ -83,11 +85,9 @@ function SelectCategories() {
                     ))
                   : ""}
               </div>
-              <div
-              id="large-input"
-                className="  text-start  flex-wrap cursor-pointer mb-5  block w-full p-5 py-7 px-3  bg-gray-100 border-gray-300 focus:outline-[#6ad61d] text-gray-900 border rounded-lg text-base focus:ring-[#6ad61d] focus:border-[#6ad61d] dark:bg-gray-100 dark:border-none dark:placeholder-gray-400 dark:gray-900 dark:focus:ring-[#6ad61d] dark:focus:border-[#6ad61d]"
-                onClick={toggleCategoryDropdown}
-              >
+              <FaChevronDown className='ms-auto items-center ' size={12}/>
+             
+              
                  {/* Categories */}
               </div>
               {isCategoryDropdownOpen && (

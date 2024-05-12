@@ -61,7 +61,7 @@ function MyProfile() {
         </div>
 
         <form className="">
-          <div className="flex flex-wrap -mx-2">
+          <div className="flex flex-wrap mx-2">
             <div className="mb-5 w-full md:w-1/2 px-2">
               <label
                 for="email"
@@ -95,7 +95,7 @@ function MyProfile() {
             </div>
           </div>
 
-          <div className="flex flex-wrap -mx-2">
+          <div className="flex flex-wrap mx-2">
             <div className="mb-5 w-full md:w-1/2 px-2">
               <label
                 for="email"
@@ -129,7 +129,7 @@ function MyProfile() {
             </div>
           </div>
 
-          <div className="flex flex-wrap -mx-2">
+          <div className="flex flex-wrap mx-2">
             <div className="mb-5 w-full md:w-1/2 px-2">
               <label
                 for="countries"
