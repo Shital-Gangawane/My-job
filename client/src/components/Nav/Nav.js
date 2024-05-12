@@ -16,7 +16,7 @@ const Nav = ({ bgColor, employer }) => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
-  const { user } = useUserContext();
+  const { user, token } = useUserContext();
 
   const handleMouseOver = (index) => {
     setActiveDropdown(index);
