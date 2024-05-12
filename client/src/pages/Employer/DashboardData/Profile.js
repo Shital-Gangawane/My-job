@@ -6,11 +6,6 @@ import ContactInformation from "./ProfileComps/ContactInformation";
 
 
 function Profile() {
-  const [isOpen, setIsOpen] = useState(false);
-
-  const toggleDropdown = () => {
-    setIsOpen(!isOpen);
-  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -28,6 +23,7 @@ function Profile() {
 
       <div>
       <MyProfile/>
+
       </div>
 
       <div className="bg-white p-6 mt-5 px-10 rounded-lg">

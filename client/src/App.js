@@ -44,6 +44,7 @@ import UserContextProvider from "./context/userContext";
 import Slidebar from "./pages/Employer/DashboardData/Slidebar";
 import RegisterAdmin from "./components/Admin/RegisterAdmin";
 import ProfileMembers from "./pages/Employer/DashboardData/ProfileComps/ProfileMembers/ProfileMembers";
+import PostNewJob from "./pages/Employer/DashboardData/SubmitJobsComps/PostNewJob";
 
 // import { useSelector } from "react-redux";
 // import { SelectUser } from "./features/userSlice";
@@ -95,6 +96,7 @@ const router = createBrowserRouter(
         <Route path="changepassword" element={<Changepassword />} />
         <Route path="deleteprofile" element={<Deleteprofile />} />
         <Route path="logout" element={<Logout />} />
+        <Route path="postnewjob" element={<PostNewJob />} />
       </Route>
     </Route>
   )
