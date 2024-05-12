@@ -27,6 +27,7 @@ import Meeting from "./DashboardData/Meeting";
 import Changepassword from "./DashboardData/Changepassword";
 import Deleteprofile from "./DashboardData/Deleteprofile";
 import Logout from "../Employer/DashboardData/Logout";
+import { useUserContext } from "../../context/userContext";
 const buttons = [
   {
     name: "User Dashboard",
@@ -94,7 +95,7 @@ const CandidateDashboard = () => {
   const [isSelected, setIsSelected] = useState(0);
   const [isMobile, setIsMobile] = useState(false);
   const [isSideBarOpen, setIsSideBarOpen] = useState(false);
-
+  const { user } = useUserContext();
   // Function to check if the screen is mobile
   const checkMobileScreen = () => {
     setIsMobile(window.innerWidth <= 1039); // Adjust the breakpoint as needed
@@ -156,16 +157,17 @@ const CandidateDashboard = () => {
           buttons={buttons}
           isSelected={isSelected}
           setIsSelected={setIsSelected}
+          data={user}
         />
       )}
       {isMobile && (
-        <>
+        <div className="bg-[#f5f7fc]">
           <div
             onClick={toggleSidebar}
-            className="bg-[#f5f7fc] py-7 px-4 flex items-center gap-1 text-[#6ad61d] cursor-pointer"
+            className="bg-[#f5f7fc] py-7 px-4 inline-flex items-center gap-1 text-[#6ad61d] cursor-pointer"
           >
             <IoMenuSharp size={20} />
-            <p>Show Sidebar</p>
+            <p className="inline">Show Sidebar</p>
           </div>
           <AnimatePresence>
             {isSideBarOpen && (
@@ -182,12 +184,13 @@ const CandidateDashboard = () => {
                   setIsSelected={setIsSelected}
                   onClose={toggleSidebar}
                   isOpen={isSideBarOpen}
+                  data={user}
                   isMobile
                 />
               </motion.div>
             )}
           </AnimatePresence>
-        </>
+        </div>
       )}
       <div className=" w-full h-full bg-[#f5f7fc] overflow-y-auto">
         <RenderComponent index={isSelected} />

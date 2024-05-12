@@ -167,6 +167,7 @@ const Empdashboard = () => {
     >
       {!isMobile && (
         <Slidebar
+          data={user}
           buttons={buttons}
           isSelected={isSelected}
           setIsSelected={setIsSelected}

@@ -73,3 +73,16 @@ export const loginCandidate = async (email, password) => {
 //     return error.response;
 //   }
 // };
+
+//Job apply
+export const applyJob = async (userId, jobId) => {
+  try {
+    const res = await axios.post(`${url}/api/candidate/applyJob`, {
+      userId,
+      jobId,
+    });
+    return res;
+  } catch (error) {
+    return error.response;
+  }
+};

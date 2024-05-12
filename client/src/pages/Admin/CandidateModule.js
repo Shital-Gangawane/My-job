@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { fetchAllAdmins } from "../../api/admin/axios";
+import { approveCandidate, fetchAllAdmins } from "../../api/admin/axios";
 import { useAdminContext } from "../../context/adminContext";
 import Loader from "../../components/Utility/Loader";
 import AdminOptions from "../../components/Admin/AdminOptions";
@@ -14,21 +14,21 @@ export default function CandidateModule() {
   // const [selectedEmployer, setSelectedEmployer] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
 
-  // const approveCandidateClickHandler = async (candidateId) => {
-  //   setIsLoading(true);
-  //   try {
-  //     const res = await approveEmployer(EmployerId, adminToken);
-  //     console.log(res);
-  //     if (res?.data?.success) {
-  //       setAllEmployers(res?.data?.allEmployers);
-  //       setFilteredEmployers(res?.data?.allEmployers);
-  //     }
-  //   } catch (error) {
-  //     console.error("Error approving employer:", error);
-  //   }
-  //   setIsLoading(false);
-  //   setFilterOption("");
-  // };
+  const approveCandidateClickHandler = async (candidateId) => {
+    setIsLoading(true);
+    try {
+      const res = await approveCandidate(candidateId, adminToken);
+      console.log(res);
+      if (res?.data?.success) {
+        setAllCandidates(res?.data?.allCandidates);
+        setFilteredCandidates(res?.data?.allCandidates);
+      }
+    } catch (error) {
+      console.error("Error approving employer:", error);
+    }
+    setIsLoading(false);
+    // setFilterOption("");
+  };
 
   // const onFilter = (value) => {
   //   switch (filterOption) {
@@ -178,7 +178,7 @@ export default function CandidateModule() {
 
                 <td className="px-1 py-4 text-center whitespace-nowrap text-sm text-gray-500">
                   <button
-                    // onClick={() => }
+                    onClick={() => approveCandidateClickHandler(candidate._id)}
                     className={`p-2 px-5 rounded-md text-white ${
                       !candidate.isApproved
                         ? "bg-green-500 hover:bg-green-600"
@@ -199,7 +199,7 @@ export default function CandidateModule() {
                     // // setSelectedEmployer={setSelectedEmployer}
                     // isEmployerDetailsOn={isEmployerDetailsOn}
                     // setIsEmployerDetailsOn={setIsEmployerDetailsOn}
-                    // setFilteredEmployers={setFilteredEmployers}
+                    setFilteredCandidates={setFilteredCandidates}
                     // setSelectedEmployer={setSelectedEmployer}
                   />
                 </td>

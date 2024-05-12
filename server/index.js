@@ -19,6 +19,9 @@ app.use(express.json());
 // Serve static files from the build directory
 app.use("/", express.static(path.join(__dirname, "build")));
 
+// Serve static files from the 'uploads' directory
+app.use("/uploads", express.static(path.join(__dirname, "uploads")));
+
 // Middleware to check database connection
 app.use(checkDbConnection);
 

@@ -16,10 +16,17 @@ export default function SearchedJobs() {
     handleCityChange,
   } = useContext(JobContext);
 
+  // Function to navigate to job details page
   const handleJobClick = (job) => {
     navigate(`/job/${job.jobTitle}`, { state: job });
   };
 
+  // Toggle sidebar visibility
+  const toggleSidebar = () => {
+    setIsSidebarVisible(!isSidebarVisible);
+  };
+
+  // Format date
   const dateFormatter = (str) => {
     const date = new Date(str);
     return date.toLocaleDateString("en-US", {
@@ -29,6 +36,7 @@ export default function SearchedJobs() {
     });
   };
 
+  // Effect for initializing or updating data based on location changes
   useEffect(() => {
     setSearchResults(location?.state?.jobs);
     handleKeywordChange(location?.state?.keyword);

@@ -6,7 +6,7 @@ export default function ProfileMembersForm({
   index,
   data,
   onChange,
-  setStateArr,
+  setMembers,
 }) {
   const [isDropdownOn, setIsDropdownOn] = useState(false);
 
@@ -26,7 +26,7 @@ export default function ProfileMembersForm({
             className="mt-0.5 font-bold hover:text-[#6ad61d]"
             size={20}
             onClick={() =>
-              setStateArr((prev) => {
+              setMembers((prev) => {
                 return prev.filter((el, i) => i !== index);
               })
             }
@@ -41,61 +41,61 @@ export default function ProfileMembersForm({
           <InputField
             label="Name"
             name="name"
-            value={data.name}
+            value={data?.name}
             onChange={handleChange}
           />
           <InputField
             label="Designation"
             name="designation"
-            value={data.designation}
+            value={data?.designation}
             onChange={handleChange}
           />
           <InputField
             label="Experience"
             name="experience"
-            value={data.experience}
+            value={data?.experience}
             onChange={handleChange}
           />
           <InputField
             label="Profile Image URL"
             name="profileImage"
-            value={data.profileImage}
+            value={data?.profileImage}
             onChange={handleChange}
           />
           <InputField
             label="Facebook URL"
             name="fbUrl"
-            value={data.fbUrl}
+            value={data?.fbUrl}
             onChange={handleChange}
           />
           <InputField
             label="Twitter URL"
             name="twitterUrl"
-            value={data.twitterUrl}
+            value={data?.twitterUrl}
             onChange={handleChange}
           />
           <InputField
             label="Google URL"
             name="googleUrl"
-            value={data.googleUrl}
+            value={data?.googleUrl}
             onChange={handleChange}
           />
           <InputField
             label="LinkedIn URL"
             name="linkedinUrl"
-            value={data.linkedinUrl}
+            value={data?.linkedinUrl}
             onChange={handleChange}
           />
           <InputField
             label="Dribbble URL"
             name="dribbleUrl"
-            value={data.dribbleUrl}
+            value={data?.dribbleUrl}
             onChange={handleChange}
           />
           <TextArea
             label="Description"
             name="description"
-            value={data.description}
+            value={data?.description}
             onChange={handleChange}
           />
         </div>
@@ -105,7 +105,7 @@ export default function ProfileMembersForm({
         <button
           className=" float-end text-[#6ad61d] bg-[#6ad61d23] rounded-lg transition duration-300 mt-4 ease-in-out focus:outline-none text-sm w-44  py-3 text-center dark:bg-[#6ad61d23] dark:hover:bg-[#6ad61d] dark:hover:text-white dark:focus:ring-[#6ad61d]"
           onClick={() =>
-            setStateArr((prev) => {
+            setMembers((prev) => {
               return prev.filter((el, i) => i !== index);
             })
           }

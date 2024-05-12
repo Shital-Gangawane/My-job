@@ -4,6 +4,30 @@ const candidateSchema = new mongoose.Schema({
   fullName: {
     type: String,
   },
+  dob: {
+    type: String,
+  },
+  gender: {
+    type: String,
+  },
+  age: {
+    type: String,
+  },
+  experience: {
+    type: String,
+  },
+  language: {
+    type: String,
+  },
+  salaryType: {
+    type: String,
+  },
+  salary: {
+    type: String,
+  },
+  categories: {
+    type: String,
+  },
   email: {
     type: String,
     required: true,
@@ -33,6 +57,10 @@ const candidateSchema = new mongoose.Schema({
   },
   kyc: {
     type: String, // Assuming either 'adhar card' or 'pan card'
+  },
+  isApproved: {
+    type: Boolean,
+    default: false,
   },
 });
 
