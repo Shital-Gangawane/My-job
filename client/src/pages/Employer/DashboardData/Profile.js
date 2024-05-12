@@ -3,14 +3,9 @@ import ProfileMembers from "./ProfileComps/ProfileMembers/ProfileMembers";
 import MyProfile from "./ProfileComps/MyProfile";
 import SocialNetworks from "./ProfileComps/SocialNetworks/SocialNetworks";
 import ContactInformation from "./ProfileComps/ContactInformation";
-
+// import networkoptions
 
 function Profile() {
-  const [isOpen, setIsOpen] = useState(false);
-
-  const toggleDropdown = () => {
-    setIsOpen(!isOpen);
-  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -28,6 +23,7 @@ function Profile() {
 
       <div>
       <MyProfile/>
+
       </div>
 
       <div className="bg-white p-6 mt-5 px-10 rounded-lg">
@@ -47,7 +43,7 @@ function Profile() {
       </div>
 
       <div>
-        <SocialNetworks/>
+        <SocialNetworks />
       </div>
 
      <div>

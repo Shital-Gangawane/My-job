@@ -30,7 +30,7 @@ function SocialNetworksForm({ index, data, onChange, setStateArr }) {
         Network {index + 1}
         <FaChevronDown
           className={`ms-auto mt-1.5 ${isDropdownOn ? "rotate-180" : ""}`}
-        />
+        /> 
       </p>
       {isDropdownOn && (
         <div className="flex flex-col gap-3">
