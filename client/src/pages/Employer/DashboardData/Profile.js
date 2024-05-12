@@ -3,7 +3,7 @@ import ProfileMembers from "./ProfileComps/ProfileMembers/ProfileMembers";
 import MyProfile from "./ProfileComps/MyProfile";
 import SocialNetworks from "./ProfileComps/SocialNetworks/SocialNetworks";
 import ContactInformation from "./ProfileComps/ContactInformation";
-
+// import networkoptions
 
 function Profile() {
 
@@ -43,7 +43,7 @@ function Profile() {
       </div>
 
       <div>
-        <SocialNetworks/>
+        <SocialNetworks />
       </div>
 
      <div>
