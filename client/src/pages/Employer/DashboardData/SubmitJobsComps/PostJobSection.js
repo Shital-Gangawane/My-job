@@ -2,120 +2,30 @@ import React, { useState } from "react";
 import { FaCaretDown } from "react-icons/fa";
 import { FaChevronDown } from "react-icons/fa";
 import { IoClose } from "react-icons/io5";
+import { workModeOptions } from "./SelectOption";
 
 function PostJobSection({
+  jobDetails,
+  handleInputChange,
+  handleSelectChange,
   options,
-  onSelect,
   genderoption,
   joboptions,
   salaryoptions,
-  experienceoptions,
+  employer,
   careerleveloptions,
   qualificationoptions,
-  categoriesoptions
+  categoriesoptions,
 }) {
   const [searchTerm, setSearchTerm] = useState("");
-  const [stateArr, setStateArr] = useState();
-
-  const [filteredCategoriesOptions, setfilteredCategoriesOptions] = useState(categoriesoptions);
-  const [isCategoriesOpen, setIsCategoriesOpen] = useState(false);
-  const [selectedCategoriesOption, setSelectedCategoriesOption] = useState(null);
-
-  const [filteredOptions, setfilteredOptions] = useState(options);
-  const [isOpen, setIsOpen] = useState(false);
-  const [selectedOption, setSelectedOption] = useState(null);
-
-  const [filteredGenderOptions, setfilteredGenderOptions] =useState(genderoption);
-  const [isgenderOptionOpen, setisgenderOptionOpen] = useState(false);
-  const [genderOption, setGenderOption] = useState(null);
-
-  const [jApplyTypeOptions, setjApplyTypeOptions] = useState(joboptions);
-  const [isJobApplyOpen, setisJobApplyOpen] = useState(false);
-  const [jobOption, setJobOption] = useState(null);
-
-  const [filteredSalaryOptions, setfilteredSalaryOptions] =useState(salaryoptions);
-  const [isSalaryOpen, setIsSalaryOpen] = useState(false);
-  const [selectedSalaryOption, setSelectedSalaryOption] = useState(null);
-
-  const [filteredExperienceOptions, setfilteredExperienceOptions] = useState(experienceoptions);
-  const [isExperienceOpen, setisExperienceOpen] = useState(false);
-  const [selectedExperienceOption, setselectedExperienceOption] = useState(null);
-
-  const [filteredCareerLevelOptions, setfilteredCareerLevelOptions] = useState(careerleveloptions);
-  const [isCareerLevelOpen, setIsCareerLevelOpen] = useState(false);
-  const [selectedCareerLevelOption, setSelectedCareerLevelOption] = useState(null);
-
-  const [filteredQualificationOptions, setfilteredQualificationOptions] = useState(qualificationoptions);
-  const [isQualificationOpen, setIsQualificationOpen] = useState(false);
-  const [selectedQualificationOption, setSelectedQualificationOption] = useState(null);
-
-
-  const handleSelectCategoriesOption = (categoriesoption) => {
-    setSelectedCategoriesOption(categoriesoption);
-    onSelect(categoriesoption);
-    setIsCategoriesOpen(false);
-  };
-  const handleSelectOption = (option) => {
-    setSelectedOption(option);
-    onSelect(option);
-    setIsOpen(false);
-  };
-  const handleGenderOption = (genderoption) => {
-    setGenderOption(genderoption);
-    onSelect(genderoption);
-    setisgenderOptionOpen(false);
-  };
-
-  const handleJobApplyOption = (joboptions) => {
-    setJobOption(joboptions);
-    onSelect(joboptions);
-    setisJobApplyOpen(false);
-  };
-
-  const handleSelectSalartyOption = (salaryoption) => {
-    setSelectedSalaryOption(salaryoption);
-    onSelect(salaryoption);
-    setIsSalaryOpen(false);
-  };
-
-  const handleSelectExperienceOption = (experienceoption) => {
-    setselectedExperienceOption(experienceoption);
-    onSelect(experienceoption);
-    setisExperienceOpen(false);
-  };
-
-  const handleSelectCareerLevelOption = (careerleveloption) => {
-    setSelectedCareerLevelOption(careerleveloption);
-    onSelect(careerleveloption);
-    setIsCareerLevelOpen(false);
-  };
-
-  
-  const handleSelectQualificationOption = (qualificationoption) => {
-    setSelectedQualificationOption(qualificationoption);
-    onSelect(qualificationoption);
-    setSelectedQualificationOption(false);
-  };
-  
-  console.log(options);
-  console.log(genderoption);
-  console.log(joboptions);
-  console.log(salaryoptions);
-  console.log(experienceoptions);
-  console.log(careerleveloptions);
-  console.log(qualificationoptions);
-
-  // const filteredOptions = options
-  //   ? options.filter((option) =>
-  //       option.label.toLowerCase().includes(searchTerm.toLowerCase())
-  //     )
-  //   : [];
 
   return (
     <div>
-      <h2 className=" text-lg text-[#202124]  mb-6 font-bold">Post job</h2>
+      <h2 className=" text-lg text-[#202124]  mb-6 font-bold">
+        {!employer ? "Post job" : "Edit Job"}
+      </h2>
 
-      <label
+      {/* <label
         for="email"
         className="block mb-2 text-sm font-bold text-gray-900 "
       >
@@ -126,155 +36,93 @@ function PostJobSection({
         className="text-[#6ad61d] mb-10 bg-[#6ad61d23] rounded-lg transition duration-300 ease-in-out focus:ring-4 focus:outline-none focus:ring-[#6ad61d] font-medium  text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-[#6ad61d23] dark:hover:bg-[#6ad61d] dark:hover:text-white dark:focus:ring-[#6ad61d]"
       >
         Browser
-      </button>
+      </button> */}
 
-      <div className="flex flex-wrap mx-2">
-        <div className="mb-5 w-full  ">
-          <label
-            for="jobtitle"
-            className="block w-full  text-sm font-bold text-gray-900 pt-2  py-2 "
-          >
-            Job Title <span className="text-red-600">*</span>
-          </label>
-          <input
-            type="text"
-            id="large-input"
-            className="block w-full p-5 bg-gray-100 border-gray-300 focus:outline-[#6ad61d] text-gray-900 border rounded-lg text-base focus:ring-[#6ad61d] focus:border-[#6ad61d] dark:bg-gray-100 dark:border-none dark:placeholder-gray-400 dark:gray-900 dark:focus:ring-[#6ad61d] dark:focus:border-[#6ad61d]"
-            required
-          />
-        </div>
+      {/* Job Title */}
+      <div className="mb-5 w-full">
+        <label
+          htmlFor="jobTitle"
+          className="block text-sm font-bold text-gray-900"
+        >
+          Job Title <span className="text-red-600">*</span>
+        </label>
+        <input
+          type="text"
+          name="jobTitle"
+          value={jobDetails.jobTitle}
+          onChange={handleInputChange}
+          className="block w-full p-5 bg-gray-100 border-gray-300 focus:outline-[#6ad61d] text-gray-900 border rounded-lg text-base focus:ring-[#6ad61d] focus:border-[#6ad61d] dark:bg-gray-100 dark:border-none dark:placeholder-gray-400 dark:gray-900 dark:focus:ring-[#6ad61d] dark:focus:border-[#6ad61d]"
+          required
+        />
+      </div>
+
+      {/* Job Description */}
+      <div className="mb-5 w-full">
+        <label
+          htmlFor="jobDescription"
+          className="block text-sm font-bold text-gray-900"
+        >
+          Job Description <span className="text-red-600">*</span>
+        </label>
+        <textarea
+          name="jobDescription"
+          value={jobDetails.jobDescription}
+          onChange={handleInputChange}
+          className="block w-full p-5 bg-gray-100 border-gray-300 focus:outline-[#6ad61d] text-gray-900 border rounded-lg text-base focus:ring-[#6ad61d] focus:border-[#6ad61d] dark:bg-gray-100 dark:border-none dark:placeholder-gray-400 dark:gray-900 dark:focus:ring-[#6ad61d] dark:focus:border-[#6ad61d]"
+          required
+        />
       </div>
 
       <div className="flex flex-wrap mx-2">
-        <div className="mb-5 w-full  ">
-          <label
-            for="jobtitle"
-            className="block w-full  text-sm font-bold text-gray-900 pt-2  py-2 "
-          >
-            Job Description <span className="text-red-600">*</span>
-          </label>
-          <textarea
-            type="text"
-            id="large-input"
-            className="block w-full p-5  bg-gray-100 border-gray-300 focus:outline-[#6ad61d] text-gray-900 border rounded-lg text-base focus:ring-[#6ad61d] focus:border-[#6ad61d] dark:bg-gray-100 dark:border-none dark:placeholder-gray-400 dark:gray-900 dark:focus:ring-[#6ad61d] dark:focus:border-[#6ad61d]"
-            required
-          />
-        </div>
-      </div>
-
-      <div className="flex flex-wrap mx-2">
+        {/* Categories Selector */}
         <div className="mb-5 w-full md:w-1/2 px-2">
           <label
-            for="countries"
-            className="block mb-2 text-sm font-bold text-gray-900 "
+            htmlFor="selectedCategory"
+            className="block text-sm font-bold text-gray-900"
           >
             Categories
           </label>
-          <div className="relative">
-            <div
-              id="  large-input"
-              className=" flex w-full p-4 py-6 px-3 bg-gray-100 border-gray-300 focus:outline-[#6ad61d] text-gray-900 border rounded-lg text-base focus:ring-[#6ad61d] focus:border-[#6ad61d] dark:bg-gray-100 dark:border-none dark:placeholder-transparent dark:gray-900 dark:focus:ring-[#6ad61d] dark:focus:border-[#6ad61d]"
-              onClick={() => setIsCategoriesOpen(!isCategoriesOpen)}
-            >
-              {selectedCategoriesOption ? selectedCategoriesOption.label : ""}
-              {selectedCategoriesOption && (
-                <IoClose
-                  className="mt-0.5 right-0 ml-60 ms-auto w-fit  font-bold hover:text-[#6ad61d]"
-                  size={14}
-                  onClick={() => setSelectedCategoriesOption(null)}
-                />
-              )}
-              <FaChevronDown className="ms-auto items-center " size={12} />
-            </div>
-
-            {isCategoriesOpen && (
-              <div className="absolute z-10 w-full mt-2 px-3 py-1 bg-white border border-gray-300 rounded-md shadow-lg">
-              <input
-                  type="text"
-                  className="w-full ps-3  pe-3 block m-2 mx-auto  max-w-full p-3  rounded-md py-1 border border-gray-300 focus:outline-none focus:border-none focus:ring-0 focus:ring-[#6ad61d] focus:outline-[#6ad61d]"
-                  placeholder="Search..."
-                  value={searchTerm}
-                  onChange={(e) => setSearchTerm(e.target.value)}
-                />
-
-                {filteredCategoriesOptions?.length > 0 ? (
-                  <div className="max-h-60 overflow-y-auto">
-                    {filteredCategoriesOptions?.map((categoriesoption) => (
-                      <div
-                        key={categoriesoption.value}
-                        className="px-4 py-2 hover:bg-gray-100 cursor-pointer hover:text-[#6ad61d]"
-                        onClick={() => handleSelectCategoriesOption(categoriesoption)}
-                      >
-                        {categoriesoption.label}
-                      </div>
-                    ))}
-                  </div>
-                ) : (
-                  ""
-                )}
-              </div>
-            )}
-          </div>
+          <select
+            name="selectedCategory"
+            value={jobDetails.selectedCategory}
+            onChange={handleInputChange}
+            className="block w-full p-5  bg-gray-100 border-gray-300 focus:outline-[#6ad61d] text-gray-900 border rounded-lg text-base focus:ring-[#6ad61d] focus:border-[#6ad61d] dark:bg-gray-100 dark:border-none dark:placeholder-gray-400 dark:gray-900 dark:focus:ring-[#6ad61d] dark:focus:border-[#6ad61d]"
+          >
+            <option value="">None</option>
+            {categoriesoptions.map((option) => (
+              <option key={option.value} value={option.label}>
+                {option.label}
+              </option>
+            ))}
+          </select>
         </div>
 
+        {/* Type Selector */}
         <div className="mb-5 w-full md:w-1/2 px-2">
           <label
-            for="countries"
-            className="block mb-2 text-sm font-bold text-gray-900 "
+            htmlFor="jobType"
+            className="block text-sm font-bold text-gray-900"
           >
             Type
           </label>
-
-          <div className="relative">
-            <div
-              id="  large-input"
-              className=" flex w-full p-4 py-6 px-3 bg-gray-100 border-gray-300 focus:outline-[#6ad61d] text-gray-900 border rounded-lg text-base focus:ring-[#6ad61d] focus:border-[#6ad61d] dark:bg-gray-100 dark:border-none dark:placeholder-transparent dark:gray-900 dark:focus:ring-[#6ad61d] dark:focus:border-[#6ad61d]"
-              onClick={() => setIsOpen(!isOpen)}
-            >
-              {selectedOption ? selectedOption.label : ""}
-              {selectedOption && (
-                <IoClose
-                  className="mt-0.5 right-0 ml-60 ms-auto w-fit  font-bold hover:text-[#6ad61d]"
-                  size={14}
-                  onClick={() => setSelectedOption(null)}
-                />
-              )}
-              <FaChevronDown className="ms-auto items-center " size={12} />
-            </div>
-
-            {isOpen && (
-              <div className="absolute z-10 w-full mt-2 px-3 py-1 bg-white border border-gray-300 rounded-md shadow-lg">
-              <input
-                  type="text"
-                  className="w-full ps-3  pe-3 block m-2 mx-auto  max-w-full p-3  rounded-md py-1 border border-gray-300 focus:outline-none focus:border-none focus:ring-0 focus:ring-[#6ad61d] focus:outline-[#6ad61d]"
-                  placeholder="Search..."
-                  value={searchTerm}
-                  onChange={(e) => setSearchTerm(e.target.value)}
-                />
-
-                {filteredOptions?.length > 0 ? (
-                  <div className="max-h-60 overflow-y-auto">
-                    {filteredOptions?.map((option) => (
-                      <div
-                        key={option.value}
-                        className="px-4 py-2 hover:bg-gray-100 cursor-pointer hover:text-[#6ad61d]"
-                        onClick={() => handleSelectOption(option)}
-                      >
-                        {option.label}
-                      </div>
-                    ))}
-                  </div>
-                ) : (
-                  ""
-                )}
-              </div>
-            )}
-          </div>
+          <select
+            name="jobType"
+            value={jobDetails.jobType}
+            onChange={handleInputChange}
+            className="block w-full p-5  bg-gray-100 border-gray-300 focus:outline-[#6ad61d] text-gray-900 border rounded-lg text-base focus:ring-[#6ad61d] focus:border-[#6ad61d] dark:bg-gray-100 dark:border-none dark:placeholder-gray-400 dark:gray-900 dark:focus:ring-[#6ad61d] dark:focus:border-[#6ad61d]"
+          >
+            <option value="">None</option>
+            {options?.map((option) => (
+              <option key={option.value} value={option.label}>
+                {option.label}
+              </option>
+            ))}
+          </select>
         </div>
       </div>
 
       <div className="flex flex-wrap mx-2">
-        <div className="mb-5 w-full md:w-1/2 px-2">
+        {/* <div className="mb-5 w-full md:w-1/2 px-2">
           <label
             for="text"
             className="block mb-2 text-sm font-bold text-gray-900"
@@ -289,200 +137,92 @@ function PostJobSection({
             className="block w-full p-5  bg-gray-100 border-gray-300 focus:outline-[#6ad61d] text-gray-900 border rounded-lg text-base focus:ring-[#6ad61d] focus:border-[#6ad61d] dark:bg-gray-100 dark:border-none dark:placeholder-gray-400 dark:gray-900 dark:focus:ring-[#6ad61d] dark:focus:border-[#6ad61d]"
             required
           />
-        </div>
+        </div> */}
+
+        {/* Gender */}
         <div className="mb-5 w-full md:w-1/2 px-2">
           <label
-            for="countries"
-            className="block mb-2 text-sm font-bold text-gray-900 "
+            htmlFor="gender"
+            className="block text-sm font-bold text-gray-900"
           >
             Gender
           </label>
-
-          <div className="relative">
-            <div
-              id="  large-input"
-              className=" flex w-full p-4 py-6 px-3 bg-gray-100 border-gray-300 focus:outline-[#6ad61d] text-gray-900 border rounded-lg text-base focus:ring-[#6ad61d] focus:border-[#6ad61d] dark:bg-gray-100 dark:border-none dark:placeholder-transparent dark:gray-900 dark:focus:ring-[#6ad61d] dark:focus:border-[#6ad61d]"
-              onClick={() => setisgenderOptionOpen(!isgenderOptionOpen)}
-            >
-              {genderOption ? genderOption.label : ""}
-              {genderOption && (
-                <IoClose
-                  className="mt-0.5 right-0 ml-60 ms-auto w-fit  font-bold hover:text-[#6ad61d]"
-                  size={14}
-                  onClick={() => setGenderOption(null)}
-                />
-              )}
-              <FaChevronDown className="ms-auto items-center " size={12} />
-            </div>
-
-            {isgenderOptionOpen && (
-              <div className="absolute z-10 w-full mt-2 px-3 py-1 bg-white border border-gray-300 rounded-md shadow-lg">
-              <input
-                  type="text"
-                  className="w-full ps-3  pe-3 block m-2 mx-auto  max-w-full p-3  rounded-md py-1 border border-gray-300 focus:outline-none focus:border-none focus:ring-0 focus:ring-[#6ad61d] focus:outline-[#6ad61d]"
-                 placeholder="Search..."
-                  value={searchTerm}
-                  onChange={(e) => setSearchTerm(e.target.value)}
-                />
-
-                {filteredGenderOptions?.length > 0 ? (
-                  <div className="max-h-60 overflow-y-auto">
-                    {filteredGenderOptions?.map((genderoption) => (
-                      <div
-                        key={genderoption.value}
-                        className="px-4 py-2 hover:bg-gray-100 cursor-pointer hover:text-[#6ad61d]"
-                        onClick={() => handleGenderOption(genderoption)}
-                      >
-                        {genderoption.label}
-                      </div>
-                    ))}
-                  </div>
-                ) : (
-                  ""
-                )}
-              </div>
-            )}
-          </div>
+          <select
+            name="gender"
+            value={jobDetails.gender}
+            onChange={handleInputChange}
+            className="block w-full p-5  bg-gray-100 border-gray-300 focus:outline-[#6ad61d] text-gray-900 border rounded-lg text-base focus:ring-[#6ad61d] focus:border-[#6ad61d] dark:bg-gray-100 dark:border-none dark:placeholder-gray-400 dark:gray-900 dark:focus:ring-[#6ad61d] dark:focus:border-[#6ad61d]"
+          >
+            <option value="">None</option>
+            {genderoption.map((option) => (
+              <option key={option.value} value={option.label}>
+                {option.label}
+              </option>
+            ))}
+          </select>
         </div>
       </div>
 
       <div className="flex flex-wrap mx-2">
-        <div className="mb-5 w-full md:w-1/2 px-2">
-          <label className="block mb-2 text-sm font-bold text-gray-900 ">
-            Job Apply Type
-          </label>
-          <div className="relative ">
-            <div
-              id="  large-input"
-              className=" flex w-full p-4 py-6 px-3 bg-gray-100 border-gray-300 focus:outline-[#6ad61d] text-gray-900 border rounded-lg text-base focus:ring-[#6ad61d] focus:border-[#6ad61d] dark:bg-gray-100 dark:border-none dark:placeholder-transparent dark:gray-900 dark:focus:ring-[#6ad61d] dark:focus:border-[#6ad61d]"
-              onClick={() => setisJobApplyOpen(!isJobApplyOpen)}
-            >
-              {jobOption ? jobOption.label : ""}
-
-              {jobOption && (
-                <IoClose
-                  className="mt-0.5 right-0 ml-60 ms-auto w-fit  font-bold hover:text-[#6ad61d]"
-                  size={14}
-                  onClick={() => setJobOption(null)}
-                />
-              )}
-              <FaChevronDown className="ms-auto items-center " size={12} />
-            </div>
-
-            {isJobApplyOpen && (
-              <div className="absolute z-10 w-full mt-2 px-3 py-1 bg-white border border-gray-300 rounded-md shadow-lg">
-              <input
-                  type="text"
-                  className="w-full ps-3  pe-3 block m-2 mx-auto  max-w-full p-3  rounded-md py-1 border border-gray-300 focus:outline-none focus:border-none focus:ring-0 focus:ring-[#6ad61d] focus:outline-[#6ad61d]"
-                  placeholder="Search..."
-                  value={searchTerm}
-                  onChange={(e) => setSearchTerm(e.target.value)}
-                />
-
-                {jApplyTypeOptions?.length > 0 ? (
-                  <div className="max-h-60 overflow-y-auto">
-                    {jApplyTypeOptions?.map((joboptions) => (
-                      <div
-                        key={joboptions.value}
-                        className="px-4 py-2 hover:bg-gray-100 cursor-pointer hover:text-[#6ad61d]"
-                        onClick={() => handleJobApplyOption(joboptions)}
-                      >
-                        {joboptions.label}
-                      </div>
-                    ))}
-                  </div>
-                ) : (
-                  <div>Not found</div>
-                )}
-              </div>
-            )}
-          </div>
-        </div>
-
+        {/* Job Apply Type Selector */}
         <div className="mb-5 w-full md:w-1/2 px-2">
           <label
-            for="email"
-            className="block mb-2 text-sm font-bold text-gray-900 "
+            htmlFor="jobApplyType"
+            className="block text-sm font-bold text-gray-900"
+          >
+            Job Apply Type
+          </label>
+          <select
+            name="jobApplyType"
+            value={jobDetails.jobApplyType}
+            onChange={handleInputChange}
+            className="block w-full p-5  bg-gray-100 border-gray-300 focus:outline-[#6ad61d] text-gray-900 border rounded-lg text-base focus:ring-[#6ad61d] focus:border-[#6ad61d] dark:bg-gray-100 dark:border-none dark:placeholder-gray-400 dark:gray-900 dark:focus:ring-[#6ad61d] dark:focus:border-[#6ad61d]"
+          >
+            <option value="">None</option>
+            {joboptions?.map((option) => (
+              <option key={option.value} value={option.label}>
+                {option.label}
+              </option>
+            ))}
+          </select>
+        </div>
+
+        {/* Work mode Selector */}
+        <div className="mb-5 w-full md:w-1/2 px-2">
+          <label
+            htmlFor="workMode"
+            className="block text-sm font-bold text-gray-900"
+          >
+            Work Mode
+          </label>
+          <select
+            name="workMode"
+            value={jobDetails.workMode}
+            onChange={handleInputChange}
+            className="block w-full p-5  bg-gray-100 border-gray-300 focus:outline-[#6ad61d] text-gray-900 border rounded-lg text-base focus:ring-[#6ad61d] focus:border-[#6ad61d] dark:bg-gray-100 dark:border-none dark:placeholder-gray-400 dark:gray-900 dark:focus:ring-[#6ad61d] dark:focus:border-[#6ad61d]"
+          >
+            <option value="">None</option>
+            {workModeOptions?.map((option) => (
+              <option key={option.value} value={option.label}>
+                {option.label}
+              </option>
+            ))}
+          </select>
+        </div>
+
+        {/* External URL for Apply Job */}
+        <div className="mb-5 w-full md:w-1/2 px-2">
+          <label
+            htmlFor="externalUrl"
+            className="block text-sm font-bold text-gray-900"
           >
             External URL for Apply Job
           </label>
           <input
             type="text"
-            id="video-url large-input"
-            name="video-url"
-            // id="password"
-            className="block w-full p-5  bg-gray-100 border-gray-300 focus:outline-[#6ad61d] text-gray-900 border rounded-lg text-base focus:ring-[#6ad61d] focus:border-[#6ad61d] dark:bg-gray-100 dark:border-none dark:placeholder-gray-400 dark:gray-900 dark:focus:ring-[#6ad61d] dark:focus:border-[#6ad61d]"
-            required
-          />
-        </div>
-      </div>
-
-      <div className="flex flex-wrap mx-2">
-        <div className="mb-5 w-full md:w-1/2 px-2">
-          <label
-            for="email"
-            className="block mb-2 text-sm font-bold text-gray-900 "
-          >
-            Salary Type
-          </label>
-
-          <div className="relative">
-            <div
-              id="  large-input"
-              className=" flex w-full p-4 py-6 px-3 bg-gray-100 border-gray-300 focus:outline-[#6ad61d] text-gray-900 border rounded-lg text-base focus:ring-[#6ad61d] focus:border-[#6ad61d] dark:bg-gray-100 dark:border-none dark:placeholder-transparent dark:gray-900 dark:focus:ring-[#6ad61d] dark:focus:border-[#6ad61d]"
-              onClick={() => setIsSalaryOpen(!isSalaryOpen)}
-            >
-              {selectedSalaryOption ? selectedSalaryOption.label : ""}
-              {selectedSalaryOption && (
-                <IoClose
-                  className="mt-0.5 right-0 ml-60 ms-auto w-fit  font-bold hover:text-[#6ad61d]"
-                  size={14}
-                  onClick={() => setSelectedSalaryOption(null)}
-                />
-              )}
-              <FaChevronDown className="ms-auto items-center " size={12} />
-            </div>
-
-            {isSalaryOpen && (
-              <div className="absolute z-10 w-full mt-2 px-3 py-1 bg-white border border-gray-300 rounded-md shadow-lg">
-              <input
-                  type="text"
-                  className="w-full ps-3  pe-3 block m-2 mx-auto  max-w-full p-3  rounded-md py-1 border border-gray-300 focus:outline-none focus:border-none focus:ring-0 focus:ring-[#6ad61d] focus:outline-[#6ad61d]"
-                  placeholder="Search..."
-                  value={searchTerm}
-                  onChange={(e) => setSearchTerm(e.target.value)}
-                />
-
-                {filteredSalaryOptions?.length > 0 ? (
-                  <div className="max-h-60 overflow-y-auto">
-                    {filteredSalaryOptions?.map((salaryoption) => (
-                      <div
-                        key={salaryoption.value}
-                        className="px-4 py-2 hover:bg-gray-100 cursor-pointer hover:text-[#6ad61d]"
-                        onClick={() => handleSelectSalartyOption(salaryoption)}
-                      >
-                        {salaryoption.label}
-                      </div>
-                    ))}
-                  </div>
-                ) : (
-                  ""
-                )}
-              </div>
-            )}
-          </div>
-        </div>
-
-        <div className="mb-5 w-full md:w-1/2 px-2">
-          <label
-            for="email"
-            className="block mb-2 text-sm font-bold text-gray-900 "
-          >
-            Min. Salary
-          </label>
-          <input
-            type="text"
-            id="large-input"
+            name="externalUrl"
+            value={jobDetails.externalUrl}
+            onChange={handleInputChange}
             className="block w-full p-5 bg-gray-100 border-gray-300 focus:outline-[#6ad61d] text-gray-900 border rounded-lg text-base focus:ring-[#6ad61d] focus:border-[#6ad61d] dark:bg-gray-100 dark:border-none dark:placeholder-gray-400 dark:gray-900 dark:focus:ring-[#6ad61d] dark:focus:border-[#6ad61d]"
             required
           />
@@ -490,203 +230,167 @@ function PostJobSection({
       </div>
 
       <div className="flex flex-wrap mx-2">
+        {/*  Salary Type Selector */}
         <div className="mb-5 w-full md:w-1/2 px-2">
           <label
-            for="password"
-            className="block mb-2 text-sm font-bold text-gray-900"
+            htmlFor="salaryType"
+            className="block text-sm font-bold text-gray-900"
           >
-            Max. Salary
+            Salary Type
+          </label>
+          <select
+            name="salaryType"
+            value={jobDetails.salaryType}
+            onChange={handleInputChange}
+            className="block w-full p-5  bg-gray-100 border-gray-300 focus:outline-[#6ad61d] text-gray-900 border rounded-lg text-base focus:ring-[#6ad61d] focus:border-[#6ad61d] dark:bg-gray-100 dark:border-none dark:placeholder-gray-400 dark:gray-900 dark:focus:ring-[#6ad61d] dark:focus:border-[#6ad61d]"
+          >
+            <option value="">None</option>
+            {salaryoptions?.map((option) => (
+              <option key={option.value} value={option.label}>
+                {option.label}
+              </option>
+            ))}
+          </select>
+        </div>
+
+        {/* Min Salary */}
+        <div className="mb-5 w-full md:w-1/2 px-2">
+          <label
+            htmlFor="minSalary"
+            className="block text-sm font-bold text-gray-900"
+          >
+            Min Salary
           </label>
           <input
             type="text"
-            // id="password"
-            id="large-input"
-            className="block w-full p-5  bg-gray-100 border-gray-300 focus:outline-[#6ad61d] text-gray-900 border rounded-lg text-base focus:ring-[#6ad61d] focus:border-[#6ad61d] dark:bg-gray-100 dark:border-none dark:placeholder-gray-400 dark:gray-900 dark:focus:ring-[#6ad61d] dark:focus:border-[#6ad61d]"
+            name="minSalary"
+            value={jobDetails.minSalary}
+            onChange={handleInputChange}
+            className="block w-full p-5 bg-gray-100 border-gray-300 focus:outline-[#6ad61d] text-gray-900 border rounded-lg text-base focus:ring-[#6ad61d] focus:border-[#6ad61d] dark:bg-gray-100 dark:border-none dark:placeholder-gray-400 dark:gray-900 dark:focus:ring-[#6ad61d] dark:focus:border-[#6ad61d]"
             required
           />
-        </div>
-        <div className="mb-5 w-full md:w-1/2 px-2">
-          <label
-            for="countries"
-            className="block mb-2 text-sm font-bold text-gray-900 "
-          >
-            Experience
-          </label>
-          <div className="relative">
-            <div
-              id="  large-input"
-              className=" flex w-full p-4 py-6 px-3 bg-gray-100 border-gray-300 focus:outline-[#6ad61d] text-gray-900 border rounded-lg text-base focus:ring-[#6ad61d] focus:border-[#6ad61d] dark:bg-gray-100 dark:border-none dark:placeholder-transparent dark:gray-900 dark:focus:ring-[#6ad61d] dark:focus:border-[#6ad61d]"
-              onClick={() => setisExperienceOpen(!isExperienceOpen)}
-            >
-              {selectedExperienceOption ? selectedExperienceOption.label : ""}
-              {selectedExperienceOption && (
-                <IoClose
-                  className="mt-0.5 right-0 ml-60 ms-auto w-fit  font-bold hover:text-[#6ad61d]"
-                  size={14}
-                  onClick={() => setselectedExperienceOption(null)}
-                />
-              )}
-              <FaChevronDown className="ms-auto items-center " size={12} />
-            </div>
-
-            {isExperienceOpen && (
-               <div className="absolute z-10 w-full mt-2 px-3 py-1 bg-white border border-gray-300 rounded-md shadow-lg">
-               <input
-                  type="text"
-                  className="w-full ps-3  pe-3 block m-2 mx-auto  max-w-full p-3  rounded-md py-1 border border-gray-300 focus:outline-none focus:border-none focus:ring-0 focus:ring-[#6ad61d] focus:outline-[#6ad61d]"
-                  placeholder="Search..."
-                  value={searchTerm}
-                  onChange={(e) => setSearchTerm(e.target.value)}
-                />
-
-                {filteredExperienceOptions?.length > 0 ? (
-                  <div className="max-h-60 overflow-y-auto">
-                    {filteredExperienceOptions?.map((experienceoption) => (
-                      <div
-                        key={experienceoption.value}
-                        className="px-4 py-2 hover:bg-gray-100 cursor-pointer  hover:text-[#6ad61d]"
-                        onClick={() => handleSelectExperienceOption(experienceoption)}
-                      >
-                        {experienceoption.label}
-                      </div>
-                    ))}
-                  </div>
-                ) : (
-                  ""
-                )}
-              </div>
-            )}
-          </div>
-
         </div>
       </div>
 
       <div className="flex flex-wrap mx-2">
+        {/* Min Salary */}
         <div className="mb-5 w-full md:w-1/2 px-2">
           <label
-            for="email"
-            className="block mb-2 text-sm font-bold text-gray-900 "
+            htmlFor="maxSalary"
+            className="block text-sm font-bold text-gray-900"
+          >
+            Min Salary
+          </label>
+          <input
+            type="text"
+            name="maxSalary"
+            value={jobDetails.maxSalary}
+            onChange={handleInputChange}
+            className="block w-full p-5 bg-gray-100 border-gray-300 focus:outline-[#6ad61d] text-gray-900 border rounded-lg text-base focus:ring-[#6ad61d] focus:border-[#6ad61d] dark:bg-gray-100 dark:border-none dark:placeholder-gray-400 dark:gray-900 dark:focus:ring-[#6ad61d] dark:focus:border-[#6ad61d]"
+            required
+          />
+        </div>
+
+        {/* Min Experience */}
+        <div className="mb-5 w-full md:w-1/2 px-2">
+          <label
+            htmlFor="minExperience"
+            className="block text-sm font-bold text-gray-900"
+          >
+            Min Experience
+          </label>
+          <input
+            type="text"
+            name="minExperience"
+            value={jobDetails.minExperience}
+            onChange={handleInputChange}
+            className="block w-full p-5 bg-gray-100 border-gray-300 focus:outline-[#6ad61d] text-gray-900 border rounded-lg text-base focus:ring-[#6ad61d] focus:border-[#6ad61d] dark:bg-gray-100 dark:border-none dark:placeholder-gray-400 dark:gray-900 dark:focus:ring-[#6ad61d] dark:focus:border-[#6ad61d]"
+            required
+          />
+        </div>
+        {/* Min Experience */}
+        <div className="mb-5 w-full md:w-1/2 px-2">
+          <label
+            htmlFor="maxExperience"
+            className="block text-sm font-bold text-gray-900"
+          >
+            Max Experience
+          </label>
+          <input
+            type="text"
+            name="maxExperience"
+            value={jobDetails.maxExperience}
+            onChange={handleInputChange}
+            className="block w-full p-5 bg-gray-100 border-gray-300 focus:outline-[#6ad61d] text-gray-900 border rounded-lg text-base focus:ring-[#6ad61d] focus:border-[#6ad61d] dark:bg-gray-100 dark:border-none dark:placeholder-gray-400 dark:gray-900 dark:focus:ring-[#6ad61d] dark:focus:border-[#6ad61d]"
+            required
+          />
+        </div>
+      </div>
+
+      <div className="flex flex-wrap mx-2">
+        {/*  Career Level Selector */}
+        <div className="mb-5 w-full md:w-1/2 px-2">
+          <label
+            htmlFor="careerLevel"
+            className="block text-sm font-bold text-gray-900"
           >
             Career Level
           </label>
-          <div className="relative">
-            <div
-              id="  large-input"
-              className=" flex w-full p-2 py-7 px-3 bg-gray-100 border-gray-300 focus:outline-[#6ad61d] text-gray-900 border rounded-lg text-base focus:ring-[#6ad61d] focus:border-[#6ad61d] dark:bg-gray-100 dark:border-none dark:placeholder-transparent dark:gray-900 dark:focus:ring-[#6ad61d] dark:focus:border-[#6ad61d]"
-              onClick={() => setIsCareerLevelOpen(!isCareerLevelOpen)}
-            >
-              {selectedCareerLevelOption ? selectedCareerLevelOption.label : ""}
-              {selectedCareerLevelOption && (
-                <IoClose
-                  className="mt-0.5 right-0 ml-60 ms-auto w-fit  font-bold hover:text-[#6ad61d]"
-                  size={14}
-                  onClick={() => setSelectedCareerLevelOption(null)}
-                />
-              )}
-              <FaChevronDown className="ms-auto items-center " size={12} />
-            </div>
-
-            {isCareerLevelOpen && (
-               <div className="absolute z-10 w-full mt-2 px-3 py-1 bg-white border border-gray-300 rounded-md shadow-lg">
-               <input
-                  type="text"
-                  className="w-full ps-3  pe-3 block m-2 mx-auto  max-w-full p-3  rounded-md py-1 border border-gray-300 focus:outline-none focus:border-none focus:ring-0 focus:ring-[#6ad61d] focus:outline-[#6ad61d]"
-                  placeholder="Search..."
-                  value={searchTerm}
-                  onChange={(e) => setSearchTerm(e.target.value)}
-                />
-
-                {filteredCareerLevelOptions?.length > 0 ? (
-                  <div className="max-h-60 overflow-y-auto">
-                    {filteredCareerLevelOptions?.map((careerleveloption) => (
-                      <div
-                        key={careerleveloption.value}
-                        className="px-4 py-2 hover:bg-gray-100 cursor-pointer hover:text-[#6ad61d]"
-                        onClick={() => handleSelectCareerLevelOption(careerleveloption)}
-                      >
-                        {careerleveloption.label}
-                      </div>
-                    ))}
-                  </div>
-                ) : (
-                  ""
-                )}
-              </div>
-            )}
-          </div>
+          <select
+            name="careerLevel"
+            value={jobDetails.careerLevel}
+            onChange={handleInputChange}
+            className="block w-full p-5  bg-gray-100 border-gray-300 focus:outline-[#6ad61d] text-gray-900 border rounded-lg text-base focus:ring-[#6ad61d] focus:border-[#6ad61d] dark:bg-gray-100 dark:border-none dark:placeholder-gray-400 dark:gray-900 dark:focus:ring-[#6ad61d] dark:focus:border-[#6ad61d]"
+          >
+            <option value="">None</option>
+            {careerleveloptions?.map((option) => (
+              <option key={option.value} value={option.label}>
+                {option.label}
+              </option>
+            ))}
+          </select>
         </div>
+
+        {/*  Qualification Selector */}
         <div className="mb-5 w-full md:w-1/2 px-2">
           <label
-            for="countries"
-            className="block mb-2 text-sm font-bold text-gray-900 "
+            htmlFor="qualificationRequired"
+            className="block text-sm font-bold text-gray-900"
           >
             Qualification
           </label>
-          <div className="relative">
-            <div
-              id="  large-input"
-              className=" flex w-full p-3 py-6 px-3 bg-gray-100 border-gray-300 focus:outline-[#6ad61d] text-gray-900 border rounded-lg text-base focus:ring-[#6ad61d] focus:border-[#6ad61d] dark:bg-gray-100 dark:border-none dark:placeholder-transparent dark:gray-900 dark:focus:ring-[#6ad61d] dark:focus:border-[#6ad61d]"
-              onClick={() => setIsQualificationOpen(!isQualificationOpen)}
-            >
-              {selectedQualificationOption ? selectedQualificationOption.label : ""}
-              {selectedQualificationOption && (
-                <IoClose
-                  className="mt-0.5 right-0 ml-60 ms-auto w-fit  font-bold hover:text-[#6ad61d]"
-                  size={14}
-                  onClick={() => setSelectedQualificationOption(null)}
-                />
-              )}
-              <FaChevronDown className="ms-auto items-center " size={12} />
-            </div>
-
-            {isQualificationOpen && (
-               <div className="absolute z-10 w-full mt-2 px-3 py-1 bg-white border border-gray-300 rounded-md shadow-lg">
-               <input
-                  type="text"
-                  className="w-full ps-3  pe-3 block m-2 mx-auto  max-w-full p-3  rounded-md py-1 border border-gray-300 focus:outline-none focus:border-none focus:ring-0 focus:ring-[#6ad61d] focus:outline-[#6ad61d]"
-                  placeholder="Search..."
-                  value={searchTerm}
-                  onChange={(e) => setSearchTerm(e.target.value)}
-                />
-
-                {filteredQualificationOptions?.length > 0 ? (
-                  <div className="max-h-60 overflow-y-auto">
-                    {filteredQualificationOptions?.map((qualificationoption) => (
-                      <div
-                        key={qualificationoption.value}
-                        className="px-4 py-2 hover:bg-gray-100 cursor-pointer hover:text-[#6ad61d]"
-                        onClick={() => handleSelectQualificationOption(qualificationoption)}
-                      >
-                        {qualificationoption.label}
-                      </div>
-                    ))}
-                  </div>
-                ) : (
-                  ""
-                )}
-              </div>
-            )}
-          </div>
+          <select
+            name="qualificationRequired"
+            value={jobDetails.qualificationRequired}
+            onChange={handleInputChange}
+            className="block w-full p-5  bg-gray-100 border-gray-300 focus:outline-[#6ad61d] text-gray-900 border rounded-lg text-base focus:ring-[#6ad61d] focus:border-[#6ad61d] dark:bg-gray-100 dark:border-none dark:placeholder-gray-400 dark:gray-900 dark:focus:ring-[#6ad61d] dark:focus:border-[#6ad61d]"
+          >
+            <option value="">None</option>
+            {qualificationoptions?.map((option) => (
+              <option key={option.value} value={option.label}>
+                {option.label}
+              </option>
+            ))}
+          </select>
         </div>
       </div>
 
-      <div className="flex flex-wrap mx-2">
-        <div className="mb-5 w-full md:w-1/2 px-2">
-          <label
-            for="email"
-            className="block mb-2 text-sm font-bold text-gray-900 "
-          >
-            Introduction Video Url
-          </label>
-          <input
-            type="text"
-            id="video-url large-input"
-            name="video-url"
-            // id="password"
-            className="block w-full p-5  bg-gray-100 border-gray-300 focus:outline-[#6ad61d] text-gray-900 border rounded-lg text-base focus:ring-[#6ad61d] focus:border-[#6ad61d] dark:bg-gray-100 dark:border-none dark:placeholder-gray-400 dark:gray-900 dark:focus:ring-[#6ad61d] dark:focus:border-[#6ad61d]"
-            required
-          />
-        </div>
+      {/* Video Url Experience */}
+      <div className="mb-5 w-full md:w-1/2 px-2">
+        <label
+          htmlFor="videoUrl"
+          className="block text-sm font-bold text-gray-900"
+        >
+          Introduction Video Url
+        </label>
+        <input
+          type="text"
+          name="videoUrl"
+          value={jobDetails.videoUrl}
+          onChange={handleInputChange}
+          className="block w-full p-5 bg-gray-100 border-gray-300 focus:outline-[#6ad61d] text-gray-900 border rounded-lg text-base focus:ring-[#6ad61d] focus:border-[#6ad61d] dark:bg-gray-100 dark:border-none dark:placeholder-gray-400 dark:gray-900 dark:focus:ring-[#6ad61d] dark:focus:border-[#6ad61d]"
+          required
+        />
       </div>
     </div>
   );

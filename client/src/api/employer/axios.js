@@ -71,6 +71,7 @@ export const fetchUser = async (userType, userId) => {
   }
 };
 
+//Save Profile
 export const saveProfile = async (formData, id) => {
   try {
     const res = await axios.put(
@@ -82,6 +83,56 @@ export const saveProfile = async (formData, id) => {
         },
       }
     );
+    return res;
+  } catch (error) {
+    return error.response;
+  }
+};
+
+//Fetch all posted jobs of an Employer
+
+export const fetchJobs = async (userId) => {
+  try {
+    const res = await axios.get(
+      `${url}/api/employer/fetchJobs?userId=${userId}`
+    );
+    return res;
+  } catch (error) {
+    return error.response;
+  }
+};
+
+export const fetchOneJob = async (jobId) => {
+  try {
+    const res = await axios.get(`${url}/api/employer/jobs/${jobId}`);
+    return res;
+  } catch (error) {
+    return error.response;
+  }
+};
+
+// Post job
+export const postJobByEmployer = async (jobData, token) => {
+  try {
+    const res = await axios.post(
+      `${url}/api/employer/postJob`,
+      { jobData },
+      {
+        headers: {
+          Authorization: token,
+        },
+      }
+    );
+    return res;
+  } catch (error) {
+    return error.response;
+  }
+};
+
+//Fetch applications candidates
+export const fetchAppliedCandidates = async (ids) => {
+  try {
+    const res = await axios.get(`${url}/api/employer/applications/${ids}`);
     return res;
   } catch (error) {
     return error.response;

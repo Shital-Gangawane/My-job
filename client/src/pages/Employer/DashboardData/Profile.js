@@ -166,7 +166,7 @@ function Profile() {
   };
 
   return (
-    <div className=" relative w-full h-full  overflow-y-auto lg:mt-14 px-4 lg:px-14 py-7  pb-14">
+    <div className=" relative w-full h-auto   lg:mt-14 px-4 lg:px-14 py-7  pb-14">
       {isLoading && <Loader />}
       <h2 className=" text-lg text-[#202124] lg:text-3xl mb-10 font-medium">
         Edit Profile
