@@ -198,3 +198,31 @@ export const deleteEmployer = async (employerId) => {
     return error.response;
   }
 };
+
+//Approve Candidate
+export const approveCandidate = async (candidateId, token) => {
+  try {
+    const res = await axios.patch(
+      `${url}/api/admin/approveCandidate`,
+      { candidateId },
+      {
+        headers: {
+          Authorization: token,
+        },
+      }
+    );
+    return res;
+  } catch (error) {
+    return error.response;
+  }
+};
+
+//Delete Candidate
+export const deleteCandidate = async (candidateId) => {
+  try {
+    const res = await axios.delete(`${url}/api/admin/candidate/${candidateId}`);
+    return res;
+  } catch (error) {
+    return error.response;
+  }
+};

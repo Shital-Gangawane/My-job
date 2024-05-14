@@ -12,23 +12,54 @@ const jobSchema = new mongoose.Schema(
     },
     jobLocation: {
       type: String,
-      required: true,
     },
     minExperience: {
       type: String,
-      required: true,
     },
     maxExperience: {
       type: String,
-      required: true,
     },
     minSalary: {
       type: String,
-      required: true,
     },
     maxSalary: {
       type: String,
-      required: true,
+    },
+    careerLevel: {
+      type: String,
+    },
+    deadlinedate: {
+      type: String,
+    },
+    externalUrl: {
+      type: String,
+    },
+    gender: {
+      type: String,
+    },
+    jobApplyType: {
+      type: String,
+    },
+    jobType: {
+      type: String,
+    },
+    qualificationRequired: {
+      type: String,
+    },
+    salaryType: {
+      type: String,
+    },
+    selectedCategory: {
+      type: String,
+    },
+    salaryType: {
+      type: String,
+    },
+    selectedCategory: {
+      type: String,
+    },
+    workMode: {
+      type: String,
     },
     isRemote: {
       type: Boolean,
@@ -36,11 +67,9 @@ const jobSchema = new mongoose.Schema(
     },
     keySkills: {
       type: String,
-      required: true,
     },
     company: {
       type: String,
-      required: true,
     },
     createdBy: {
       type: mongoose.Schema.Types.ObjectId,
@@ -50,6 +79,18 @@ const jobSchema = new mongoose.Schema(
       type: mongoose.Schema.Types.ObjectId,
       ref: "Employer",
     },
+    applications: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Candidate",
+      },
+    ],
+    shortlisted: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Candidate",
+      },
+    ],
   },
   { timestamps: true } // Enables automatic timestamps
 );

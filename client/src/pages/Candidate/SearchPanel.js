@@ -20,6 +20,9 @@ export default function SearchPanel({ isSidebarVisible, isMobile, onClose }) {
     handleDatePostedChange,
     handleExperienceLevelChange,
   } = useContext(JobContext);
+  const STEP = 1000;
+  const MIN = 30000;
+  const MAX = 600000;
 
   const STEP = 1000;
   const MIN = 30000;
@@ -32,7 +35,10 @@ export default function SearchPanel({ isSidebarVisible, isMobile, onClose }) {
       console.log(res);
     }
   };
+<<<<<<< HEAD
 
+=======
+>>>>>>> 85ababe153b00fb6efe1940024e9f1bde224a4e4
   const handleBackdropClick = (e) => {
     // Check if the click is on the backdrop; close sidebar if true
     if (e.target === e.currentTarget) {
@@ -67,6 +73,7 @@ export default function SearchPanel({ isSidebarVisible, isMobile, onClose }) {
             placeholder="Enter keyword"
             className="bg-white w-full my-4 p-4 rounded-md focus:outline-none capitalize focus:ring-1 focus:ring-[#6ad61d]"
           />
+<<<<<<< HEAD
         </div>
         <div>
           <label className="font-medium text-lg" htmlFor="city">
@@ -87,6 +94,27 @@ export default function SearchPanel({ isSidebarVisible, isMobile, onClose }) {
           />
         </div>
 
+=======
+        </div>
+        <div>
+          <label className="font-medium text-lg" htmlFor="city">
+            Location
+          </label>
+          <input
+            type="text"
+            value={city}
+            autoComplete="off"
+            onChange={(e) =>
+              handleCityChange(
+                e.target.value.charAt(0).toUpperCase() + e.target.value.slice(1)
+              )
+            }
+            name="city"
+            placeholder="Enter city"
+            className="bg-white w-full my-4 p-4 rounded-md capitalize focus:outline-none focus:ring-1 focus:ring-[#6ad61d]"
+          />
+        </div>
+>>>>>>> 85ababe153b00fb6efe1940024e9f1bde224a4e4
         <fieldset className="mb-4">
           <legend className="font-medium text-lg mb-4">Date Posted</legend>
           <div className=" flex flex-col gap-5 justify-center">
@@ -134,7 +162,10 @@ export default function SearchPanel({ isSidebarVisible, isMobile, onClose }) {
             </div>
           </div>
         </fieldset>
+<<<<<<< HEAD
 
+=======
+>>>>>>> 85ababe153b00fb6efe1940024e9f1bde224a4e4
         <fieldset>
           <legend className="font-medium mb-4 text-lg">Experience Level</legend>
           <div className=" flex flex-col gap-5 justify-center">
@@ -168,7 +199,10 @@ export default function SearchPanel({ isSidebarVisible, isMobile, onClose }) {
             &#8377;{salaryRange[0].toLocaleString()} - &#8377;
             {salaryRange[1].toLocaleString()}
           </div>
+<<<<<<< HEAD
 
+=======
+>>>>>>> 85ababe153b00fb6efe1940024e9f1bde224a4e4
           <Range
             values={salaryRange}
             step={STEP}

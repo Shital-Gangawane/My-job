@@ -20,8 +20,9 @@ function Userdashboard() {
   useEffect(() => {
     const fetchData = async () => {
       const userType = sessionStorage.getItem("userType");
-      if (userType && user?._id) {
+      if (userType === "employer" && user?._id) {
         const res = await fetchUser(userType, user?._id);
+        console.log(res);
         const newUser = res?.data?.employer;
         if (JSON.stringify(user) !== JSON.stringify(newUser)) {
           sessionStorage.setItem("user", JSON.stringify(newUser));
@@ -74,7 +75,6 @@ function Userdashboard() {
     },
   ];
   return (
-    
     <div className=" w-full h-auto  overflow-y-auto  lg:mt-14 px-4 lg:px-14 py-7 pb-14">
       <h2 className=" text-lg text-[#202124] lg:text-3xl mb-10 font-medium">
         Applications statistics
@@ -106,7 +106,6 @@ function Userdashboard() {
           </Col>
         ))}
       </div>
-
 
       <div className=" flex flex-col md:flex-row h-[550px] w-full  md:justify-between gap-6 mt-8">
         <div className=" h-96 w-full flex-1">

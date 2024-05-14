@@ -1,6 +1,11 @@
 import React, { useEffect, useRef, useState } from "react";
 import { SlOptionsVertical } from "react-icons/sl";
-import { deleteAdmin, deleteEmployer, editAdmin } from "../../api/admin/axios";
+import {
+  deleteAdmin,
+  deleteCandidate,
+  deleteEmployer,
+  editAdmin,
+} from "../../api/admin/axios";
 import RegisterAdmin from "./RegisterAdmin";
 import { useAdminContext } from "../../context/adminContext";
 import EmployerEditor from "./EmployerEditor";
@@ -12,6 +17,7 @@ const AdminOptions = ({
   data,
   employerModule,
   candidateModule,
+  setFilteredCandidates,
   isEmployerDetailsOn,
   setIsEmployerDetailsOn,
   setFilteredEmployers,
@@ -22,7 +28,7 @@ const AdminOptions = ({
   const [isEditing, setIsEditing] = useState(false);
   // const [isEmployerDetailsOn, setIsEmployerDetailsOn] = useState(false);
   const dropdownRef = useRef(null);
-  const { setAllAdmins, setAllEmployers } = useAdminContext();
+  const { setAllAdmins, setAllEmployers, setAllCandidates } = useAdminContext();
   const navigate = useNavigate();
   console.log("emp data", data._id);
 
@@ -56,12 +62,19 @@ const AdminOptions = ({
   };
 
   const onDelete = async () => {
-    if (!employerModule) {
+    if (!employerModule && !candidateModule) {
       const res = await deleteAdmin(data?._id);
       if (res?.data?.success) {
         setAllAdmins(res?.data?.allAdmin);
         setIsOpen(false);
         setIsEditing(false);
+      }
+    } else if (candidateModule) {
+      const res = await deleteCandidate(data?._id);
+      if (res?.data?.success) {
+        setAllCandidates(res?.data?.allCandidates);
+        setIsOpen(false);
+        setFilteredCandidates(res?.data?.allCandidates);
       }
     } else {
       const res = await deleteEmployer(data?._id);

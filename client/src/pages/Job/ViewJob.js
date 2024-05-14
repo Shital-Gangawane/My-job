@@ -7,9 +7,15 @@ import { CgSandClock } from "react-icons/cg";
 import { TiSocialFacebook } from "react-icons/ti";
 import { AiOutlineTwitter } from "react-icons/ai";
 import { TiSocialPinterest } from "react-icons/ti";
+<<<<<<< HEAD
+=======
+import { useUserContext } from "../../context/userContext";
+import { applyJob } from "../../api/candidate/axios";
+>>>>>>> 85ababe153b00fb6efe1940024e9f1bde224a4e4
 
 export default function ViewJob() {
   const location = useLocation();
+  const { token, user } = useUserContext();
   const job = location.state; // Access job details from location state
 
   const dateFormatter = (str) => {
@@ -25,6 +31,17 @@ export default function ViewJob() {
     return `${month} ${formattedDay}, ${year}`; // "May 06, 2024"
   };
 
+<<<<<<< HEAD
+=======
+  const applyClickHandler = async (jobId) => {
+    const userType = sessionStorage.getItem("userType");
+    if (user?._id && userType && userType === "candidate") {
+      const res = await applyJob(user?._id, jobId);
+      console.log(res);
+    }
+  };
+
+>>>>>>> 85ababe153b00fb6efe1940024e9f1bde224a4e4
   return (
     <div className="flex flex-col  h-full w-full">
       <div className="bg-[#f5f6fb] w-full min-h-56 flex flex-col xl:flex-row justify-center items-center xl:items-center xl:justify-between md:px-10 py-8 xl:px-20">
@@ -46,6 +63,7 @@ export default function ViewJob() {
           </div>
         </div>
         <div className=" xl:pe-10">
+<<<<<<< HEAD
           <button className=" bg-[#6ad61d] rounded-lg p-3 px-20 text-white hover:bg-blue-800">
             Apply Now
           </button>
@@ -56,6 +74,26 @@ export default function ViewJob() {
           <h2 className=" text-lg font-medium mb-6">Job Description</h2>
           <p className=" text-zinc-500 text-sm mb-8">{job.jobDescription}</p>
           <div className=" flex items-center gap-1 xl:gap-3 flex-wrap">
+=======
+          <button
+            onClick={() => applyClickHandler(job._id)}
+            className=" bg-[#6ad61d] rounded-lg p-3 px-20 text-white hover:bg-blue-800"
+          >
+            {job.applications.includes(user?._id) ? "Applied" : "Apply Now"}
+          </button>
+        </div>
+      </div>
+      <div className=" flex justify-between w-full h-auto bg-white p-5 md:px-10 xl:py-14 xl:px-20 gap-10">
+        <div>
+          <h2 className=" text-lg font-medium mb-6">Job Description</h2>
+          {job.jobDescription.split("\n").map((line, i) => (
+            <p key={i} className=" text-zinc-500 text-sm mb-1">
+              {line}
+            </p>
+          ))}
+
+          <div className=" flex items-center gap-1 xl:gap-3 flex-wrap mt-5">
+>>>>>>> 85ababe153b00fb6efe1940024e9f1bde224a4e4
             <h2 className=" font-medium">Share this post</h2>
             <button className=" bg-[#1967D2] text-white py-2 px-6 rounded-lg text-sm">
               <TiSocialFacebook className=" inline" size={20} />
@@ -71,7 +109,11 @@ export default function ViewJob() {
             </button>
           </div>
         </div>
+<<<<<<< HEAD
         <div className="bg-[#f5f6fb] rounded-lg p-8 min-w-96 hidden xl:block">
+=======
+        <div className="bg-[#f5f6fb] max-h-96 rounded-lg p-8 min-w-96 hidden xl:block">
+>>>>>>> 85ababe153b00fb6efe1940024e9f1bde224a4e4
           <h2 className=" text-lg font-medium mb-6">Job Overview</h2>
 
           <div className=" flex mb-6">

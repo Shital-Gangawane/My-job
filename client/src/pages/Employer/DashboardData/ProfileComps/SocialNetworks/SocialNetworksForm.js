@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { FaChevronDown } from "react-icons/fa";
 import { IoClose } from "react-icons/io5";
 
-function SocialNetworksForm({ index, data, onChange, setStateArr }) {
+function SocialNetworksForm({ index, data, onChange, setSocialNetworks }) {
   const [isDropdownOn, setIsDropdownOn] = useState(false);
 
   const handleChange = (event) => {
@@ -21,7 +21,7 @@ function SocialNetworksForm({ index, data, onChange, setStateArr }) {
             className="mt-0.5 font-bold hover:text-[#6ad61d]"
             size={20}
             onClick={() =>
-              setStateArr((prev) => {
+              setSocialNetworks((prev) => {
                 return prev.filter((el, i) => i !== index);
               })
             }
@@ -55,7 +55,7 @@ function SocialNetworksForm({ index, data, onChange, setStateArr }) {
         <button
           className=" float-end text-[#6ad61d] bg-[#6ad61d23] rounded-lg transition duration-300 mt-4 ease-in-out focus:outline-none text-sm w-44  py-3 text-center dark:bg-[#6ad61d23] dark:hover:bg-[#6ad61d] dark:hover:text-white dark:focus:ring-[#6ad61d]"
           onClick={() =>
-            setStateArr((prev) => {
+            setSocialNetworks((prev) => {
               return prev.filter((el, i) => i !== index);
             })
           }

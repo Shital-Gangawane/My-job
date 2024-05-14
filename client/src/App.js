@@ -45,6 +45,7 @@ import Slidebar from "./pages/Employer/DashboardData/Slidebar";
 import RegisterAdmin from "./components/Admin/RegisterAdmin";
 import ProfileMembers from "./pages/Employer/DashboardData/ProfileComps/ProfileMembers/ProfileMembers";
 import PostNewJob from "./pages/Employer/DashboardData/SubmitJobsComps/PostNewJob";
+import JobDetails from "./pages/Employer/DashboardData/JobDetails";
 
 // import { useSelector } from "react-redux";
 // import { SelectUser } from "./features/userSlice";
@@ -98,6 +99,9 @@ const router = createBrowserRouter(
         <Route path="logout" element={<Logout />} />
         <Route path="postnewjob" element={<PostNewJob />} />
       </Route>
+
+      {/* For employer */}
+      <Route path="/jobs/:jobTitle/:id" element={<JobDetails />} />
     </Route>
   )
 );
