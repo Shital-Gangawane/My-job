@@ -46,6 +46,7 @@ import RegisterAdmin from "./components/Admin/RegisterAdmin";
 import ProfileMembers from "./pages/Employer/DashboardData/ProfileComps/ProfileMembers/ProfileMembers";
 import PostNewJob from "./pages/Employer/DashboardData/SubmitJobsComps/PostNewJob";
 import JobDetails from "./pages/Employer/DashboardData/JobDetails";
+import EmployerProfile from "./pages/Employer/EmployerProfile";
 
 // import { useSelector } from "react-redux";
 // import { SelectUser } from "./features/userSlice";
@@ -102,6 +103,10 @@ const router = createBrowserRouter(
 
       {/* For employer */}
       <Route path="/jobs/:jobTitle/:id" element={<JobDetails />} />
+      <Route
+        path="/employer-profile/:employerId"
+        element={<EmployerProfile />}
+      />
     </Route>
   )
 );

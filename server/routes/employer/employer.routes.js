@@ -17,6 +17,9 @@ const {
 const {
   fetchAppsCandidates,
 } = require("../../controllers/employer/fetchAppsCandidates.js");
+const {
+  updateJobByEmployer,
+} = require("../../controllers/employer/updateJobByEmployer.js");
 
 const router = express.Router();
 
@@ -27,8 +30,9 @@ router.post("/employer/login", login);
 router.get("/employer/fetch", fetchEmployerData);
 router.get("/employer/fetchJobs", fetchJobs);
 
-//Post job
+//Post job & update JOb
 router.post("/employer/postJob", authMiddleware, postJobByEmployer);
+router.put("/employer/updateJob", authMiddleware, updateJobByEmployer);
 
 //fetch on job
 router.get("/employer/jobs/:jobId", fetchOneJob);

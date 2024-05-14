@@ -11,11 +11,13 @@ import UserDashboardProfileViews from "../../../components/Employer/DashboardDat
 import UserDashboardNotifications from "../../../components/Employer/DashboardData/UserDashboardNotifications";
 import UserDashboardRecent from "../../../components/Employer/DashboardData/UserDashboardRecent";
 import { useUserContext } from "../../../context/userContext";
-import { fetchUser } from "../../../api/employer/axios";
+import { fetchJobs, fetchUser } from "../../../api/employer/axios";
 
 function Userdashboard() {
   const { user, setUser, fetchData } = useUserContext();
   const [userData, setUserData] = useState(user);
+  const [error, setError] = useState("");
+  const [applications, setApplications] = useState([]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -34,6 +36,29 @@ function Userdashboard() {
     fetchData();
   }, [user?._id, setUser]); // Depend on user._id specifically if that's the main identifier
 
+  useEffect(() => {
+    const fetchData = async () => {
+      if (user?.postedJobs) {
+        try {
+          const res = await fetchJobs(user._id);
+          if (res?.data?.success) {
+            const allCandidateIds = res?.data?.allJobs?.reduce(
+              (acc, job) => acc.concat(job.applications),
+              []
+            );
+            setApplications(allCandidateIds);
+          } else {
+            setError("Failed to fetch jobs");
+          }
+        } catch (err) {
+          setError("Error fetching jobs");
+          console.error(err);
+        }
+      }
+    };
+
+    fetchData();
+  }, [user?.postedJobs]);
   const statsData = [
     {
       name: "Posted Jobs",
@@ -47,7 +72,7 @@ function Userdashboard() {
     },
     {
       name: "Application",
-      count: 0,
+      count: applications?.length,
       url: "#",
       icon: <SlNote size={35} className="  text-red-600 rounded " />,
       color: "red",

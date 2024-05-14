@@ -129,6 +129,24 @@ export const postJobByEmployer = async (jobData, token) => {
   }
 };
 
+// Post job
+export const updateJobByEmployer = async (jobData, jobId, token) => {
+  try {
+    const res = await axios.put(
+      `${url}/api/employer/updateJob`,
+      { jobData, jobId },
+      {
+        headers: {
+          Authorization: token,
+        },
+      }
+    );
+    return res;
+  } catch (error) {
+    return error.response;
+  }
+};
+
 //Fetch applications candidates
 export const fetchAppliedCandidates = async (ids) => {
   try {

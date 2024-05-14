@@ -11,11 +11,16 @@ import {
   qualificationoptions,
   categoriesoptions,
 } from "./SelectOption";
-import { postJobByEmployer } from "../../../../api/employer/axios";
+import {
+  postJobByEmployer,
+  updateJobByEmployer,
+} from "../../../../api/employer/axios";
 import { useUserContext } from "../../../../context/userContext";
 
-function PostNewJob({ employer, data, setIsEditing }) {
+function PostNewJob({ employer, data, jobId, setIsEditing }) {
+  const { token, setUser, user } = useUserContext();
   const [jobDetails, setJobDetails] = useState({
+    companyName: user?.companyName,
     deadlinedate: "",
     jobLocation: "",
     latitude: "",
@@ -37,7 +42,6 @@ function PostNewJob({ employer, data, setIsEditing }) {
     videoUrl: "",
     externalUrl: "",
   });
-  const { token, setUser } = useUserContext();
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -50,11 +54,20 @@ function PostNewJob({ employer, data, setIsEditing }) {
 
   const handelSubmitHandler = async () => {
     console.log(jobDetails);
-    const res = await postJobByEmployer(jobDetails, token);
-    console.log(res);
-    if (res?.data?.success) {
-      sessionStorage.setItem("user", JSON.stringify(res?.data?.employer));
-      setUser(res?.data?.employer);
+    if (employer) {
+      const res = await updateJobByEmployer(jobDetails, jobId, token);
+      console.log(res);
+      if (res?.data?.success) {
+        sessionStorage.setItem("user", JSON.stringify(res?.data?.employer));
+        setUser(res?.data?.employer);
+      }
+    } else {
+      const res = await postJobByEmployer(jobDetails, token);
+      console.log(res);
+      if (res?.data?.success) {
+        sessionStorage.setItem("user", JSON.stringify(res?.data?.employer));
+        setUser(res?.data?.employer);
+      }
     }
   };
 
