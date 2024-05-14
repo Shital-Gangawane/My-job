@@ -1,7 +1,8 @@
 import React from "react";
 import { FaRegUserCircle } from "react-icons/fa";
 import { motion } from "framer-motion";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useUserContext } from "../../../context/userContext";
 
 function Slidebar({
   buttons,
@@ -12,7 +13,7 @@ function Slidebar({
   data,
 }) {
   const navigate = useNavigate(); // Access the navigate function from React Router DOM
-  console.log(data);
+  const { user } = useUserContext();
   const handleButtonClick = (index, path) => {
     setIsSelected(index); // Set the selected index
     navigate(`/employer/${path}`); // Navigate to the specified path
@@ -41,9 +42,11 @@ function Slidebar({
           </span>{" "}
         </div>
         <div>
-          <button className="w-full py-2 px-2 ms-auto bg-[#6ad61d] text-white rounded-lg transition duration-300 ease-in-out">
-            View Profile
-          </button>
+          <Link to={`/employer-profile/${user?._id}`}>
+            <button className="w-full py-2 px-2 ms-auto bg-[#6ad61d] text-white rounded-lg transition duration-300 ease-in-out">
+              View Profile
+            </button>
+          </Link>
         </div>
 
         <div className="w-full flex flex-1 mt-5 px-8 py-2 border-t flex-col gap-1">
