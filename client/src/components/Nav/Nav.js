@@ -127,11 +127,7 @@ const Nav = ({ bgColor, employer }) => {
           </div>
           <div className="block">
             <div className="ml-4 flex items-center md:ml-6">
-<<<<<<< HEAD
-              {user && token ? (
-=======
               {token ? (
->>>>>>> 85ababe153b00fb6efe1940024e9f1bde224a4e4
                 <div className=" hidden xl:flex items-center gap-4">
                   <div
                     onClick={() =>

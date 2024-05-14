@@ -26,18 +26,12 @@ export default function SearchedJobs() {
     navigate(`/job/${job.jobTitle}`, { state: job });
   };
 
-<<<<<<< HEAD
-=======
   // Toggle sidebar visibility
->>>>>>> 85ababe153b00fb6efe1940024e9f1bde224a4e4
   const toggleSidebar = () => {
     setIsSidebarVisible(!isSidebarVisible);
   };
 
-<<<<<<< HEAD
-=======
   // Format date
->>>>>>> 85ababe153b00fb6efe1940024e9f1bde224a4e4
   const dateFormatter = (str) => {
     const date = new Date(str);
     return date.toLocaleDateString("en-US", {
@@ -49,31 +43,6 @@ export default function SearchedJobs() {
 
   // Effect for initializing or updating data based on location changes
   useEffect(() => {
-<<<<<<< HEAD
-    // setSearchResults(location?.state?.jobs);
-    // handleKeywordChange(location?.state?.keyword);
-    // handleCityChange(location?.state?.city);
-  }, []);
-
-  // Function to check if the screen is mobile
-  const checkMobileScreen = () => {
-    setIsMobile(window.innerWidth <= 1039); //Adjust the breakpoint as needed
-  };
-
-  // Run the check on component mount and on window resize
-  useEffect(() => {
-    checkMobileScreen();
-    window.addEventListener("resize", checkMobileScreen);
-    return () => {
-      window.removeEventListener("resize", checkMobileScreen);
-    };
-  }, []);
-
-  return (
-    <div className="flex flex-col w-screen bg-white h-auto min-h-full overflow-y-auto scroll">
-      <div className="bg-[#F5F7FC] h-32 w-full flex items-center justify-center">
-        <p className=" text-3xl font-medium">Job List</p>
-=======
     if (location?.state?.jobs) {
       setSearchResults(location?.state?.jobs);
       handleKeywordChange(location?.state?.keyword);
@@ -95,7 +64,6 @@ export default function SearchedJobs() {
     <div className="flex flex-col w-screen bg-white h-auto min-h-full overflow-y-auto">
       <div className="bg-[#F5F7FC] h-32 w-full flex items-center justify-center">
         <p className="text-3xl font-medium">Job List</p>
->>>>>>> 85ababe153b00fb6efe1940024e9f1bde224a4e4
       </div>
       <div className="flex w-full bg-white h-full xl:ps-20 py-2 xl:py-14">
         <SearchPanel
@@ -109,21 +77,13 @@ export default function SearchedJobs() {
           )}
           <div
             onClick={toggleSidebar}
-<<<<<<< HEAD
-            className=" py-7 xl:hidden inline-flex  items-center gap-1 text-[#6ad61d] cursor-pointer"
-=======
             className="py-7 xl:hidden inline-flex items-center gap-1 text-[#6ad61d] cursor-pointer"
->>>>>>> 85ababe153b00fb6efe1940024e9f1bde224a4e4
           >
             <IoMenuSharp size={20} />
             <p>Show Sidebar</p>
           </div>
           <FilterTags />
-<<<<<<< HEAD
-          <div className="flex flex-col gap-7 ">
-=======
           <div className="flex flex-col gap-7">
->>>>>>> 85ababe153b00fb6efe1940024e9f1bde224a4e4
             <p>
               {searchResults?.length
                 ? `Showing all ${searchResults?.length} results`
@@ -133,11 +93,7 @@ export default function SearchedJobs() {
               <div
                 className="bg-white p-8 rounded-md border cursor-pointer"
                 key={job._id}
-<<<<<<< HEAD
-                onClick={() => handleJobClick(job)} // Handle click event
-=======
                 onClick={() => handleJobClick(job)}
->>>>>>> 85ababe153b00fb6efe1940024e9f1bde224a4e4
               >
                 <h2 className="font-medium text-lg hover:text-[#6ad61d] inline">
                   {job.jobTitle}

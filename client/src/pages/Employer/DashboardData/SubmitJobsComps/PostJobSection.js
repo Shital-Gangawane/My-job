@@ -1,4 +1,6 @@
+
 import React, { useState } from "react";
+import { FaCaretDown } from "react-icons/fa";
 import { FaChevronDown } from "react-icons/fa";
 import { IoClose } from "react-icons/io5";
 import { workModeOptions } from "./SelectOption";
@@ -17,101 +19,6 @@ function PostJobSection({
   categoriesoptions,
 }) {
   const [searchTerm, setSearchTerm] = useState("");
-  const [stateArr, setStateArr] = useState();
-
-  const [filteredCategoriesOptions, setfilteredCategoriesOptions] = useState(categoriesoptions);
-  const [isCategoriesOpen, setIsCategoriesOpen] = useState(false);
-  const [selectedCategoriesOption, setSelectedCategoriesOption] = useState(null);
-
-  const [filteredOptions, setfilteredOptions] = useState(options);
-  const [isOpen, setIsOpen] = useState(false);
-  const [selectedOption, setSelectedOption] = useState(null);
-
-  const [filteredGenderOptions, setfilteredGenderOptions] =useState(genderoption);
-  const [isgenderOptionOpen, setisgenderOptionOpen] = useState(false);
-  const [genderOption, setGenderOption] = useState(null);
-
-  const [jApplyTypeOptions, setjApplyTypeOptions] = useState(joboptions);
-  const [isJobApplyOpen, setisJobApplyOpen] = useState(false);
-  const [jobOption, setJobOption] = useState(null);
-
-  const [filteredSalaryOptions, setfilteredSalaryOptions] =useState(salaryoptions);
-  const [isSalaryOpen, setIsSalaryOpen] = useState(false);
-  const [selectedSalaryOption, setSelectedSalaryOption] = useState(null);
-
-  const [filteredExperienceOptions, setfilteredExperienceOptions] = useState(experienceoptions);
-  const [isExperienceOpen, setisExperienceOpen] = useState(false);
-  const [selectedExperienceOption, setselectedExperienceOption] = useState(null);
-
-  const [filteredCareerLevelOptions, setfilteredCareerLevelOptions] = useState(careerleveloptions);
-  const [isCareerLevelOpen, setIsCareerLevelOpen] = useState(false);
-  const [selectedCareerLevelOption, setSelectedCareerLevelOption] = useState(null);
-
-  const [filteredQualificationOptions, setfilteredQualificationOptions] = useState(qualificationoptions);
-  const [isQualificationOpen, setIsQualificationOpen] = useState(false);
-  const [selectedQualificationOption, setSelectedQualificationOption] = useState(null);
-
-
-  const handleSelectCategoriesOption = (categoriesoption) => {
-    setSelectedCategoriesOption(categoriesoption);
-    onSelect(categoriesoption);
-    setIsCategoriesOpen(false);
-  };
-  const handleSelectOption = (option) => {
-    setSelectedOption(option);
-    onSelect(option);
-    setIsOpen(false);
-  };
-  const handleGenderOption = (genderoption) => {
-    setGenderOption(genderoption);
-    onSelect(genderoption);
-    setisgenderOptionOpen(false);
-  };
-
-  const handleJobApplyOption = (joboptions) => {
-    setJobOption(joboptions);
-    onSelect(joboptions);
-    setisJobApplyOpen(false);
-  };
-
-  const handleSelectSalartyOption = (salaryoption) => {
-    setSelectedSalaryOption(salaryoption);
-    onSelect(salaryoption);
-    setIsSalaryOpen(false);
-  };
-
-  const handleSelectExperienceOption = (experienceoption) => {
-    setselectedExperienceOption(experienceoption);
-    onSelect(experienceoption);
-    setisExperienceOpen(false);
-  };
-
-  const handleSelectCareerLevelOption = (careerleveloption) => {
-    setSelectedCareerLevelOption(careerleveloption);
-    onSelect(careerleveloption);
-    setIsCareerLevelOpen(false);
-  };
-
-  
-  const handleSelectQualificationOption = (qualificationoption) => {
-    setSelectedQualificationOption(qualificationoption);
-    onSelect(qualificationoption);
-    setSelectedQualificationOption(false);
-  };
-  
-  console.log(options);
-  console.log(genderoption);
-  console.log(joboptions);
-  console.log(salaryoptions);
-  console.log(experienceoptions);
-  console.log(careerleveloptions);
-  console.log(qualificationoptions);
-
-  // const filteredOptions = options
-  //   ? options.filter((option) =>
-  //       option.label.toLowerCase().includes(searchTerm.toLowerCase())
-  //     )
-  //   : [];
 
   return (
     <div>

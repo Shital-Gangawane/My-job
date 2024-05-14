@@ -1,6 +1,6 @@
-import React,{useRef} from 'react'
+import React,{useState, useEffect, useRef} from 'react'
 import ProfileOptionSection from './ProfileOptionSection'
-import { ageoptions, categoriesoptions, experienceoptions, genderoption, qualificationoptions, salaryoptions, showprofileoptions } from './SelectOptions'
+// import { ageoptions, categoriesoptions, experienceoptions, genderoption, qualificationoptions, salaryoptions, showprofileoptions } from './SelectOptions'
 // import { BsTypeBold } from "react-icons/bs";
 // import { BiItalic } from "react-icons/bi";
 // import { RiDoubleQuotesL } from "react-icons/ri";
@@ -25,23 +25,58 @@ import { ageoptions, categoriesoptions, experienceoptions, genderoption, qualifi
 // import SelectCategories from "./SelectCategories/SelectCategories";
 // import SelectCategories from "../SelectCategories/SelectCategories"
 
-function MyProfile() {
+const baseUrl = "http://localhost:8000";
+function MyProfile({
+  handleInputChange,
+  handleSelectChange,
+  profileInfo,
+  onChange,
+  onImageChange,
+  ageoptions, 
+  categoriesoptions, 
+  experienceoptions,
+   genderoption,
+  qualificationoptions, 
+    salaryoptions,
+   showprofileoptions
+}) {
+  const [preview, setPreview] = useState({ logoImage: "", coverImage: "" });
+  const [searchTerm, setSearchTerm] = useState("");
 
-    const typeHandler=(type)=>{
-        console.log(type);
-        }
+  useEffect(() => {
+    if (profileInfo.logoImage && profileInfo.logoImage instanceof Blob) {
+      const logoImageUrl = URL.createObjectURL(profileInfo.logoImage);
+      setPreview((prev) => ({ ...prev, logoImage: logoImageUrl }));
+    }
+    if (profileInfo.coverImage && profileInfo.coverImage instanceof Blob) {
+      const coverImageUrl = URL.createObjectURL(profileInfo.coverImage);
+      setPreview((prev) => ({ ...prev, coverImage: coverImageUrl }));
+    }
+  }, [profileInfo.logoImage, profileInfo.coverImage]);
+// Remember to revoke the URL when the component unmounts or the image changes
+useEffect(() => {
+  return () => {
+    URL.revokeObjectURL(preview.logoImage);
+    URL.revokeObjectURL(preview.coverImage);
+  };
+}, [preview]);
 
-        const inputRef = useRef(null);
+  // old
+    // const typeHandler=(type)=>{
+    //     console.log(type);
+    //     }
 
-        const handleButtonClick = () => {
-          inputRef.current.click();
-        };
+    //     const inputRef = useRef(null);
+
+    //     const handleButtonClick = () => {
+    //       inputRef.current.click();
+    //     };
       
-        const handleFileChange = (event) => {
-          const selectedFile = event.target.files[0];
-          // Perform operations with the selected file
-          console.log(selectedFile);
-        }
+    //     const handleFileChange = (event) => {
+    //       const selectedFile = event.target.files[0];
+    //       // Perform operations with the selected file
+    //       console.log(selectedFile);
+    //     }
   return (
     <div
         className="bg-white p-6 px-10 rounded-lg"
@@ -51,27 +86,31 @@ function MyProfile() {
         <h2 className=" text-lg text-[#202124]  mb-6 font-bold">My Profile</h2>
 
         <div className="pb-5">
-        <input
-        type="file"
-        ref={inputRef}
-        style={{ display: 'none' }}
-        onChange={handleFileChange}
-      />
-          <button
-            onClick={handleButtonClick}
-            type="submit"
-            className="text-[#6ad61d] bg-[#6ad61d23] rounded-lg transition duration-300 ease-in-out focus:ring-4 focus:outline-none focus:ring-[#6ad61d] font-medium  text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-[#6ad61d23] dark:hover:bg-[#6ad61d] dark:hover:text-white dark:focus:ring-[#6ad61d]"
-          >
-            Browser
-          </button>
-
+        
+          <input
+            type="file"
+            name="logoImage"
+            id="logoImage"
+            onChange={(e) => onImageChange(e, "logoImage")}
+            className="w-full text-sm text-gray-900 py-2.5 px-4 border border-gray-300 rounded-lg focus:outline-none focus:border-[#6ad61d] focus:ring-[#6ad61d]"
+          />
+          {profileInfo?.logoImage && (
+            <img
+              className=" h-10"
+              src={
+                preview?.logoImage ||
+                `${baseUrl}/uploads/${profileInfo?.logoImage}`
+              }
+              alt="Logo Preview"
+            />
+          )}
         </div>
 
         <form className="">
           <div className="flex flex-wrap mx-2">
             <div className="mb-5 w-full md:w-1/2 px-2">
               <label
-                for="email"
+                htmlFor="fullName"
                 className="block mb-2 text-sm font-bold text-gray-900 "
               >
                Full Name
@@ -79,38 +118,299 @@ function MyProfile() {
               <input
                 type="text"
                 id="large-input"
+                name="fullName"
+                value={profileInfo?.fullName}
+                onChange={onChange}
                 className="block w-full p-5 bg-gray-100 border-gray-300 focus:outline-[#6ad61d] text-gray-900 border rounded-lg text-base focus:ring-[#6ad61d] focus:border-[#6ad61d] dark:bg-gray-100 dark:border-none dark:placeholder-gray-400 dark:gray-900 dark:focus:ring-[#6ad61d] dark:focus:border-[#6ad61d]"
-                placeholder=""
+                placeholder="Enter Full Name"
                 required
               />
             </div>
 
             <div className="mb-5 w-full md:w-1/2 px-2">
               <label
-                for="password"
+                htmlFor="dob"
                 className="block mb-2 text-sm font-bold text-gray-900"
               >
                 Date Of Birth
               </label>
               <input
                 type="date"
-                // id="password"
+                name='dob'
+                value={profileInfo?.dob}
+                onChange={onChange}
                 id="large-input"
+                placeholder="Enter Date of Birth"
                 className="block w-full p-5  bg-gray-100 border-gray-300 focus:outline-[#6ad61d] text-gray-900 border rounded-lg text-base focus:ring-[#6ad61d] focus:border-[#6ad61d] dark:bg-gray-100 dark:border-none dark:placeholder-gray-400 dark:gray-900 dark:focus:ring-[#6ad61d] dark:focus:border-[#6ad61d]"
                 required
               />
             </div>
           </div>
 
-          <div>
-           
-             <ProfileOptionSection genderoption={genderoption} ageoptions={ageoptions} qualificationoptions={qualificationoptions} experienceoptions={experienceoptions} salaryoptions={salaryoptions} categoriesoptions={categoriesoptions} showprofileoptions={showprofileoptions} onSelect={typeHandler}/>
-            
+          <div className="flex flex-wrap mx-2">
+           {/* Gender */}
+         <div className="mb-5 w-full md:w-1/2 px-2">
+          <label
+            htmlFor="gender"
+            className="block text-sm font-bold text-gray-900"
+          >
+            Gender
+          </label>
+          <select
+            name="gender"
+            value={profileInfo.gender}
+            onChange={handleInputChange}
+            className="block w-full p-5  bg-gray-100 border-gray-300 focus:outline-[#6ad61d] text-gray-900 border rounded-lg text-base focus:ring-[#6ad61d] focus:border-[#6ad61d] dark:bg-gray-100 dark:border-none dark:placeholder-gray-400 dark:gray-900 dark:focus:ring-[#6ad61d] dark:focus:border-[#6ad61d]"
+          >
+            <option value="">None</option>
+            {genderoption.map((option) => (
+              <option key={option.value} value={option.label}>
+                {option.label}
+              </option>
+            ))}
+          </select>
+        </div>
+
+        <div className="mb-5 w-full md:w-1/2 px-2">
+          <label
+            htmlFor="age"
+            className="block text-sm font-bold text-gray-900"
+          >
+            Age
+          </label>
+          <select
+            name="age"
+            value={profileInfo.age}
+            onChange={handleInputChange}
+            className="block w-full p-5  bg-gray-100 border-gray-300 focus:outline-[#6ad61d] text-gray-900 border rounded-lg text-base focus:ring-[#6ad61d] focus:border-[#6ad61d] dark:bg-gray-100 dark:border-none dark:placeholder-gray-400 dark:gray-900 dark:focus:ring-[#6ad61d] dark:focus:border-[#6ad61d]"
+          >
+            <option value="">None</option>
+            {ageoptions.map((option) => (
+              <option key={option.value} value={option.label}>
+                {option.label}
+              </option>
+            ))}
+          </select>
+        </div>
+         </div>
+
+         <div className="flex flex-wrap mx-2">
+            <div className="mb-5 w-full md:w-1/2 px-2">
+              <label
+                htmlFor="phoneNumber"
+                className="block mb-2 text-sm font-bold text-gray-900 "
+              >
+              Phone Number
+              </label>
+              <input
+                type="text"
+                id="large-input"
+                name="phoneNumber"
+                value={profileInfo?.phoneNumber}
+                onChange={onChange}
+                className="block w-full p-5 bg-gray-100 border-gray-300 focus:outline-[#6ad61d] text-gray-900 border rounded-lg text-base focus:ring-[#6ad61d] focus:border-[#6ad61d] dark:bg-gray-100 dark:border-none dark:placeholder-gray-400 dark:gray-900 dark:focus:ring-[#6ad61d] dark:focus:border-[#6ad61d]"
+                placeholder="Enter Phone Number"
+                required
+              />
+            </div>
+
+            <div className="mb-5 w-full md:w-1/2 px-2">
+              <label
+                htmlFor="email"
+                className="block mb-2 text-sm font-bold text-gray-900"
+              >
+                Email
+              </label>
+              <input
+                type="email"
+                name='email'
+                value={profileInfo?.email}
+                onChange={onChange}
+                id="large-input"
+                placeholder="Enter Email"
+                className="block w-full p-5  bg-gray-100 border-gray-300 focus:outline-[#6ad61d] text-gray-900 border rounded-lg text-base focus:ring-[#6ad61d] focus:border-[#6ad61d] dark:bg-gray-100 dark:border-none dark:placeholder-gray-400 dark:gray-900 dark:focus:ring-[#6ad61d] dark:focus:border-[#6ad61d]"
+                required
+              />
+            </div>
           </div>
 
-          <h2 className=" text-lg text-[#202124]  mb-6 font-bold">
-            Description
-          </h2>
+          <div className="flex flex-wrap mx-2">
+          <div className="mb-5 w-full md:w-1/2 px-2">
+          <label
+            htmlFor="qualification"
+            className="block text-sm font-bold text-gray-900"
+          >
+            Qualification
+          </label>
+          <select
+            name="qualification"
+            value={profileInfo.qualification}
+            onChange={handleInputChange}
+            className="block w-full p-5  bg-gray-100 border-gray-300 focus:outline-[#6ad61d] text-gray-900 border rounded-lg text-base focus:ring-[#6ad61d] focus:border-[#6ad61d] dark:bg-gray-100 dark:border-none dark:placeholder-gray-400 dark:gray-900 dark:focus:ring-[#6ad61d] dark:focus:border-[#6ad61d]"
+          >
+            <option value="">None</option>
+            {qualificationoptions.map((option) => (
+              <option key={option.value} value={option.label}>
+                {option.label}
+              </option>
+            ))}
+          </select>
+        </div>
+           
+         <div className="mb-5 w-full md:w-1/2 px-2">
+          <label
+            htmlFor="experienceTime"
+            className="block text-sm font-bold text-gray-900"
+          >
+            Experience Time
+          </label>
+          <select
+            name="experienceTime"
+            value={profileInfo.experienceTime}
+            onChange={handleInputChange}
+            className="block w-full p-5  bg-gray-100 border-gray-300 focus:outline-[#6ad61d] text-gray-900 border rounded-lg text-base focus:ring-[#6ad61d] focus:border-[#6ad61d] dark:bg-gray-100 dark:border-none dark:placeholder-gray-400 dark:gray-900 dark:focus:ring-[#6ad61d] dark:focus:border-[#6ad61d]"
+          >
+            <option value="">None</option>
+            {experienceoptions.map((option) => (
+              <option key={option.value} value={option.label}>
+                {option.label}
+              </option>
+            ))}
+          </select>
+        </div>
+         </div>
+
+         <div className="flex flex-wrap mx-2">
+         <div className="mb-5 w-full md:w-1/2 px-2">
+          <label
+            htmlFor="languages"
+            className="block text-sm font-bold text-gray-900"
+          >
+            Languages
+          </label>
+          <select
+            name="languages"
+            value={profileInfo.languages}
+            onChange={handleInputChange}
+            className="block w-full p-5  bg-gray-100 border-gray-300 focus:outline-[#6ad61d] text-gray-900 border rounded-lg text-base focus:ring-[#6ad61d] focus:border-[#6ad61d] dark:bg-gray-100 dark:border-none dark:placeholder-gray-400 dark:gray-900 dark:focus:ring-[#6ad61d] dark:focus:border-[#6ad61d]"
+          >
+            <option value="">None</option>
+            {/* {salaryoptions.map((option) => (
+              <option key={option.value} value={option.label}>
+                {option.label}
+              </option>
+            ))} */}
+          </select>
+        </div>
+         <div className="mb-5 w-full md:w-1/2 px-2">
+          <label
+            htmlFor="salaryType"
+            className="block text-sm font-bold text-gray-900"
+          >
+            Salary Type
+          </label>
+          <select
+            name="salaryType"
+            value={profileInfo.salaryType}
+            onChange={handleInputChange}
+            className="block w-full p-5  bg-gray-100 border-gray-300 focus:outline-[#6ad61d] text-gray-900 border rounded-lg text-base focus:ring-[#6ad61d] focus:border-[#6ad61d] dark:bg-gray-100 dark:border-none dark:placeholder-gray-400 dark:gray-900 dark:focus:ring-[#6ad61d] dark:focus:border-[#6ad61d]"
+          >
+            <option value="">None</option>
+            {salaryoptions.map((option) => (
+              <option key={option.value} value={option.label}>
+                {option.label}
+              </option>
+            ))}
+          </select>
+        </div>
+        </div>
+
+        <div className="flex flex-wrap mx-2">
+        <div className="mb-5 w-full md:w-1/2 px-2">
+              <label
+                htmlFor="salary"
+                className="block mb-2 text-sm font-bold text-gray-900 "
+              >
+              Salary($)
+              </label>
+              <input
+                type="text"
+                id="large-input"
+                name="salary"
+                value={profileInfo?.salary}
+                onChange={onChange}
+                className="block w-full p-5 bg-gray-100 border-gray-300 focus:outline-[#6ad61d] text-gray-900 border rounded-lg text-base focus:ring-[#6ad61d] focus:border-[#6ad61d] dark:bg-gray-100 dark:border-none dark:placeholder-gray-400 dark:gray-900 dark:focus:ring-[#6ad61d] dark:focus:border-[#6ad61d]"
+                placeholder="Enter Salary"
+                required
+              />
+            </div>
+            <div className="mb-5 w-full md:w-1/2 px-2">
+          <label
+            htmlFor="categories"
+            className="block text-sm font-bold text-gray-900"
+          >
+            Categories
+          </label>
+          <select
+            name="categories"
+            value={profileInfo.categories}
+            onChange={handleInputChange}
+            className="block w-full p-5  bg-gray-100 border-gray-300 focus:outline-[#6ad61d] text-gray-900 border rounded-lg text-base focus:ring-[#6ad61d] focus:border-[#6ad61d] dark:bg-gray-100 dark:border-none dark:placeholder-gray-400 dark:gray-900 dark:focus:ring-[#6ad61d] dark:focus:border-[#6ad61d]"
+          >
+            <option value="">None</option>
+            {categoriesoptions.map((option) => (
+              <option key={option.value} value={option.label}>
+                {option.label}
+              </option>
+            ))}
+          </select>
+        </div>
+         </div>
+         <div className="flex flex-wrap mx-2">
+         <div className="mb-5 w-full md:w-1/2 px-2">
+          <label
+            htmlFor="showMyProfile"
+            className="block text-sm font-bold text-gray-900"
+          >
+            Show My Profile
+          </label>
+          <select
+            name="showMyProfile"
+            value={profileInfo.showMyProfile}
+            onChange={handleInputChange}
+            className="block w-full p-5  bg-gray-100 border-gray-300 focus:outline-[#6ad61d] text-gray-900 border rounded-lg text-base focus:ring-[#6ad61d] focus:border-[#6ad61d] dark:bg-gray-100 dark:border-none dark:placeholder-gray-400 dark:gray-900 dark:focus:ring-[#6ad61d] dark:focus:border-[#6ad61d]"
+          >
+            <option value="">None</option>
+            {showprofileoptions.map((option) => (
+              <option key={option.value} value={option.label}>
+                {option.label}
+              </option>
+            ))}
+          </select>
+        </div>
+            </div>
+
+
+        <div className="flex flex-wrap mx-2">
+        
+          <label
+            htmlFor="aboutDescription"
+            className="block text-sm font-bold text-gray-900"
+          >Description
+          </label>
+          <div className="w-full bg-gray-100 rounded-b-lg dark:bg-white">
+          <textarea
+            id="editor"
+            rows="10"
+            name="aboutDescription"
+            value={profileInfo?.aboutDescription}
+            onChange={onChange}
+            className="block w-full p-3 text-sm text-black bg-white focus:outline-gray-200   border"
+            placeholder=""
+            required
+          ></textarea>
+        </div>
+        </div>
 
             {/*---------------- Word TextArea section------------------- */}
 
