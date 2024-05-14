@@ -52,8 +52,8 @@ const candidateSchema = new mongoose.Schema({
   experience: {
     // You can define the structure for experience details here
   },
-  otherDetails: {
-    // You can add other details as needed
+  resume: {
+    type: String,
   },
   kyc: {
     type: String, // Assuming either 'adhar card' or 'pan card'

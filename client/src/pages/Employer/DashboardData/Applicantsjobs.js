@@ -1,15 +1,20 @@
 import React, { useState, useEffect, useMemo } from "react";
 import { IoIosSearch } from "react-icons/io";
 import { useUserContext } from "../../../context/userContext";
-import { fetchAppliedCandidates, fetchJobs } from "../../../api/employer/axios";
+import {
+  fetchAppliedCandidates,
+  fetchJobs,
+  shortlistCandidates,
+} from "../../../api/employer/axios";
 
+const baseUrl = process.env.REACT_APP_SERVER_API_URL || "http://localhost:8000";
 function Applicantsjobs() {
   const [jobs, setJobs] = useState([]);
   const [candidates, setCandidates] = useState([]);
   const [error, setError] = useState("");
   const [searchTerm, setSearchTerm] = useState("");
   const [sortType, setSortType] = useState("Default");
-  const { user } = useUserContext();
+  const { user, setUser } = useUserContext();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -49,7 +54,6 @@ function Applicantsjobs() {
       candidate.email.toLowerCase().includes(searchTerm.toLowerCase())
     );
 
-    // Sort jobs by their last update timestamp
     switch (sortType) {
       case "Newest":
         filtered.sort((a, b) => {
@@ -59,7 +63,7 @@ function Applicantsjobs() {
           const lastUpdateB = jobs.find((job) =>
             job.applications.includes(b._id)
           )?.updatedAt;
-          return new Date(lastUpdateB) - new Date(lastUpdateA); // Sort descending
+          return new Date(lastUpdateB) - new Date(lastUpdateA);
         });
         break;
       case "Oldest":
@@ -70,7 +74,7 @@ function Applicantsjobs() {
           const lastUpdateB = jobs.find((job) =>
             job.applications.includes(b._id)
           )?.updatedAt;
-          return new Date(lastUpdateA) - new Date(lastUpdateB); // Sort ascending
+          return new Date(lastUpdateA) - new Date(lastUpdateB);
         });
         break;
       default:
@@ -79,6 +83,18 @@ function Applicantsjobs() {
 
     return filtered;
   }, [candidates, searchTerm, sortType, jobs]);
+
+  const handleShortlistCandidate = async (candidateId) => {
+    console.log("Shortlisting candidate:", candidateId);
+    // Implement the logic or API call to shortlist the candidate
+
+    const res = await shortlistCandidates(user?._id, candidateId);
+    console.log(res);
+    if (res?.status === 200) {
+      sessionStorage.setItem("user", JSON.stringify(res?.data));
+      setUser(res?.data?.employer);
+    }
+  };
 
   return (
     <div className="w-full h-auto lg:mt-14 px-4 lg:px-14 overflow-y-auto py-7 pb-14">
@@ -111,18 +127,55 @@ function Applicantsjobs() {
         </div>
         <div className="p-4 rounded-lg mt-7">
           {filteredCandidates.length > 0 ? (
-            <ul>
-              {filteredCandidates.map((candidate) => (
-                <li className="flex gap-2" key={candidate?._id}>
-                  <p>{candidate?.email}</p>
-                  {jobs.map((job) => (
-                    <p key={job._id + candidate._id}>
-                      {job.applications.includes(candidate._id) && job.jobTitle}
-                    </p>
-                  ))}
-                </li>
-              ))}
-            </ul>
+            <table className="min-w-full leading-normal">
+              <thead>
+                <tr>
+                  <th className="py-3 px-6 text-left">Email</th>
+                  <th className="py-3 px-6 text-left">Jobs Applied</th>
+                  <th className="py-3 px-6 text-center">Actions</th>
+                  <th className="py-3 px-6 text-center">Shortlist</th>
+                </tr>
+              </thead>
+              <tbody className="text-gray-600 text-sm font-light">
+                {filteredCandidates.map((candidate) => (
+                  <tr
+                    key={candidate._id}
+                    className="border-b border-gray-200 hover:bg-gray-100"
+                  >
+                    <td className="py-3 px-6 text-left">{candidate.email}</td>
+                    <td className="py-3 px-6 text-left">
+                      {jobs
+                        .filter((job) =>
+                          job.applications.includes(candidate._id)
+                        )
+                        .map((job) => (
+                          <p key={job._id}>{job.jobTitle}</p>
+                        ))}
+                    </td>
+                    <td className="py-3 px-6 text-center">
+                      <a
+                        href={`${baseUrl}/uploads/resumes/${candidate.resume}`}
+                        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        View Resume
+                      </a>
+                    </td>
+                    <td className="py-3 px-6 text-center">
+                      <button
+                        onClick={() => handleShortlistCandidate(candidate._id)}
+                        className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
+                      >
+                        {user?.shortlistedCandidates?.includes(candidate._id)
+                          ? "Shortlisted"
+                          : "Shortlist"}
+                      </button>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
           ) : (
             <p className="text-sm">{error || "No applicants found."}</p>
           )}

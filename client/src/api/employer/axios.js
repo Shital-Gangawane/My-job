@@ -156,3 +156,15 @@ export const fetchAppliedCandidates = async (ids) => {
     return error.response;
   }
 };
+
+// Post job
+export const shortlistCandidates = async (employerId, candidateId) => {
+  try {
+    const res = await axios.put(
+      `${url}/api/employer/${employerId}/shortlist/${candidateId}`
+    );
+    return res;
+  } catch (error) {
+    return error.response;
+  }
+};

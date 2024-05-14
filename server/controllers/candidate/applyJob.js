@@ -11,7 +11,7 @@ module.exports.applyJob = async (req, res) => {
         .status(400)
         .json({ success: false, message: "Job doesn't exist." });
 
-    await job.applications.push(userId);
+    if (!job.applications.includes(userId)) await job.applications.push(userId);
 
     await job.save();
 

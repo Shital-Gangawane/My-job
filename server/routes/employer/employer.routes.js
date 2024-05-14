@@ -20,6 +20,9 @@ const {
 const {
   updateJobByEmployer,
 } = require("../../controllers/employer/updateJobByEmployer.js");
+const {
+  shortlistCandidate,
+} = require("../../controllers/employer/shortlistCandidate.js");
 
 const router = express.Router();
 
@@ -33,6 +36,9 @@ router.get("/employer/fetchJobs", fetchJobs);
 //Post job & update JOb
 router.post("/employer/postJob", authMiddleware, postJobByEmployer);
 router.put("/employer/updateJob", authMiddleware, updateJobByEmployer);
+
+//Shortlist candidates
+router.put("/employer/:employerId/shortlist/:candidateId", shortlistCandidate);
 
 //fetch on job
 router.get("/employer/jobs/:jobId", fetchOneJob);
