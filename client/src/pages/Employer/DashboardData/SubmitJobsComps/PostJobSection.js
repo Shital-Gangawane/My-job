@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { FaCaretDown } from "react-icons/fa";
 import { FaChevronDown } from "react-icons/fa";
 import { IoClose } from "react-icons/io5";
 
@@ -96,7 +95,7 @@ function PostJobSection({
     onSelect(qualificationoption);
     setSelectedQualificationOption(false);
   };
-  
+  console.log(categoriesoptions);
   console.log(options);
   console.log(genderoption);
   console.log(joboptions);
