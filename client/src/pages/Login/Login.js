@@ -12,7 +12,7 @@ const Login = () => {
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false); // Add loading state
   const navigate = useNavigate();
-  const { setUser, setToken } = useUserContext();
+  const { setUser, setToken, setPackages } = useUserContext();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -33,11 +33,13 @@ const Login = () => {
         // Redirect based on user type
         if (res?.data?.isEmployer) {
           setUser(res?.data?.user);
+          setPackages(res?.data?.packages);
           setToken(res?.data?.token);
           navigate("/employer");
         } else {
           setUser(res?.data?.user);
           setToken(res?.data?.token);
+          setPackages(res?.data?.packages);
           navigate("/candidate");
         }
       } else {

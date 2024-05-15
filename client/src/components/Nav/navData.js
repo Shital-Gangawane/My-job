@@ -52,32 +52,32 @@ export const navigationLinks = [
       // Add more options as needed
     ],
   },
-  {
-    label: "Candidates",
-    url: "/candidate/dashboard",
-    hasDropdown: true,
-    dropdownOptions: [
-      {
-        options: [
-          { label: "Job List", url: "#" },
-          { label: "Courses", url: "#" },
-          { label: "Learn", url: "#" },
-          { label: "Read", url: "#" },
-        ],
-        label: "Candidates Style",
-      },
-      {
-        label: "Candidates Single",
-        url: "#",
-        options: [
-          { label: "Login/Register", url: "/login" },
-          { label: "Register Candidate", url: "#" },
-          { label: "Interview Tips", url: "#" },
-        ],
-      },
-      // Add more options as needed
-    ],
-  },
+  // {
+  //   label: "Candidates",
+  //   url: "/candidate/dashboard",
+  //   hasDropdown: true,
+  //   dropdownOptions: [
+  //     {
+  //       options: [
+  //         { label: "Job List", url: "#" },
+  //         { label: "Courses", url: "#" },
+  //         { label: "Learn", url: "#" },
+  //         { label: "Read", url: "#" },
+  //       ],
+  //       label: "Candidates Style",
+  //     },
+  //     {
+  //       label: "Candidates Single",
+  //       url: "#",
+  //       options: [
+  //         { label: "Login/Register", url: "/login" },
+  //         { label: "Register Candidate", url: "#" },
+  //         { label: "Interview Tips", url: "#" },
+  //       ],
+  //     },
+  //     // Add more options as needed
+  //   ],
+  // },
   {
     label: "Pages",
     url: "",

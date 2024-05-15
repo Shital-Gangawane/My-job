@@ -168,3 +168,35 @@ export const shortlistCandidates = async (employerId, candidateId) => {
     return error.response;
   }
 };
+
+// Update status of application
+export const updateCandidateStatus = async (
+  employerId,
+  candidateId,
+  status,
+  note
+) => {
+  try {
+    const res = await axios.put(`${url}/api/employer/updateCandidateStatus`, {
+      employerId,
+      candidateId,
+      status,
+      note,
+    });
+    return res;
+  } catch (error) {
+    return error.response;
+  }
+};
+
+//Fetch Packages
+export const fetchPackages = async (employerId) => {
+  try {
+    const res = await axios.get(
+      `${url}/api/employer/fetchPackages/${employerId}`
+    );
+    return res;
+  } catch (error) {
+    return error.response;
+  }
+};

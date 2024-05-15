@@ -23,7 +23,7 @@ import { GrRedo } from "react-icons/gr";
 // import SelectCategories from "./SelectCategories/SelectCategories";
 import SelectCategories from "../SelectCategories/SelectCategories";
 
-const baseUrl = "http://localhost:8000";
+const baseUrl = process.env.REACT_APP_SERVER_API_URL || "http://localhost:8000";
 function MyProfile({
   profileInfo,
   onChange,

@@ -47,6 +47,7 @@ import ProfileMembers from "./pages/Employer/DashboardData/ProfileComps/ProfileM
 import PostNewJob from "./pages/Employer/DashboardData/SubmitJobsComps/PostNewJob";
 import JobDetails from "./pages/Employer/DashboardData/JobDetails";
 import EmployerProfile from "./pages/Employer/EmployerProfile";
+import PackageModule from "./pages/Admin/PackageModule";
 
 // import { useSelector } from "react-redux";
 // import { SelectUser } from "./features/userSlice";
@@ -78,6 +79,7 @@ const router = createBrowserRouter(
         </Route>
         <Route path="jobs" element={<Jobs />} />
         <Route path="admins" element={<AdminModule />} />
+        <Route path="packages" element={<PackageModule />} />
       </Route>
       <Route path="candidate" element={<Candidate />}>
         <Route path="dashboard" element={<CandidateDashboard />} />
@@ -112,20 +114,6 @@ const router = createBrowserRouter(
 );
 
 function App() {
-  // const user=useSelector(SelectUser)
-  // return(
-  //   <div>
-  //     <Navcontents/>
-  //     <BrowserRouter>
-  //     <Routes>
-  //       <Route path="/" element={<Home/>}></Route>
-  //       <Route path="/Register" element={<Register />}></Route>
-  //         <Route path="/Login" element={<Login />}></Route>
-  //     </Routes>
-  //     </BrowserRouter>
-  //   </div>
-  // )
-
   return (
     <UserContextProvider>
       <RouterProvider router={router}></RouterProvider>

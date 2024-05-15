@@ -226,3 +226,21 @@ export const deleteCandidate = async (candidateId) => {
     return error.response;
   }
 };
+
+//Package creation for employer
+export const createEmployerPackage = async (packageInfo, token) => {
+  try {
+    const res = await axios.post(
+      `${url}/api/admin/employer/package/create`,
+      { packageInfo },
+      {
+        headers: {
+          Authorization: token,
+        },
+      }
+    );
+    return res;
+  } catch (error) {
+    return error.response;
+  }
+};

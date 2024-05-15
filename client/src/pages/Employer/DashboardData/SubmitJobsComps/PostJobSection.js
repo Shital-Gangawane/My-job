@@ -1,4 +1,3 @@
-
 import React, { useState } from "react";
 import { FaCaretDown } from "react-icons/fa";
 import { FaChevronDown } from "react-icons/fa";
@@ -280,7 +279,7 @@ function PostJobSection({
             htmlFor="maxSalary"
             className="block text-sm font-bold text-gray-900"
           >
-            Min Salary
+            Max Salary
           </label>
           <input
             type="text"

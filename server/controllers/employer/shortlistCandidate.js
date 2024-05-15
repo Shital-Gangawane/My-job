@@ -9,12 +9,16 @@ module.exports.shortlistCandidate = async (req, res) => {
 
     const candidateId = req.params.candidateId;
     const index = employer.shortlistedCandidates.findIndex(
-      (id) => id.toString() === candidateId
+      (c) => c.candidate.toString() === candidateId
     );
 
     if (index === -1) {
-      // Candidate not shortlisted, add to list
-      employer.shortlistedCandidates.push(candidateId);
+      // Candidate not shortlisted, add to list with default status and note
+      employer.shortlistedCandidates.push({
+        candidate: candidateId,
+        status: "Shortlisted",
+        note: "",
+      });
     } else {
       // Candidate already shortlisted, remove from list
       employer.shortlistedCandidates.splice(index, 1);

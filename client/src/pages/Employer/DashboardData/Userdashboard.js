@@ -90,7 +90,7 @@ function Userdashboard() {
     },
     {
       name: "Shortlisted",
-      count: 0,
+      count: userData?.shortlistedCandidates?.length,
       url: "#",
       icon: (
         <IoBookmarkOutline size={35} className="  text-green-600 rounded" />

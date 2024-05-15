@@ -2,6 +2,7 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const Candidate = require("../models/candidate/candidate.js");
 const Employer = require("../models/employer/employer.js");
+const Package = require("../models/employer/package.js");
 
 module.exports.login = async (req, res) => {
   try {
@@ -47,6 +48,8 @@ module.exports.login = async (req, res) => {
       { expiresIn: "5h" } // Token expiration time
     );
 
+    const packages = await Package.find();
+
     res.status(201).json({
       success: true,
       message: "Logged in successfully",
@@ -54,6 +57,7 @@ module.exports.login = async (req, res) => {
       token,
       isEmployer,
       isCandidate,
+      packages: isEmployer ? packages : "Candidate Package",
     });
   } catch (error) {
     res.status(500).json({ success: false, message: "Internal server error" });

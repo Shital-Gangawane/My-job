@@ -1,6 +1,17 @@
 const mongoose = require("mongoose");
 
 const employerSchema = new mongoose.Schema({
+  postJobCredits: {
+    type: Number,
+    default: 1,
+  },
+  purchasedPackages: [
+    {
+      package: { type: mongoose.Schema.Types.ObjectId, ref: "Package" },
+      purchasedOn: { type: Date, default: Date.now },
+      isActive: { type: Boolean, default: true },
+    },
+  ],
   companyName: {
     type: String,
   },
@@ -109,8 +120,18 @@ const employerSchema = new mongoose.Schema({
   },
   shortlistedCandidates: [
     {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "Candidate",
+      candidate: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Candidate",
+      },
+      status: {
+        type: String,
+        default: "Shortlisted", // default status when a candidate is added
+      },
+      note: {
+        type: String,
+        default: "",
+      },
     },
   ],
 });

@@ -5,9 +5,20 @@ import {
   fetchAppliedCandidates,
   fetchJobs,
   shortlistCandidates,
+  updateCandidateStatus,
 } from "../../../api/employer/axios";
 
 const baseUrl = process.env.REACT_APP_SERVER_API_URL || "http://localhost:8000";
+const statusOptions = [
+  "Shortlisted",
+  "Interviewing",
+  "1st round",
+  "2nd round",
+  "Final round",
+  "Offered",
+  "Placed",
+  "Declined",
+];
 function Applicantsjobs() {
   const [jobs, setJobs] = useState([]);
   const [candidates, setCandidates] = useState([]);
@@ -15,6 +26,8 @@ function Applicantsjobs() {
   const [searchTerm, setSearchTerm] = useState("");
   const [sortType, setSortType] = useState("Default");
   const { user, setUser } = useUserContext();
+  const [appStatus, setAppStatus] = useState("");
+  const [note, setNote] = useState("");
 
   useEffect(() => {
     const fetchData = async () => {
@@ -96,6 +109,31 @@ function Applicantsjobs() {
     }
   };
 
+  const handleStatusChange = async (event, candidateId) => {
+    const newStatus = event.target.value;
+    try {
+      const response = await updateCandidateStatus(
+        user._id,
+        candidateId,
+        newStatus
+      );
+      if (response.status === 200) {
+        // Assuming setUser updates the user in your context
+        setUser((prevUser) => {
+          const updatedShortlist = prevUser.shortlistedCandidates.map((item) =>
+            item.candidate === candidateId
+              ? { ...item, status: newStatus }
+              : item
+          );
+          return { ...prevUser, shortlistedCandidates: updatedShortlist };
+        });
+        setAppStatus(newStatus); // Update appStatus if necessary
+      }
+    } catch (error) {
+      console.error("Error updating status", error);
+    }
+  };
+
   return (
     <div className="w-full h-auto lg:mt-14 px-4 lg:px-14 overflow-y-auto py-7 pb-14">
       <h1 className="text-lg text-[#202124] lg:text-3xl mb-10 font-medium">
@@ -125,15 +163,17 @@ function Applicantsjobs() {
             </select>
           </div>
         </div>
-        <div className="p-4 rounded-lg mt-7">
+        <div className="p-4 rounded-lg mt-7 overflow-x-auto">
           {filteredCandidates.length > 0 ? (
             <table className="min-w-full leading-normal">
               <thead>
                 <tr>
                   <th className="py-3 px-6 text-left">Email</th>
                   <th className="py-3 px-6 text-left">Jobs Applied</th>
-                  <th className="py-3 px-6 text-center">Actions</th>
+                  <th className="py-3 px-6 text-center">Resume</th>
                   <th className="py-3 px-6 text-center">Shortlist</th>
+                  <th className="py-3 px-6 text-center">Status</th>
+                  <th className="py-3 px-6 text-center">Action</th>
                 </tr>
               </thead>
               <tbody className="text-gray-600 text-sm font-light">
@@ -155,7 +195,7 @@ function Applicantsjobs() {
                     <td className="py-3 px-6 text-center">
                       <a
                         href={`${baseUrl}/uploads/resumes/${candidate.resume}`}
-                        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                        className="bg-blue-500 whitespace-nowrap hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
                         target="_blank"
                         rel="noopener noreferrer"
                       >
@@ -164,13 +204,43 @@ function Applicantsjobs() {
                     </td>
                     <td className="py-3 px-6 text-center">
                       <button
+                        disabled={user?.shortlistedCandidates?.some(
+                          (el) => el.candidate === candidate._id
+                        )}
                         onClick={() => handleShortlistCandidate(candidate._id)}
-                        className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
+                        className={`${
+                          user?.shortlistedCandidates?.some(
+                            (el) => el.candidate === candidate._id
+                          )
+                            ? "bg-green-300"
+                            : "bg-green-500 hover:bg-green-700"
+                        } text-white font-bold py-2 px-4 rounded`}
                       >
-                        {user?.shortlistedCandidates?.includes(candidate._id)
+                        {user?.shortlistedCandidates?.some(
+                          (el) => el.candidate === candidate._id
+                        )
                           ? "Shortlisted"
                           : "Shortlist"}
                       </button>
+                    </td>
+
+                    <td className="py-3 px-6 text-center">
+                      <select
+                        value={
+                          appStatus ||
+                          user?.shortlistedCandidates?.find(
+                            (el) => el.candidate === candidate._id
+                          )?.status ||
+                          ""
+                        }
+                        onChange={(e) => handleStatusChange(e, candidate._id)}
+                      >
+                        {statusOptions.map((status, i) => (
+                          <option key={i} value={status}>
+                            {status}
+                          </option>
+                        ))}
+                      </select>
                     </td>
                   </tr>
                 ))}

@@ -6,6 +6,8 @@ const userContext = createContext();
 export default function UserContextProvider({ children }) {
   const [user, setUser] = useState([]);
   const [token, setToken] = useState("");
+  const [postJobData, setPostJobData] = useState(null);
+  const [packages, setPackages] = useState([]);
 
   const jwt = sessionStorage.getItem("token");
   useEffect(() => {
@@ -18,7 +20,18 @@ export default function UserContextProvider({ children }) {
   }, [token]);
 
   return (
-    <userContext.Provider value={{ user, setUser, token, setToken }}>
+    <userContext.Provider
+      value={{
+        user,
+        setUser,
+        token,
+        setToken,
+        postJobData,
+        setPostJobData,
+        packages,
+        setPackages,
+      }}
+    >
       {children}
     </userContext.Provider>
   );

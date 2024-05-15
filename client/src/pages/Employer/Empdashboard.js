@@ -64,11 +64,11 @@ const buttons = [
     icon: <IoBookmarkOutline size={25} />,
     path: "shortlistcandidates", // Example path for Shortlist Candidates
   },
-  {
-    name: "Candidate Alerts",
-    icon: <AiOutlineAlert size={25} />,
-    path: "candidatealerts", // Example path for Candidate Alerts
-  },
+  // {
+  //   name: "Candidate Alerts",
+  //   icon: <AiOutlineAlert size={25} />,
+  //   path: "candidatealerts", // Example path for Candidate Alerts
+  // },
   {
     name: "Packages",
     icon: <PiPackage size={25} />,
@@ -88,11 +88,6 @@ const buttons = [
     name: "Change Password",
     icon: <RiLockPasswordLine size={25} />,
     path: "changepassword", // Example path for Change Password
-  },
-  {
-    name: "Delete Profile",
-    icon: <RiDeleteBin5Line size={25} />,
-    path: "deleteprofile", // Example path for Delete Profile
   },
   {
     name: "Logout",
@@ -136,18 +131,14 @@ const Empdashboard = () => {
       case 5:
         return <Shortlistcandidate />;
       case 6:
-        return <Candidatealerts />;
-      case 7:
         return <Packages />;
-      case 8:
+      case 7:
         return <Messages />;
-      case 9:
+      case 8:
         return <Meeting />;
-      case 10:
+      case 9:
         return <Changepassword />;
-      case 11:
-        return <Deleteprofile />;
-      case 12:
+      case 10:
         return <Logout />;
       default:
         return null;
