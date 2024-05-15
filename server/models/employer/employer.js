@@ -107,6 +107,12 @@ const employerSchema = new mongoose.Schema({
   socialNetworks: {
     type: Array,
   },
+  shortlistedCandidates: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Candidate",
+    },
+  ],
 });
 
 const Employer = mongoose.model("Employer", employerSchema);

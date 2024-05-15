@@ -94,3 +94,21 @@ export const applyJob = async (userId, jobId) => {
     return error.response;
   }
 };
+
+//My Resume
+export const myResume = async (formData, id) => {
+  try {
+    const res = await axios.put(
+      `${url}/api/candidate/myresume/${id}`,
+      formData,
+      {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      }
+    );
+    return res;
+  } catch (error) {
+    return error.response;
+  }
+};

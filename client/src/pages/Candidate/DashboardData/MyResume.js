@@ -1,30 +1,27 @@
 import React, { useState, useEffect, useRef } from "react";
-// import Loader from "../../../components/Utility/Loader";
-
-import { fetchUser, saveProfile } from "../../../api/candidate/axios";
+import Loader from "../../../components/Utility/Loader";
 import { useUserContext } from "../../../context/userContext";
 import EditResume from "./MyResume/EditResume";
+import { myResume } from "../../../api/candidate/axios";
 
 function MyResume() {
   const { user, setUser } = useUserContext();
   const [isLoading, setIsLoading] = useState(false);
   const [resumeInfo, setResumeInfo] = useState({
-    resumeInfo: null,
+    resume: null,
   });
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // setIsLoading(true);
     const formData = new FormData();
     Object.keys(resumeInfo).forEach((key) => {
-      formData.append(key, resumeInfo[key]); // For files
-
-      // formData.append(key, JSON.stringify(resumeInfo[key])); // For regular fields, ensure conversion to JSON if necessary
+      formData.append(key, resumeInfo[key]);
     });
-console.log(formData);
-   
+
+    const res = await myResume(formData, user?._id);
+    console.log(res);
   };
-  
+
   const handleResumeChange = (e, resumeType) => {
     console.log(e.target.files[0]);
     setResumeInfo((prev) => ({
@@ -38,11 +35,7 @@ console.log(formData);
         Edit Resume
       </h2>
 
-      <EditResume
-        onChange={handleResumeChange}
-        // onImageChange={handleImageChange}
-        resumeInfo={resumeInfo}
-      />
+      <EditResume onChange={handleResumeChange} resumeInfo={resumeInfo} />
       <button
         type="button"
         onClick={handleSubmit}
