@@ -36,6 +36,7 @@ const router = express.Router();
 router.post("/employer/register", registerEmployer);
 router.post("/employer/login", login);
 
+//Fetch Employer Data
 router.get("/employer/fetch", fetchEmployerData);
 router.get("/employer/fetchJobs", fetchJobs);
 

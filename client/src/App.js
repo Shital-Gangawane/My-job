@@ -49,14 +49,16 @@ import JobDetails from "./pages/Employer/DashboardData/JobDetails";
 import EmployerProfile from "./pages/Employer/EmployerProfile";
 import PackageModule from "./pages/Admin/PackageModule";
 
-// import { useSelector } from "react-redux";
-// import { SelectUser } from "./features/userSlice";
-// import Logout from "./pages/Logout/Logout";
-
-// import Navcontents from "./components/Nav/Navcontents";
-// import Register from "./pages/Register/Register";
-// import Login from "./pages/Login/Login";
-// import Home from "./components/home/Home";
+import CandidateUserDashboard from "./pages/Candidate/DashboardData/Userdashboard";
+import CandidateProfile from "./pages/Candidate/DashboardData/Profile";
+import MyApplied from "./pages/Candidate/DashboardData/MyApplied";
+import MyResume from "./pages/Candidate/DashboardData/MyResume";
+import CandidateMessages from "./pages/Candidate/DashboardData/Messages";
+import CandidateMeetings from "./pages/Candidate/DashboardData/Meeting";
+import ShortlistJobs from "./pages/Candidate/DashboardData/ShortlistJobs";
+import JobAlerts from "./pages/Candidate/DashboardData/JobAlerts";
+import CandidateChangePassword from "./pages/Candidate/DashboardData/Changepassword";
+import FollowingEmployers from "./pages/Candidate/DashboardData/FollowingEmployers";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -71,36 +73,51 @@ const router = createBrowserRouter(
       </Route>
       <Route path="login" element={<Login />} />
       <Route path="register" element={<Register />} />
+
+      {/* Admin Panel */}
       <Route path="admin" element={<AdminApp />}>
         <Route path="dashboard" element={<AdminDashboard />} />
         <Route path="candidates" element={<CandidateModule />} />
-        <Route path="employers" element={<Employers />}>
-          {/* <Route path=":_id" element={<EmployerDetails />} /> */}
-        </Route>
+        <Route path="employers" element={<Employers />} />
         <Route path="jobs" element={<Jobs />} />
         <Route path="admins" element={<AdminModule />} />
         <Route path="packages" element={<PackageModule />} />
       </Route>
+
       <Route path="candidate" element={<Candidate />}>
-        <Route path="dashboard" element={<CandidateDashboard />} />
+        <Route path="dashboard" element={<CandidateDashboard />}>
+          <Route path="" element={<CandidateUserDashboard />} />
+          <Route path="profile" element={<CandidateProfile />} />
+          <Route path="myresume" element={<MyResume />} />
+          <Route path="appliedjobs" element={<MyApplied />} />
+          <Route path="shortlistjobs" element={<ShortlistJobs />} />
+          <Route path="jobalerts" element={<JobAlerts />} />
+          <Route path="messages" element={<CandidateMessages />} />
+          <Route path="meetings" element={<CandidateMeetings />} />
+          <Route path="following-employers" element={<FollowingEmployers />} />
+          <Route path="changepassword" element={<CandidateChangePassword />} />
+          <Route path="logout" element={<Logout />} />
+        </Route>
       </Route>
+
+      {/* Employer */}
       <Route path="employer" element={<Employer />}>
-        <Route path="dashboard" element={<Empdashboard />} />
-        {/* <Route path="slidebar" element={<Slidebar />} /> */}
-        <Route path="userdashboard" element={<Userdashboard />} />
-        <Route path="profile" element={<Profile />} />
-        <Route path="myjobs" element={<Myjobs />} />
-        <Route path="submitjobs" element={<Submitjobs />} />
-        <Route path="applicantjobs" element={<Applicantsjobs />} />
-        <Route path="shortlistcandidate" element={<Shortlistcandidate />} />
-        <Route path="candidatealerts" element={<Candidatealerts />} />
-        <Route path="packages" element={<Packages />} />
-        <Route path="messages" element={<Messages />} />
-        <Route path="meeting" element={<Meeting />} />
-        <Route path="changepassword" element={<Changepassword />} />
-        <Route path="deleteprofile" element={<Deleteprofile />} />
-        <Route path="logout" element={<Logout />} />
-        <Route path="postnewjob" element={<PostNewJob />} />
+        <Route path="dashboard" element={<Empdashboard />}>
+          <Route path="" element={<Userdashboard />} />
+          <Route path="profile" element={<Profile />} />
+          <Route path="myjobs" element={<Myjobs />} />
+          <Route path="submitjobs" element={<Submitjobs />} />
+          <Route path="applicantjobs" element={<Applicantsjobs />} />
+          <Route path="shortlistcandidates" element={<Shortlistcandidate />} />
+          <Route path="candidatealerts" element={<Candidatealerts />} />
+          <Route path="packages" element={<Packages />} />
+          <Route path="messages" element={<Messages />} />
+          <Route path="meetings" element={<Meeting />} />
+          <Route path="changepassword" element={<Changepassword />} />
+          <Route path="deleteprofile" element={<Deleteprofile />} />
+          <Route path="logout" element={<Logout />} />
+          <Route path="postnewjob" element={<PostNewJob />} />
+        </Route>
       </Route>
 
       {/* For employer */}

@@ -6,44 +6,40 @@ import SocialNetworks from "../../Employer/DashboardData/ProfileComps/SocialNetw
 import Loader from "../../../components/Utility/Loader";
 // import { useCandidateContext } from "../../../context/candidateContext";
 import { useUserContext } from "../../../context/userContext";
-import { 
+import {
   genderoption,
   ageoptions,
   qualificationoptions,
   experienceoptions,
   salaryoptions,
   categoriesoptions,
-  showprofileoptions
- } from "./ProfileComps/SelectOptions";
-// import ProfileMembers from "./ProfileComps/ProfileMembers/ProfileMembers";
+  showprofileoptions,
+} from "./ProfileComps/SelectOptions";
+import { saveProfile } from "../../../api/candidate/axios";
+import { fetchUser } from "../../../api/employer/axios";
 
-// import MyProfile from "./ProfileComps/MyProfile";
-// import SocialNetworks from "./ProfileComps/SocialNetworks/SocialNetworks";
-// import ContactInformation from "./ProfileComps/ContactInformation";
-// import networkoptions
-
-function Profile({candidate,data, setIsEditing}) {
-
+function Profile({ candidate, setIsEditing }) {
   const [isOpen, setIsOpen] = useState(false);
-   const { user, setUser } = useUserContext();
+  const { user, setUser } = useUserContext();
   const [isLoading, setIsLoading] = useState(false);
 
   const [profileInfo, setProfileInfo] = useState({
-   fullName: "",
+    name: "",
     dob: "",
     gender: null,
     age: null,
     phoneNumber: "",
-    email: "",
+    email: user?.email,
     qualification: null,
-    experienceTime: null,
+    experience: null,
     languages: null,
     salaryType: null,
     salary: "",
     categories: null,
-    showMyProfile: null,
-    jobTitle:"",
-    description:"",
+    showMyProfile: true,
+    jobTitle: "",
+    description: "",
+    logoImage: "",
   });
 
   const [socialNetworks, setSocialNetworks] = useState([
@@ -54,8 +50,8 @@ function Profile({candidate,data, setIsEditing}) {
   ]);
 
   const [contactInfo, setContactInfo] = useState({
-    phoneNumber: "",
-    email: "",
+    // phoneNumber: "",
+    // email: "",
     address: "",
     country: "",
     location: {
@@ -65,48 +61,48 @@ function Profile({candidate,data, setIsEditing}) {
   });
 
   // Function to fetch profile data
-  // const fetchProfileData = async () => {
-  //   try {
-  //     const res = await fetchUser("candidate", user?._id);
-  //     console.log(res);
-  //     const data = res?.data?.candidate;
-  //     setProfileInfo({
-  //       fullName: data.fullName || "",
-  //       dob: data.dob || "",
-  //       gender: data.gender || "",
-  //       age: data.age || "",
-  //       phoneNumber: data.phoneNumber || "",
-  //       email: data.email || "",
-  //       qualification: data.qualification || null,
-  //       experienceTime: data.experienceTime || null,
-  //       language: data.languages[0].split(",") || [],
-  //       salaryType: data.salaryType || null,
-  //       qualification: data.qualification || null,
-  //       salary: data.salary || "",
-  //       categories: data.categories || "",
-  //       showMyProfile: data.showMyProfile || "",
-  //       jobTitle: data.jobTitle || "",
-  //       description: data.description || "",
-  //       logoImage: data.logoImage || null,
-  //     });
-     
-  //     setSocialNetworks(data.socialNetworks || []);
-  //     setContactInfo({
-  //       phoneNumber: data.phoneNumber || "",
-  //       email: user?.email,
-  //       address: data.address || "",
-  //       country: data.country || "",
-  //       location: data.location || { latitude: "", longitude: "" },
-  //     });
-  //   } catch (error) {
-  //     console.error("Failed to fetch profile data:", error);
-  //   }
-  // };
+  const fetchProfileData = async () => {
+    try {
+      const res = await fetchUser("candidate", user?._id);
+      console.log(res);
+      const data = res?.data?.candidate;
+      setProfileInfo({
+        name: data.name || "",
+        dob: data.dob || "",
+        gender: data.gender || "",
+        age: data.age || "",
+        phoneNumber: data.phoneNumber || "",
+        email: user?.email,
+        qualification: data.qualification || null,
+        experience: data.experience || null,
+        language: data.languages || [],
+        salaryType: data.salaryType || null,
+        qualification: data.qualification || null,
+        salary: data.salary || "",
+        categories: data.categories || "",
+        showMyProfile: data.showMyProfile || true,
+        jobTitle: data.jobTitle || "",
+        description: data.description || "",
+        logoImage: data.logoImage || null,
+      });
 
-   // UseEffect to fetch data on component mount
-  //  useEffect(() => {
-  //   fetchProfileData();
-  // }, []); // Ensure this runs only once on mount
+      setSocialNetworks(data.socialNetworks || []);
+      setContactInfo({
+        // phoneNumber: data.phoneNumber || "",
+        // email: user?.email,
+        address: data.address || "",
+        country: data.country || "",
+        location: data.location || { latitude: "", longitude: "" },
+      });
+    } catch (error) {
+      console.error("Failed to fetch profile data:", error);
+    }
+  };
+
+  // UseEffect to fetch data on component mount
+  useEffect(() => {
+    fetchProfileData();
+  }, [user]); // Ensure this runs only once on mount
 
   const handleProfileChange = (e) => {
     const { name, value } = e.target;
@@ -131,7 +127,7 @@ function Profile({candidate,data, setIsEditing}) {
         categories: [...prev.categories, category],
       }));
     }
-  }
+  };
 
   const handleImageChange = (e, imageType) => {
     console.log(e.target.files[0]);
@@ -151,8 +147,6 @@ function Profile({candidate,data, setIsEditing}) {
     const formData = new FormData();
     Object.keys(profileInfo).forEach((key) => {
       formData.append(key, profileInfo[key]); // For files
-
-      // formData.append(key, JSON.stringify(profileInfo[key])); // For regular fields, ensure conversion to JSON if necessary
     });
 
     formData.append("socialNetworks", JSON.stringify(socialNetworks));
@@ -164,15 +158,16 @@ function Profile({candidate,data, setIsEditing}) {
       }
     });
 
-  };
+    const res = await saveProfile(formData, user?._id);
+    console.log(res);
 
-  // const handleSubmit = (e) => {
-  //   e.preventDefault();
-  //   // Perform form submission logic here
-  //   // You can access form data using e.target.elements
-  //   console.log("Form submitted");
-  // };
-  
+    if (res?.data?.success) {
+      const userData = JSON.stringify(res?.data?.candidate);
+      sessionStorage.setItem("user", userData);
+      setUser(res?.data?.candidate);
+    }
+    setIsLoading(false);
+  };
 
   return (
     <div className=" w-full h-auto  overflow-y-auto lg:mt-14 px-4 lg:px-14 py-7  pb-14">
@@ -182,36 +177,35 @@ function Profile({candidate,data, setIsEditing}) {
       </h2>
 
       <div>
-      <MyProfile
-       profileInfo={profileInfo}
-       onChange={handleProfileChange}
-       onImageChange={handleImageChange}
-       handleCategoryChange={handleCategoryChange}
-       genderoption={genderoption}
-       ageoptions={ageoptions}
-       qualificationoptions={qualificationoptions}
-       experienceoptions={experienceoptions}
-       salaryoptions={salaryoptions}
-       categoriesoptions={categoriesoptions}
-       showprofileoptions={showprofileoptions}
-       candidate
-     />
-
-      </div>
-
-      <div>
-       <SocialNetworks
-        socialNetworks={socialNetworks}
-        setSocialNetworks={setSocialNetworks}
+        <MyProfile
+          profileInfo={profileInfo}
+          onChange={handleProfileChange}
+          onImageChange={handleImageChange}
+          handleCategoryChange={handleCategoryChange}
+          genderoption={genderoption}
+          ageoptions={ageoptions}
+          qualificationoptions={qualificationoptions}
+          experienceoptions={experienceoptions}
+          salaryoptions={salaryoptions}
+          categoriesoptions={categoriesoptions}
+          showprofileoptions={showprofileoptions}
+          candidate
         />
       </div>
 
-     <div>
-      <ContactInformation
-       contactInfo={contactInfo}
-       setContactInfo={setContactInfo}
-      />
-     </div>
+      <div>
+        <SocialNetworks
+          socialNetworks={socialNetworks}
+          setSocialNetworks={setSocialNetworks}
+        />
+      </div>
+
+      <div>
+        <ContactInformation
+          contactInfo={contactInfo}
+          setContactInfo={setContactInfo}
+        />
+      </div>
 
       <button
         type="button"

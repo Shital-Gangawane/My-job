@@ -52,36 +52,23 @@ export const loginCandidate = async (email, password) => {
   }
 };
 
-//Edit Candidate
-// export const updateCandidate = async (
-//   employerId,
-//   companyName,
-//   aboutCompany,
-//   industries,
-//   phoneNumber,
-//   email,
-//   website,
-//   isApproved
-// ) => {
-//   try {
-//     const res = await axios.put(
-//       `${url}/api/admin/employer/update/${employerId}`,
-//       {
-//         companyName,
-//         aboutCompany,
-//         industries,
-//         phoneNumber,
-//         email,
-//         website,
-//         isApproved,
-//       }
-//     );
-//     return res;
-//   } catch (error) {
-//     return error.response;
-//   }
-// };
-
+//Save Profile
+export const saveProfile = async (formData, id) => {
+  try {
+    const res = await axios.put(
+      `${url}/api/candidate/saveProfile/${id}`,
+      formData,
+      {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      }
+    );
+    return res;
+  } catch (error) {
+    return error.response;
+  }
+};
 //Job apply
 export const applyJob = async (userId, jobId) => {
   try {

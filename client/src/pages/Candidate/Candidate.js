@@ -1,13 +1,14 @@
 import React, { useEffect } from "react";
-import { Outlet, useNavigate } from "react-router-dom";
+import { Outlet, useLocation, useNavigate } from "react-router-dom";
 import Nav from "../../components/Nav/Nav";
 
 export default function Candidate() {
   const navigate = useNavigate();
+  const location = useLocation();
 
   useEffect(() => {
-    navigate("/candidate/dashboard");
-  }, []);
+    if (location.pathname === "/candidate") navigate("/candidate/dashboard");
+  }, [location.pathname]);
   return (
     <div className=" w-full h-auto bg-white">
       <Nav bgColor="bg-white fixed shadow-md" employer />

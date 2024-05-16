@@ -1,8 +1,15 @@
 const mongoose = require("mongoose");
 
 const candidateSchema = new mongoose.Schema({
-  fullName: {
+  name: {
     type: String,
+  },
+  logoImage: {
+    type: String,
+  },
+  showMyProfile: {
+    type: Boolean,
+    default: true,
   },
   dob: {
     type: String,
@@ -37,21 +44,27 @@ const candidateSchema = new mongoose.Schema({
     required: true,
   },
   photos: [String],
-  contactInformation: {
-    mobileNumber: {
+
+  phoneNumber: {
+    type: String,
+  },
+
+  location: {
+    latitude: {
       type: String,
     },
+    longitude: {
+      type: String,
+    },
+  },
 
-    currentLocation: String,
+  qualification: {
+    type: String,
   },
-  education: {
-    qualification: String,
-    // You can add more fields related to education here
-  },
+  // You can add more fields related to education here
+
   skills: [String],
-  experience: {
-    // You can define the structure for experience details here
-  },
+
   resume: {
     type: String,
   },

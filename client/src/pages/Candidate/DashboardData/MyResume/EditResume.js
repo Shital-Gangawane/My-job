@@ -14,7 +14,6 @@ function EditResume({ resumeInfo, onChange }) {
         <input
           type="file"
           name="resume"
-          //  value={resumeInfo.resume}
           onChange={(e) => onChange(e, "resume")}
           className="w-full text-sm text-gray-900 py-2.5 px-4 border border-gray-300 rounded-lg focus:outline-none focus:border-[#6ad61d] focus:ring-[#6ad61d]"
         />

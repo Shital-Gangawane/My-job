@@ -15,7 +15,7 @@ const employerSchema = new mongoose.Schema({
   companyName: {
     type: String,
   },
-  employerName: {
+  name: {
     type: String,
   },
   foundedDate: {

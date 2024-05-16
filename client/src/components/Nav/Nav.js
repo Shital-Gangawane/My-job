@@ -139,14 +139,16 @@ const Nav = ({ bgColor, employer }) => {
                     className=" flex items-center cursor-pointer hover:text-[#6ad61d] gap-3"
                   >
                     <img
-                      className=" h-12 border rounded-full p-1 hover:border-[#6ad61d]"
+                      className=" h-12 w-12 border rounded-full p-1 hover:border-[#6ad61d]"
                       src={
                         user?.logoImage
                           ? `${baseUrl}/uploads/${user?.logoImage}`
                           : userDp
                       }
                     />
-                    <p>{user?.email?.split("@")[0]}</p>
+                    <p>
+                      {user?.name?.split(" ")[0] || user?.email?.split("@")[0]}
+                    </p>
                     <IoIosArrowDown className=" inline-block" />
                   </div>
                   <button className="bg-[#6ad61d] text-white text-sm py-3 px-7 rounded-lg">

@@ -148,7 +148,13 @@ export default function Employers() {
                 Company Name
               </th>
               <th className="px-6 py-3 text-xs font-medium text-white uppercase tracking-wider">
-                Industries
+                PostJob Credits
+              </th>
+              <th className="px-6 py-3 text-xs font-medium text-white uppercase tracking-wider">
+                Packages
+              </th>
+              <th className="px-6 py-3 text-xs font-medium text-white uppercase tracking-wider">
+                Jobs
               </th>
               <th className="px-6 py-3 text-xs font-medium text-white uppercase tracking-wider">
                 Phone Number
@@ -178,7 +184,17 @@ export default function Employers() {
                   {employer?.companyName}
                 </td>
                 <td className="px-1 py-4 text-center whitespace-nowrap text-sm text-gray-500">
-                  {employer?.industries.join(", ")}
+                  {employer?.postJobCredits}
+                </td>
+                <td className="px-1 py-4 text-center whitespace-nowrap text-sm text-gray-500">
+                  {employer?.purchasedPackages?.length
+                    ? employer?.purchasedPackages?.length
+                    : "None"}
+                </td>
+                <td className="px-1 py-4 text-center whitespace-nowrap text-sm text-gray-500">
+                  {employer?.postedJobs?.length
+                    ? employer?.postedJobs?.length
+                    : "None"}
                 </td>
                 <td className="px-1 py-4 text-center whitespace-nowrap text-sm text-gray-500">
                   {employer?.phoneNumber}

@@ -34,7 +34,7 @@ export const updateEmployer = async (
   employerId,
   companyName,
   aboutCompany,
-  industries,
+  postJobCredits,
   phoneNumber,
   email,
   website,
@@ -46,7 +46,7 @@ export const updateEmployer = async (
       {
         companyName,
         aboutCompany,
-        industries,
+        postJobCredits,
         phoneNumber,
         email,
         website,

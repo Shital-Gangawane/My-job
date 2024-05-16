@@ -35,12 +35,12 @@ const Login = () => {
           setUser(res?.data?.user);
           setPackages(res?.data?.packages);
           setToken(res?.data?.token);
-          navigate("/employer");
+          navigate("/employer/dashboard");
         } else {
           setUser(res?.data?.user);
           setToken(res?.data?.token);
           setPackages(res?.data?.packages);
-          navigate("/candidate");
+          navigate("/candidate/dashboard");
         }
       } else {
         setError(res?.data?.message);

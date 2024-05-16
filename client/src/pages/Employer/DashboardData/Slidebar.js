@@ -1,7 +1,7 @@
 import React from "react";
 import { FaRegUserCircle } from "react-icons/fa";
 import { motion } from "framer-motion";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useUserContext } from "../../../context/userContext";
 import userDp from "../../../assets/user-dp.png";
 
@@ -17,6 +17,7 @@ function Slidebar({
 }) {
   const navigate = useNavigate(); // Access the navigate function from React Router DOM
   const { user } = useUserContext();
+  const location = useLocation();
   const handleButtonClick = (index, path) => {
     setIsSelected(index); // Set the selected index
     navigate(`/employer/${path}`); // Navigate to the specified path
@@ -44,7 +45,7 @@ function Slidebar({
             src={`${baseUrl}/uploads/${user?.logoImage}` || userDp}
           />
           <span className="gap-2 mt-2 font-bold">
-            {data?.email?.split("@")[0] || "user name"}
+            {user?.name || data?.email?.split("@")[0]}
           </span>{" "}
         </div>
         <div>
@@ -61,9 +62,10 @@ function Slidebar({
               <button
                 key={index}
                 type="button"
-                onClick={() => setIsSelected(index)} // Pass the index and path to handleButtonClick function
+                // onClick={() => setIsSelected(index)} // Pass the index and path to handleButtonClick function
+                onClick={() => navigate(`/employer/dashboard${button?.path}`)}
                 className={`w-full py-3 ps-4 text-left ${
-                  isSelected === index
+                  location.pathname === `/employer/dashboard${button?.path}`
                     ? "bg-[#6ad61d23] text-[#6ad61d] "
                     : "hover:bg-[#6ad61d23] hover:text-[#6ad61d] text-gray-500 "
                 }  rounded-lg text-sm `}

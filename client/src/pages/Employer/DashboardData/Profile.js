@@ -158,7 +158,7 @@ function Profile() {
     console.log(res);
 
     if (res?.data?.success) {
-      const userData = JSON.stringify(res?.data?.user);
+      const userData = JSON.stringify(res?.data?.employer);
       sessionStorage.setItem("user", userData);
       setUser(res?.data?.employer);
       setIsLoading(false);
