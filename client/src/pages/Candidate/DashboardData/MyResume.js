@@ -26,11 +26,11 @@ function MyResume() {
 
   const [experiences, setExperiences] = useState([
     {
-    title: "",
-    startDate: "",
-    endDate: "",
-    company: "",
-    description: "",
+      title: "",
+      startDate: "",
+      endDate: "",
+      company: "",
+      description: "",
     },
   ]);
 
@@ -48,12 +48,12 @@ function MyResume() {
     Object.keys(resumeInfo).forEach((key) => {
       formData.append(key, resumeInfo[key]);
     });
-    console.log(educations ,experiences, awards);
-  
-    
+    console.log(educations, experiences, awards);
 
     const res = await myResume(formData, user?._id);
     console.log(res);
+    sessionStorage.setItem("user", JSON.stringify(res?.data?.candidate));
+    setUser(res?.data?.candidate);
   };
 
   const handleResumeChange = (e, resumeType) => {
@@ -68,24 +68,24 @@ function MyResume() {
       <h2 className=" text-lg text-[#202124] lg:text-3xl mb-10 font-medium">
         Edit Resume
       </h2>
-<div>
-      <EditResume onChange={handleResumeChange} resumeInfo={resumeInfo} />
+      <div>
+        <EditResume onChange={handleResumeChange} resumeInfo={resumeInfo} />
       </div>
 
       <div>
-        <Education  educations={educations} setEducations={setEducations}/>
+        <Education educations={educations} setEducations={setEducations} />
       </div>
 
       <div>
-        < Experience experiences={experiences} setExperiences={setExperiences}/>
+        <Experience experiences={experiences} setExperiences={setExperiences} />
       </div>
 
       <div className="bg-white p-6 mt-5 px-10 rounded-lg block">
-    <h2 className="text-lg text-[#202124] mb-6 font-bold">Portfolio</h2>
-    </div>
+        <h2 className="text-lg text-[#202124] mb-6 font-bold">Portfolio</h2>
+      </div>
 
-    <div>
-        < Awards awards={awards} setAwards={setAwards}/>
+      <div>
+        <Awards awards={awards} setAwards={setAwards} />
       </div>
       <button
         type="button"

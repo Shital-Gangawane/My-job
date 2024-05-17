@@ -74,7 +74,6 @@ function MyProfile({
           type="file"
           name="logoImage"
           id="logoImage"
-          defaultValue={profileInfo?.logoImage}
           onChange={(e) => onImageChange(e, "logoImage")}
           className="w-full hidden text-sm text-gray-900 py-2.5 px-4 border border-gray-300 rounded-lg focus:outline-none focus:border-[#6ad61d] focus:ring-[#6ad61d]"
         />

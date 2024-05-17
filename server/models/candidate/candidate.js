@@ -61,7 +61,13 @@ const candidateSchema = new mongoose.Schema({
   qualification: {
     type: String,
   },
-  // You can add more fields related to education here
+
+  appliedJobs: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Job",
+    },
+  ],
 
   skills: [String],
 
