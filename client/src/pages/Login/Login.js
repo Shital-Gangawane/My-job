@@ -3,11 +3,13 @@ import { Link, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { login } from "../../api/employer/axios";
 import Loader from "../../components/Utility/Loader";
+import PhoneInput from "react-phone-input-2";
+import "react-phone-input-2/lib/style.css";
 import Nav from "../../components/Nav/Nav";
 import { useUserContext } from "../../context/userContext";
 
 const Login = () => {
-  const [email, setEmail] = useState("");
+  const [phone, setPhone] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false); // Add loading state
@@ -18,7 +20,7 @@ const Login = () => {
     e.preventDefault();
     setLoading(true); // Set loading to true when submitting
     try {
-      const res = await login(email, password);
+      const res = await login(phone, password);
       console.log(res); // Handle success response
       if (res?.data?.success) {
         // Store token and user type in sessionStorage
@@ -47,7 +49,7 @@ const Login = () => {
       }
     } catch (error) {
       console.error(error); // Handle error response
-      setError("Invalid email or password.");
+      setError("Invalid phone or password.");
     } finally {
       setLoading(false); // Set loading to false after request completes
     }
@@ -74,16 +76,22 @@ const Login = () => {
       >
         <h2 className="text-2xl font-bold mb-4">Login to JobPortal</h2>
         <div className="mb-4">
-          <label htmlFor="email" className="block text-gray-700">
-            Email <span className=" text-red-500">*</span>
+          <label htmlFor="phone" className="block text-gray-700">
+            Phone <span className=" text-red-500">*</span>
           </label>
-          <input
-            type="email"
-            id="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            className="w-full px-4 py-4 rounded-lg border bg-gray-100 border-gray-300 focus:outline-none focus:border-blue-500"
+          <PhoneInput
             required
+            inputStyle={{
+              backgroundColor: "transparent",
+              border: "none",
+              height: "100%",
+              width: "100%",
+            }}
+            buttonStyle={{ border: "none" }}
+            country={"in"}
+            value={phone}
+            onChange={setPhone}
+            className="w-full px-4 py-4 rounded-lg border bg-gray-100 border-gray-300 focus:outline-none focus:border-blue-500"
           />
         </div>
         <div className="mb-4">

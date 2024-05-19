@@ -29,12 +29,15 @@ const {
 const {
   fetchPackages,
 } = require("../../controllers/employer/fetchPackages.js");
+const {
+  checkIfRegistered,
+} = require("../../controllers/candidate/checkIfRegistered.js");
 
 const router = express.Router();
 
 //Authentication
 router.post("/employer/register", registerEmployer);
-router.post("/employer/login", login);
+router.post("/login", login);
 
 //Fetch Employer Data
 router.get("/employer/fetch", fetchEmployerData);
@@ -52,6 +55,7 @@ router.put("/employer/updateCandidateStatus", updateCandidateStatus);
 
 //fetch on job
 router.get("/employer/jobs/:jobId", fetchOneJob);
+router.get("/employer/isRegistered", checkIfRegistered);
 
 //fetch applications/candidates
 router.get("/employer/applications/:ids", fetchAppsCandidates);

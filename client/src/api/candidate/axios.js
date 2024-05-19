@@ -26,11 +26,23 @@ export const searchJobs = async (searchText, city) => {
   }
 };
 
+//Check if Candidate Registered
+export const checkIfRegistered = async (phoneNumber, userType) => {
+  try {
+    const res = await axios.get(
+      `${url}/api/${userType}/isRegistered?phoneNumber=${phoneNumber}`
+    );
+    return res;
+  } catch (error) {
+    return error.response;
+  }
+};
+
 //Candidate Register
-export const registerCandidate = async (email, password) => {
+export const registerCandidate = async (phoneNumber, password) => {
   try {
     const res = await axios.post(`${url}/api/candidate/register`, {
-      email,
+      phoneNumber,
       password,
     });
     return res;
@@ -40,10 +52,10 @@ export const registerCandidate = async (email, password) => {
 };
 
 //Candidate login
-export const loginCandidate = async (email, password) => {
+export const loginCandidate = async (phoneNumber, password) => {
   try {
     const res = await axios.post(`${url}/api/candidate/login`, {
-      email,
+      phoneNumber,
       password,
     });
     return res;

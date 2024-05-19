@@ -4,10 +4,10 @@ const url = process.env.REACT_APP_SERVER_API_URL || "http://localhost:8000";
 // const url = "http://localhost:8000";
 
 //Employer Register
-export const registerEmployer = async (email, password) => {
+export const registerEmployer = async (phoneNumber, password) => {
   try {
     const res = await axios.post(`${url}/api/employer/register`, {
-      email,
+      phoneNumber,
       password,
     });
     return res;
@@ -17,10 +17,10 @@ export const registerEmployer = async (email, password) => {
 };
 
 //Employer or candidate login
-export const login = async (email, password) => {
+export const login = async (phoneNumber, password) => {
   try {
-    const res = await axios.post(`${url}/api/employer/login`, {
-      email,
+    const res = await axios.post(`${url}/api/login`, {
+      phoneNumber,
       password,
     });
     return res;

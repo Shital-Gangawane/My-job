@@ -4,24 +4,22 @@ const Candidate = require("../../models/candidate/candidate.js");
 
 module.exports.registerEmployer = async (req, res) => {
   try {
-    const { email, password } = req.body;
+    const { phoneNumber, password } = req.body;
 
-    // Check if the email is already registered
-    const existingEmployer = await Employer.findOne({ email });
-    const existingCandidate = await Candidate.findOne({ email });
+    // Check if the Number is already registered
+    const existingEmployer = await Employer.findOne({ phoneNumber });
+    const existingCandidate = await Candidate.findOne({ phoneNumber });
 
     if (existingCandidate) {
-      return res
-        .status(400)
-        .json({
-          success: false,
-          message: "Email is already registered as candidate",
-        });
+      return res.status(400).json({
+        success: false,
+        message: "Number is already registered as candidate",
+      });
     }
     if (existingEmployer) {
       return res
         .status(400)
-        .json({ success: false, message: "Email is already registered" });
+        .json({ success: false, message: "Number is already registered" });
     }
 
     // Hash the password
@@ -29,7 +27,7 @@ module.exports.registerEmployer = async (req, res) => {
 
     // Create a new admin
     const newEmployer = new Employer({
-      email,
+      phoneNumber,
       password: hashedPassword,
     });
 

@@ -12,6 +12,9 @@ const { saveProfile } = require("../../controllers/candidate/saveProfile.js");
 const {
   fetchCandidateData,
 } = require("../../controllers/candidate/fetchCandidateData.js");
+const {
+  checkIfRegistered,
+} = require("../../controllers/candidate/checkIfRegistered.js");
 
 const router = express.Router();
 
@@ -21,6 +24,7 @@ router.post("/candidate/login", login);
 
 //Fetch Candidate Data
 router.get("/candidate/fetch", fetchCandidateData);
+router.get("/candidate/isRegistered", checkIfRegistered);
 
 //Save Profile & resume
 router.put("/candidate/saveProfile/:id", cpUpload, saveProfile);

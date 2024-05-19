@@ -6,18 +6,18 @@ const Package = require("../models/employer/package.js");
 
 module.exports.login = async (req, res) => {
   try {
-    const { email, password } = req.body;
+    const { phoneNumber, password } = req.body;
 
-    // Check if the email is registered for a candidate
-    const existingCandidate = await Candidate.findOne({ email });
+    // Check if the phoneNumber is registered for a candidate
+    const existingCandidate = await Candidate.findOne({ phoneNumber });
 
-    // Check if the email is registered for an employer
-    const existingEmployer = await Employer.findOne({ email });
+    // Check if the phoneNumber is registered for an employer
+    const existingEmployer = await Employer.findOne({ phoneNumber });
 
     if (!existingCandidate && !existingEmployer) {
       return res
         .status(400)
-        .json({ success: false, message: "Email is not registered" });
+        .json({ success: false, message: "Number is not registered" });
     }
 
     // Verify the password and generate JWT token

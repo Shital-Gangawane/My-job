@@ -37,7 +37,6 @@ const candidateSchema = new mongoose.Schema({
   },
   email: {
     type: String,
-    required: true,
   },
   password: {
     type: String,
@@ -47,6 +46,7 @@ const candidateSchema = new mongoose.Schema({
 
   phoneNumber: {
     type: String,
+    required: true,
   },
 
   location: {
