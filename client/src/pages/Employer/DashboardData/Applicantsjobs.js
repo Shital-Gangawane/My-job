@@ -167,23 +167,29 @@ function Applicantsjobs() {
           {filteredCandidates.length > 0 ? (
             <table className="min-w-full leading-normal">
               <thead>
-                <tr>
-                  <th className="py-3 px-6 text-left">Email</th>
-                  <th className="py-3 px-6 text-left">Jobs Applied</th>
-                  <th className="py-3 px-6 text-center">Resume</th>
-                  <th className="py-3 px-6 text-center">Shortlist</th>
-                  <th className="py-3 px-6 text-center">Status</th>
-                  <th className="py-3 px-6 text-center">Action</th>
+                <tr className=" text-center">
+                  <th className="py-3 px-2 ">Name</th>
+                  <th className="py-3 px-2 ">Email</th>
+                  <th className="py-3 px-2 ">Education</th>
+                  <th className="py-3 px-2 ">Experience</th>
+                  <th className="py-3 px-2 ">Job Applied</th>
+                  <th className="py-3 px-2 text-center">Resume</th>
+                  <th className="py-3 px-2 text-center">Shortlist</th>
+                  <th className="py-3 px-2 text-center">Status</th>
+                  {/* <th className="py-3 px-2 text-center">Action</th> */}
                 </tr>
               </thead>
               <tbody className="text-gray-600 text-sm font-light">
                 {filteredCandidates.map((candidate) => (
                   <tr
                     key={candidate._id}
-                    className="border-b border-gray-200 hover:bg-gray-100"
+                    className="border-b border-gray-200 hover:bg-gray-100 text-center"
                   >
-                    <td className="py-3 px-6 text-left">{candidate.email}</td>
-                    <td className="py-3 px-6 text-left">
+                    <td className="py-3 px-2 ">{candidate.name}</td>
+                    <td className="py-3 px-2 ">{candidate.email}</td>
+                    <td className="py-3 px-2 ">{candidate.qualification}</td>
+                    <td className="py-3 px-2 ">{candidate.experience}</td>
+                    <td className="py-3 px-2 ">
                       {jobs
                         .filter((job) =>
                           job.applications.includes(candidate._id)
@@ -192,17 +198,17 @@ function Applicantsjobs() {
                           <p key={job._id}>{job.jobTitle}</p>
                         ))}
                     </td>
-                    <td className="py-3 px-6 text-center">
+                    <td className="py-3 px-2 text-center">
                       <a
                         href={`${baseUrl}/uploads/resumes/${candidate.resume}`}
                         className="bg-blue-500 whitespace-nowrap hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
                         target="_blank"
                         rel="noopener noreferrer"
                       >
-                        View Resume
+                        View
                       </a>
                     </td>
-                    <td className="py-3 px-6 text-center">
+                    <td className="py-3 px-2 text-center">
                       <button
                         disabled={user?.shortlistedCandidates?.some(
                           (el) => el.candidate === candidate._id
@@ -224,7 +230,7 @@ function Applicantsjobs() {
                       </button>
                     </td>
 
-                    <td className="py-3 px-6 text-center">
+                    <td className="py-3 px-2 text-center">
                       <select
                         value={
                           appStatus ||

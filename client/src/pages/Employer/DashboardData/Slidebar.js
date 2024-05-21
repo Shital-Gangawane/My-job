@@ -45,7 +45,7 @@ function Slidebar({
             src={`${baseUrl}/uploads/${user?.logoImage}` || userDp}
           />
           <span className="gap-2 mt-2 font-bold">
-            {user?.name || data?.email?.split("@")[0]}
+            {user?.name || `User-${data?.phoneNumber}`}
           </span>{" "}
         </div>
         <div>

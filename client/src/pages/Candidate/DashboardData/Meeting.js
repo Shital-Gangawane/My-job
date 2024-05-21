@@ -22,7 +22,7 @@ function Meeting() {
           {meetings?.length ? "Meeting list" : "No meetings found"}
         </p>
       </div>
-      {isSettingOn && <ZoomSetting />}
+      {isSettingOn && <ZoomSetting setIsSettingOn={setIsSettingOn} />}
     </div>
   );
 }

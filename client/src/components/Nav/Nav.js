@@ -152,7 +152,7 @@ const Nav = ({ bgColor, employer }) => {
                     <IoIosArrowDown className=" inline-block" />
                   </div>
                   <button className="bg-[#6ad61d] text-white text-sm py-3 px-7 rounded-lg">
-                    Job Post
+                    <Link to={"/employer/dashboard/submitjobs"}> Job Post</Link>
                   </button>
                 </div>
               ) : (

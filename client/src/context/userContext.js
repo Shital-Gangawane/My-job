@@ -10,10 +10,11 @@ export default function UserContextProvider({ children }) {
   const [packages, setPackages] = useState([]);
 
   const jwt = sessionStorage.getItem("token");
+  const data = sessionStorage.getItem("user");
   useEffect(() => {
     if (jwt) {
       setToken(jwt);
-      const data = sessionStorage.getItem("user");
+
       if (data) setUser(JSON.parse(data));
       // fetchData();
     }

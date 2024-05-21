@@ -321,7 +321,7 @@ function MyProfile({
               htmlFor="salary"
               className="block mb-2 text-sm font-bold text-gray-900 "
             >
-              Salary($)
+              Salary(Monthly)
             </label>
             <input
               type="text"

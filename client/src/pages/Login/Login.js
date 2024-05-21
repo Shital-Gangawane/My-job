@@ -31,6 +31,7 @@ const Login = () => {
         );
         const userData = JSON.stringify(res?.data?.user);
         sessionStorage.setItem("user", userData);
+        // localStorage.setItem("user", userData);
 
         // Redirect based on user type
         if (res?.data?.isEmployer) {

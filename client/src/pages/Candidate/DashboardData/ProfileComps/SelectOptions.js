@@ -25,12 +25,17 @@ export const qualificationoptions = [
 ];
 
 export const experienceoptions = [
+  { label: "Fresher", value: "option0" },
   { label: "1 Year", value: "option1" },
   { label: " 2 Year", value: "option2" },
   { label: "3 Year ", value: "option3" },
   { label: "4 Year", value: "option4" },
   { label: "5 Year", value: "option5" },
   { label: "6 Year", value: "option6" },
+  { label: "7 Year ", value: "option7" },
+  { label: "8 Year", value: "option8" },
+  { label: "9 Year", value: "option9" },
+  { label: "10 Year", value: "option10" },
 ];
 
 export const salaryoptions = [

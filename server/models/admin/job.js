@@ -13,6 +13,9 @@ const jobSchema = new mongoose.Schema(
     jobLocation: {
       type: String,
     },
+    address: {
+      type: String,
+    },
     minExperience: {
       type: String,
     },

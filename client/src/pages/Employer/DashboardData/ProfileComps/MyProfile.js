@@ -116,15 +116,15 @@ function MyProfile({
         {/* Employer Name Input */}
         <div className="mb-5">
           <label
-            htmlFor="employerName"
+            htmlFor="name"
             className="block text-sm font-bold text-gray-900"
           >
             Employer Name
           </label>
           <input
             type="text"
-            name="employerName"
-            value={profileInfo?.employerName}
+            name="name"
+            value={profileInfo?.name}
             onChange={onChange}
             className="block w-full p-3 mt-2 bg-gray-100 border border-gray-300 rounded-lg focus:outline-none focus:ring-[#6ad61d] focus:border-[#6ad61d]"
             placeholder="Enter employer name"

@@ -123,7 +123,7 @@ function Submitjobs() {
     };
 
     fetchData();
-  }, []);
+  }, [user?._id]);
 
   return (
     <div>

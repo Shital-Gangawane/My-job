@@ -16,10 +16,13 @@ import {
   updateJobByEmployer,
 } from "../../../../api/employer/axios";
 import { useUserContext } from "../../../../context/userContext";
+import { Dropdown } from "../../../LandingPage/Dropdown";
+import { citiesInIndia } from "../../../LandingPage/cityData";
 
 function PostNewJob({ toggleForm, employer, data, jobId, setIsEditing }) {
   const { token, setUser, user, setPostJobData, postJobData } =
     useUserContext();
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [jobDetails, setJobDetails] = useState({
     companyName: user?.companyName,
     deadlinedate: "",
@@ -42,7 +45,10 @@ function PostNewJob({ toggleForm, employer, data, jobId, setIsEditing }) {
     qualificationRequired: null,
     videoUrl: "",
     externalUrl: "",
+    address: "",
   });
+
+  console.log(jobDetails);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -51,6 +57,11 @@ function PostNewJob({ toggleForm, employer, data, jobId, setIsEditing }) {
 
   const handleSelectChange = (name, value) => {
     setJobDetails((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const handleCitySelect = (city) => {
+    setJobDetails((prev) => ({ ...prev, ["jobLocation"]: city }));
+    setIsDropdownOpen(false);
   };
 
   const handelSubmitHandler = async (e) => {
@@ -156,7 +167,7 @@ function PostNewJob({ toggleForm, employer, data, jobId, setIsEditing }) {
           />
         </div>
 
-        <div className="mb-5 w-full">
+        <div className="mb-5 w-full relative">
           <label
             htmlFor="jobLocation"
             className="block  text-sm font-bold text-gray-900 pt-2 px-5 py-2"
@@ -167,9 +178,37 @@ function PostNewJob({ toggleForm, employer, data, jobId, setIsEditing }) {
           <input
             type="text"
             name="jobLocation"
+            onClick={() => setIsDropdownOpen(true)}
             value={jobDetails.jobLocation}
-            onChange={handleInputChange}
+            onChange={(e) => {
+              handleInputChange(e);
+            }}
             className="block w-full p-5  bg-gray-100 border-gray-300 focus:outline-[#6ad61d] text-gray-900 border rounded-lg text-base focus:ring-[#6ad61d] focus:border-[#6ad61d] dark:bg-gray-100 dark:border-none dark:placeholder-gray-400 dark:gray-900 dark:focus:ring-[#6ad61d] dark:focus:border-[#6ad61d]"
+          />
+          {isDropdownOpen && (
+            <Dropdown
+              options={citiesInIndia}
+              onSelect={handleCitySelect}
+              landingpage
+            />
+          )}
+        </div>
+
+        {/*  Address */}
+        <div className="mb-5 w-full ">
+          <label
+            htmlFor="address"
+            className="block text-sm font-bold text-gray-900"
+          >
+            Address
+          </label>
+          <input
+            type="text"
+            name="address"
+            value={jobDetails.address}
+            onChange={handleInputChange}
+            className="block w-full p-5 bg-gray-100 border-gray-300 focus:outline-[#6ad61d] text-gray-900 border rounded-lg text-base focus:ring-[#6ad61d] focus:border-[#6ad61d] dark:bg-gray-100 dark:border-none dark:placeholder-gray-400 dark:gray-900 dark:focus:ring-[#6ad61d] dark:focus:border-[#6ad61d]"
+            required
           />
         </div>
 
