@@ -7,17 +7,17 @@ import Loader from "../../components/Utility/Loader";
 
 const baseUrl = process.env.REACT_APP_SERVER_API_URL || "http://localhost:8000";
 
-function EmployerProfile() {
-  const { employerId } = useParams();
-  const [employer, setEmployer] = useState({});
+function CandidateProfile() {
+  const { candidateId } = useParams();
+  const [candidate, setCandidate] = useState({});
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
 
   useEffect(() => {
     const fetchEmployerData = async () => {
       try {
-        const response = await fetchUser("employer", employerId);
-        setEmployer(response?.data?.employer);
+        const response = await fetchUser("candidate", candidateId);
+        setCandidate(response?.data?.candidate);
         setLoading(false);
       } catch (err) {
         setError("Failed to fetch data");
@@ -27,7 +27,7 @@ function EmployerProfile() {
     };
 
     fetchEmployerData();
-  }, [employerId]);
+  }, [candidateId]);
 
   if (loading)
     return (
@@ -40,46 +40,43 @@ function EmployerProfile() {
   return (
     <div className="bg-gray-100 w-full h-auto pb-10 min-h-screen">
       <Nav />
-      <div
-        className=" w-full h-full bg-cover bg-center py-12 px-4"
-        style={{ backgroundImage: `url(${employer.coverImage})` }}
-      >
+      <div className=" w-full h-full bg-cover bg-center py-12 px-4">
         <div className="max-w-7xl h-auto mx-auto flex flex-col items-center">
           <img
-            src={`${baseUrl}/uploads/${employer.logoImage}`}
+            src={`${baseUrl}/uploads/${candidate.logoImage}`}
             alt="Company Logo"
             className="w-32 h-32 rounded-full border-4 border-white shadow-lg"
           />
           <h1 className="text-zinc-800 text-3xl font-bold mt-4">
-            {employer.companyName}
+            {candidate.name}
           </h1>
-          {/* <Link to={'/employer/dashboard'}>View Dashboard</Link> */}
+          {/* <Link to={'/candidate/dashboard'}>View Dashboard</Link> */}
         </div>
       </div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="bg-white shadow rounded-lg p-6 mt-(-8rem) mb-6 relative">
-          <h2 className="text-2xl font-semibold text-gray-900">About Us</h2>
-          <p className="mt-2 text-gray-700">{employer.aboutCompany}</p>
+          <h2 className="text-2xl font-semibold text-gray-900">About </h2>
+          <p className="mt-2 text-gray-700">{candidate.description}</p>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-6">
             <div>
               <h3 className="text-lg font-semibold text-gray-900">Details</h3>
               <ul className="mt-2">
                 <li>
-                  <strong>Founded:</strong> {employer.foundedDate}
+                  <strong>Email:</strong> {candidate.experience}
                 </li>
                 <li>
-                  <strong>Company Size:</strong> {employer.companySize}
+                  <strong>Phone:</strong> {candidate.qualification}
                 </li>
+                {/* <li>
+                  <strong>Industry:</strong> {candidate.industries.join(", ")}
+                </li> */}
                 <li>
-                  <strong>Industry:</strong> {employer.industries.join(", ")}
+                  <strong>Location:</strong> {candidate.location.city}
                 </li>
-                <li>
-                  <strong>Location:</strong> {employer.address}
-                </li>
-                <li>
-                  <strong>Total Jobs:</strong> {employer?.postedJobs?.length}
-                </li>
+                {/* <li>
+                  <strong>Total Jobs:</strong> {candidate?.postedJobs?.length}
+                </li> */}
               </ul>
             </div>
             <div>
@@ -88,28 +85,28 @@ function EmployerProfile() {
                 <li>
                   <strong>Email:</strong>
                   <a
-                    href={`mailto:${employer.email}`}
+                    href={`mailto:${candidate.email}`}
                     className="text-blue-600 hover:text-blue-800"
                   >
-                    {employer.email}
+                    {candidate.email}
                   </a>
                 </li>
                 <li>
                   <strong>Phone:</strong>{" "}
                   <a
-                    href={`tel:${employer.phoneNumber}`}
+                    href={`tel:${candidate.phoneNumber}`}
                     className="text-blue-600 hover:text-blue-800"
                   >
-                    {employer.phoneNumber}
+                    {candidate.phoneNumber}
                   </a>
                 </li>
                 <li>
-                  <strong>Website:</strong>{" "}
+                  <strong>Portfolio:</strong>{" "}
                   <a
-                    href={employer.website}
+                    href={candidate.website}
                     className="text-blue-600 hover:text-blue-800"
                   >
-                    {employer.website}
+                    {candidate.portfolio || "Not added"}
                   </a>
                 </li>
               </ul>
@@ -121,4 +118,4 @@ function EmployerProfile() {
   );
 }
 
-export default EmployerProfile;
+export default CandidateProfile;

@@ -10,6 +10,7 @@ module.exports.postJobByEmployer = async (req, res) => {
 
     // Add the createdBy field to jobData
     jobData.createdBy = empId;
+    jobData.createdByEmp = empId;
 
     const employer = await Employer.findById(empId);
 

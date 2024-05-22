@@ -51,6 +51,7 @@ import PackageModule from "./pages/Admin/PackageModule";
 
 import CandidateUserDashboard from "./pages/Candidate/DashboardData/Userdashboard";
 import CandidateProfile from "./pages/Candidate/DashboardData/Profile";
+import CandidateProfileView from "./pages/Candidate/CandidateProfile";
 import MyApplied from "./pages/Candidate/DashboardData/MyApplied";
 import MyResume from "./pages/Candidate/DashboardData/MyResume";
 import CandidateMessages from "./pages/Candidate/DashboardData/Messages";
@@ -125,6 +126,11 @@ const router = createBrowserRouter(
       <Route
         path="/employer-profile/:employerId"
         element={<EmployerProfile />}
+      />
+      {/* Candida Profile */}
+      <Route
+        path="/candidate-profile/:candidateId"
+        element={<CandidateProfileView />}
       />
     </Route>
   )

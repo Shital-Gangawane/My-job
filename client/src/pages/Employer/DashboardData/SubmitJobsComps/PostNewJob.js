@@ -64,6 +64,18 @@ function PostNewJob({ toggleForm, employer, data, jobId, setIsEditing }) {
     setIsDropdownOpen(false);
   };
 
+  const handleOutsideClick = (event) => {
+    if (event.target.closest(".dropdown")) return;
+    setIsDropdownOpen(false);
+  };
+
+  useEffect(() => {
+    document.addEventListener("mousedown", handleOutsideClick);
+    return () => {
+      document.removeEventListener("mousedown", handleOutsideClick);
+    };
+  }, []);
+
   const handelSubmitHandler = async (e) => {
     e.preventDefault();
     e.stopPropagation();
@@ -172,7 +184,7 @@ function PostNewJob({ toggleForm, employer, data, jobId, setIsEditing }) {
             htmlFor="jobLocation"
             className="block  text-sm font-bold text-gray-900 pt-2 px-5 py-2"
           >
-            Location
+            Location(City)
           </label>
 
           <input

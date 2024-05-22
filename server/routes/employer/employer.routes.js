@@ -25,6 +25,7 @@ const {
 } = require("../../controllers/employer/shortlistCandidate.js");
 const {
   updateCandidateStatus,
+  updateShortlistCandidateStatus,
 } = require("../../controllers/employer/updateCandidateStatus.js");
 const {
   fetchPackages,
@@ -32,6 +33,12 @@ const {
 const {
   checkIfRegistered,
 } = require("../../controllers/candidate/checkIfRegistered.js");
+const {
+  fetchApplications,
+} = require("../../controllers/employer/fetchApplications.js");
+const {
+  fetchShortlisted,
+} = require("../../controllers/employer/fetchShortlisted.js");
 
 const router = express.Router();
 
@@ -52,6 +59,10 @@ router.put("/employer/:employerId/shortlist/:candidateId", shortlistCandidate);
 
 //Update application status
 router.put("/employer/updateCandidateStatus", updateCandidateStatus);
+router.put(
+  "/employer/updateShortlistCandidateStatus",
+  updateShortlistCandidateStatus
+);
 
 //fetch on job
 router.get("/employer/jobs/:jobId", fetchOneJob);
@@ -59,6 +70,8 @@ router.get("/employer/isRegistered", checkIfRegistered);
 
 //fetch applications/candidates
 router.get("/employer/applications/:ids", fetchAppsCandidates);
+router.get("/employer/applications", fetchApplications);
+router.get("/employer/fetchShortlisted", fetchShortlisted);
 
 //fetch packages
 router.get("/employer/fetchPackages/:employerId", fetchPackages);

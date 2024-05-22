@@ -72,7 +72,7 @@ function Userdashboard() {
     },
     {
       name: "Application",
-      count: applications?.length,
+      count: user?.applications?.length,
       url: "#",
       icon: <SlNote size={35} className="  text-red-600 rounded " />,
       color: "red",

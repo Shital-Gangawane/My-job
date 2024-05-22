@@ -66,12 +66,12 @@ function JobDetails() {
           >
             Edit
           </button>
-          <button
+          {/* <button
             onClick={() => setIsDeleteOn(!isDeleteOn)}
             className=" bg-zinc-900 text-white rounded-lg hover:bg-zinc-800 py-2 px-4"
           >
             Delete
-          </button>
+          </button> */}
         </div>
         {job ? (
           <div className="bg-white shadow rounded-lg p-6 mb-6">

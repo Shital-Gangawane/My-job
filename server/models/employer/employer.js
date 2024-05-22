@@ -118,11 +118,35 @@ const employerSchema = new mongoose.Schema({
   socialNetworks: {
     type: Array,
   },
+  applications: [
+    {
+      candidate: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Candidate",
+      },
+      job: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Job",
+      },
+      status: {
+        type: String,
+        default: "Shortlisted", // default status when a candidate is added
+      },
+      note: {
+        type: String,
+        default: "",
+      },
+    },
+  ],
   shortlistedCandidates: [
     {
       candidate: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "Candidate",
+      },
+      job: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Job",
       },
       status: {
         type: String,

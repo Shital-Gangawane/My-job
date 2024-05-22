@@ -50,13 +50,17 @@ function Profile({ candidate, setIsEditing }) {
   ]);
 
   const [contactInfo, setContactInfo] = useState({
-    // phoneNumber: "",
-    // email: "",
-    address: "",
-    country: "",
+    // city: "",
+    // address: "",
+    // country: "",
     location: {
       latitude: "",
       longitude: "",
+      address: "",
+      city: "",
+      state: "",
+      pin: "",
+      country: "",
     },
   });
 
@@ -88,11 +92,18 @@ function Profile({ candidate, setIsEditing }) {
 
       setSocialNetworks(data.socialNetworks || []);
       setContactInfo({
-        // phoneNumber: data.phoneNumber || "",
-        // email: user?.email,
-        address: data.address || "",
-        country: data.country || "",
-        location: data.location || { latitude: "", longitude: "" },
+        // city: data.city || "",
+        // address: data.address || "",
+        // country: data.country || "",
+        location: data.location || {
+          latitude: "",
+          longitude: "",
+          address: "",
+          city: "",
+          state: "",
+          pin: "",
+          country: "",
+        },
       });
     } catch (error) {
       console.error("Failed to fetch profile data:", error);

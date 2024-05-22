@@ -151,9 +151,13 @@ const Nav = ({ bgColor, employer }) => {
                     </p>
                     <IoIosArrowDown className=" inline-block" />
                   </div>
-                  <button className="bg-[#6ad61d] text-white text-sm py-3 px-7 rounded-lg">
-                    <Link to={"/employer/dashboard/submitjobs"}> Job Post</Link>
-                  </button>
+                  {sessionStorage.getItem("userType") === "employer" && (
+                    <Link to={"/employer/dashboard/submitjobs"}>
+                      <button className="bg-[#6ad61d] text-white text-sm py-3 px-7 hover:bg-[#6ad61db7] rounded-lg">
+                        Job Post
+                      </button>
+                    </Link>
+                  )}
                 </div>
               ) : (
                 <motion.button

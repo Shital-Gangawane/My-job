@@ -38,6 +38,9 @@ const candidateSchema = new mongoose.Schema({
   email: {
     type: String,
   },
+  description: {
+    type: String,
+  },
   password: {
     type: String,
     required: true,
@@ -49,12 +52,35 @@ const candidateSchema = new mongoose.Schema({
     required: true,
   },
 
+  jobTitle: {
+    type: String,
+    default: "",
+  },
+
   location: {
     latitude: {
       type: String,
     },
     longitude: {
       type: String,
+    },
+    city: {
+      type: String,
+      default: "",
+    },
+    address: {
+      type: String,
+      default: "",
+    },
+    country: {
+      type: String,
+    },
+    state: {
+      type: String,
+      default: "",
+    },
+    pin: {
+      type: Number,
     },
   },
 

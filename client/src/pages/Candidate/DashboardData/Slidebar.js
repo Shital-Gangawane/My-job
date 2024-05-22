@@ -1,7 +1,7 @@
 import React from "react";
 import { FaRegUserCircle } from "react-icons/fa";
 import { motion } from "framer-motion";
-import { useLocation, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useUserContext } from "../../../context/userContext";
 import userDp from "../../../assets/user-dp.png";
 
@@ -50,9 +50,11 @@ function Slidebar({
           </span>{" "}
         </div>
         <div>
-          <button className="w-full py-2 px-2 ms-auto bg-[#6ad61d] text-white rounded-lg transition duration-300 ease-in-out">
-            View Profile
-          </button>
+          <Link to={`/candidate-profile/${user?._id}`}>
+            <button className="w-full py-2 px-2 ms-auto bg-[#6ad61d] text-white rounded-lg transition duration-300 ease-in-out">
+              View Profile
+            </button>
+          </Link>
         </div>
 
         <div className="w-full flex flex-1 mt-5 px-8 py-2 border-t flex-col gap-1">

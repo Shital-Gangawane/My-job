@@ -18,6 +18,8 @@ module.exports.postJobByAdmin = async (req, res) => {
         .status(400)
         .json({ success: false, message: "Provided company not found." });
 
+    jobData.createdByEmp = employer._id;
+
     // Create a new job document with the provided data
     const newJob = await Job.create(jobData);
 

@@ -195,7 +195,8 @@ function MyProfile({
               type="text"
               id="large-input"
               name="phoneNumber"
-              value={profileInfo?.phoneNumber}
+              disabled
+              value={"+" + profileInfo?.phoneNumber}
               onChange={onChange}
               className="block w-full p-5 bg-gray-100 border-gray-300 focus:outline-[#6ad61d] text-gray-900 border rounded-lg text-base focus:ring-[#6ad61d] focus:border-[#6ad61d] dark:bg-gray-100 dark:border-none dark:placeholder-gray-400 dark:gray-900 dark:focus:ring-[#6ad61d] dark:focus:border-[#6ad61d]"
               placeholder="Enter Phone Number"
@@ -213,7 +214,6 @@ function MyProfile({
             <input
               type="email"
               name="email"
-              disabled
               value={user?.email}
               onChange={onChange}
               id="large-input"
@@ -382,7 +382,7 @@ function MyProfile({
 
         <div className="flex flex-wrap mx-2">
           <label
-            htmlFor="aboutDescription"
+            htmlFor="description"
             className="block text-sm font-bold text-gray-900"
           >
             Description
@@ -391,8 +391,8 @@ function MyProfile({
             <textarea
               id="editor"
               rows="10"
-              name="aboutDescription"
-              value={profileInfo?.aboutDescription}
+              name="description"
+              value={profileInfo?.description}
               onChange={onChange}
               className="block w-full p-3 text-sm text-black bg-white focus:outline-gray-200   border"
               placeholder=""

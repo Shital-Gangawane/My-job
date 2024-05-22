@@ -157,11 +157,36 @@ export const fetchAppliedCandidates = async (ids) => {
   }
 };
 
+//Fetch shortlisted candidates
+export const fetchShortlisted = async (employerId) => {
+  try {
+    const res = await axios.get(
+      `${url}/api/employer/fetchShortlisted?employerId=${employerId}`
+    );
+    return res;
+  } catch (error) {
+    return error.response;
+  }
+};
+
+//Fetch applications
+export const fetchApplications = async (employerId) => {
+  try {
+    const res = await axios.get(
+      `${url}/api/employer/applications?employerId=${employerId}`
+    );
+    return res;
+  } catch (error) {
+    return error.response;
+  }
+};
+
 // Post job
-export const shortlistCandidates = async (employerId, candidateId) => {
+export const shortlistCandidates = async (employerId, candidateId, jobId) => {
   try {
     const res = await axios.put(
-      `${url}/api/employer/${employerId}/shortlist/${candidateId}`
+      `${url}/api/employer/${employerId}/shortlist/${candidateId}`,
+      { jobId }
     );
     return res;
   } catch (error) {
@@ -173,6 +198,7 @@ export const shortlistCandidates = async (employerId, candidateId) => {
 export const updateCandidateStatus = async (
   employerId,
   candidateId,
+  jobId,
   status,
   note
 ) => {
@@ -180,9 +206,35 @@ export const updateCandidateStatus = async (
     const res = await axios.put(`${url}/api/employer/updateCandidateStatus`, {
       employerId,
       candidateId,
+      jobId,
       status,
       note,
     });
+    return res;
+  } catch (error) {
+    return error.response;
+  }
+};
+
+// Update status of Shortlisted candidates
+export const updateShortlistCandidateStatus = async (
+  employerId,
+  candidateId,
+  jobId,
+  status,
+  note
+) => {
+  try {
+    const res = await axios.put(
+      `${url}/api/employer/updateShortlistCandidateStatus`,
+      {
+        employerId,
+        candidateId,
+        jobId,
+        status,
+        note,
+      }
+    );
     return res;
   } catch (error) {
     return error.response;
