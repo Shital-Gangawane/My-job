@@ -39,6 +39,9 @@ const {
 const {
   fetchShortlisted,
 } = require("../../controllers/employer/fetchShortlisted.js");
+const {
+  declineCandidate,
+} = require("../../controllers/employer/declineCandidate.js");
 
 const router = express.Router();
 
@@ -56,6 +59,7 @@ router.put("/employer/updateJob", authMiddleware, updateJobByEmployer);
 
 //Shortlist candidates
 router.put("/employer/:employerId/shortlist/:candidateId", shortlistCandidate);
+router.put("/employer/:employerId/decline/:candidateId", declineCandidate);
 
 //Update application status
 router.put("/employer/updateCandidateStatus", updateCandidateStatus);

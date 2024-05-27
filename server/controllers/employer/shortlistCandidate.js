@@ -1,9 +1,11 @@
+const Job = require("../../models/admin/job");
 const Candidate = require("../../models/candidate/candidate");
 const Employer = require("../../models/employer/employer");
 
 module.exports.shortlistCandidate = async (req, res) => {
   try {
     const employer = await Employer.findById(req.params.employerId);
+    const job = await Job.findById(req.body.jobId);
     if (!employer) {
       return res.status(404).send("Employer not found");
     }
@@ -28,7 +30,21 @@ module.exports.shortlistCandidate = async (req, res) => {
       employer.shortlistedCandidates.splice(index, 1);
     }
 
+    if (!job) {
+      return res.status(404).send("Job not found");
+    }
+
+    const candidateIndexInJob = await job.applications.findIndex(
+      (c) => c.candidate.toString() === candidateId
+    );
+    if (candidateIndexInJob !== -1) {
+      job.applications[candidateIndexInJob].status = "Shortlisted";
+    } else {
+      job.applications[candidateIndexInJob].status = "Declined";
+    }
+
     await employer.save();
+    await job.save();
     const idArr = await employer.shortlistedCandidates.map(
       (el) => el.candidate
     );

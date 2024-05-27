@@ -79,12 +79,12 @@ function Slidebar({
             );
           })}
         </div>
-        <div className="flex flex-col items-center justify-start w-full">
+        {/* <div className="flex flex-col items-center justify-start w-full">
           <h1>
             Skills Percentage: <span>15%</span>
           </h1>
           <input className=" bg-green-50" type="progress" />
-        </div>
+        </div> */}
       </div>
     </motion.div>
   );

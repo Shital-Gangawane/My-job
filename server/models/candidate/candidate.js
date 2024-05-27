@@ -1,5 +1,62 @@
 const mongoose = require("mongoose");
 
+const educationSchema = new mongoose.Schema({
+  degree: {
+    type: String,
+    // required: true,
+  },
+  institute: {
+    type: String,
+    // required: true,
+  },
+  year: {
+    type: String,
+    // required: true,
+  },
+  specialization: {
+    type: String,
+    // required: true,
+  },
+});
+
+const awardSchema = new mongoose.Schema({
+  title: {
+    type: String,
+    // required: true,
+  },
+
+  year: {
+    type: String,
+    // required: true,
+  },
+  description: {
+    type: String,
+    // required: true,
+  },
+});
+
+const experienceSchema = new mongoose.Schema({
+  title: {
+    type: String,
+    // required: true,
+  },
+  startDate: {
+    type: String,
+    // required: true,
+  },
+  endDate: {
+    type: String,
+    // required: true,
+  },
+  company: {
+    type: String,
+    // required: true,
+  },
+  description: {
+    type: String,
+    // required: true,
+  },
+});
 const candidateSchema = new mongoose.Schema({
   name: {
     type: String,
@@ -23,8 +80,8 @@ const candidateSchema = new mongoose.Schema({
   experience: {
     type: String,
   },
-  language: {
-    type: String,
+  languages: {
+    type: Array,
   },
   salaryType: {
     type: String,
@@ -106,6 +163,18 @@ const candidateSchema = new mongoose.Schema({
   isApproved: {
     type: Boolean,
     default: false,
+  },
+  following: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Employer",
+    },
+  ],
+  educations: [educationSchema],
+  experiences: [experienceSchema],
+  awards: [awardSchema],
+  portfolio: {
+    type: String,
   },
 });
 

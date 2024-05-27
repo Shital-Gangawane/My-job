@@ -181,12 +181,27 @@ export const fetchApplications = async (employerId) => {
   }
 };
 
-// Post job
+// SHortlist candidate
 export const shortlistCandidates = async (employerId, candidateId, jobId) => {
   try {
     const res = await axios.put(
       `${url}/api/employer/${employerId}/shortlist/${candidateId}`,
       { jobId }
+    );
+    return res;
+  } catch (error) {
+    return error.response;
+  }
+};
+
+//Decline candidate
+export const declineCandidates = async (employerId, candidateId, jobId) => {
+  try {
+    const res = await axios.put(
+      `${url}/api/employer/${employerId}/decline/${candidateId}`,
+      {
+        jobId,
+      }
     );
     return res;
   } catch (error) {

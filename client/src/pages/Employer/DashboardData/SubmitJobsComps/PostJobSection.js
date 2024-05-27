@@ -25,19 +25,6 @@ function PostJobSection({
         {!employer ? "Post job" : "Edit Job"}
       </h2>
 
-      {/* <label
-        for="email"
-        className="block mb-2 text-sm font-bold text-gray-900 "
-      >
-        Featured Image
-      </label>
-      <button
-        type="submit"
-        className="text-[#6ad61d] mb-10 bg-[#6ad61d23] rounded-lg transition duration-300 ease-in-out focus:ring-4 focus:outline-none focus:ring-[#6ad61d] font-medium  text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-[#6ad61d23] dark:hover:bg-[#6ad61d] dark:hover:text-white dark:focus:ring-[#6ad61d]"
-      >
-        Browser
-      </button> */}
-
       {/* Job Title */}
       <div className="mb-5 w-full">
         <label
@@ -51,7 +38,7 @@ function PostJobSection({
           name="jobTitle"
           value={jobDetails.jobTitle}
           onChange={handleInputChange}
-          className="block w-full p-5 bg-gray-100 border-gray-300 focus:outline-[#6ad61d] text-gray-900 border rounded-lg text-base focus:ring-[#6ad61d] focus:border-[#6ad61d] dark:bg-gray-100 dark:border-none dark:placeholder-gray-400 dark:gray-900 dark:focus:ring-[#6ad61d] dark:focus:border-[#6ad61d]"
+          className="block w-full lg:w-1/2 p-5 bg-gray-100 border-gray-300 focus:outline-[#6ad61d] text-gray-900 border rounded-lg text-base focus:ring-[#6ad61d] focus:border-[#6ad61d] dark:bg-gray-100 dark:border-none dark:placeholder-gray-400 dark:gray-900 dark:focus:ring-[#6ad61d] dark:focus:border-[#6ad61d]"
           required
         />
       </div>
@@ -193,10 +180,11 @@ function PostJobSection({
             htmlFor="workMode"
             className="block text-sm font-bold text-gray-900"
           >
-            Work Mode
+            Work Mode <span className="text-red-600">*</span>
           </label>
           <select
             name="workMode"
+            required
             value={jobDetails.workMode}
             onChange={handleInputChange}
             className="block w-full p-5  bg-gray-100 border-gray-300 focus:outline-[#6ad61d] text-gray-900 border rounded-lg text-base focus:ring-[#6ad61d] focus:border-[#6ad61d] dark:bg-gray-100 dark:border-none dark:placeholder-gray-400 dark:gray-900 dark:focus:ring-[#6ad61d] dark:focus:border-[#6ad61d]"
@@ -229,37 +217,36 @@ function PostJobSection({
         </div>*/}
       </div>
 
+      {/*  Salary Type Selector */}
+      <div className="mb-5 w-full md:w-1/2 px-2">
+        <label
+          htmlFor="salaryType"
+          className="block text-sm font-bold text-gray-900"
+        >
+          Salary Type
+        </label>
+        <select
+          name="salaryType"
+          value={jobDetails.salaryType}
+          onChange={handleInputChange}
+          className="block w-full p-5  bg-gray-100 border-gray-300 focus:outline-[#6ad61d] text-gray-900 border rounded-lg text-base focus:ring-[#6ad61d] focus:border-[#6ad61d] dark:bg-gray-100 dark:border-none dark:placeholder-gray-400 dark:gray-900 dark:focus:ring-[#6ad61d] dark:focus:border-[#6ad61d]"
+        >
+          <option value="">None</option>
+          {salaryoptions?.map((option) => (
+            <option key={option.value} value={option.label}>
+              {option.label}
+            </option>
+          ))}
+        </select>
+      </div>
       <div className="flex flex-wrap mx-2">
-        {/*  Salary Type Selector */}
-        <div className="mb-5 w-full md:w-1/2 px-2">
-          <label
-            htmlFor="salaryType"
-            className="block text-sm font-bold text-gray-900"
-          >
-            Salary Type
-          </label>
-          <select
-            name="salaryType"
-            value={jobDetails.salaryType}
-            onChange={handleInputChange}
-            className="block w-full p-5  bg-gray-100 border-gray-300 focus:outline-[#6ad61d] text-gray-900 border rounded-lg text-base focus:ring-[#6ad61d] focus:border-[#6ad61d] dark:bg-gray-100 dark:border-none dark:placeholder-gray-400 dark:gray-900 dark:focus:ring-[#6ad61d] dark:focus:border-[#6ad61d]"
-          >
-            <option value="">None</option>
-            {salaryoptions?.map((option) => (
-              <option key={option.value} value={option.label}>
-                {option.label}
-              </option>
-            ))}
-          </select>
-        </div>
-
         {/* Min Salary */}
         <div className="mb-5 w-full md:w-1/2 px-2">
           <label
             htmlFor="minSalary"
             className="block text-sm font-bold text-gray-900"
           >
-            Min Salary
+            Min Salary <span className="text-red-600">*</span>
           </label>
           <input
             type="text"
@@ -270,16 +257,13 @@ function PostJobSection({
             required
           />
         </div>
-      </div>
-
-      <div className="flex flex-wrap mx-2">
         {/* Min Salary */}
         <div className="mb-5 w-full md:w-1/2 px-2">
           <label
             htmlFor="maxSalary"
             className="block text-sm font-bold text-gray-900"
           >
-            Max Salary
+            Max Salary <span className="text-red-600">*</span>
           </label>
           <input
             type="text"
@@ -290,14 +274,16 @@ function PostJobSection({
             required
           />
         </div>
+      </div>
 
+      <div className="flex flex-wrap mx-2">
         {/* Min Experience */}
         <div className="mb-5 w-full md:w-1/2 px-2">
           <label
             htmlFor="minExperience"
             className="block text-sm font-bold text-gray-900"
           >
-            Min Experience
+            Min Experience <span className="text-red-600">*</span>
           </label>
           <input
             type="text"
@@ -314,7 +300,7 @@ function PostJobSection({
             htmlFor="maxExperience"
             className="block text-sm font-bold text-gray-900"
           >
-            Max Experience
+            Max Experience <span className="text-red-600">*</span>
           </label>
           <input
             type="text"
@@ -389,7 +375,6 @@ function PostJobSection({
           value={jobDetails.videoUrl}
           onChange={handleInputChange}
           className="block w-full p-5 bg-gray-100 border-gray-300 focus:outline-[#6ad61d] text-gray-900 border rounded-lg text-base focus:ring-[#6ad61d] focus:border-[#6ad61d] dark:bg-gray-100 dark:border-none dark:placeholder-gray-400 dark:gray-900 dark:focus:ring-[#6ad61d] dark:focus:border-[#6ad61d]"
-          required
         />
       </div>
     </div>

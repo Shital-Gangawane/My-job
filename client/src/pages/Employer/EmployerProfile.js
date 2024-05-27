@@ -42,7 +42,9 @@ function EmployerProfile() {
       <Nav />
       <div
         className=" w-full h-full bg-cover bg-center py-12 px-4"
-        style={{ backgroundImage: `url(${employer.coverImage})` }}
+        style={{
+          backgroundImage: `url(${baseUrl}/uploads/${employer.coverImage})`,
+        }}
       >
         <div className="max-w-7xl h-auto mx-auto flex flex-col items-center">
           <img
@@ -57,8 +59,8 @@ function EmployerProfile() {
         </div>
       </div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="bg-white shadow rounded-lg p-6 mt-(-8rem) mb-6 relative">
+      <div className="w-full mx-auto px-4 sm:px-6 lg:px-8 flex mt-7 gap-4">
+        <div className="w-full bg-white shadow rounded-lg p-6 mt-(-8rem) mb-6 relative">
           <h2 className="text-2xl font-semibold text-gray-900">About Us</h2>
           <p className="mt-2 text-gray-700">{employer.aboutCompany}</p>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-6">
@@ -116,6 +118,7 @@ function EmployerProfile() {
             </div>
           </div>
         </div>
+        <div className=" hidden lg:block w-1/2 h-96 bg-white shadow rounded-lg p-6 mt-(-8rem) mb-6 relative"></div>
       </div>
     </div>
   );

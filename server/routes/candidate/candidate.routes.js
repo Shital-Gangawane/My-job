@@ -20,7 +20,7 @@ const router = express.Router();
 
 //Authentication
 router.post("/candidate/register", registerCandidate);
-router.post("/candidate/login", login);
+router.post("/login", login);
 
 //Fetch Candidate Data
 router.get("/candidate/fetch", fetchCandidateData);

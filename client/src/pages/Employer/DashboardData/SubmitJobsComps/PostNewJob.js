@@ -23,8 +23,9 @@ function PostNewJob({ toggleForm, employer, data, jobId, setIsEditing }) {
   const { token, setUser, user, setPostJobData, postJobData } =
     useUserContext();
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [error, setError] = useState("");
   const [jobDetails, setJobDetails] = useState({
-    companyName: user?.companyName,
+    company: user?.companyName,
     deadlinedate: "",
     jobLocation: "",
     latitude: "",
@@ -80,6 +81,15 @@ function PostNewJob({ toggleForm, employer, data, jobId, setIsEditing }) {
     e.preventDefault();
     e.stopPropagation();
     console.log("Job details at submission:", jobDetails);
+    // if (
+    //   !jobDetails.jobTitle ||
+    //   !jobDetails.jobDescription ||
+    //   !jobDetails.jobLocation ||
+    //   !jobDetails.minExperience ||
+    //   !jobDetails.maxExperience
+    // ) {
+    //   setError("Fill all t");
+    // }
 
     if (employer) {
       const res = await updateJobByEmployer(jobDetails, jobId, token);
@@ -145,7 +155,10 @@ function PostNewJob({ toggleForm, employer, data, jobId, setIsEditing }) {
           </span>
         </h2>
       )}
-      <div className="bg-white p-6 mt-5 px-10 rounded-lg">
+      <form
+        onSubmit={handelSubmitHandler}
+        className="bg-white p-6 mt-5 px-10 rounded-lg"
+      >
         <PostJobSection
           jobDetails={jobDetails}
           handleInputChange={handleInputChange}
@@ -220,7 +233,6 @@ function PostNewJob({ toggleForm, employer, data, jobId, setIsEditing }) {
             value={jobDetails.address}
             onChange={handleInputChange}
             className="block w-full p-5 bg-gray-100 border-gray-300 focus:outline-[#6ad61d] text-gray-900 border rounded-lg text-base focus:ring-[#6ad61d] focus:border-[#6ad61d] dark:bg-gray-100 dark:border-none dark:placeholder-gray-400 dark:gray-900 dark:focus:ring-[#6ad61d] dark:focus:border-[#6ad61d]"
-            required
           />
         </div>
 
@@ -253,7 +265,8 @@ function PostNewJob({ toggleForm, employer, data, jobId, setIsEditing }) {
           </div>
         </div>
         <button
-          onClick={handelSubmitHandler}
+          type="submit"
+          // onClick={handelSubmitHandler}
           className="lg:w-auto mt-5 py-3 px-8 bg-[#6ad61d] hover:bg-blue-600 text-white  rounded-lg transition duration-300 ease-in-out"
         >
           {employer ? "Save" : "Post Job"}
@@ -267,7 +280,7 @@ function PostNewJob({ toggleForm, employer, data, jobId, setIsEditing }) {
             Close
           </button>
         )}
-      </div>
+      </form>
     </div>
   );
 }

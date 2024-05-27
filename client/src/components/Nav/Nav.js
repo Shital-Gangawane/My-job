@@ -1,10 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import logo from "../../assets/projob-logo1.png";
 import { IoIosArrowDown } from "react-icons/io";
 import { GoPerson } from "react-icons/go";
-import { TfiBell } from "react-icons/tfi";
+import { TfiBell, TfiPowerOff } from "react-icons/tfi";
 import { CiMenuFries } from "react-icons/ci";
 import { navigationLinks } from "./navData";
 import userDp from "../../assets/user-dp.png";
@@ -15,6 +15,7 @@ const Nav = ({ bgColor, employer }) => {
   const [activeDropdown, setActiveDropdown] = useState(null);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [isHoveringLogin, setIsHoveringLogin] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
   const { user, token } = useUserContext();
@@ -30,6 +31,17 @@ const Nav = ({ bgColor, employer }) => {
   const handleMouseLeave = () => {
     setActiveDropdown(null);
   };
+
+  // Adjust the UI based on screen size
+  useEffect(() => {
+    const checkMobileScreen = () => {
+      setIsMobile(window.innerWidth <= 1039); // Adjust breakpoint as needed
+    };
+    checkMobileScreen();
+    window.addEventListener("resize", checkMobileScreen);
+    return () => window.removeEventListener("resize", checkMobileScreen);
+  }, []);
+
   return (
     <motion.nav
       initial={{ y: -100 }}
@@ -158,6 +170,18 @@ const Nav = ({ bgColor, employer }) => {
                       </button>
                     </Link>
                   )}
+
+                  <Link
+                    to={`/${sessionStorage.getItem(
+                      "userType"
+                    )}/dashboard/logout`}
+                  >
+                    <TfiPowerOff
+                      title="Logout"
+                      size={25}
+                      className=" hover:text-[#6ad61d]"
+                    />
+                  </Link>
                 </div>
               ) : (
                 <motion.button
@@ -210,7 +234,11 @@ const Nav = ({ bgColor, employer }) => {
           </div>
         </div>
       </div>
-      <Sidebar isOpen={isSidebarOpen} onClose={toggleSidebar} />
+      <Sidebar
+        isOpen={isSidebarOpen}
+        onClose={toggleSidebar}
+        isMobile={isMobile}
+      />
     </motion.nav>
   );
 };

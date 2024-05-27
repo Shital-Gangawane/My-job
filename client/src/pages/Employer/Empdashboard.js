@@ -116,35 +116,6 @@ const Empdashboard = () => {
     };
   }, []);
 
-  const RenderComponent = ({ index }) => {
-    switch (index) {
-      case 0:
-        return <Userdashboard />;
-      case 1:
-        return <Profile />;
-      case 2:
-        return <Myjobs />;
-      case 3:
-        return <Submitjobs />;
-      case 4:
-        return <Applicantsjobs />;
-      case 5:
-        return <Shortlistcandidate />;
-      case 6:
-        return <Packages />;
-      case 7:
-        return <Messages />;
-      case 8:
-        return <Meeting />;
-      case 9:
-        return <Changepassword />;
-      case 10:
-        return <Logout />;
-      default:
-        return null;
-    }
-  };
-
   // Function to toggle sidebar state
   const toggleSidebar = () => {
     setIsSideBarOpen(!isSideBarOpen);

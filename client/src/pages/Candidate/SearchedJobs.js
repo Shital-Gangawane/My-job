@@ -23,7 +23,11 @@ export default function SearchedJobs() {
 
   // Function to navigate to job details page
   const handleJobClick = (job) => {
-    navigate(`/job/${job.jobTitle}`, { state: job });
+    navigate(
+      `/jobs/${encodeURIComponent(
+        job.jobTitle.replace(/\s+/g, "-").toLowerCase()
+      )}/${job?._id}`
+    );
   };
 
   // Toggle sidebar visibility

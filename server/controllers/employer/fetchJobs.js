@@ -13,6 +13,7 @@ module.exports.fetchJobs = async (req, res) => {
         .json({ success: false, message: "Employer not found." });
 
     const jobIdsArr = await employer.postedJobs;
+    console.log(jobIdsArr);
 
     const allJobs = await Job.find({ _id: { $in: jobIdsArr } });
 

@@ -2,6 +2,7 @@ import React, { useState, useEffect, useMemo } from "react";
 import { IoIosSearch } from "react-icons/io";
 import { useUserContext } from "../../../context/userContext";
 import {
+  declineCandidates,
   fetchApplications,
   fetchAppliedCandidates,
   fetchJobs,
@@ -37,24 +38,9 @@ function Applicantsjobs() {
     const fetchData = async () => {
       if (user?.applications?.length) {
         try {
-          // const res = await fetchJobs(user._id);
           const res = await fetchApplications(user?._id);
           if (res?.data?.success) {
-            // setJobs(res.data.allJobs);
-            // const allCandidateIds = res.data.allJobs.reduce(
-            //   (acc, job) => acc.concat(job.applications),
-            //   []
-            // );
             setApplications(res?.data?.applications);
-            // try {
-            //   const response = await fetchAppliedCandidates(
-            //     allCandidateIds.join(",")
-            //   );
-            //   setCandidates(response?.data?.allCandidates);
-            // } catch (error) {
-            //   setError("Failed to fetch candidates");
-            //   console.error(error);
-            // }
           } else {
             setError("Failed to fetch jobs");
           }
@@ -98,9 +84,6 @@ function Applicantsjobs() {
         break;
 
       default:
-        // filtered.sort((a, b) =>
-        //   a.candidate.name.localeCompare(b.candidate.name)
-        // );
         break;
     }
 
@@ -141,6 +124,19 @@ function Applicantsjobs() {
         });
         // This local state might be redundant if it's not used elsewhere
         setAppStatus(newStatus);
+      }
+    } catch (error) {
+      console.error("Error updating status", error);
+    }
+  };
+
+  const handleDeclineCandidate = async (candidateId, jobId) => {
+    try {
+      const res = await declineCandidates(user._id, candidateId, jobId);
+      console.log(res);
+      if (res?.status === 200) {
+        sessionStorage.setItem("user", JSON.stringify(res?.data?.employer));
+        setUser(res?.data?.employer);
       }
     } catch (error) {
       console.error("Error updating status", error);
@@ -190,8 +186,8 @@ function Applicantsjobs() {
                   <th className="py-3 px-2 ">Location</th>
                   <th className="py-3 px-2 text-center">Resume</th>
                   <th className="py-3 px-2 text-center">Shortlist</th>
-                  <th className="py-3 px-2 text-center">Status</th>
-                  {/* <th className="py-3 px-2 text-center">Action</th> */}
+                  {/* <th className="py-3 px-2 text-center">Status</th> */}
+                  <th className="py-3 px-2 text-center">Action</th>
                 </tr>
               </thead>
               <tbody className="text-gray-600 text-sm font-light">
@@ -254,6 +250,18 @@ function Applicantsjobs() {
                     </td>
 
                     <td className="py-3 px-2 text-center">
+                      <button
+                        onClick={() =>
+                          handleDeclineCandidate(app.candidate._id, app.job._id)
+                        }
+                        className={`
+                            bg-red-500 hover:bg-red-700
+                        text-white font-bold py-2 px-4 rounded`}
+                      >
+                        Decline
+                      </button>
+                    </td>
+                    {/* <td className="py-3 px-2 text-center">
                       <select
                         value={
                           user?.applications?.find(
@@ -272,7 +280,7 @@ function Applicantsjobs() {
                           </option>
                         ))}
                       </select>
-                    </td>
+                    </td> */}
                   </tr>
                 ))}
               </tbody>

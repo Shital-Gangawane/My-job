@@ -130,7 +130,7 @@ const employerSchema = new mongoose.Schema({
       },
       status: {
         type: String,
-        default: "Shortlisted", // default status when a candidate is added
+        default: "Pending", // default status when a candidate is added
       },
       note: {
         type: String,

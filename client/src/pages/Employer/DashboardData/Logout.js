@@ -9,6 +9,7 @@ function Logout() {
   useEffect(() => {
     sessionStorage.removeItem("userType");
     sessionStorage.removeItem("token");
+    sessionStorage.removeItem("user");
     setToken("");
     setUser("");
     navigate("/login");

@@ -4,7 +4,7 @@ module.exports.fetchCandidateData = async (req, res) => {
   try {
     const { userId } = req.query;
     // console.log(userId);
-    const candidate = await Candidate.findById(userId);
+    const candidate = await Candidate.findById(userId).populate("appliedJobs");
 
     if (!candidate)
       return res

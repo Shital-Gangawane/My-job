@@ -16,8 +16,11 @@ module.exports.applyJob = async (req, res) => {
         .json({ success: false, message: "Job or Employer not found." });
 
     // Add candidate to job applications if not already applied
-    if (!job.applications.includes(userId)) {
-      job.applications.push(userId);
+    const applicationExistsInJob = job.applications.some(
+      (el) => el.candidate.toString() === userId
+    );
+    if (!applicationExistsInJob) {
+      job.applications.push({ candidate: userId });
     }
 
     // Add new application record to employer if no such record exists

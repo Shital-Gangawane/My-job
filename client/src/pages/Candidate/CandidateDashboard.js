@@ -51,11 +51,11 @@ const buttons = [
     icon: <HiOutlineSpeakerphone size={25} />,
     path: "/appliedjobs", // Example path for Submit Jobs
   },
-  {
-    name: "Shortlist Jobs",
-    icon: <IoBookmarkOutline size={25} />,
-    path: "/shortlistjobs", // Example path for Application Jobs
-  },
+  // {
+  //   name: "Shortlist Jobs",
+  //   icon: <IoBookmarkOutline size={25} />,
+  //   path: "/shortlistjobs", // Example path for Application Jobs
+  // },
   {
     name: "Following Employers",
     icon: <BsPerson size={25} />,
@@ -123,20 +123,18 @@ const CandidateDashboard = () => {
       case 3:
         return <MyApplied />;
       case 4:
-        return <ShortlistJobs />;
-      case 5:
         return <FollowingEmployers />;
-      case 6:
+      case 5:
         return <JobAlerts />;
-      case 7:
+      case 6:
         return <Messages />;
-      case 8:
+      case 7:
         return <Meeting />;
-      case 9:
+      case 8:
         return <Changepassword />;
-      case 10:
+      case 9:
         return <Deleteprofile />;
-      case 11:
+      case 10:
         return <Logout />;
       default:
         return null;

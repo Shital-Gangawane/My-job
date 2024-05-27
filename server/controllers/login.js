@@ -9,8 +9,9 @@ module.exports.login = async (req, res) => {
     const { phoneNumber, password } = req.body;
 
     // Check if the phoneNumber is registered for a candidate
-    const existingCandidate = await Candidate.findOne({ phoneNumber });
-
+    const existingCandidate = await Candidate.findOne({ phoneNumber }).populate(
+      "appliedJobs"
+    ); // This populates all Job documents in appliedJobs array
     // Check if the phoneNumber is registered for an employer
     const existingEmployer = await Employer.findOne({ phoneNumber });
 

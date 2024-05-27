@@ -63,9 +63,14 @@ function Myjobs() {
     }
   };
 
-  const filteredJobs = myJobs.filter((job) =>
-    job.jobTitle.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+  const filteredJobs = myJobs.filter((job) => {
+    const searchTermLower = searchTerm.toLowerCase();
+    return (
+      job.jobTitle.toLowerCase().includes(searchTermLower) ||
+      (searchTermLower.startsWith("ons") && !job.isRemote) ||
+      (searchTermLower.startsWith("rem") && job.isRemote)
+    );
+  });
 
   return (
     <div className="w-full h-auto overflow-y-auto lg:mt-14 px-4 lg:px-14 py-7 pb-14">

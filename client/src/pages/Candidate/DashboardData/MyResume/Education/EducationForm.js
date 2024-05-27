@@ -2,14 +2,8 @@ import React, { useState } from "react";
 import { FaChevronDown } from "react-icons/fa";
 import { IoClose } from "react-icons/io5";
 
-function EducationForm({
-    index,
-    data,
-    onChange,
-    setEducations,
-  }) {
-
-const [isDropdownOn, setIsDropdownOn] = useState(false);
+function EducationForm({ index, data, onChange, setEducations }) {
+  const [isDropdownOn, setIsDropdownOn] = useState(false);
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -27,45 +21,44 @@ const [isDropdownOn, setIsDropdownOn] = useState(false);
             className="mt-0.5 font-bold hover:text-[#6ad61d]"
             size={20}
             onClick={() =>
-                setEducations((prev) => {
+              setEducations((prev) => {
                 return prev.filter((el, i) => i !== index);
               })
             }
           />
         )}
         Education {index + 1}
-        <FaChevronDown className='ms-auto mt-1.5'/>
+        <FaChevronDown className="ms-auto mt-1.5" />
       </p>
       {isDropdownOn && (
         <div className="flex flex-col gap-3">
           {/* Input fields for each member attribute */}
           <InputField
-            label="title"
-            name="title"
-            value={data?.title}
+            label="Degree"
+            name="degree"
+            value={data?.degree}
             onChange={handleChange}
           />
           <InputField
-            label="academic"
-            name="academic"
-            value={data?.academic}
+            label="Institute"
+            name="institute"
+            value={data?.institute}
             onChange={handleChange}
           />
           <InputField
-            label="year"
+            label="Year"
             name="year"
             value={data?.year}
             onChange={handleChange}
           />
-         
-          <TextArea
-            label="Description"
-            name="description"
-            value={data?.description}
+
+          <InputField
+            label="Specialization"
+            name="specialization"
+            value={data?.specialization}
             onChange={handleChange}
           />
         </div>
-        
       )}
       {index !== 0 && (
         <button
@@ -80,37 +73,36 @@ const [isDropdownOn, setIsDropdownOn] = useState(false);
         </button>
       )}
     </div>
-  )
+  );
 }
 
 function InputField({ label, name, value, onChange }) {
-    return (
-      <div className="flex justify-between">
-        <label className="font-bold">{label}</label>
-        <input
-          name={name}
-          value={value}
-          onChange={onChange}
-          className="block w-2/3 p-5 cursor-pointer bg-gray-100 border-gray-300 focus:outline-[#6ad61d] text-gray-900 border rounded-lg text-base focus:ring-[#6ad61d] focus:border-[#6ad61d] dark:bg-gray-100 dark:border-none dark:placeholder-gray-400 dark:gray-900 dark:focus:ring-[#6ad61d] dark:focus:border-[#6ad61d]"
-        />
-      </div>
-    );
-  }
-  
-  function TextArea({ label, name, value, onChange }) {
-    return (
-      <div className="flex justify-between">
-        <label className="font-bold">{label}</label>
-        <textarea
-          name={name}
-          value={value}
-          onChange={onChange}
-          className="block w-2/3 p-5 cursor-pointer bg-gray-100 border-gray-300 focus:outline-[#6ad61d] text-gray-900 border rounded-lg focus:ring-[#6ad61d] focus:border-[#6ad61d] dark:bg-gray-100 dark:border-none dark:placeholder-gray-400 dark:gray-900 dark:focus:ring-[#6ad61d] dark:focus:border-[#6ad61d]"
-          rows="4"
-        ></textarea>
-      </div>
-    );
-  }
+  return (
+    <div className="flex justify-between">
+      <label className="font-medium">{label}</label>
+      <input
+        name={name}
+        value={value}
+        onChange={onChange}
+        className="block w-2/3 p-5 cursor-pointer bg-gray-100 border-gray-300 focus:outline-[#6ad61d] text-gray-900 border rounded-lg text-base focus:ring-[#6ad61d] focus:border-[#6ad61d] dark:bg-gray-100 dark:border-none dark:placeholder-gray-400 dark:gray-900 dark:focus:ring-[#6ad61d] dark:focus:border-[#6ad61d]"
+      />
+    </div>
+  );
+}
 
-  
-export default EducationForm
+function TextArea({ label, name, value, onChange }) {
+  return (
+    <div className="flex justify-between">
+      <label className="font-medium">{label}</label>
+      <textarea
+        name={name}
+        value={value}
+        onChange={onChange}
+        className="block w-2/3 p-5 cursor-pointer bg-gray-100 border-gray-300 focus:outline-[#6ad61d] text-gray-900 border rounded-lg focus:ring-[#6ad61d] focus:border-[#6ad61d] dark:bg-gray-100 dark:border-none dark:placeholder-gray-400 dark:gray-900 dark:focus:ring-[#6ad61d] dark:focus:border-[#6ad61d]"
+        rows="4"
+      ></textarea>
+    </div>
+  );
+}
+
+export default EducationForm;

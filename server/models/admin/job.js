@@ -84,8 +84,23 @@ const jobSchema = new mongoose.Schema(
     },
     applications: [
       {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "Candidate",
+        candidate: {
+          type: mongoose.Schema.Types.ObjectId,
+          ref: "Candidate",
+        },
+
+        status: {
+          type: String,
+          default: "Pending",
+        },
+        note: {
+          type: String,
+          default: "",
+        },
+        appliedAt: {
+          type: Date,
+          default: Date.now,
+        },
       },
     ],
     shortlisted: [
