@@ -80,7 +80,7 @@ function Profile({ candidate, setIsEditing }) {
             email: user?.email,
             qualification: data.qualification || null,
             experience: data.experience || null,
-            languages: data.languages[0].split(",") || [],
+            languages: data.languages[0]?.split(",") || [],
             salaryType: data.salaryType || null,
             qualification: data.qualification || null,
             salary: data.salary || "",
