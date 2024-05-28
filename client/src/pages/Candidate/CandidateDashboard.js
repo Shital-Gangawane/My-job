@@ -28,66 +28,68 @@ import Changepassword from "./DashboardData/Changepassword";
 import Deleteprofile from "./DashboardData/Deleteprofile";
 import Logout from "../Employer/DashboardData/Logout";
 import { useUserContext } from "../../context/userContext";
+import { Outlet } from "react-router-dom";
+import Footer from "../Employer/DashboardData/Footer";
 const buttons = [
   {
     name: "User Dashboard",
     icon: <MdOutlineSpaceDashboard size={25} />,
-    path: "dashboard", // Example path for User Dashboard
+    path: "", // Example path for User Dashboard
   },
   {
     name: "Profile",
     icon: <LiaUserTieSolid size={25} />,
-    path: "profile", // Example path for Profile
+    path: "/profile", // Example path for Profile
   },
   {
     name: "My Resume",
     icon: <FiFileText size={25} />,
-    path: "myresume", // Example path for My Jobs
+    path: "/myresume", // Example path for My Jobs
   },
   {
     name: "My Applied",
     icon: <HiOutlineSpeakerphone size={25} />,
-    path: "submitjobs", // Example path for Submit Jobs
+    path: "/appliedjobs", // Example path for Submit Jobs
   },
-  {
-    name: "Shortlist Jobs",
-    icon: <IoBookmarkOutline size={25} />,
-    path: "applicationjobs", // Example path for Application Jobs
-  },
+  // {
+  //   name: "Shortlist Jobs",
+  //   icon: <IoBookmarkOutline size={25} />,
+  //   path: "/shortlistjobs", // Example path for Application Jobs
+  // },
   {
     name: "Following Employers",
     icon: <BsPerson size={25} />,
-    path: "shortlistcandidates", // Example path for Shortlist Candidates
+    path: "/following-employers", // Example path for Shortlist Candidates
   },
   {
     name: "Alert Jobs",
     icon: <AiOutlineAlert size={25} />,
-    path: "candidatealerts", // Example path for Candidate Alerts
+    path: "/jobalerts", // Example path for Candidate Alerts
   },
   {
     name: "Messages",
     icon: <PiWechatLogoLight size={25} />,
-    path: "messages", // Example path for Messages
+    path: "/messages", // Example path for Messages
   },
   {
     name: "Meetings",
     icon: <GiVideoConference size={25} />,
-    path: "meetings", // Example path for Meetings
+    path: "/meetings", // Example path for Meetings
   },
   {
     name: "Change Password",
     icon: <RiLockPasswordLine size={25} />,
-    path: "changepassword", // Example path for Change Password
+    path: "/changepassword", // Example path for Change Password
   },
-  {
-    name: "Delete Profile",
-    icon: <RiDeleteBin5Line size={25} />,
-    path: "deleteprofile", // Example path for Delete Profile
-  },
+  // {
+  //   name: "Delete Profile",
+  //   icon: <RiDeleteBin5Line size={25} />,
+  //   path: "deleteprofile", // Example path for Delete Profile
+  // },
   {
     name: "Logout",
     icon: <TfiPowerOff size={25} />,
-    path: "logout", // Example path for Logout
+    path: "/logout", // Example path for Logout
   },
 ];
 
@@ -121,20 +123,18 @@ const CandidateDashboard = () => {
       case 3:
         return <MyApplied />;
       case 4:
-        return <ShortlistJobs />;
-      case 5:
         return <FollowingEmployers />;
-      case 6:
+      case 5:
         return <JobAlerts />;
-      case 7:
+      case 6:
         return <Messages />;
-      case 8:
+      case 7:
         return <Meeting />;
-      case 9:
+      case 8:
         return <Changepassword />;
-      case 10:
+      case 9:
         return <Deleteprofile />;
-      case 11:
+      case 10:
         return <Logout />;
       default:
         return null;
@@ -193,7 +193,9 @@ const CandidateDashboard = () => {
         </div>
       )}
       <div className=" w-full h-full bg-[#f5f7fc] overflow-y-auto">
-        <RenderComponent index={isSelected} />
+        {/* <RenderComponent index={isSelected} /> */}
+        <Outlet />
+        <Footer />
       </div>
     </div>
   );

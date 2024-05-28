@@ -18,6 +18,9 @@ const EmployerEditor = ({
   );
   const [phoneNumber, setPhoneNumber] = useState(employerData?.phoneNumber);
   const [email, setEmail] = useState(employerData?.email);
+  const [postJobCredits, setPostJobCredits] = useState(
+    employerData?.postJobCredits
+  );
   const [website, setWebsite] = useState(employerData?.website);
   const [isApproved, setIsApproved] = useState(employerData?.isApproved);
   const { setAllEmployers } = useAdminContext();
@@ -29,7 +32,7 @@ const EmployerEditor = ({
       employerData?._id,
       companyName,
       aboutCompany,
-      industries,
+      postJobCredits,
       phoneNumber,
       email,
       website,
@@ -80,14 +83,14 @@ const EmployerEditor = ({
           />
         </div>
         <div className="mb-4">
-          <label htmlFor="industries" className="block text-gray-700">
-            Industries
+          <label htmlFor="postJobCredits" className="block text-gray-700">
+            Job Post Credits
           </label>
           <input
             type="text"
-            id="industries"
-            value={industries}
-            onChange={(e) => setIndustries(e.target.value)}
+            id="postJobCredits"
+            value={postJobCredits}
+            onChange={(e) => setPostJobCredits(e.target.value)}
             className="w-full px-4 py-2 rounded-lg border bg-gray-100 border-gray-300 focus:outline-none focus:border-blue-500"
           />
         </div>

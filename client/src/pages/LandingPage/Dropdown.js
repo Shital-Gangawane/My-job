@@ -51,7 +51,7 @@ export const Dropdown = ({ options, onSelect, landingpage }) => {
             .map((city, index) => (
               <motion.li
                 key={index}
-                whileHover={{ scale: 1.05 }}
+                whileHover={{ scale: 1.01 }}
                 whileTap={{ scale: 0.95 }}
                 onClick={() => handleCitySelect(city)}
                 className={`cursor-pointer px-4 py-2 hover:bg-gray-100 hover:text-green-500 text-start ${

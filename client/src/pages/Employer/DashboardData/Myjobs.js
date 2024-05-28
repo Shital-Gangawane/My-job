@@ -5,11 +5,13 @@ import { useUserContext } from "../../../context/userContext";
 import { fetchJobs } from "../../../api/employer/axios";
 import { CiClock2, CiLocationOn } from "react-icons/ci";
 import { GiMoneyStack } from "react-icons/gi";
+import Loader from "../../../components/Utility/Loader";
 
 function Myjobs() {
   const [myJobs, setMyJobs] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [sortType, setSortType] = useState("newest");
+  const [isLoading, setIsLoading] = useState(true);
   const { user } = useUserContext();
 
   useEffect(() => {
@@ -21,6 +23,7 @@ function Myjobs() {
           // Sort jobs when fetched or apply other transformations
           jobs = sortJobs(jobs, sortType);
           setMyJobs(jobs);
+          setIsLoading(false);
         }
       }
     };
@@ -60,16 +63,22 @@ function Myjobs() {
     }
   };
 
-  const filteredJobs = myJobs.filter((job) =>
-    job.jobTitle.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+  const filteredJobs = myJobs.filter((job) => {
+    const searchTermLower = searchTerm.toLowerCase();
+    return (
+      job.jobTitle.toLowerCase().includes(searchTermLower) ||
+      (searchTermLower.startsWith("ons") && !job.isRemote) ||
+      (searchTermLower.startsWith("rem") && job.isRemote)
+    );
+  });
 
   return (
     <div className="w-full h-auto overflow-y-auto lg:mt-14 px-4 lg:px-14 py-7 pb-14">
       <h1 className="text-lg text-[#202124] lg:text-3xl mb-10 font-medium">
         Manage Jobs
       </h1>
-      <div className="w-full bg-white rounded-lg shadow-lg p-7 pb-14">
+      <div className="w-full relative bg-white rounded-lg shadow-lg p-7 pb-14">
+        {isLoading && <Loader />}
         <div className="flex flex-col lg:flex-row gap-3 lg:justify-between">
           <div className="bg-[#f0f5f7] rounded-lg p-4 flex items-center gap-2">
             <IoIosSearch color="gray" size={20} />

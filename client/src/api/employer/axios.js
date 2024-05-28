@@ -4,10 +4,10 @@ const url = process.env.REACT_APP_SERVER_API_URL || "http://localhost:8000";
 // const url = "http://localhost:8000";
 
 //Employer Register
-export const registerEmployer = async (email, password) => {
+export const registerEmployer = async (phoneNumber, password) => {
   try {
     const res = await axios.post(`${url}/api/employer/register`, {
-      email,
+      phoneNumber,
       password,
     });
     return res;
@@ -17,10 +17,10 @@ export const registerEmployer = async (email, password) => {
 };
 
 //Employer or candidate login
-export const login = async (email, password) => {
+export const login = async (phoneNumber, password) => {
   try {
-    const res = await axios.post(`${url}/api/employer/login`, {
-      email,
+    const res = await axios.post(`${url}/api/login`, {
+      phoneNumber,
       password,
     });
     return res;
@@ -34,7 +34,7 @@ export const updateEmployer = async (
   employerId,
   companyName,
   aboutCompany,
-  industries,
+  postJobCredits,
   phoneNumber,
   email,
   website,
@@ -46,7 +46,7 @@ export const updateEmployer = async (
       {
         companyName,
         aboutCompany,
-        industries,
+        postJobCredits,
         phoneNumber,
         email,
         website,
@@ -157,11 +157,110 @@ export const fetchAppliedCandidates = async (ids) => {
   }
 };
 
-// Post job
-export const shortlistCandidates = async (employerId, candidateId) => {
+//Fetch shortlisted candidates
+export const fetchShortlisted = async (employerId) => {
+  try {
+    const res = await axios.get(
+      `${url}/api/employer/fetchShortlisted?employerId=${employerId}`
+    );
+    return res;
+  } catch (error) {
+    return error.response;
+  }
+};
+
+//Fetch applications
+export const fetchApplications = async (employerId) => {
+  try {
+    const res = await axios.get(
+      `${url}/api/employer/applications?employerId=${employerId}`
+    );
+    return res;
+  } catch (error) {
+    return error.response;
+  }
+};
+
+// SHortlist candidate
+export const shortlistCandidates = async (employerId, candidateId, jobId) => {
   try {
     const res = await axios.put(
-      `${url}/api/employer/${employerId}/shortlist/${candidateId}`
+      `${url}/api/employer/${employerId}/shortlist/${candidateId}`,
+      { jobId }
+    );
+    return res;
+  } catch (error) {
+    return error.response;
+  }
+};
+
+//Decline candidate
+export const declineCandidates = async (employerId, candidateId, jobId) => {
+  try {
+    const res = await axios.put(
+      `${url}/api/employer/${employerId}/decline/${candidateId}`,
+      {
+        jobId,
+      }
+    );
+    return res;
+  } catch (error) {
+    return error.response;
+  }
+};
+
+// Update status of application
+export const updateCandidateStatus = async (
+  employerId,
+  candidateId,
+  jobId,
+  status,
+  note
+) => {
+  try {
+    const res = await axios.put(`${url}/api/employer/updateCandidateStatus`, {
+      employerId,
+      candidateId,
+      jobId,
+      status,
+      note,
+    });
+    return res;
+  } catch (error) {
+    return error.response;
+  }
+};
+
+// Update status of Shortlisted candidates
+export const updateShortlistCandidateStatus = async (
+  employerId,
+  candidateId,
+  jobId,
+  status,
+  note
+) => {
+  try {
+    const res = await axios.put(
+      `${url}/api/employer/updateShortlistCandidateStatus`,
+      {
+        employerId,
+        candidateId,
+        jobId,
+        status,
+        note,
+      }
+    );
+    return res;
+  } catch (error) {
+    return error.response;
+  }
+};
+
+//Fetch Packages
+export const fetchPackages = async (employerId) => {
+  try {
+    const res = await axios.get(
+      `${url}/api/employer/fetchPackages/${employerId}`
     );
     return res;
   } catch (error) {

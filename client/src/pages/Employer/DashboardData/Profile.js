@@ -14,7 +14,7 @@ function Profile() {
   const [isLoading, setIsLoading] = useState(false);
 
   const [profileInfo, setProfileInfo] = useState({
-    employerName: "",
+    name: "",
     companyName: "",
     website: "",
     foundedDate: "",
@@ -66,7 +66,7 @@ function Profile() {
       console.log(res);
       const data = res?.data?.employer;
       setProfileInfo({
-        employerName: data.employerName || "",
+        name: data.name || "",
         website: data.website || "",
         foundedDate: data.foundedDate || "",
         companySize: data.companySize || "",
@@ -80,8 +80,8 @@ function Profile() {
       setMembers(data.members || []);
       setSocialNetworks(data.socialNetworks || []);
       setContactInfo({
-        phoneNumber: data.phoneNumber || "",
-        email: user?.email,
+        phoneNumber: user?.phoneNumber,
+        email: data.email || "",
         address: data.address || "",
         country: data.country || "",
         location: data.location || { latitude: "", longitude: "" },
@@ -93,8 +93,10 @@ function Profile() {
 
   // UseEffect to fetch data on component mount
   useEffect(() => {
-    fetchProfileData();
-  }, []); // Ensure this runs only once on mount
+    if (user?._id) {
+      fetchProfileData();
+    }
+  }, [user?._id]); // Ensure this runs only once on mount
 
   const handleProfileChange = (e) => {
     const { name, value } = e.target;
@@ -158,7 +160,7 @@ function Profile() {
     console.log(res);
 
     if (res?.data?.success) {
-      const userData = JSON.stringify(res?.data?.user);
+      const userData = JSON.stringify(res?.data?.employer);
       sessionStorage.setItem("user", userData);
       setUser(res?.data?.employer);
       setIsLoading(false);

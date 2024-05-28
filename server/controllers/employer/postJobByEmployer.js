@@ -10,6 +10,7 @@ module.exports.postJobByEmployer = async (req, res) => {
 
     // Add the createdBy field to jobData
     jobData.createdBy = empId;
+    jobData.createdByEmp = empId;
 
     const employer = await Employer.findById(empId);
 
@@ -22,6 +23,8 @@ module.exports.postJobByEmployer = async (req, res) => {
     const newJob = await Job.create(jobData);
 
     await employer.postedJobs.push(newJob._id);
+    if (employer.postJobCredits > 0)
+      employer.postJobCredits = employer.postJobCredits - 1;
 
     await employer.save();
 

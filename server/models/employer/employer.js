@@ -1,10 +1,21 @@
 const mongoose = require("mongoose");
 
 const employerSchema = new mongoose.Schema({
+  postJobCredits: {
+    type: Number,
+    default: 1,
+  },
+  purchasedPackages: [
+    {
+      package: { type: mongoose.Schema.Types.ObjectId, ref: "Package" },
+      purchasedOn: { type: Date, default: Date.now },
+      isActive: { type: Boolean, default: true },
+    },
+  ],
   companyName: {
     type: String,
   },
-  employerName: {
+  name: {
     type: String,
   },
   foundedDate: {
@@ -33,10 +44,10 @@ const employerSchema = new mongoose.Schema({
   },
   phoneNumber: {
     type: String,
+    required: true,
   },
   email: {
     type: String,
-    required: true,
   },
   password: {
     type: String,
@@ -107,10 +118,44 @@ const employerSchema = new mongoose.Schema({
   socialNetworks: {
     type: Array,
   },
+  applications: [
+    {
+      candidate: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Candidate",
+      },
+      job: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Job",
+      },
+      status: {
+        type: String,
+        default: "Pending", // default status when a candidate is added
+      },
+      note: {
+        type: String,
+        default: "",
+      },
+    },
+  ],
   shortlistedCandidates: [
     {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "Candidate",
+      candidate: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Candidate",
+      },
+      job: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Job",
+      },
+      status: {
+        type: String,
+        default: "Shortlisted", // default status when a candidate is added
+      },
+      note: {
+        type: String,
+        default: "",
+      },
     },
   ],
 });

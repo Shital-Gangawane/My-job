@@ -16,11 +16,16 @@ import {
   updateJobByEmployer,
 } from "../../../../api/employer/axios";
 import { useUserContext } from "../../../../context/userContext";
+import { Dropdown } from "../../../LandingPage/Dropdown";
+import { citiesInIndia } from "../../../LandingPage/cityData";
 
-function PostNewJob({ employer, data, jobId, setIsEditing }) {
-  const { token, setUser, user } = useUserContext();
+function PostNewJob({ toggleForm, employer, data, jobId, setIsEditing }) {
+  const { token, setUser, user, setPostJobData, postJobData } =
+    useUserContext();
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [error, setError] = useState("");
   const [jobDetails, setJobDetails] = useState({
-    companyName: user?.companyName,
+    company: user?.companyName,
     deadlinedate: "",
     jobLocation: "",
     latitude: "",
@@ -41,7 +46,10 @@ function PostNewJob({ employer, data, jobId, setIsEditing }) {
     qualificationRequired: null,
     videoUrl: "",
     externalUrl: "",
+    address: "",
   });
+
+  console.log(jobDetails);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -52,18 +60,47 @@ function PostNewJob({ employer, data, jobId, setIsEditing }) {
     setJobDetails((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handelSubmitHandler = async () => {
-    console.log(jobDetails);
+  const handleCitySelect = (city) => {
+    setJobDetails((prev) => ({ ...prev, ["jobLocation"]: city }));
+    setIsDropdownOpen(false);
+  };
+
+  const handleOutsideClick = (event) => {
+    if (event.target.closest(".dropdown")) return;
+    setIsDropdownOpen(false);
+  };
+
+  useEffect(() => {
+    document.addEventListener("mousedown", handleOutsideClick);
+    return () => {
+      document.removeEventListener("mousedown", handleOutsideClick);
+    };
+  }, []);
+
+  const handelSubmitHandler = async (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    console.log("Job details at submission:", jobDetails);
+    // if (
+    //   !jobDetails.jobTitle ||
+    //   !jobDetails.jobDescription ||
+    //   !jobDetails.jobLocation ||
+    //   !jobDetails.minExperience ||
+    //   !jobDetails.maxExperience
+    // ) {
+    //   setError("Fill all t");
+    // }
+
     if (employer) {
       const res = await updateJobByEmployer(jobDetails, jobId, token);
-      console.log(res);
+      console.log("Update response:", res);
       if (res?.data?.success) {
         sessionStorage.setItem("user", JSON.stringify(res?.data?.employer));
         setUser(res?.data?.employer);
       }
     } else {
       const res = await postJobByEmployer(jobDetails, token);
-      console.log(res);
+      console.log("Post job response:", res);
       if (res?.data?.success) {
         sessionStorage.setItem("user", JSON.stringify(res?.data?.employer));
         setUser(res?.data?.employer);
@@ -101,7 +138,7 @@ function PostNewJob({ employer, data, jobId, setIsEditing }) {
   // UseEffect to fetch data on component mount
   useEffect(() => {
     fetchEditData();
-  }, []); // Ensure this runs only once on mount
+  }, [data]); // Ensure this runs only once on mount
 
   return (
     <div
@@ -110,11 +147,18 @@ function PostNewJob({ employer, data, jobId, setIsEditing }) {
       } px-4 lg:px-14 py-7  pb-14 `}
     >
       {!employer && (
-        <h2 className=" text-lg text-[#202124] lg:text-3xl mb-10 font-medium">
-          Post New Job
+        <h2 className=" w-full text-lg text-[#202124] lg:text-3xl mb-10 font-medium">
+          Post New Job{" "}
+          <span className=" text-sm ms-5 text-end">
+            Credits left:
+            <span className=" text-green-600">{user?.postJobCredits}</span>
+          </span>
         </h2>
       )}
-      <div className="bg-white p-6 mt-5 px-10 rounded-lg">
+      <form
+        onSubmit={handelSubmitHandler}
+        className="bg-white p-6 mt-5 px-10 rounded-lg"
+      >
         <PostJobSection
           jobDetails={jobDetails}
           handleInputChange={handleInputChange}
@@ -129,16 +173,6 @@ function PostNewJob({ employer, data, jobId, setIsEditing }) {
           categoriesoptions={categoriesoptions}
           employer
         />
-
-        {/* <h2 className=" text-lg text-[#202124]  mb-6 font-bold">
-          Profile Photo
-        </h2>
-        <button
-          type="submit"
-          className="text-[#6ad61d] mb-10 bg-[#6ad61d23] rounded-lg transition duration-300 ease-in-out focus:ring-4 focus:outline-none focus:ring-[#6ad61d] font-medium  text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-[#6ad61d23] dark:hover:bg-[#6ad61d] dark:hover:text-white dark:focus:ring-[#6ad61d]"
-        >
-          Browser
-        </button> */}
 
         {/*  Deadline Date Experience */}
         <div className="mb-5 w-full ">
@@ -158,38 +192,47 @@ function PostNewJob({ employer, data, jobId, setIsEditing }) {
           />
         </div>
 
-        {/* <div className="flex flex-wrap mx-2">
-          <div className="mb-5 w-full  ">
-            <label
-              htmlFor="name"
-              className="block  text-sm font-bold text-gray-900 pt-2 px-5 py-2"
-            >
-               Address
-            </label>
-
-            <input
-              type="text"
-              name="location"
-              id="large-input"
-              className="block w-full p-5  bg-gray-100 border-gray-300 focus:outline-[#6ad61d] text-gray-900 border rounded-lg text-base focus:ring-[#6ad61d] focus:border-[#6ad61d] dark:bg-gray-100 dark:border-none dark:placeholder-gray-400 dark:gray-900 dark:focus:ring-[#6ad61d] dark:focus:border-[#6ad61d]"
-            />
-          </div>
-        </div> */}
-
-        <div className="mb-5 w-full">
+        <div className="mb-5 w-full relative">
           <label
             htmlFor="jobLocation"
             className="block  text-sm font-bold text-gray-900 pt-2 px-5 py-2"
           >
-            Location
+            Location(City)
           </label>
 
           <input
             type="text"
             name="jobLocation"
+            onClick={() => setIsDropdownOpen(true)}
             value={jobDetails.jobLocation}
-            onChange={handleInputChange}
+            onChange={(e) => {
+              handleInputChange(e);
+            }}
             className="block w-full p-5  bg-gray-100 border-gray-300 focus:outline-[#6ad61d] text-gray-900 border rounded-lg text-base focus:ring-[#6ad61d] focus:border-[#6ad61d] dark:bg-gray-100 dark:border-none dark:placeholder-gray-400 dark:gray-900 dark:focus:ring-[#6ad61d] dark:focus:border-[#6ad61d]"
+          />
+          {isDropdownOpen && (
+            <Dropdown
+              options={citiesInIndia}
+              onSelect={handleCitySelect}
+              landingpage
+            />
+          )}
+        </div>
+
+        {/*  Address */}
+        <div className="mb-5 w-full ">
+          <label
+            htmlFor="address"
+            className="block text-sm font-bold text-gray-900"
+          >
+            Address
+          </label>
+          <input
+            type="text"
+            name="address"
+            value={jobDetails.address}
+            onChange={handleInputChange}
+            className="block w-full p-5 bg-gray-100 border-gray-300 focus:outline-[#6ad61d] text-gray-900 border rounded-lg text-base focus:ring-[#6ad61d] focus:border-[#6ad61d] dark:bg-gray-100 dark:border-none dark:placeholder-gray-400 dark:gray-900 dark:focus:ring-[#6ad61d] dark:focus:border-[#6ad61d]"
           />
         </div>
 
@@ -223,7 +266,7 @@ function PostNewJob({ employer, data, jobId, setIsEditing }) {
         </div>
         <button
           type="submit"
-          onClick={handelSubmitHandler}
+          // onClick={handelSubmitHandler}
           className="lg:w-auto mt-5 py-3 px-8 bg-[#6ad61d] hover:bg-blue-600 text-white  rounded-lg transition duration-300 ease-in-out"
         >
           {employer ? "Save" : "Post Job"}
@@ -237,7 +280,7 @@ function PostNewJob({ employer, data, jobId, setIsEditing }) {
             Close
           </button>
         )}
-      </div>
+      </form>
     </div>
   );
 }

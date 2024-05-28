@@ -12,57 +12,61 @@ import UserDashboardNotifications from "../../../components/Employer/DashboardDa
 import UserDashboardRecent from "../../../components/Employer/DashboardData/UserDashboardRecent";
 import { useUserContext } from "../../../context/userContext";
 import { fetchJobs, fetchUser } from "../../../api/employer/axios";
+import Loader from "../../../components/Utility/Loader";
 
 function Userdashboard() {
-  const { user, setUser, fetchData } = useUserContext();
-  const [userData, setUserData] = useState(user);
-  const [error, setError] = useState("");
-  const [applications, setApplications] = useState([]);
+  const { user, setUser } = useUserContext();
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
       const userType = sessionStorage.getItem("userType");
       if (userType === "employer" && user?._id) {
+        setIsLoading(true);
         const res = await fetchUser(userType, user?._id);
         console.log(res);
-        const newUser = res?.data?.employer;
-        if (JSON.stringify(user) !== JSON.stringify(newUser)) {
-          sessionStorage.setItem("user", JSON.stringify(newUser));
-          setUser(newUser);
+        if (res?.data?.success) {
+          const newUser = res?.data?.employer;
+          if (JSON.stringify(user) !== JSON.stringify(newUser)) {
+            sessionStorage.setItem("user", JSON.stringify(newUser));
+            setUser(newUser);
+          }
         }
+        setIsLoading(false);
       }
     };
 
     fetchData();
   }, [user?._id, setUser]); // Depend on user._id specifically if that's the main identifier
 
-  useEffect(() => {
-    const fetchData = async () => {
-      if (user?.postedJobs) {
-        try {
-          const res = await fetchJobs(user._id);
-          if (res?.data?.success) {
-            const allCandidateIds = res?.data?.allJobs?.reduce(
-              (acc, job) => acc.concat(job.applications),
-              []
-            );
-            setApplications(allCandidateIds);
-          } else {
-            setError("Failed to fetch jobs");
-          }
-        } catch (err) {
-          setError("Error fetching jobs");
-          console.error(err);
-        }
-      }
-    };
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     if (user?.postedJobs) {
+  //       try {
+  //         const res = await fetchJobs(user._id);
+  //         if (res?.data?.success) {
+  //           const allCandidateIds = res?.data?.allJobs?.reduce(
+  //             (acc, job) => acc.concat(job.applications),
+  //             []
+  //           );
+  //           setApplications(allCandidateIds);
+  //         } else {
+  //           setError("Failed to fetch jobs");
+  //         }
+  //       } catch (err) {
+  //         setError("Error fetching jobs");
+  //         console.error(err);
+  //       }
+  //     }
+  //   };
 
-    fetchData();
-  }, [user?.postedJobs]);
+  //   fetchData();
+  // }, [user?.postedJobs]);
+
   const statsData = [
     {
       name: "Posted Jobs",
-      count: userData?.postedJobs?.length,
+      count: user?.postedJobs?.length,
       url: "#",
       icon: (
         <HiOutlineBriefcase size={35} className="  text-blue-600 rounded " />
@@ -72,7 +76,7 @@ function Userdashboard() {
     },
     {
       name: "Application",
-      count: applications?.length,
+      count: user?.applications?.length,
       url: "#",
       icon: <SlNote size={35} className="  text-red-600 rounded " />,
       color: "red",
@@ -90,7 +94,7 @@ function Userdashboard() {
     },
     {
       name: "Shortlisted",
-      count: 0,
+      count: user?.shortlistedCandidates?.length,
       url: "#",
       icon: (
         <IoBookmarkOutline size={35} className="  text-green-600 rounded" />
@@ -100,50 +104,56 @@ function Userdashboard() {
     },
   ];
   return (
-    <div className=" w-full h-auto  overflow-y-auto  lg:mt-14 px-4 lg:px-14 py-7 pb-14">
-      <h2 className=" text-lg text-[#202124] lg:text-3xl mb-10 font-medium">
-        Applications statistics
-      </h2>
-      <div className=" h-full w-full flex gap-2 lg:gap-8 justify-center flex-wrap items-center flex-col lg:flex-row">
-        {statsData?.map((stat, i) => (
-          <Col
-            key={i}
-            className=" bg-white  lg:p-7 md:p-8 flex-1 w-full rounded-lg border border-gray-100 shadow-sm"
-          >
-            <Card className=" flex flex-col ">
-              <Card.Body className="flex gap-2 items-center">
-                <div className={`${stat.bgColor} p-5 rounded-md`}>
-                  {stat.icon}
-                </div>
+    <div className=" w-full min-h-full relative h-auto  overflow-y-auto  lg:mt-14 px-4 lg:px-14 py-7 pb-14">
+      {isLoading ? (
+        <Loader />
+      ) : (
+        <>
+          <h2 className=" text-lg text-[#202124] lg:text-3xl mb-10 font-medium">
+            Applications statistics
+          </h2>
+          <div className=" h-full w-full flex gap-2 lg:gap-8 justify-center flex-wrap items-center flex-col lg:flex-row">
+            {statsData?.map((stat, i) => (
+              <Col
+                key={i}
+                className=" bg-white  lg:p-7 md:p-8 flex-1 w-full rounded-lg border border-gray-100 shadow-sm"
+              >
+                <Card className=" flex flex-col ">
+                  <Card.Body className="flex gap-2 items-center">
+                    <div className={`${stat.bgColor} p-5 rounded-md`}>
+                      {stat.icon}
+                    </div>
 
-                <div className=" flex flex-col w-full items-end">
-                  <Card.Text
-                    className={` text-3xl  text-${stat.color}-600 font-semibold`}
-                  >
-                    {stat.count}
-                  </Card.Text>
-                  <Card.Title className=" text-sm   mt-4">
-                    {stat.name}
-                  </Card.Title>
-                </div>
-              </Card.Body>
-            </Card>
-          </Col>
-        ))}
-      </div>
+                    <div className=" flex flex-col w-full items-end">
+                      <Card.Text
+                        className={` text-3xl  text-${stat.color}-600 font-semibold`}
+                      >
+                        {stat.count}
+                      </Card.Text>
+                      <Card.Title className=" text-sm   mt-4">
+                        {stat.name}
+                      </Card.Title>
+                    </div>
+                  </Card.Body>
+                </Card>
+              </Col>
+            ))}
+          </div>
 
-      <div className=" flex flex-col md:flex-row h-[550px] w-full  md:justify-between gap-6 mt-8">
-        <div className=" h-96 w-full flex-1">
-          <UserDashboardProfileViews />
-        </div>
-        <div className=" w-full md:w-64 xl:w-80">
-          <UserDashboardNotifications />
-        </div>
-      </div>
+          <div className=" flex flex-col md:flex-row h-[550px] w-full  md:justify-between gap-6 mt-8">
+            <div className=" h-96 w-full flex-1">
+              <UserDashboardProfileViews />
+            </div>
+            <div className=" w-full md:w-64 xl:w-80">
+              <UserDashboardNotifications />
+            </div>
+          </div>
 
-      <div className=" w-full h-36 mt-8 bg-white rounded-lg shadow-lg p-7">
-        <UserDashboardRecent />
-      </div>
+          <div className=" w-full h-36 mt-8 bg-white rounded-lg shadow-lg p-7">
+            <UserDashboardRecent />
+          </div>
+        </>
+      )}
     </div>
   );
 }

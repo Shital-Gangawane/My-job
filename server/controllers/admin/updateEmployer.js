@@ -6,7 +6,7 @@ module.exports.updateEmployer = async (req, res) => {
     const {
       companyName,
       aboutCompany,
-      industries,
+      postJobCredits,
       phoneNumber,
       email,
       website,
@@ -17,7 +17,7 @@ module.exports.updateEmployer = async (req, res) => {
     const employer = await Employer.findByIdAndUpdate(employerId, {
       companyName,
       aboutCompany,
-      industries,
+      postJobCredits,
       phoneNumber,
       email,
       website,

@@ -163,17 +163,17 @@ export default function CandidateModule() {
                   {candidate?.email}
                 </td>
                 <td className="px-1 py-4 text-center whitespace-nowrap text-sm font-medium text-gray-900">
-                  {candidate?.fullName}
+                  {candidate?.name}
                 </td>
                 <td className="px-1 py-4 text-center whitespace-nowrap text-sm text-gray-500">
                   {candidate?.isApproved ? "Published" : "Pending"}
                 </td>
 
                 <td className="px-1 py-4 text-center whitespace-nowrap text-sm text-gray-500">
-                  {candidate?.contactInformation?.mobileNumber || "no number"}
+                  {candidate?.phoneNumber || "no number"}
                 </td>
                 <td className="px-1 py-4 text-center whitespace-nowrap text-sm text-gray-500">
-                  {candidate?.contactInformation?.currentLocation || "Location"}
+                  {candidate?.location?.city || "Location"}
                 </td>
 
                 <td className="px-1 py-4 text-center whitespace-nowrap text-sm text-gray-500">

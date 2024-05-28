@@ -37,67 +37,62 @@ const buttons = [
   {
     name: "User Dashboard",
     icon: <MdOutlineSpaceDashboard size={25} />,
-    path: "dashboard", // Example path for User Dashboard
+    path: "", // Example path for User Dashboard
   },
   {
     name: "Profile",
     icon: <LiaUserTieSolid size={25} />,
-    path: "profile", // Example path for Profile
+    path: "/profile", // Example path for Profile
   },
   {
     name: "My Jobs",
     icon: <HiOutlineBriefcase size={25} />,
-    path: "myjobs", // Example path for My Jobs
+    path: "/myjobs", // Example path for My Jobs
   },
   {
     name: "Submit Jobs",
     icon: <GoPencil size={25} />,
-    path: "submitjobs", // Example path for Submit Jobs
+    path: "/submitjobs", // Example path for Submit Jobs
   },
   {
     name: "Application Jobs",
     icon: <HiOutlineSpeakerphone size={25} />,
-    path: "applicationjobs", // Example path for Application Jobs
+    path: "/applicantjobs", // Example path for Application Jobs
   },
   {
     name: "Shortlist Candidates",
     icon: <IoBookmarkOutline size={25} />,
-    path: "shortlistcandidates", // Example path for Shortlist Candidates
+    path: "/shortlistcandidates", // Example path for Shortlist Candidates
   },
-  {
-    name: "Candidate Alerts",
-    icon: <AiOutlineAlert size={25} />,
-    path: "candidatealerts", // Example path for Candidate Alerts
-  },
+  // {
+  //   name: "Candidate Alerts",
+  //   icon: <AiOutlineAlert size={25} />,
+  //   path: "candidatealerts", // Example path for Candidate Alerts
+  // },
   {
     name: "Packages",
     icon: <PiPackage size={25} />,
-    path: "packages", // Example path for Packages
+    path: "/packages", // Example path for Packages
   },
   {
     name: "Messages",
     icon: <PiWechatLogoLight size={25} />,
-    path: "messages", // Example path for Messages
+    path: "/messages", // Example path for Messages
   },
   {
     name: "Meetings",
     icon: <GiVideoConference size={25} />,
-    path: "meetings", // Example path for Meetings
+    path: "/meetings", // Example path for Meetings
   },
   {
     name: "Change Password",
     icon: <RiLockPasswordLine size={25} />,
-    path: "changepassword", // Example path for Change Password
-  },
-  {
-    name: "Delete Profile",
-    icon: <RiDeleteBin5Line size={25} />,
-    path: "deleteprofile", // Example path for Delete Profile
+    path: "/changepassword", // Example path for Change Password
   },
   {
     name: "Logout",
     icon: <TfiPowerOff size={25} />,
-    path: "logout", // Example path for Logout
+    path: "/logout", // Example path for Logout
   },
 ];
 
@@ -120,39 +115,6 @@ const Empdashboard = () => {
       window.removeEventListener("resize", checkMobileScreen);
     };
   }, []);
-
-  const RenderComponent = ({ index }) => {
-    switch (index) {
-      case 0:
-        return <Userdashboard />;
-      case 1:
-        return <Profile />;
-      case 2:
-        return <Myjobs />;
-      case 3:
-        return <Submitjobs />;
-      case 4:
-        return <Applicantsjobs />;
-      case 5:
-        return <Shortlistcandidate />;
-      case 6:
-        return <Candidatealerts />;
-      case 7:
-        return <Packages />;
-      case 8:
-        return <Messages />;
-      case 9:
-        return <Meeting />;
-      case 10:
-        return <Changepassword />;
-      case 11:
-        return <Deleteprofile />;
-      case 12:
-        return <Logout />;
-      default:
-        return null;
-    }
-  };
 
   // Function to toggle sidebar state
   const toggleSidebar = () => {
@@ -206,7 +168,8 @@ const Empdashboard = () => {
         </div>
       )}
       <div className=" w-full h-full bg-[#f5f7fc] overflow-y-auto">
-        <RenderComponent index={isSelected} />
+        {/* <RenderComponent index={isSelected} /> */}
+        <Outlet />
         <Footer />
       </div>
     </div>

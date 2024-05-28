@@ -12,7 +12,7 @@ export const options = [
 export const genderoption = [
   { label: "Male", value: "option1" },
   { label: "Female", value: "option2" },
-  { label: "Other ", value: "option3" },
+  { label: "Both ", value: "option3" },
   // Add more options as needed
 ];
 
@@ -61,6 +61,9 @@ export const qualificationoptions = [
   { label: "Masters's Degree", value: "option4" },
   { label: "Doctorate Degree", value: "option5" },
   { label: "Diploma", value: "option6" },
+  { label: "12th", value: "option7" },
+  { label: "10th", value: "option8" },
+  { label: "Not Required", value: "option9" },
 ];
 
 export const categoriesoptions = [

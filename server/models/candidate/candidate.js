@@ -1,8 +1,72 @@
 const mongoose = require("mongoose");
 
-const candidateSchema = new mongoose.Schema({
-  fullName: {
+const educationSchema = new mongoose.Schema({
+  degree: {
     type: String,
+    // required: true,
+  },
+  institute: {
+    type: String,
+    // required: true,
+  },
+  year: {
+    type: String,
+    // required: true,
+  },
+  specialization: {
+    type: String,
+    // required: true,
+  },
+});
+
+const awardSchema = new mongoose.Schema({
+  title: {
+    type: String,
+    // required: true,
+  },
+
+  year: {
+    type: String,
+    // required: true,
+  },
+  description: {
+    type: String,
+    // required: true,
+  },
+});
+
+const experienceSchema = new mongoose.Schema({
+  title: {
+    type: String,
+    // required: true,
+  },
+  startDate: {
+    type: String,
+    // required: true,
+  },
+  endDate: {
+    type: String,
+    // required: true,
+  },
+  company: {
+    type: String,
+    // required: true,
+  },
+  description: {
+    type: String,
+    // required: true,
+  },
+});
+const candidateSchema = new mongoose.Schema({
+  name: {
+    type: String,
+  },
+  logoImage: {
+    type: String,
+  },
+  showMyProfile: {
+    type: Boolean,
+    default: true,
   },
   dob: {
     type: String,
@@ -16,8 +80,8 @@ const candidateSchema = new mongoose.Schema({
   experience: {
     type: String,
   },
-  language: {
-    type: String,
+  languages: {
+    type: Array,
   },
   salaryType: {
     type: String,
@@ -30,28 +94,66 @@ const candidateSchema = new mongoose.Schema({
   },
   email: {
     type: String,
-    required: true,
+  },
+  description: {
+    type: String,
   },
   password: {
     type: String,
     required: true,
   },
   photos: [String],
-  contactInformation: {
-    mobileNumber: {
+
+  phoneNumber: {
+    type: String,
+    required: true,
+  },
+
+  jobTitle: {
+    type: String,
+    default: "",
+  },
+
+  location: {
+    latitude: {
       type: String,
     },
+    longitude: {
+      type: String,
+    },
+    city: {
+      type: String,
+      default: "",
+    },
+    address: {
+      type: String,
+      default: "",
+    },
+    country: {
+      type: String,
+    },
+    state: {
+      type: String,
+      default: "",
+    },
+    pin: {
+      type: Number,
+    },
+  },
 
-    currentLocation: String,
+  qualification: {
+    type: String,
   },
-  education: {
-    qualification: String,
-    // You can add more fields related to education here
-  },
+
+  appliedJobs: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Job",
+    },
+  ],
+
   skills: [String],
-  experience: {
-    // You can define the structure for experience details here
-  },
+
   resume: {
     type: String,
   },
@@ -61,6 +163,18 @@ const candidateSchema = new mongoose.Schema({
   isApproved: {
     type: Boolean,
     default: false,
+  },
+  following: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Employer",
+    },
+  ],
+  educations: [educationSchema],
+  experiences: [experienceSchema],
+  awards: [awardSchema],
+  portfolio: {
+    type: String,
   },
 });
 

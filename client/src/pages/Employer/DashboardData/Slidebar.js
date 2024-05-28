@@ -1,8 +1,11 @@
 import React from "react";
 import { FaRegUserCircle } from "react-icons/fa";
 import { motion } from "framer-motion";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useUserContext } from "../../../context/userContext";
+import userDp from "../../../assets/user-dp.png";
+
+const baseUrl = process.env.REACT_APP_SERVER_API_URL || "http://localhost:8000";
 
 function Slidebar({
   buttons,
@@ -14,6 +17,7 @@ function Slidebar({
 }) {
   const navigate = useNavigate(); // Access the navigate function from React Router DOM
   const { user } = useUserContext();
+  const location = useLocation();
   const handleButtonClick = (index, path) => {
     setIsSelected(index); // Set the selected index
     navigate(`/employer/${path}`); // Navigate to the specified path
@@ -36,9 +40,12 @@ function Slidebar({
     >
       <div className="h-full overflow-y-auto flex flex-col pt-10 bg-white w-60 md:w-96 items-center sidebar-content">
         <div className="flex gap-3 mb-3 mt-4">
-          <FaRegUserCircle size={40} />
+          <img
+            className="h-14 cursor-pointer rounded-full p-1 border hover:border-[#6ad61d]"
+            src={`${baseUrl}/uploads/${user?.logoImage}` || userDp}
+          />
           <span className="gap-2 mt-2 font-bold">
-            {data?.email?.split("@")[0] || "user name"}
+            {user?.name || `User-${data?.phoneNumber}`}
           </span>{" "}
         </div>
         <div>
@@ -55,9 +62,10 @@ function Slidebar({
               <button
                 key={index}
                 type="button"
-                onClick={() => setIsSelected(index)} // Pass the index and path to handleButtonClick function
+                // onClick={() => setIsSelected(index)} // Pass the index and path to handleButtonClick function
+                onClick={() => navigate(`/employer/dashboard${button?.path}`)}
                 className={`w-full py-3 ps-4 text-left ${
-                  isSelected === index
+                  location.pathname === `/employer/dashboard${button?.path}`
                     ? "bg-[#6ad61d23] text-[#6ad61d] "
                     : "hover:bg-[#6ad61d23] hover:text-[#6ad61d] text-gray-500 "
                 }  rounded-lg text-sm `}

@@ -1,22 +1,26 @@
 import React from "react";
 import { motion } from "framer-motion";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { navigationLinks } from "./navData";
 import { GoPerson } from "react-icons/go";
 import { MdArrowForwardIos } from "react-icons/md";
 import { RiCloseLine } from "react-icons/ri";
 
-const Sidebar = ({ isOpen, onClose }) => {
+const Sidebar = ({ isOpen, onClose, isMobile }) => {
+  const navigate = useNavigate();
   const handleClose = (e) => {
     // Prevent closing the sidebar if clicked inside it
-    if (e.target.classList.contains("sidebar-content")) return;
-    onClose();
+    if (e.target === e.currentTarget) {
+      onClose();
+    }
   };
 
   return (
     <motion.div
-      className="fixed top-0 left-0 w-full h-full bg-gray-800 bg-opacity-20  z-50"
-      onClick={handleClose} // Close sidebar when clicking outside
+      className={`fixed inset-0 z-40 flex lg:relative lg:z-auto ${
+        isMobile ? !isOpen && "hidden" : " w-1/2 max-w-96 h-full"
+      }`}
+      onClick={isMobile ? handleClose : null} // Close sidebar when clicking outside
       initial={{ x: "-100%", opacity: 0 }}
       animate={{ x: isOpen ? 0 : "-100%", opacity: 1 }}
       transition={{ type: "spring", stiffness: 200, damping: 25 }}
@@ -24,6 +28,7 @@ const Sidebar = ({ isOpen, onClose }) => {
       <div className="absolute flex flex-col items-center top-0 left-0 me-10 w-full max-w-72 h-full bg-zinc-800 shadow sidebar-content">
         <div className="flex w-full justify-end items-center p-4 gap-2 bg-white">
           <GoPerson
+            onClick={() => navigate("/login")}
             size={20}
             className="text-zinc-700 xl:hover:text-blue-700 hover:text-[#6ad61d]"
           />

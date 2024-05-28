@@ -26,11 +26,23 @@ export const searchJobs = async (searchText, city) => {
   }
 };
 
+//Check if Candidate Registered
+export const checkIfRegistered = async (phoneNumber, userType) => {
+  try {
+    const res = await axios.get(
+      `${url}/api/${userType}/isRegistered?phoneNumber=${phoneNumber}`
+    );
+    return res;
+  } catch (error) {
+    return error.response;
+  }
+};
+
 //Candidate Register
-export const registerCandidate = async (email, password) => {
+export const registerCandidate = async (phoneNumber, password) => {
   try {
     const res = await axios.post(`${url}/api/candidate/register`, {
-      email,
+      phoneNumber,
       password,
     });
     return res;
@@ -40,10 +52,10 @@ export const registerCandidate = async (email, password) => {
 };
 
 //Candidate login
-export const loginCandidate = async (email, password) => {
+export const loginCandidate = async (phoneNumber, password) => {
   try {
     const res = await axios.post(`${url}/api/candidate/login`, {
-      email,
+      phoneNumber,
       password,
     });
     return res;
@@ -52,36 +64,23 @@ export const loginCandidate = async (email, password) => {
   }
 };
 
-//Edit Candidate
-// export const updateCandidate = async (
-//   employerId,
-//   companyName,
-//   aboutCompany,
-//   industries,
-//   phoneNumber,
-//   email,
-//   website,
-//   isApproved
-// ) => {
-//   try {
-//     const res = await axios.put(
-//       `${url}/api/admin/employer/update/${employerId}`,
-//       {
-//         companyName,
-//         aboutCompany,
-//         industries,
-//         phoneNumber,
-//         email,
-//         website,
-//         isApproved,
-//       }
-//     );
-//     return res;
-//   } catch (error) {
-//     return error.response;
-//   }
-// };
-
+//Save Profile
+export const saveProfile = async (formData, id) => {
+  try {
+    const res = await axios.put(
+      `${url}/api/candidate/saveProfile/${id}`,
+      formData,
+      {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      }
+    );
+    return res;
+  } catch (error) {
+    return error.response;
+  }
+};
 //Job apply
 export const applyJob = async (userId, jobId) => {
   try {

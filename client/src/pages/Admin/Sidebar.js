@@ -9,6 +9,7 @@ import { RiAdminFill } from "react-icons/ri";
 import NavLink from "./NavLink";
 import dp from "../../assets/user.png";
 import { useAdminContext } from "../../context/adminContext";
+import { PiPackage } from "react-icons/pi";
 
 const Sidebar = ({ onClose, isSidebarOpen, isMobile }) => {
   const location = useLocation();
@@ -80,6 +81,15 @@ const Sidebar = ({ onClose, isSidebarOpen, isMobile }) => {
               to="/admin/admins"
               icon={<RiAdminFill size={25} />}
               label="Admins"
+              location={location}
+            />
+          )}
+
+          {adminData?.isSuperAdmin && (
+            <NavLink
+              to="/admin/packages"
+              icon={<PiPackage size={25} />}
+              label="Packages"
               location={location}
             />
           )}

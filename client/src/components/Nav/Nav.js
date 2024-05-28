@@ -1,19 +1,21 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import logo from "../../assets/projob-logo1.png";
 import { IoIosArrowDown } from "react-icons/io";
 import { GoPerson } from "react-icons/go";
-import { TfiBell } from "react-icons/tfi";
+import { TfiBell, TfiPowerOff } from "react-icons/tfi";
 import { CiMenuFries } from "react-icons/ci";
 import { navigationLinks } from "./navData";
 import userDp from "../../assets/user-dp.png";
 import Sidebar from "./Sidebar";
 import { useUserContext } from "../../context/userContext";
-
+const baseUrl = process.env.REACT_APP_SERVER_API_URL || "http://localhost:8000";
 const Nav = ({ bgColor, employer }) => {
   const [activeDropdown, setActiveDropdown] = useState(null);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const [isHoveringLogin, setIsHoveringLogin] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
   const { user, token } = useUserContext();
@@ -29,6 +31,17 @@ const Nav = ({ bgColor, employer }) => {
   const handleMouseLeave = () => {
     setActiveDropdown(null);
   };
+
+  // Adjust the UI based on screen size
+  useEffect(() => {
+    const checkMobileScreen = () => {
+      setIsMobile(window.innerWidth <= 1039); // Adjust breakpoint as needed
+    };
+    checkMobileScreen();
+    window.addEventListener("resize", checkMobileScreen);
+    return () => window.removeEventListener("resize", checkMobileScreen);
+  }, []);
+
   return (
     <motion.nav
       initial={{ y: -100 }}
@@ -44,7 +57,7 @@ const Nav = ({ bgColor, employer }) => {
             <div className="flex-shrink-0 text-black text-3xl ">
               {/* Employ<span className=" text-green-600 font-bold">Ease</span> */}
               <img
-                className=" h-5 xl:h-12 cursor-pointer"
+                className=" h-5 xl:h-12 cursor-pointer "
                 src={logo}
                 onClick={() => navigate("/")}
               />
@@ -138,22 +151,62 @@ const Nav = ({ bgColor, employer }) => {
                     className=" flex items-center cursor-pointer hover:text-[#6ad61d] gap-3"
                   >
                     <img
-                      className=" h-12"
-                      src={user?.logo ? user?.logo : userDp}
+                      className=" h-12 w-12 border rounded-full p-1 hover:border-[#6ad61d]"
+                      src={
+                        user?.logoImage
+                          ? `${baseUrl}/uploads/${user?.logoImage}`
+                          : userDp
+                      }
                     />
-                    <p>{user?.email?.split("@")[0]}</p>
+                    <p>
+                      {user?.name?.split(" ")[0] || user?.email?.split("@")[0]}
+                    </p>
                     <IoIosArrowDown className=" inline-block" />
                   </div>
-                  <button className="bg-[#6ad61d] text-white text-sm py-3 px-7 rounded-lg">
-                    Job Post
-                  </button>
+                  {sessionStorage.getItem("userType") === "employer" && (
+                    <Link to={"/employer/dashboard/submitjobs"}>
+                      <button className="bg-[#6ad61d] text-white text-sm py-3 px-7 hover:bg-[#6ad61db7] rounded-lg">
+                        Job Post
+                      </button>
+                    </Link>
+                  )}
+
+                  <Link
+                    to={`/${sessionStorage.getItem(
+                      "userType"
+                    )}/dashboard/logout`}
+                  >
+                    <TfiPowerOff
+                      title="Logout"
+                      size={25}
+                      className=" hover:text-[#6ad61d]"
+                    />
+                  </Link>
                 </div>
               ) : (
                 <motion.button
                   onClick={() => navigate("/login")}
-                  className="bg-stone-900 hidden xl:block  md:max-w-60 rounded-full  hover:bg-stone-500 text-white px-10 whitespace-nowrap py-3 text-sm md:text-sm shadow-md transition duration-300 ease-in-out transform "
+                  onMouseOver={() => setIsHoveringLogin(true)}
+                  onMouseLeave={() => setIsHoveringLogin(false)}
+                  className="bg-stone-900 hidden xl:block relative  md:max-w-60 rounded-full  hover:bg-stone-500 text-white px-10 whitespace-nowrap py-3 text-sm md:text-sm shadow-md transition duration-300 ease-in-out transform "
                 >
                   Login
+                  {isHoveringLogin && (
+                    <ul className="absolute top-10 left-0 w-36 border-t-[#6ad61d] border-2 bg-white space-y-2 text-black rounded-md text-center mx-auto">
+                      <li
+                        onClick={() => navigate("/login")}
+                        className=" hover:bg-gray-100 hover:text-green-500 p-3 "
+                      >
+                        Employer
+                      </li>
+                      <li
+                        onClick={() => navigate("/login")}
+                        className=" hover:bg-gray-100 hover:text-green-500 p-3 "
+                      >
+                        Candidate
+                      </li>
+                    </ul>
+                  )}
                 </motion.button>
               )}
               <div className=" flex xl:hidden gap-4 pe-2 md:pe-10 items-center">
@@ -181,7 +234,11 @@ const Nav = ({ bgColor, employer }) => {
           </div>
         </div>
       </div>
-      <Sidebar isOpen={isSidebarOpen} onClose={toggleSidebar} />
+      <Sidebar
+        isOpen={isSidebarOpen}
+        onClose={toggleSidebar}
+        isMobile={isMobile}
+      />
     </motion.nav>
   );
 };

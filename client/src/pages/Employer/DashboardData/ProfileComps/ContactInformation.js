@@ -56,9 +56,10 @@ function ContactInformation({ contactInfo, setContactInfo }) {
             Phone number
           </label>
           <input
+            disabled
             type="text"
             name="phoneNumber"
-            value={contactInfo.phoneNumber || ""}
+            value={"+" + contactInfo.phoneNumber || ""}
             onChange={handleContactInfoChange}
             className="block w-full p-3 bg-gray-100 border-gray-300 rounded-lg focus:outline-none focus:border-[#6ad61d] focus:ring-[#6ad61d]"
           />
@@ -73,7 +74,6 @@ function ContactInformation({ contactInfo, setContactInfo }) {
             Email
           </label>
           <input
-            disabled
             type="email"
             name="email"
             value={user?.email}
@@ -105,7 +105,7 @@ function ContactInformation({ contactInfo, setContactInfo }) {
             type="text"
             name="latitude"
             placeholder="Latitude"
-            value={contactInfo.location?.latitude || ""}
+            value={contactInfo?.location?.latitude || ""}
             onChange={(e) => handleLocationChange("latitude", e.target.value)}
             className="block w-full p-3 bg-gray-100 border-gray-300 rounded-lg focus:outline-none focus:border-[#6ad61d] focus:ring-[#6ad61d]"
           />
@@ -113,7 +113,7 @@ function ContactInformation({ contactInfo, setContactInfo }) {
             type="text"
             name="longitude"
             placeholder="Longitude"
-            value={contactInfo.location?.longitude || ""}
+            value={contactInfo?.location?.longitude || ""}
             onChange={(e) => handleLocationChange("longitude", e.target.value)}
             className="block w-full p-3 bg-gray-100 border-gray-300 rounded-lg focus:outline-none focus:border-[#6ad61d] focus:ring-[#6ad61d]"
           />

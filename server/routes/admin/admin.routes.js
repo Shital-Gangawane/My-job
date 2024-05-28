@@ -19,6 +19,7 @@ const {
 const {
   deleteCandidate,
 } = require("../../controllers/admin/deleteCandidate.js");
+const { createPackage } = require("../../controllers/admin/createPackage.js");
 
 const router = express.Router();
 
@@ -45,4 +46,8 @@ router.delete("/admin/employer/:employerId", deleteEmployer);
 //Candidate Module
 router.patch("/admin/approveCandidate", authMiddleware, approveCandidate);
 router.delete("/admin/candidate/:candidateId", deleteCandidate);
+
+//Create packages
+router.post("/admin/employer/package/create", authMiddleware, createPackage);
+
 module.exports = router;

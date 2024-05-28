@@ -6,44 +6,40 @@ import SocialNetworks from "../../Employer/DashboardData/ProfileComps/SocialNetw
 import Loader from "../../../components/Utility/Loader";
 // import { useCandidateContext } from "../../../context/candidateContext";
 import { useUserContext } from "../../../context/userContext";
-import { 
+import {
   genderoption,
   ageoptions,
   qualificationoptions,
   experienceoptions,
   salaryoptions,
   categoriesoptions,
-  showprofileoptions
- } from "./ProfileComps/SelectOptions";
-// import ProfileMembers from "./ProfileComps/ProfileMembers/ProfileMembers";
+  showprofileoptions,
+} from "./ProfileComps/SelectOptions";
+import { saveProfile } from "../../../api/candidate/axios";
+import { fetchUser } from "../../../api/employer/axios";
 
-// import MyProfile from "./ProfileComps/MyProfile";
-// import SocialNetworks from "./ProfileComps/SocialNetworks/SocialNetworks";
-// import ContactInformation from "./ProfileComps/ContactInformation";
-// import networkoptions
-
-function Profile({candidate,data, setIsEditing}) {
-
+function Profile({ candidate, setIsEditing }) {
   const [isOpen, setIsOpen] = useState(false);
-   const { user, setUser } = useUserContext();
+  const { user, setUser } = useUserContext();
   const [isLoading, setIsLoading] = useState(false);
 
   const [profileInfo, setProfileInfo] = useState({
-   fullName: "",
+    name: "",
     dob: "",
     gender: null,
     age: null,
     phoneNumber: "",
-    email: "",
+    email: user?.email,
     qualification: null,
-    experienceTime: null,
-    languages: null,
+    experience: null,
+    languages: [],
     salaryType: null,
     salary: "",
     categories: null,
-    showMyProfile: null,
-    jobTitle:"",
-    description:"",
+    showMyProfile: true,
+    jobTitle: "",
+    description: "",
+    logoImage: "",
   });
 
   const [socialNetworks, setSocialNetworks] = useState([
@@ -54,59 +50,72 @@ function Profile({candidate,data, setIsEditing}) {
   ]);
 
   const [contactInfo, setContactInfo] = useState({
-    phoneNumber: "",
-    email: "",
-    address: "",
-    country: "",
     location: {
       latitude: "",
       longitude: "",
+      address: "",
+      city: "",
+      state: "",
+      pin: "",
+      country: "",
     },
   });
 
   // Function to fetch profile data
-  // const fetchProfileData = async () => {
-  //   try {
-  //     const res = await fetchUser("candidate", user?._id);
-  //     console.log(res);
-  //     const data = res?.data?.candidate;
-  //     setProfileInfo({
-  //       fullName: data.fullName || "",
-  //       dob: data.dob || "",
-  //       gender: data.gender || "",
-  //       age: data.age || "",
-  //       phoneNumber: data.phoneNumber || "",
-  //       email: data.email || "",
-  //       qualification: data.qualification || null,
-  //       experienceTime: data.experienceTime || null,
-  //       language: data.languages[0].split(",") || [],
-  //       salaryType: data.salaryType || null,
-  //       qualification: data.qualification || null,
-  //       salary: data.salary || "",
-  //       categories: data.categories || "",
-  //       showMyProfile: data.showMyProfile || "",
-  //       jobTitle: data.jobTitle || "",
-  //       description: data.description || "",
-  //       logoImage: data.logoImage || null,
-  //     });
-     
-  //     setSocialNetworks(data.socialNetworks || []);
-  //     setContactInfo({
-  //       phoneNumber: data.phoneNumber || "",
-  //       email: user?.email,
-  //       address: data.address || "",
-  //       country: data.country || "",
-  //       location: data.location || { latitude: "", longitude: "" },
-  //     });
-  //   } catch (error) {
-  //     console.error("Failed to fetch profile data:", error);
-  //   }
-  // };
+  const fetchProfileData = async () => {
+    if (user?._id) {
+      setIsLoading(true);
+      try {
+        const res = await fetchUser("candidate", user?._id);
+        // console.log(res);
 
-   // UseEffect to fetch data on component mount
-  //  useEffect(() => {
-  //   fetchProfileData();
-  // }, []); // Ensure this runs only once on mount
+        if (res?.data?.success) {
+          const data = res?.data?.candidate;
+          setProfileInfo({
+            name: data.name || "",
+            dob: data.dob || "",
+            gender: data.gender || "",
+            age: data.age || "",
+            phoneNumber: data.phoneNumber || "",
+            email: user?.email,
+            qualification: data.qualification || null,
+            experience: data.experience || null,
+            languages: data.languages[0].split(",") || [],
+            salaryType: data.salaryType || null,
+            qualification: data.qualification || null,
+            salary: data.salary || "",
+            categories: data.categories || "",
+            showMyProfile: data.showMyProfile || true,
+            jobTitle: data.jobTitle || "",
+            description: data.description || "",
+            logoImage: data.logoImage || null,
+          });
+
+          setSocialNetworks(data.socialNetworks || []);
+          setContactInfo({
+            location: data.location || {
+              latitude: "",
+              longitude: "",
+              address: "",
+              city: "",
+              state: "",
+              pin: "",
+              country: "",
+            },
+          });
+          setIsLoading(false);
+        }
+      } catch (error) {
+        console.error("Failed to fetch profile data:", error);
+        setIsLoading(false);
+      }
+    }
+  };
+
+  // UseEffect to fetch data on component mount
+  useEffect(() => {
+    fetchProfileData();
+  }, [user]); // Ensure this runs only once on mount
 
   const handleProfileChange = (e) => {
     const { name, value } = e.target;
@@ -116,22 +125,22 @@ function Profile({candidate,data, setIsEditing}) {
     }));
   };
 
-  const handleCategoryChange = (category) => {
-    // Check if the category is already selected
-    if (profileInfo.categories.includes(category)) {
-      // Remove the category if it's already in the array
+  const handleLanguageChange = (language) => {
+    // Check if the language is already selected
+    if (profileInfo.languages.includes(language)) {
+      // Remove the language if it's already in the array
       setProfileInfo((prev) => ({
         ...prev,
-        categories: prev.categories.filter((cat) => cat !== category),
+        languages: prev.languages.filter((cat) => cat !== language),
       }));
     } else {
-      // Add the category if it's not in the array
+      // Add the language if it's not in the array
       setProfileInfo((prev) => ({
         ...prev,
-        categories: [...prev.categories, category],
+        languages: [...prev.languages, language],
       }));
     }
-  }
+  };
 
   const handleImageChange = (e, imageType) => {
     console.log(e.target.files[0]);
@@ -151,8 +160,6 @@ function Profile({candidate,data, setIsEditing}) {
     const formData = new FormData();
     Object.keys(profileInfo).forEach((key) => {
       formData.append(key, profileInfo[key]); // For files
-
-      // formData.append(key, JSON.stringify(profileInfo[key])); // For regular fields, ensure conversion to JSON if necessary
     });
 
     formData.append("socialNetworks", JSON.stringify(socialNetworks));
@@ -164,62 +171,67 @@ function Profile({candidate,data, setIsEditing}) {
       }
     });
 
+    const res = await saveProfile(formData, user?._id);
+    console.log(res);
+
+    if (res?.data?.success) {
+      const userData = JSON.stringify(res?.data?.candidate);
+      sessionStorage.setItem("user", userData);
+      setUser(res?.data?.candidate);
+    }
+    setIsLoading(false);
   };
 
-  // const handleSubmit = (e) => {
-  //   e.preventDefault();
-  //   // Perform form submission logic here
-  //   // You can access form data using e.target.elements
-  //   console.log("Form submitted");
-  // };
-  
-
   return (
-    <div className=" w-full h-auto  overflow-y-auto lg:mt-14 px-4 lg:px-14 py-7  pb-14">
-      {isLoading && <Loader />}
-      <h2 className=" text-lg text-[#202124] lg:text-3xl mb-10 font-medium">
-        Edit Profile
-      </h2>
+    <div className=" w-full min-h-full h-auto relative  overflow-y-auto lg:mt-14 px-4 lg:px-14 py-7  pb-14">
+      {isLoading ? (
+        <Loader />
+      ) : (
+        <>
+          <h2 className=" text-lg text-[#202124] lg:text-3xl mb-10 font-medium">
+            Edit Profile
+          </h2>
 
-      <div>
-      <MyProfile
-       profileInfo={profileInfo}
-       onChange={handleProfileChange}
-       onImageChange={handleImageChange}
-       handleCategoryChange={handleCategoryChange}
-       genderoption={genderoption}
-       ageoptions={ageoptions}
-       qualificationoptions={qualificationoptions}
-       experienceoptions={experienceoptions}
-       salaryoptions={salaryoptions}
-       categoriesoptions={categoriesoptions}
-       showprofileoptions={showprofileoptions}
-       candidate
-     />
+          <div>
+            <MyProfile
+              profileInfo={profileInfo}
+              onChange={handleProfileChange}
+              onImageChange={handleImageChange}
+              handleLanguageChange={handleLanguageChange}
+              genderoption={genderoption}
+              ageoptions={ageoptions}
+              qualificationoptions={qualificationoptions}
+              experienceoptions={experienceoptions}
+              salaryoptions={salaryoptions}
+              categoriesoptions={categoriesoptions}
+              showprofileoptions={showprofileoptions}
+              candidate
+            />
+          </div>
 
-      </div>
+          <div>
+            <SocialNetworks
+              socialNetworks={socialNetworks}
+              setSocialNetworks={setSocialNetworks}
+            />
+          </div>
 
-      <div>
-       <SocialNetworks
-        socialNetworks={socialNetworks}
-        setSocialNetworks={setSocialNetworks}
-        />
-      </div>
+          <div>
+            <ContactInformation
+              contactInfo={contactInfo}
+              setContactInfo={setContactInfo}
+            />
+          </div>
 
-     <div>
-      <ContactInformation
-       contactInfo={contactInfo}
-       setContactInfo={setContactInfo}
-      />
-     </div>
-
-      <button
-        type="button"
-        onClick={handleSubmit}
-        className="lg:w-auto mt-5 py-3 px-8 bg-[#6ad61d] hover:bg-blue-600 text-white  rounded-lg transition duration-300 ease-in-out"
-      >
-        Save Profile
-      </button>
+          <button
+            type="button"
+            onClick={handleSubmit}
+            className="lg:w-auto mt-5 py-3 px-8 bg-[#6ad61d] hover:bg-blue-600 text-white  rounded-lg transition duration-300 ease-in-out"
+          >
+            Save Profile
+          </button>
+        </>
+      )}
     </div>
   );
 }
