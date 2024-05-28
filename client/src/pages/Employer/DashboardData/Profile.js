@@ -71,7 +71,7 @@ function Profile() {
         foundedDate: data.foundedDate || "",
         companySize: data.companySize || "",
         companyName: data.companyName || "",
-        categories: data.categories[0].split(",") || [],
+        categories: data.categories[0]?.split(",") || [],
         introVideoUrl: data.introVideoUrl || "",
         aboutCompany: data.aboutCompany || "",
         logoImage: data.logoImage || null,

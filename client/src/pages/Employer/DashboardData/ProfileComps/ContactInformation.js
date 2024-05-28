@@ -59,7 +59,7 @@ function ContactInformation({ contactInfo, setContactInfo }) {
             disabled
             type="text"
             name="phoneNumber"
-            value={"+" + contactInfo.phoneNumber || ""}
+            value={"+" + contactInfo?.phoneNumber}
             onChange={handleContactInfoChange}
             className="block w-full p-3 bg-gray-100 border-gray-300 rounded-lg focus:outline-none focus:border-[#6ad61d] focus:ring-[#6ad61d]"
           />
