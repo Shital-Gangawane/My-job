@@ -13,6 +13,8 @@ function MyResume() {
 
   const [resumeInfo, setResumeInfo] = useState({
     resume: null,
+    portfolio:"",
+
   });
 
   const [educations, setEducations] = useState([
@@ -82,6 +84,16 @@ function MyResume() {
 
       <div className="bg-white p-6 mt-5 px-10 rounded-lg block">
     <h2 className="text-lg text-[#202124] mb-6 font-bold">Portfolio</h2>
+    <div className="mb-5">
+          <input
+            type="text"
+            name="portfolio"
+            value={resumeInfo.portfolio || ""}
+            onChange={handleResumeChange}
+            className="block w-full p-3 bg-gray-100 border-gray-300 rounded-lg focus:outline-none focus:border-[#6ad61d] focus:ring-[#6ad61d] cursor-pointer focus:outline-[#6ad61d] text-gray-900 border text-base  dark:bg-gray-100 dark:border-none dark:placeholder-gray-400 dark:gray-900 dark:focus:ring-[#6ad61d] dark:focus:border-[#6ad61d]"
+          />
+        </div>
+
     </div>
 
     <div>

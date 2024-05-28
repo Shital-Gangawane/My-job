@@ -10,6 +10,17 @@ import Nav from "../../components/Nav/Nav";
 import Carousel from "./Carousel";
 import FeaturedJobsCarousel from "./FeaturedJobsCarousel";
 import BrowseByCategory from "./BrowseByCategory";
+import LookingToPostJob from "./LookingToPostJob";
+import HowItWorks from "./HowItWorks";
+import ListOfCityJobs from "./ListOfCityJobs";
+import TopCompaniesHiring from "./TopCompaniesHiring";
+import FindJobWithEasySteps from "./FindJobWithEasySteps";
+import SimpleStepsForSuccessfulJob from "./SimpleStepsForSuccessfulJob";
+import TrendingJobs from "./TrendingJobs";
+import Footer from "./Footer";
+import { RiArrowUpSLine } from "react-icons/ri";
+import CareerTips from "./CareerTips";
+import SubscribeOurNewsletter from "./SubscribeOurNewsletter";
 
 const LandingPage = () => {
   const [selectedCity, setSelectedCity] = useState("");
@@ -56,7 +67,7 @@ const LandingPage = () => {
   }, []);
 
   return (
-    <div className=" relativ min-h-screen  h-auto flex flex-col justify-center items-center overflow-y-auto">
+    <div id="scrollIntoView" className=" relativ min-h-screen  h-auto flex flex-col justify-center items-center overflow-y-auto scroll-smooth">
       <section className=" relative w-full h-auto xl:h-[130%] flex flex-col justify-center bg-contain bg-left items-center section-one">
         {/* <motion.img
           initial={{ x: -1000 }}
@@ -135,6 +146,22 @@ const LandingPage = () => {
       <Carousel />
       <FeaturedJobsCarousel />
       <BrowseByCategory/>
+      <LookingToPostJob/>
+      <HowItWorks/>
+      <ListOfCityJobs/>
+      <TopCompaniesHiring />
+      <FindJobWithEasySteps/>
+      <SimpleStepsForSuccessfulJob/>
+      <TrendingJobs/>
+      <CareerTips/>
+      <SubscribeOurNewsletter/>
+      <Footer/>
+      {/* <div
+        className="fixed bottom-0 right-0 m-9 me-10 px-3 py-3 bg-[#6ad61d23]  hover:bg-[#6ad61d] hover:text-white text-[#6ad61d] rounded-full cursor-pointer transition duration-300"
+        //  onClick='top'
+      >
+        <RiArrowUpSLine size={23} />
+      </div> */}
     </div>
   );
 };
