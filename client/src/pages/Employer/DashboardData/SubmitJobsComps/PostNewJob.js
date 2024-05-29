@@ -18,12 +18,16 @@ import {
 import { useUserContext } from "../../../../context/userContext";
 import { Dropdown } from "../../../LandingPage/Dropdown";
 import { citiesInIndia } from "../../../LandingPage/cityData";
+import PageLoader from "../../../../components/Utility/PageLoader";
+import Success from "../../../../components/Utility/Success";
 
 function PostNewJob({ toggleForm, employer, data, jobId, setIsEditing }) {
   const { token, setUser, user, setPostJobData, postJobData } =
     useUserContext();
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [error, setError] = useState("");
+  const [onSuccess, setOnSuccess] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const [jobDetails, setJobDetails] = useState({
     company: user?.companyName,
     deadlinedate: "",
@@ -80,30 +84,31 @@ function PostNewJob({ toggleForm, employer, data, jobId, setIsEditing }) {
   const handelSubmitHandler = async (e) => {
     e.preventDefault();
     e.stopPropagation();
-    console.log("Job details at submission:", jobDetails);
-    // if (
-    //   !jobDetails.jobTitle ||
-    //   !jobDetails.jobDescription ||
-    //   !jobDetails.jobLocation ||
-    //   !jobDetails.minExperience ||
-    //   !jobDetails.maxExperience
-    // ) {
-    //   setError("Fill all t");
-    // }
+    setIsLoading(true);
 
     if (employer) {
       const res = await updateJobByEmployer(jobDetails, jobId, token);
       console.log("Update response:", res);
       if (res?.data?.success) {
-        sessionStorage.setItem("user", JSON.stringify(res?.data?.employer));
-        setUser(res?.data?.employer);
+        setOnSuccess(true);
+        setTimeout(() => {
+          setOnSuccess(false);
+          sessionStorage.setItem("user", JSON.stringify(res?.data?.employer));
+          setUser(res?.data?.employer);
+          setIsLoading(false);
+        }, 1000);
       }
     } else {
       const res = await postJobByEmployer(jobDetails, token);
       console.log("Post job response:", res);
       if (res?.data?.success) {
-        sessionStorage.setItem("user", JSON.stringify(res?.data?.employer));
-        setUser(res?.data?.employer);
+        setOnSuccess(true);
+        setTimeout(() => {
+          setOnSuccess(false);
+          sessionStorage.setItem("user", JSON.stringify(res?.data?.employer));
+          setUser(res?.data?.employer);
+          setIsLoading(false);
+        }, 1000);
       }
     }
   };
@@ -144,8 +149,10 @@ function PostNewJob({ toggleForm, employer, data, jobId, setIsEditing }) {
     <div
       className={` w-full h-auto  overflow-y-auto ${
         employer ? "" : "lg:mt-14"
-      } px-4 lg:px-14 py-7  pb-14 `}
+      } px-4 lg:px-14 py-7  pb-14 relative`}
     >
+      {isLoading && <PageLoader />}
+      {onSuccess && <Success text="Created Job!" />}
       {!employer && (
         <h2 className=" w-full text-lg text-[#202124] lg:text-3xl mb-10 font-medium">
           Post New Job{" "}
@@ -180,7 +187,7 @@ function PostNewJob({ toggleForm, employer, data, jobId, setIsEditing }) {
             htmlFor="deadlinedate"
             className="block text-sm font-bold text-gray-900"
           >
-            Application Deadline Date
+            Application Deadline Date <span className="text-red-600">*</span>
           </label>
           <input
             type="date"
@@ -197,12 +204,13 @@ function PostNewJob({ toggleForm, employer, data, jobId, setIsEditing }) {
             htmlFor="jobLocation"
             className="block  text-sm font-bold text-gray-900 pt-2 px-5 py-2"
           >
-            Location(City)
+            Location(City) <span className="text-red-600">*</span>
           </label>
 
           <input
             type="text"
             name="jobLocation"
+            required
             onClick={() => setIsDropdownOpen(true)}
             value={jobDetails.jobLocation}
             onChange={(e) => {

@@ -13,6 +13,7 @@ import UserDashboardRecent from "../../../components/Employer/DashboardData/User
 import { useUserContext } from "../../../context/userContext";
 import { fetchJobs, fetchUser } from "../../../api/employer/axios";
 import Loader from "../../../components/Utility/Loader";
+import PageLoader from "../../../components/Utility/PageLoader";
 
 function Userdashboard() {
   const { user, setUser } = useUserContext();
@@ -106,7 +107,7 @@ function Userdashboard() {
   return (
     <div className=" w-full min-h-full relative h-auto  overflow-y-auto  lg:mt-14 px-4 lg:px-14 py-7 pb-14">
       {isLoading ? (
-        <Loader />
+        <PageLoader />
       ) : (
         <>
           <h2 className=" text-lg text-[#202124] lg:text-3xl mb-10 font-medium">

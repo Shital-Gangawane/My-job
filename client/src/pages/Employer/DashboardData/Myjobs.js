@@ -6,6 +6,7 @@ import { fetchJobs } from "../../../api/employer/axios";
 import { CiClock2, CiLocationOn } from "react-icons/ci";
 import { GiMoneyStack } from "react-icons/gi";
 import Loader from "../../../components/Utility/Loader";
+import PageLoader from "../../../components/Utility/PageLoader";
 
 function Myjobs() {
   const [myJobs, setMyJobs] = useState([]);
@@ -78,7 +79,7 @@ function Myjobs() {
         Manage Jobs
       </h1>
       <div className="w-full relative bg-white rounded-lg shadow-lg p-7 pb-14">
-        {isLoading && <Loader />}
+        {isLoading && <PageLoader />}
         <div className="flex flex-col lg:flex-row gap-3 lg:justify-between">
           <div className="bg-[#f0f5f7] rounded-lg p-4 flex items-center gap-2">
             <IoIosSearch color="gray" size={20} />

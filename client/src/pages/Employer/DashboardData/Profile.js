@@ -7,11 +7,14 @@ import { fetchUser, saveProfile } from "../../../api/employer/axios";
 import { useUserContext } from "../../../context/userContext";
 import axios from "axios";
 import Loader from "../../../components/Utility/Loader";
+import Success from "../../../components/Utility/Success";
+import PageLoader from "../../../components/Utility/PageLoader";
 
 function Profile() {
   const [isOpen, setIsOpen] = useState(false);
   const { user, setUser } = useUserContext();
   const [isLoading, setIsLoading] = useState(false);
+  const [onSuccess, setOnSuccess] = useState(false);
 
   const [profileInfo, setProfileInfo] = useState({
     name: "",
@@ -62,6 +65,7 @@ function Profile() {
   // Function to fetch profile data
   const fetchProfileData = async () => {
     try {
+      setIsLoading(true);
       const res = await fetchUser("employer", user?._id);
       console.log(res);
       const data = res?.data?.employer;
@@ -86,8 +90,10 @@ function Profile() {
         country: data.country || "",
         location: data.location || { latitude: "", longitude: "" },
       });
+      setIsLoading(false);
     } catch (error) {
       console.error("Failed to fetch profile data:", error);
+      setIsLoading(false);
     }
   };
 
@@ -164,24 +170,30 @@ function Profile() {
       sessionStorage.setItem("user", userData);
       setUser(res?.data?.employer);
       setIsLoading(false);
+      setOnSuccess(true);
+      setTimeout(() => {
+        setOnSuccess(false);
+      }, 1000);
     }
   };
 
   return (
     <div className=" relative w-full h-auto   lg:mt-14 px-4 lg:px-14 py-7  pb-14">
-      {isLoading && <Loader />}
+      {isLoading && <PageLoader />}
+      {onSuccess && <Success text="Profile Updated!" />}
       <h2 className=" text-lg text-[#202124] lg:text-3xl mb-10 font-medium">
         Edit Profile
       </h2>
 
-      <MyProfile
-        profileInfo={profileInfo}
-        onChange={handleProfileChange}
-        onImageChange={handleImageChange}
-        handleCategoryChange={handleCategoryChange}
-      />
+      <form onSubmit={handleSubmit}>
+        <MyProfile
+          profileInfo={profileInfo}
+          onChange={handleProfileChange}
+          onImageChange={handleImageChange}
+          handleCategoryChange={handleCategoryChange}
+        />
 
-      {/* <div className="bg-white p-6 mt-5 px-10 rounded-lg">
+        {/* <div className="bg-white p-6 mt-5 px-10 rounded-lg">
         <h2 className=" text-lg text-[#202124]  mb-6 font-bold">
           Profile Photo
         </h2>
@@ -193,23 +205,23 @@ function Profile() {
         </button>
       </div> */}
 
-      <ProfileMembers members={members} setMembers={setMembers} />
-      <SocialNetworks
-        socialNetworks={socialNetworks}
-        setSocialNetworks={setSocialNetworks}
-      />
-      <ContactInformation
-        contactInfo={contactInfo}
-        setContactInfo={setContactInfo}
-      />
+        <ProfileMembers members={members} setMembers={setMembers} />
+        <SocialNetworks
+          socialNetworks={socialNetworks}
+          setSocialNetworks={setSocialNetworks}
+        />
+        <ContactInformation
+          contactInfo={contactInfo}
+          setContactInfo={setContactInfo}
+        />
 
-      <button
-        type="button"
-        onClick={handleSubmit}
-        className="lg:w-auto mt-5 py-3 px-8 bg-[#6ad61d] hover:bg-blue-600 text-white  rounded-lg transition duration-300 ease-in-out"
-      >
-        Save Profile
-      </button>
+        <button
+          type="submit"
+          className="lg:w-auto mt-5 py-3 px-8 bg-[#6ad61d] hover:bg-blue-600 text-white  rounded-lg transition duration-300 ease-in-out"
+        >
+          Save Profile
+        </button>
+      </form>
     </div>
   );
 }

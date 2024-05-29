@@ -130,34 +130,39 @@ function JobDetails() {
                 </button>
               ) : (
                 <div className=" flex flex-wrap">
-                  <button
-                    disabled={!job?.applications?.length}
-                    onClick={() => setIsViewApplicationOn(!isViewApplicationOn)}
-                    className={`${
-                      job?.applications?.length
-                        ? "bg-[#6ad61d] hover:bg-blue-800"
-                        : "bg-[#6ad61d92]"
-                    } text-white py-2 px-4 rounded-lg me-2 `}
-                  >
-                    {!job?.applications?.length ? (
-                      "No Applications"
-                    ) : (
-                      <p>
-                        View Applications{" "}
-                        <span className=" h-4 w-6  aspect-square text-xs p-1 rounded-full bg-red-700">
-                          {job?.applications?.length}
-                        </span>
-                      </p>
-                    )}
-                  </button>
-                  {sessionStorage.getItem("userType") === "employer" && (
+                  {user?.postedJobs?.includes(id) && (
                     <button
-                      onClick={() => setIsEditing(!isEditing)}
-                      className=" bg-zinc-900 text-white hover:bg-zinc-800 rounded-lg py-2 px-4 "
+                      disabled={!job?.applications?.length}
+                      onClick={() =>
+                        setIsViewApplicationOn(!isViewApplicationOn)
+                      }
+                      className={`${
+                        job?.applications?.length
+                          ? "bg-[#6ad61d] hover:bg-blue-800"
+                          : "bg-[#6ad61d92]"
+                      } text-white py-2 px-4 rounded-lg me-2 `}
                     >
-                      Edit
+                      {!job?.applications?.length ? (
+                        "No Applications"
+                      ) : (
+                        <p>
+                          View Applications{" "}
+                          <span className=" h-4 w-6  aspect-square text-xs p-1 rounded-full bg-red-700">
+                            {job?.applications?.length}
+                          </span>
+                        </p>
+                      )}
                     </button>
                   )}
+                  {sessionStorage.getItem("userType") === "employer" &&
+                    user?.postedJobs?.includes(id) && (
+                      <button
+                        onClick={() => setIsEditing(!isEditing)}
+                        className=" bg-zinc-900 text-white hover:bg-zinc-800 rounded-lg py-2 px-4 "
+                      >
+                        Edit
+                      </button>
+                    )}
                 </div>
               )}
             </div>
