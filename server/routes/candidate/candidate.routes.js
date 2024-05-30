@@ -15,6 +15,9 @@ const {
 const {
   checkIfRegistered,
 } = require("../../controllers/candidate/checkIfRegistered.js");
+const {
+  followEmployer,
+} = require("../../controllers/candidate/followEmployer.js");
 
 const router = express.Router();
 
@@ -29,6 +32,12 @@ router.get("/candidate/isRegistered", checkIfRegistered);
 //Save Profile & resume
 router.put("/candidate/saveProfile/:id", cpUpload, saveProfile);
 router.put("/candidate/myresume/:id", uploadResume.single("resume"), myresume);
+
+//Follow employer
+router.put("/candidate/followEmployer", followEmployer);
+
+//Fetch Following employers
+// router.get("/candidate/followEmployer", followEmployer);
 
 router.get("/candidate/searchJobs", searchJobs);
 

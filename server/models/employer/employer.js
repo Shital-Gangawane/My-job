@@ -36,6 +36,9 @@ const employerSchema = new mongoose.Schema({
   coverImage: {
     type: String,
   },
+  followers: {
+    type: Array,
+  },
   aboutCompany: {
     type: String,
   },
