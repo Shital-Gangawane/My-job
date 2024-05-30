@@ -36,9 +36,12 @@ const employerSchema = new mongoose.Schema({
   coverImage: {
     type: String,
   },
-  followers: {
-    type: Array,
-  },
+  followers: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Candidate",
+    },
+  ],
   aboutCompany: {
     type: String,
   },

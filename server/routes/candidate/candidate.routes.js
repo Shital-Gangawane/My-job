@@ -18,6 +18,9 @@ const {
 const {
   followEmployer,
 } = require("../../controllers/candidate/followEmployer.js");
+const {
+  fetchFollowingEmployers,
+} = require("../../controllers/candidate/fetchFollowingEmployers.js");
 
 const router = express.Router();
 
@@ -37,7 +40,7 @@ router.put("/candidate/myresume/:id", uploadResume.single("resume"), myresume);
 router.put("/candidate/followEmployer", followEmployer);
 
 //Fetch Following employers
-// router.get("/candidate/followEmployer", followEmployer);
+router.get("/candidate/fetchFollowingEmployers", fetchFollowingEmployers);
 
 router.get("/candidate/searchJobs", searchJobs);
 

@@ -18,11 +18,21 @@ module.exports.followEmployer = async (req, res) => {
         .json({ success: false, message: "Employer not found" });
     }
 
-    if (!candidate.following.includes(employerId))
+    if (!candidate.following.includes(employerId)) {
       candidate.following.push(employerId);
+    } else {
+      candidate.following = candidate.following.filter(
+        (el) => !el.equals(employerId)
+      );
+    }
 
-    if (!employer.followers.includes(candidateId))
+    if (!employer.followers.includes(candidateId)) {
       employer.followers.push(candidateId);
+    } else {
+      employer.followers = employer.followers.filter(
+        (el) => !el.equals(candidateId)
+      );
+    }
 
     await candidate.save();
     await employer.save();

@@ -1,21 +1,20 @@
 const Candidate = require("../../models/candidate/candidate");
-const Employer = require("../../models/employer/employer");
 
 module.exports.fetchFollowingEmployers = async (req, res) => {
   try {
-    const { candidateId } = req.body;
+    const { candidateId } = req.query;
+    // console.log(candidateId);
 
-    const candidate = await Candidate.findById(candidateId);
+    const candidate = await Candidate.findById(candidateId).populate({
+      path: "following",
+      select: "_id logoImage companyName",
+    });
+
     if (!candidate) {
       return res
         .status(404)
         .json({ success: false, message: "Candidate not found" });
     }
-
-    // if (!candidate.following.includes(employerId))
-    //   candidate.following.push(employerId);
-
-    await candidate.save();
 
     return res
       .status(200)

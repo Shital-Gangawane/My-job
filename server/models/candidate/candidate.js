@@ -113,9 +113,12 @@ const candidateSchema = new mongoose.Schema({
     type: String,
     default: "",
   },
-  following: {
-    type: Array,
-  },
+  following: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Employer",
+    },
+  ],
 
   location: {
     latitude: {

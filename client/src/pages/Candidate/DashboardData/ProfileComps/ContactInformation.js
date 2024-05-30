@@ -47,19 +47,20 @@ function ContactInformation({ contactInfo, setContactInfo }) {
       <h2 className="text-lg text-[#202124] mb-6 font-bold">
         Contact Information
       </h2>
-      <form>
+      <div>
         {/* Address Input */}
         <div className="mb-5">
           <label
             htmlFor="address"
             className="block text-sm font-bold text-gray-900"
           >
-            Address
+            Address <span className="text-red-600">*</span>
           </label>
           <input
             placeholder="House No/Apartment No"
             type="text"
             name="address"
+            required
             value={contactInfo.location.address || ""}
             onChange={handleLocationChange}
             className="block w-full p-3 bg-gray-100 border-gray-300 rounded-lg focus:outline-none focus:border-[#6ad61d] focus:ring-[#6ad61d]"
@@ -72,12 +73,13 @@ function ContactInformation({ contactInfo, setContactInfo }) {
             htmlFor="country"
             className="block text-sm font-bold text-gray-900"
           >
-            Country
+            Country <span className="text-red-600">*</span>
           </label>
           <select
             name="country"
             value={contactInfo.location.country || ""}
             onChange={handleLocationChange}
+            required
             className="block w-full p-3 bg-gray-100 border-gray-300 rounded-lg focus:outline-none focus:border-[#6ad61d] focus:ring-[#6ad61d]"
           >
             <option value="">Choose a country</option>
@@ -94,12 +96,13 @@ function ContactInformation({ contactInfo, setContactInfo }) {
             htmlFor="state"
             className="block text-sm font-bold text-gray-900"
           >
-            State
+            State <span className="text-red-600">*</span>
           </label>
           <input
             placeholder="State"
             type="text"
             name="state"
+            required
             value={contactInfo.location.state || ""}
             onChange={handleLocationChange}
             className="block w-full p-3 bg-gray-100 border-gray-300 rounded-lg focus:outline-none focus:border-[#6ad61d] focus:ring-[#6ad61d]"
@@ -110,12 +113,13 @@ function ContactInformation({ contactInfo, setContactInfo }) {
             htmlFor="city"
             className="block  text-sm font-bold text-gray-900 pt-2 px-5 py-2"
           >
-            City
+            City <span className="text-red-600">*</span>
           </label>
 
           <input
             type="text"
             name="city"
+            required
             onClick={() => setIsDropdownOpen(true)}
             value={contactInfo.location.city}
             onChange={(e) => {
@@ -138,12 +142,13 @@ function ContactInformation({ contactInfo, setContactInfo }) {
             htmlFor="pin"
             className="block text-sm font-bold text-gray-900"
           >
-            Pin
+            Pin <span className="text-red-600">*</span>
           </label>
           <input
             placeholder="Pin code"
             type="number"
             name="pin"
+            required
             value={contactInfo.location.pin || ""}
             onChange={handleLocationChange}
             className="block w-full p-3 bg-gray-100 border-gray-300 rounded-lg focus:outline-none focus:border-[#6ad61d] focus:ring-[#6ad61d]"
@@ -151,7 +156,7 @@ function ContactInformation({ contactInfo, setContactInfo }) {
         </div>
 
         {/* Map Location Inputs */}
-        <div className="mb-5 grid grid-cols-2 gap-4">
+        {/* <div className="mb-5 grid grid-cols-2 gap-4">
           <input
             type="text"
             name="latitude"
@@ -168,11 +173,11 @@ function ContactInformation({ contactInfo, setContactInfo }) {
             onChange={handleLocationChange}
             className="block w-full p-3 bg-gray-100 border-gray-300 rounded-lg focus:outline-none focus:border-[#6ad61d] focus:ring-[#6ad61d]"
           />
-        </div>
+        </div> */}
 
         {/* Google Map Display */}
         <div className="w-full mb-5">{/* <GoogleMap /> */}</div>
-      </form>
+      </div>
     </div>
   );
 }

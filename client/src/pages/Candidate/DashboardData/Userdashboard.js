@@ -13,10 +13,13 @@ import UserDashboardRecent from "../../../components/Candidate/DashboardData/Use
 import { useUserContext } from "../../../context/userContext";
 import { fetchUser } from "../../../api/employer/axios";
 import Loader from "../../../components/Utility/Loader";
+import { useNavigate } from "react-router-dom";
+import PageLoader from "../../../components/Utility/PageLoader";
 
 function Userdashboard() {
   const { user, setUser } = useUserContext();
   const [isLoading, setIsLoading] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -40,7 +43,7 @@ function Userdashboard() {
     {
       name: "Applied Jobs",
       count: user?.appliedJobs?.length,
-      url: "#",
+      url: "/candidate/dashboard/appliedjobs",
       icon: (
         <HiOutlineBriefcase size={35} className="  text-blue-600 rounded " />
       ),
@@ -50,7 +53,7 @@ function Userdashboard() {
     {
       name: "Review",
       count: 0,
-      url: "#",
+      // url: "#",
       icon: (
         <AiOutlineMessage size={35} className="  text-yellow-600 rounded " />
       ),
@@ -60,7 +63,7 @@ function Userdashboard() {
     {
       name: "Views",
       count: 0,
-      url: "#",
+      // url: "#",
       icon: (
         <MdOutlineRemoveRedEye size={35} className="  text-red-600 rounded " />
       ),
@@ -77,7 +80,7 @@ function Userdashboard() {
           )
         ).length || 0,
 
-      url: "#",
+      // url: "#",
       icon: (
         <IoBookmarkOutline size={35} className="  text-green-600 rounded" />
       ),
@@ -88,7 +91,7 @@ function Userdashboard() {
   return (
     <div className=" w-full min-h-full h-auto relative lg:mt-14 px-4 lg:px-14 overflow-y-auto py-7 pb-14">
       {isLoading ? (
-        <Loader />
+        <PageLoader />
       ) : (
         <>
           <h2 className=" text-lg text-[#202124] lg:text-3xl mb-10 font-medium">
@@ -98,7 +101,8 @@ function Userdashboard() {
             {statsData?.map((stat, i) => (
               <Col
                 key={i}
-                className=" bg-white p-8 flex-1 w-full rounded-lg border border-gray-100 shadow-sm"
+                onClick={() => stat.url && navigate(stat.url)}
+                className=" bg-white p-8 flex-1 w-full rounded-lg border hover:scale-105 transition-all cursor-pointer border-gray-100 shadow-sm"
               >
                 <Card className=" flex flex-col ">
                   <Card.Body className="flex gap-2 items-center">

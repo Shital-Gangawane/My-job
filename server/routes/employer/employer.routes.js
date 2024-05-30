@@ -42,12 +42,20 @@ const {
 const {
   declineCandidate,
 } = require("../../controllers/employer/declineCandidate.js");
+const {
+  changePassword,
+} = require("../../controllers/employer/changePassword.js");
 
 const router = express.Router();
 
 //Authentication
 router.post("/employer/register", registerEmployer);
+
+//Login for both Employer and candidate
 router.post("/login", login);
+
+//ChangePassword for both Employer and candidate
+router.patch("/changePassword", authMiddleware, changePassword);
 
 //Fetch Employer Data
 router.get("/employer/fetch", fetchEmployerData);

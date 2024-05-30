@@ -15,14 +15,44 @@ export const ageoptions = [
   { label: "45-50", value: "option5" },
 ];
 
-export const qualificationoptions = [
-  { label: "Certificate", value: "option1" },
-  { label: "Associate Degree", value: "option2" },
-  { label: "Bachelor Degree", value: "option3" },
-  { label: "Masters's Degree", value: "option4" },
-  { label: "Doctorate Degree", value: "option5" },
-  { label: "Diploma", value: "option6" },
+export const qualificationOptions = [
+  { label: "Certificate", value: "certificate" },
+  { label: "Associate Degree", value: "associate_degree" },
+  { label: "Bachelor Degree", value: "bachelor_degree" },
+  { label: "Master's Degree", value: "masters_degree" },
+  { label: "Doctorate Degree", value: "doctorate_degree" },
+  { label: "Diploma", value: "diploma" },
 ];
+
+export const coursesAndSpecializations = {
+  certificate: [
+    { label: "Web Development", value: "web_development" },
+    { label: "Data Science", value: "data_science" },
+  ],
+  associate_degree: [
+    { label: "Business Administration", value: "business_administration" },
+    { label: "Information Technology", value: "information_technology" },
+  ],
+  bachelor_degree: [
+    { label: "Computer Science", value: "computer_science" },
+    { label: "Mechanical Engineering", value: "mechanical_engineering" },
+    { label: "Civil Engineering", value: "civil_engineering" },
+    { label: "Electrical Engineering", value: "electrical_engineering" },
+  ],
+  masters_degree: [
+    { label: "MBA", value: "mba" },
+    { label: "M.Tech", value: "mtech" },
+    { label: "M.Sc in Data Science", value: "msc_data_science" },
+  ],
+  doctorate_degree: [
+    { label: "PhD in Computer Science", value: "phd_computer_science" },
+    { label: "PhD in Physics", value: "phd_physics" },
+  ],
+  diploma: [
+    { label: "Graphic Design", value: "graphic_design" },
+    { label: "Network Administration", value: "network_administration" },
+  ],
+};
 
 export const experienceoptions = [
   { label: "Fresher", value: "option0" },

@@ -57,16 +57,18 @@ function ShortlistCandidate() {
     const lowerSearchTerm = searchTerm.toLowerCase();
     let filtered = shortlistedCandidates?.filter(
       (app) =>
-        app.candidate.email.toLowerCase().includes(lowerSearchTerm) ||
-        app.candidate.name.toLowerCase().includes(lowerSearchTerm) ||
-        app.candidate.qualification?.toLowerCase().includes(lowerSearchTerm) ||
-        app.candidate.experience
+        app?.candidate?.email?.toLowerCase().includes(lowerSearchTerm) ||
+        app?.candidate?.name?.toLowerCase().includes(lowerSearchTerm) ||
+        app?.candidate?.qualification
+          ?.toLowerCase()
+          .includes(lowerSearchTerm) ||
+        app?.candidate?.experience
           ?.toString()
           .toLowerCase()
           .includes(lowerSearchTerm) ||
-        app.candidate.city?.toLowerCase().includes(lowerSearchTerm) ||
-        app.job.jobTitle?.toLowerCase().includes(lowerSearchTerm) ||
-        app.status?.toLowerCase().includes(lowerSearchTerm)
+        app?.candidate?.city?.toLowerCase().includes(lowerSearchTerm) ||
+        app?.job?.jobTitle?.toLowerCase().includes(lowerSearchTerm) ||
+        app?.status?.toLowerCase().includes(lowerSearchTerm)
     );
 
     switch (sortType) {
@@ -203,7 +205,7 @@ function ShortlistCandidate() {
                       </Link>
                     </td>
                     <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                      {app.candidate.email}
+                      {app.candidate?.email}
                     </td>
                     <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
                       {app.candidate.phoneNumber}
