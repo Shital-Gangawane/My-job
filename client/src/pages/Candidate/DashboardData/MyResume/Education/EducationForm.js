@@ -3,7 +3,7 @@ import { FaChevronDown } from "react-icons/fa";
 import { IoClose } from "react-icons/io5";
 
 function EducationForm({ index, data, onChange, setEducations }) {
-  const [isDropdownOn, setIsDropdownOn] = useState(false);
+  const [isDropdownOn, setIsDropdownOn] = useState(true);
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -14,12 +14,13 @@ function EducationForm({ index, data, onChange, setEducations }) {
     <div className="flex flex-col gap-3">
       <p
         onClick={() => setIsDropdownOn(!isDropdownOn)}
-        className="flex flex-wrap gap-3 w-full p-5 cursor-pointer bg-gray-100 border-gray-300 focus:outline-[#6ad61d] text-gray-900 border rounded-lg text-base focus:ring-[#6ad61d] focus:border-[#6ad61d] dark:bg-gray-100 dark:border-none dark:placeholder-gray-400 dark:gray-900 dark:focus:ring-[#6ad61d] dark:focus:border-[#6ad61d]"
+        className="flex flex-wrap gap-3 w-full p-5 cursor-pointer bg-gray-200 border-gray-300 focus:outline-[#6ad61d] text-gray-900 border rounded-lg text-base focus:ring-[#6ad61d] focus:border-[#6ad61d]  dark:border-none dark:placeholder-gray-400 dark:gray-900 dark:focus:ring-[#6ad61d] dark:focus:border-[#6ad61d]"
       >
         {index !== 0 && (
           <IoClose
             className="mt-0.5 font-bold hover:text-[#6ad61d]"
             size={20}
+            color="red"
             onClick={() =>
               setEducations((prev) => {
                 return prev.filter((el, i) => i !== index);
@@ -31,7 +32,7 @@ function EducationForm({ index, data, onChange, setEducations }) {
         <FaChevronDown className="ms-auto mt-1.5" />
       </p>
       {isDropdownOn && (
-        <div className="flex flex-col gap-3">
+        <div className=" w-full flex flex-col md:flex-row gap-3 flex-wrap">
           {/* Input fields for each member attribute */}
           <InputField
             label="Degree"
@@ -78,13 +79,13 @@ function EducationForm({ index, data, onChange, setEducations }) {
 
 function InputField({ label, name, value, onChange }) {
   return (
-    <div className="flex justify-between">
-      <label className="font-medium">{label}</label>
+    <div className="flex-1">
+      <label className="font-medium text-xs">{label}</label>
       <input
         name={name}
         value={value}
         onChange={onChange}
-        className="block w-2/3 p-5 cursor-pointer bg-gray-100 border-gray-300 focus:outline-[#6ad61d] text-gray-900 border rounded-lg text-base focus:ring-[#6ad61d] focus:border-[#6ad61d] dark:bg-gray-100 dark:border-none dark:placeholder-gray-400 dark:gray-900 dark:focus:ring-[#6ad61d] dark:focus:border-[#6ad61d]"
+        className="block w-2/3 p-5 cursor-pointer  bg-gray-100 border-gray-300 focus:outline-[#6ad61d] text-gray-900 border rounded-lg text-base focus:ring-[#6ad61d] focus:border-[#6ad61d] dark:bg-gray-100 dark:border-none dark:placeholder-gray-400 dark:gray-900 dark:focus:ring-[#6ad61d] dark:focus:border-[#6ad61d]"
       />
     </div>
   );
@@ -93,7 +94,7 @@ function InputField({ label, name, value, onChange }) {
 function TextArea({ label, name, value, onChange }) {
   return (
     <div className="flex justify-between">
-      <label className="font-medium">{label}</label>
+      <label className="font-medium text-xs">{label}</label>
       <textarea
         name={name}
         value={value}

@@ -7,6 +7,7 @@ import Education from "./MyResume/Education/Education";
 import Experience from "./MyResume/Experience/Experience";
 import Awards from "./MyResume/Awards/Awards";
 import { fetchUser } from "../../../api/employer/axios";
+import PageLoader from "../../../components/Utility/PageLoader";
 
 function MyResume() {
   const { user, setUser } = useUserContext();
@@ -14,9 +15,9 @@ function MyResume() {
 
   const [resumeInfo, setResumeInfo] = useState({
     resume: null,
-    portfolio:"",
-
     portfolio: "",
+    github: "",
+    linkedin: "",
   });
 
   const [educations, setEducations] = useState([
@@ -59,6 +60,8 @@ function MyResume() {
           setResumeInfo({
             resume: data.resume || null,
             portfolio: data.portfolio || "",
+            github: data.github || "",
+            linkedin: data.linkedin || "",
           });
           setEducations(data.educations || []);
           setExperiences(data.experiences || []);
@@ -108,7 +111,7 @@ function MyResume() {
   return (
     <div className=" w-full min-h-full relative h-auto  overflow-y-auto lg:mt-14 px-4 lg:px-14 py-7  pb-14">
       {isLoading ? (
-        <Loader />
+        <PageLoader />
       ) : (
         <>
           <h2 className=" text-lg text-[#202124] lg:text-3xl mb-10 font-medium">
@@ -129,33 +132,50 @@ function MyResume() {
             />
           </div>
 
-      <div className="bg-white p-6 mt-5 px-10 rounded-lg block">
-    <h2 className="text-lg text-[#202124] mb-6 font-bold">Portfolio</h2>
-    <div className="mb-5">
-          <input
-            type="text"
-            name="portfolio"
-            value={resumeInfo.portfolio || ""}
-            onChange={handleResumeChange}
-            className="block w-full p-3 bg-gray-100 border-gray-300 rounded-lg focus:outline-none focus:border-[#6ad61d] focus:ring-[#6ad61d] cursor-pointer focus:outline-[#6ad61d] text-gray-900 border text-base  dark:bg-gray-100 dark:border-none dark:placeholder-gray-400 dark:gray-900 dark:focus:ring-[#6ad61d] dark:focus:border-[#6ad61d]"
-          />
-        </div>
-
-    </div>
           <div className="bg-white p-6 mt-5 px-10 rounded-lg block">
             <h2 className="text-lg text-[#202124] mb-6 font-bold">Portfolio</h2>
-            <label className="font-medium">Portfolio link</label>
-            <input
-              name="portfolio"
-              value={resumeInfo.portfolio}
-              onChange={(e) =>
-                setResumeInfo((prev) => ({
-                  ...prev,
-                  ["portfolio"]: e.target.value,
-                }))
-              }
-              className="block w-2/3 p-5 cursor-pointer bg-gray-100 border-gray-300 focus:outline-[#6ad61d] text-gray-900 border rounded-lg text-base focus:ring-[#6ad61d] focus:border-[#6ad61d] dark:bg-gray-100 dark:border-none dark:placeholder-gray-400 dark:gray-900 dark:focus:ring-[#6ad61d] dark:focus:border-[#6ad61d]"
-            />
+            <div className="mt-4">
+              <label className="font-medium">Portfolio link</label>
+              <input
+                name="portfolio"
+                value={resumeInfo.portfolio}
+                onChange={(e) =>
+                  setResumeInfo((prev) => ({
+                    ...prev,
+                    ["portfolio"]: e.target.value,
+                  }))
+                }
+                className="block w-2/3 p-5 cursor-pointer bg-gray-100 border-gray-300 focus:outline-[#6ad61d] text-gray-900 border rounded-lg text-base focus:ring-[#6ad61d] focus:border-[#6ad61d] dark:bg-gray-100 dark:border-none dark:placeholder-gray-400 dark:gray-900 dark:focus:ring-[#6ad61d] dark:focus:border-[#6ad61d]"
+              />
+            </div>
+            <div className="mt-4">
+              <label className="font-medium">LinkedIn link</label>
+              <input
+                name="linkedin"
+                value={resumeInfo.linkedin}
+                onChange={(e) =>
+                  setResumeInfo((prev) => ({
+                    ...prev,
+                    ["linkedin"]: e.target.value,
+                  }))
+                }
+                className="block w-2/3 p-5 cursor-pointer bg-gray-100 border-gray-300 focus:outline-[#6ad61d] text-gray-900 border rounded-lg text-base focus:ring-[#6ad61d] focus:border-[#6ad61d] dark:bg-gray-100 dark:border-none dark:placeholder-gray-400 dark:gray-900 dark:focus:ring-[#6ad61d] dark:focus:border-[#6ad61d]"
+              />
+            </div>
+            <div className="mt-4">
+              <label className="font-medium">Github link</label>
+              <input
+                name="github"
+                value={resumeInfo.github}
+                onChange={(e) =>
+                  setResumeInfo((prev) => ({
+                    ...prev,
+                    ["github"]: e.target.value,
+                  }))
+                }
+                className="block w-2/3 p-5 cursor-pointer bg-gray-100 border-gray-300 focus:outline-[#6ad61d] text-gray-900 border rounded-lg text-base focus:ring-[#6ad61d] focus:border-[#6ad61d] dark:bg-gray-100 dark:border-none dark:placeholder-gray-400 dark:gray-900 dark:focus:ring-[#6ad61d] dark:focus:border-[#6ad61d]"
+              />
+            </div>
           </div>
 
           <div>

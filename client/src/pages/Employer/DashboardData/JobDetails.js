@@ -20,6 +20,7 @@ function JobDetails() {
   const [isViewApplicationOn, setIsViewApplicationOn] = useState(false);
   const [isDeleteOn, setIsDeleteOn] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState("");
   const { token, user, setUser } = useUserContext();
 
   const userType = sessionStorage.getItem("userType");
@@ -46,6 +47,9 @@ function JobDetails() {
         if (res?.data?.success) {
           sessionStorage.setItem("user", JSON.stringify(res?.data?.candidate));
           setUser(res?.data?.candidate);
+          setIsLoading(false);
+        } else {
+          setError(res?.data?.message);
           setIsLoading(false);
         }
       }
@@ -119,45 +123,56 @@ function JobDetails() {
             </div>
 
             <div className=" xl:pe-10">
+              <p className=" text-red-500">{error}</p>
               {userType === "candidate" || !sessionStorage.getItem("user") ? (
                 <button
+                  disabled={
+                    user?.appliedJobs?.includes(id) ||
+                    user?.appliedJobs?.find((el) => el._id === id)
+                  }
                   onClick={() => applyClickHandler(job?._id)}
                   className=" bg-[#6ad61d] rounded-lg p-3 px-20 text-white hover:bg-blue-800"
                 >
-                  {job?.applications.find((el) => el?.candidate === user?._id)
+                  {user?.appliedJobs?.includes(id) ||
+                  user?.appliedJobs?.find((el) => el._id === id)
                     ? "Applied"
                     : "Apply Now"}
                 </button>
               ) : (
                 <div className=" flex flex-wrap">
-                  <button
-                    disabled={!job?.applications?.length}
-                    onClick={() => setIsViewApplicationOn(!isViewApplicationOn)}
-                    className={`${
-                      job?.applications?.length
-                        ? "bg-[#6ad61d] hover:bg-blue-800"
-                        : "bg-[#6ad61d92]"
-                    } text-white py-2 px-4 rounded-lg me-2 `}
-                  >
-                    {!job?.applications?.length ? (
-                      "No Applications"
-                    ) : (
-                      <p>
-                        View Applications{" "}
-                        <span className=" h-4 w-6  aspect-square text-xs p-1 rounded-full bg-red-700">
-                          {job?.applications?.length}
-                        </span>
-                      </p>
-                    )}
-                  </button>
-                  {sessionStorage.getItem("userType") === "employer" && (
+                  {user?.postedJobs?.includes(id) && (
                     <button
-                      onClick={() => setIsEditing(!isEditing)}
-                      className=" bg-zinc-900 text-white hover:bg-zinc-800 rounded-lg py-2 px-4 "
+                      disabled={!job?.applications?.length}
+                      onClick={() =>
+                        setIsViewApplicationOn(!isViewApplicationOn)
+                      }
+                      className={`${
+                        job?.applications?.length
+                          ? "bg-[#6ad61d] hover:bg-blue-800"
+                          : "bg-[#6ad61d92]"
+                      } text-white py-2 px-4 rounded-lg me-2 `}
                     >
-                      Edit
+                      {!job?.applications?.length ? (
+                        "No Applications"
+                      ) : (
+                        <p>
+                          View Applications{" "}
+                          <span className=" h-4 w-6  aspect-square text-xs p-1 rounded-full bg-red-700">
+                            {job?.applications?.length}
+                          </span>
+                        </p>
+                      )}
                     </button>
                   )}
+                  {sessionStorage.getItem("userType") === "employer" &&
+                    user?.postedJobs?.includes(id) && (
+                      <button
+                        onClick={() => setIsEditing(!isEditing)}
+                        className=" bg-zinc-900 text-white hover:bg-zinc-800 rounded-lg py-2 px-4 "
+                      >
+                        Edit
+                      </button>
+                    )}
                 </div>
               )}
             </div>

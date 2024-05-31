@@ -4,8 +4,8 @@ import axios from "axios";
 import { fetchUser } from "../../api/employer/axios";
 import Nav from "../../components/Nav/Nav";
 import Loader from "../../components/Utility/Loader";
-import { useUserContext } from "../../context/userContext";
 import { followEmployer } from "../../api/candidate/axios";
+import { useUserContext } from "../../context/userContext";
 
 const baseUrl = process.env.REACT_APP_SERVER_API_URL || "http://localhost:8000";
 
@@ -14,8 +14,8 @@ function EmployerProfile() {
   const [employer, setEmployer] = useState({});
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
-  const {user,setUser}= useUserContext()
-  
+  const { user, setUser } = useUserContext();
+
   useEffect(() => {
     const fetchEmployerData = async () => {
       try {
@@ -32,20 +32,18 @@ function EmployerProfile() {
     fetchEmployerData();
   }, [employerId]);
 
-const handleFollowClick = async()=>{
-  try {
-    const res = await followEmployer(user?._id, employerId)
-    console.log(res)
-    if(res?.data?.success){
-    sessionStorage.setItem("user", JSON.stringify(res?.data?.candidate));
-    setUser(res?.data?.candidate)
-
+  const handleFollowClick = async () => {
+    try {
+      const res = await followEmployer(user?._id, employerId);
+      console.log(res);
+      if (res?.data?.success) {
+        sessionStorage.setItem("user", JSON.stringify(res?.data?.candidate));
+        setUser(res?.data?.candidate);
+      }
+    } catch (error) {
+      console.log(error);
     }
-  } catch (error) {
-    console.log(error)
-  }
-}
-
+  };
 
   if (loading)
     return (
@@ -73,18 +71,13 @@ const handleFollowClick = async()=>{
           <h1 className="text-zinc-800 text-3xl font-bold mt-4">
             {employer.companyName}
           </h1>
-
-            {/* Follow Button */}
-
           <button
-           type="button"
-           onClick={handleFollowClick}
-           className="lg:w-auto mt-5 py-2 px-8 bg-[#6ad61d] hover:bg-blue-600 text-white  rounded-lg transition duration-300 ease-in-out"
-      >
-        {user?.following?.includes(employerId)? "Following" :"Follow"}
-        {/* Follow */}
-      </button>
-
+            type="button"
+            onClick={handleFollowClick}
+            className="lg:w-auto mt-5 py-2 px-8 bg-[#6ad61d] hover:bg-blue-600 text-white  rounded-lg transition duration-300 ease-in-out"
+          >
+            {user?.following?.includes(employerId) ? "Following" : "Follow"}
+          </button>
           {/* <Link to={'/employer/dashboard'}>View Dashboard</Link> */}
         </div>
       </div>

@@ -22,7 +22,7 @@ module.exports.followEmployer = async (req, res) => {
       candidate.following.push(employerId);
     } else {
       candidate.following = candidate.following.filter(
-        (el) =>el!==employerId
+        (el) => !el.equals(employerId)
       );
     }
 
@@ -30,7 +30,7 @@ module.exports.followEmployer = async (req, res) => {
       employer.followers.push(candidateId);
     } else {
       employer.followers = employer.followers.filter(
-        (el) =>el!== candidateId
+        (el) => !el.equals(candidateId)
       );
     }
 
@@ -41,6 +41,6 @@ module.exports.followEmployer = async (req, res) => {
       .status(200)
       .json({ success: true, message: "Following successfully", candidate });
   } catch (error) {
-    return res.status(500).json({ success: false, message: "Server error" , error:error.message});
+    return res.status(500).json({ success: false, message: "Server error" });
   }
 };

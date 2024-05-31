@@ -1,31 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
-import ProfileOptionSection from "./ProfileOptionSection";
 import { useUserContext } from "../../../../context/userContext";
 import SelectLanguage from "./SelectLanguage";
-// import { ageoptions, categoriesoptions, experienceoptions, genderoption, qualificationoptions, salaryoptions, showprofileoptions } from './SelectOptions'
-// import { BsTypeBold } from "react-icons/bs";
-// import { BiItalic } from "react-icons/bi";
-// import { RiDoubleQuotesL } from "react-icons/ri";
-// import { MdFormatListBulleted } from "react-icons/md";
-// import { MdFormatListNumbered } from "react-icons/md";
-// import { FaAlignLeft } from "react-icons/fa";
-// import { FaAlignCenter } from "react-icons/fa";
-// import { FaAlignRight } from "react-icons/fa";
-// import { FaAlignJustify } from "react-icons/fa";
-// import { PiLinkSimpleBold } from "react-icons/pi";
-// import { PiLinkBreakBold } from "react-icons/pi";
-// import { FaCaretDown } from "react-icons/fa";
-// import { MdFormatIndentDecrease } from "react-icons/md";
-// import { MdFormatIndentIncrease } from "react-icons/md";
-// import { MdContentPaste } from "react-icons/md";
-// import { MdFormatClear } from "react-icons/md";
-// import { MdInsertPageBreak } from "react-icons/md";
-// import { BsTable } from "react-icons/bs";
-// import { FaQuestionCircle } from "react-icons/fa";
-// import { LuUndo2 } from "react-icons/lu";
-// import { GrRedo } from "react-icons/gr";
-// import SelectCategories from "./SelectCategories/SelectCategories";
-// import SelectCategories from "../SelectCategories/SelectCategories"
 
 const baseUrl = "http://localhost:8000";
 function MyProfile({
@@ -43,6 +18,8 @@ function MyProfile({
 }) {
   const [preview, setPreview] = useState({ logoImage: "", coverImage: "" });
   const [searchTerm, setSearchTerm] = useState("");
+  const [selectedQualification, setSelectedQualification] = useState("");
+  const [specializations, setSpecializations] = useState([]);
   const { user } = useUserContext();
 
   useEffect(() => {
@@ -80,6 +57,7 @@ function MyProfile({
           className="w-full hidden text-sm text-gray-900 py-2.5 px-4 border border-gray-300 rounded-lg focus:outline-none focus:border-[#6ad61d] focus:ring-[#6ad61d]"
         />
         <button
+          type="button"
           onClick={() => document.getElementById("logoImage").click()}
           className="py-2 px-7 bg-[#6ad61d] hover:bg-blue-500 text-white rounded-lg"
         >
@@ -104,11 +82,10 @@ function MyProfile({
               htmlFor="name"
               className="block mb-2 text-sm font-bold text-gray-900 "
             >
-              Full Name
+              Full Name <span className="text-red-600">*</span>
             </label>
             <input
               type="text"
-              id="large-input"
               name="name"
               value={profileInfo?.name || ""}
               onChange={onChange}
@@ -123,14 +100,13 @@ function MyProfile({
               htmlFor="dob"
               className="block mb-2 text-sm font-bold text-gray-900"
             >
-              Date Of Birth
+              Date Of Birth <span className="text-red-600">*</span>
             </label>
             <input
               type="date"
               name="dob"
               value={profileInfo?.dob || ""}
               onChange={onChange}
-              id="large-input"
               placeholder="Enter Date of Birth"
               className="block w-full p-5  bg-gray-100 border-gray-300 focus:outline-[#6ad61d] text-gray-900 border rounded-lg text-base focus:ring-[#6ad61d] focus:border-[#6ad61d] dark:bg-gray-100 dark:border-none dark:placeholder-gray-400 dark:gray-900 dark:focus:ring-[#6ad61d] dark:focus:border-[#6ad61d]"
               required
@@ -145,12 +121,13 @@ function MyProfile({
               htmlFor="gender"
               className="block text-sm font-bold text-gray-900"
             >
-              Gender
+              Gender <span className="text-red-600">*</span>
             </label>
             <select
               name="gender"
               value={profileInfo?.gender || ""}
               onChange={onChange}
+              required
               className="block w-full p-5  bg-gray-100 border-gray-300 focus:outline-[#6ad61d] text-gray-900 border rounded-lg text-base focus:ring-[#6ad61d] focus:border-[#6ad61d] dark:bg-gray-100 dark:border-none dark:placeholder-gray-400 dark:gray-900 dark:focus:ring-[#6ad61d] dark:focus:border-[#6ad61d]"
             >
               <option value="">None</option>
@@ -167,12 +144,13 @@ function MyProfile({
               htmlFor="age"
               className="block text-sm font-bold text-gray-900"
             >
-              Age
+              Age <span className="text-red-600">*</span>
             </label>
             <select
               name="age"
               value={profileInfo?.age || ""}
               onChange={onChange}
+              required
               className="block w-full p-5  bg-gray-100 border-gray-300 focus:outline-[#6ad61d] text-gray-900 border rounded-lg text-base focus:ring-[#6ad61d] focus:border-[#6ad61d] dark:bg-gray-100 dark:border-none dark:placeholder-gray-400 dark:gray-900 dark:focus:ring-[#6ad61d] dark:focus:border-[#6ad61d]"
             >
               <option value="">None</option>
@@ -191,11 +169,10 @@ function MyProfile({
               htmlFor="phoneNumber"
               className="block mb-2 text-sm font-bold text-gray-900 "
             >
-              Phone Number
+              Phone Number <span className="text-red-600">*</span>
             </label>
             <input
               type="text"
-              id="large-input"
               name="phoneNumber"
               disabled
               value={"+" + profileInfo?.phoneNumber || ""}
@@ -211,14 +188,13 @@ function MyProfile({
               htmlFor="email"
               className="block mb-2 text-sm font-bold text-gray-900"
             >
-              Email
+              Email <span className="text-red-600">*</span>
             </label>
             <input
               type="email"
               name="email"
               value={user?.email || ""}
               onChange={onChange}
-              id="large-input"
               placeholder="Enter Email"
               className="block w-full p-5  bg-gray-100 border-gray-300 focus:outline-[#6ad61d] text-gray-900 border rounded-lg text-base focus:ring-[#6ad61d] focus:border-[#6ad61d] dark:bg-gray-100 dark:border-none dark:placeholder-gray-400 dark:gray-900 dark:focus:ring-[#6ad61d] dark:focus:border-[#6ad61d]"
               required
@@ -254,12 +230,13 @@ function MyProfile({
               htmlFor="experience"
               className="block text-sm font-bold text-gray-900"
             >
-              Experience Time
+              Experience Time <span className="text-red-600">*</span>
             </label>
             <select
               name="experience"
               value={profileInfo?.experience || ""}
               onChange={onChange}
+              required
               className="block w-full p-5  bg-gray-100 border-gray-300 focus:outline-[#6ad61d] text-gray-900 border rounded-lg text-base focus:ring-[#6ad61d] focus:border-[#6ad61d] dark:bg-gray-100 dark:border-none dark:placeholder-gray-400 dark:gray-900 dark:focus:ring-[#6ad61d] dark:focus:border-[#6ad61d]"
             >
               <option value="">None</option>
@@ -320,13 +297,11 @@ function MyProfile({
             </label>
             <input
               type="text"
-              id="large-input"
               name="salary"
               value={profileInfo?.salary || ""}
               onChange={onChange}
               className="block w-full p-5 bg-gray-100 border-gray-300 focus:outline-[#6ad61d] text-gray-900 border rounded-lg text-base focus:ring-[#6ad61d] focus:border-[#6ad61d] dark:bg-gray-100 dark:border-none dark:placeholder-gray-400 dark:gray-900 dark:focus:ring-[#6ad61d] dark:focus:border-[#6ad61d]"
               placeholder="Enter Salary"
-              required
             />
           </div>
           <div className="mb-5 w-full md:w-1/2 px-2">
@@ -334,7 +309,7 @@ function MyProfile({
               htmlFor="categories"
               className="block text-sm font-bold text-gray-900"
             >
-              Categories
+              Industry
             </label>
             <select
               name="categories"
@@ -380,7 +355,7 @@ function MyProfile({
             htmlFor="description"
             className="block text-sm font-bold text-gray-900"
           >
-            Description
+            Professional Summary
           </label>
           <div className="w-full bg-gray-100 rounded-b-lg dark:bg-white">
             <textarea

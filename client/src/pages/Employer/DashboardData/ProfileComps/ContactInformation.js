@@ -23,19 +23,20 @@ console.log(contactInfo)
       <h2 className="text-lg text-[#202124] mb-6 font-bold">
         Contact Information
       </h2>
-      <form>
+      <div>
         {/* Location Selector */}
         <div className="mb-5">
           <label
             htmlFor="country"
             className="block text-sm font-bold text-gray-900"
           >
-            Country
+            Country <span className="text-red-600">*</span>
           </label>
           <select
             name="country"
             value={contactInfo.country || ""}
             onChange={handleContactInfoChange}
+            required
             className="block w-full p-3 bg-gray-100 border-gray-300 rounded-lg focus:outline-none focus:border-[#6ad61d] focus:ring-[#6ad61d]"
           >
             <option value="">Choose a country</option>
@@ -53,13 +54,14 @@ console.log(contactInfo)
             htmlFor="phoneNumber"
             className="block text-sm font-bold text-gray-900"
           >
-            Phone number
+            Phone number <span className="text-red-600">*</span>
           </label>
           <input
             disabled
             type="text"
             name="phoneNumber"
-            value={"+" + contactInfo?.phoneNumber }
+            required
+            value={"+" + contactInfo?.phoneNumber}
             onChange={handleContactInfoChange}
             className="block w-full p-3 bg-gray-100 border-gray-300 rounded-lg focus:outline-none focus:border-[#6ad61d] focus:ring-[#6ad61d]"
           />
@@ -71,12 +73,13 @@ console.log(contactInfo)
             htmlFor="email"
             className="block text-sm font-bold text-gray-900"
           >
-            Email
+            Email <span className="text-red-600">*</span>
           </label>
           <input
             type="email"
             name="email"
-            value={user?.email}
+            value={contactInfo?.email}
+            required
             onChange={handleContactInfoChange}
             className="block w-full p-3 bg-gray-100 border-gray-300 rounded-lg focus:outline-none focus:border-[#6ad61d] focus:ring-[#6ad61d]"
           />
@@ -88,11 +91,12 @@ console.log(contactInfo)
             htmlFor="address"
             className="block text-sm font-bold text-gray-900"
           >
-            Address
+            Address <span className="text-red-600">*</span>
           </label>
           <input
             type="text"
             name="address"
+            required
             value={contactInfo.address || ""}
             onChange={handleContactInfoChange}
             className="block w-full p-3 bg-gray-100 border-gray-300 rounded-lg focus:outline-none focus:border-[#6ad61d] focus:ring-[#6ad61d]"
@@ -121,7 +125,7 @@ console.log(contactInfo)
 
         {/* Google Map Display */}
         <div className="w-full mb-5">{/* <GoogleMap /> */}</div>
-      </form>
+      </div>
     </div>
   );
 }

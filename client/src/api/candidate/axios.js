@@ -112,15 +112,42 @@ export const myResume = async (formData, id) => {
   }
 };
 
-// Follow Employer
- export const followEmployer =async(candidateId,employerId)=>{
+export const followEmployer = async (candidateId, employerId) => {
   try {
-    const res=await axios.put(`${url}/api/candidate/followEmployer`,{
+    const res = await axios.put(`${url}/api/candidate/followEmployer`, {
       candidateId,
-      employerId
-    })
+      employerId,
+    });
     return res;
   } catch (error) {
     return error.response;
   }
- }
+};
+
+export const fetchFollowingEmployers = async (candidateId) => {
+  try {
+    const res = await axios.get(
+      `${url}/api/candidate/fetchFollowingEmployers?candidateId=${candidateId}`
+    );
+    return res;
+  } catch (error) {
+    return error.response;
+  }
+};
+
+export const changePassword = async (oldPass, newPass, token) => {
+  try {
+    const res = await axios.patch(
+      `${url}/api/changePassword`,
+      { oldPass, newPass },
+      {
+        headers: {
+          Authorization: token,
+        },
+      }
+    );
+    return res;
+  } catch (error) {
+    return error.response;
+  }
+};

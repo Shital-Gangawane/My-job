@@ -1,14 +1,28 @@
 {
   "files": {
-    "main.css": "/static/css/main.9bbe4dc5.css",
-    "main.js": "/static/js/main.203d5997.js",
+    "main.css": "/static/css/main.6fd81b76.css",
+    "main.js": "/static/js/main.bba07f9f.js",
+    "static/media/sideK.png": "/static/media/sideK.e820e7043cf5400c080a.png",
     "static/media/header.jpg": "/static/media/header.5cb03f0ed3bc8fce81d9.jpg",
+    "static/media/Untitleddesign.png": "/static/media/Untitleddesign.c3ddc2211af9bbdb4573.png",
     "static/media/projob-logo1.png": "/static/media/projob-logo1.12fc55031a756ac453bf.png",
+    "static/media/chennai.png": "/static/media/chennai.5a9fbae1914859a80a14.png",
+    "static/media/pune.png": "/static/media/pune.c014e03ddc9ba2e69295.png",
+    "static/media/hyderabad.png": "/static/media/hyderabad.9ab674bb673a59c6c4eb.png",
+    "static/media/dehli.png": "/static/media/dehli.df5d4c5e40b3341ec492.png",
+    "static/media/bangalore.png": "/static/media/bangalore.c2cb9a78afca4dd39f71.png",
+    "static/media/mumbai.png": "/static/media/mumbai.3a172401523701a36a64.png",
+    "static/media/icon1.jpg": "/static/media/icon1.f818103ee0577523bca0.jpg",
+    "static/media/icon3.jpg": "/static/media/icon3.fd0904cb6694b6db163b.jpg",
+    "static/media/icon2.jpg": "/static/media/icon2.fe4220a9c94c76c51b22.jpg",
+    "static/media/careerTips.jpg": "/static/media/careerTips.aad04d0db2cb51d7c744.jpg",
+    "static/media/careerTip.jpg": "/static/media/careerTip.4be17fec9ab50abaaaa6.jpg",
     "static/media/user-dp.png": "/static/media/user-dp.8d49e377c7c342895ec2.png",
     "static/media/user.png": "/static/media/user.961568814dceb733c85a.png",
     "static/media/Wipro-Infotech-Limited.webp": "/static/media/Wipro-Infotech-Limited.0d311bc6190abc252261.webp",
     "static/media/Amazon-Seller-Central.webp": "/static/media/Amazon-Seller-Central.4e777104fc52151d8573.webp",
     "static/media/Tata-Steel-Downstream-Products.webp": "/static/media/Tata-Steel-Downstream-Products.c626d48e6d0598291351.webp",
+    "static/media/Finolex.webp": "/static/media/Finolex.52d5ed574a528d2167fe.webp",
     "static/media/slick.svg": "/static/media/slick.2630a3e3eab21c607e21.svg",
     "static/media/slick.eot": "/static/media/slick.a4e97f5a2a64f0ab1323.eot",
     "index.html": "/index.html",
@@ -16,11 +30,12 @@
     "static/media/Zomato.webp": "/static/media/Zomato.d6f80ceb5c35fbb151ed.webp",
     "static/media/Infosys.webp": "/static/media/Infosys.5c86464769ab734ceb0b.webp",
     "static/media/slick.woff": "/static/media/slick.295183786cd8a1389865.woff",
-    "main.9bbe4dc5.css.map": "/static/css/main.9bbe4dc5.css.map",
-    "main.203d5997.js.map": "/static/js/main.203d5997.js.map"
+    "static/media/ReinforcedEarth.webp": "/static/media/ReinforcedEarth.29d973457f311875918e.webp",
+    "main.6fd81b76.css.map": "/static/css/main.6fd81b76.css.map",
+    "main.bba07f9f.js.map": "/static/js/main.bba07f9f.js.map"
   },
   "entrypoints": [
-    "static/css/main.9bbe4dc5.css",
-    "static/js/main.203d5997.js"
+    "static/css/main.6fd81b76.css",
+    "static/js/main.bba07f9f.js"
   ]
 }

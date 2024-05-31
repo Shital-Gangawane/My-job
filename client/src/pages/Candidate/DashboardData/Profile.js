@@ -9,7 +9,7 @@ import { useUserContext } from "../../../context/userContext";
 import {
   genderoption,
   ageoptions,
-  qualificationoptions,
+  qualificationOptions,
   experienceoptions,
   salaryoptions,
   categoriesoptions,
@@ -17,11 +17,15 @@ import {
 } from "./ProfileComps/SelectOptions";
 import { saveProfile } from "../../../api/candidate/axios";
 import { fetchUser } from "../../../api/employer/axios";
+import PageLoader from "../../../components/Utility/PageLoader";
+import Changepassword from "./Changepassword";
+import { useNavigate } from "react-router-dom";
 
 function Profile({ candidate, setIsEditing }) {
   const [isOpen, setIsOpen] = useState(false);
   const { user, setUser } = useUserContext();
   const [isLoading, setIsLoading] = useState(false);
+  const navigate = useNavigate();
 
   const [profileInfo, setProfileInfo] = useState({
     name: "",
@@ -80,7 +84,7 @@ function Profile({ candidate, setIsEditing }) {
             email: user?.email,
             qualification: data.qualification || null,
             experience: data.experience || null,
-            languages: data.languages[0].split(",") || [],
+            languages: data.languages[0]?.split(",") || [],
             salaryType: data.salaryType || null,
             qualification: data.qualification || null,
             salary: data.salary || "",
@@ -185,51 +189,66 @@ function Profile({ candidate, setIsEditing }) {
   return (
     <div className=" w-full min-h-full h-auto relative  overflow-y-auto lg:mt-14 px-4 lg:px-14 py-7  pb-14">
       {isLoading ? (
-        <Loader />
+        <PageLoader />
       ) : (
         <>
-          <h2 className=" text-lg text-[#202124] lg:text-3xl mb-10 font-medium">
-            Edit Profile
-          </h2>
+          <form onSubmit={handleSubmit}>
+            <h2 className=" text-lg text-[#202124] lg:text-3xl mb-10 font-medium">
+              Edit Profile
+            </h2>
 
-          <div>
-            <MyProfile
-              profileInfo={profileInfo}
-              onChange={handleProfileChange}
-              onImageChange={handleImageChange}
-              handleLanguageChange={handleLanguageChange}
-              genderoption={genderoption}
-              ageoptions={ageoptions}
-              qualificationoptions={qualificationoptions}
-              experienceoptions={experienceoptions}
-              salaryoptions={salaryoptions}
-              categoriesoptions={categoriesoptions}
-              showprofileoptions={showprofileoptions}
-              candidate
-            />
+            <div>
+              <MyProfile
+                profileInfo={profileInfo}
+                onChange={handleProfileChange}
+                onImageChange={handleImageChange}
+                handleLanguageChange={handleLanguageChange}
+                genderoption={genderoption}
+                ageoptions={ageoptions}
+                qualificationoptions={qualificationOptions}
+                experienceoptions={experienceoptions}
+                salaryoptions={salaryoptions}
+                categoriesoptions={categoriesoptions}
+                showprofileoptions={showprofileoptions}
+                candidate
+              />
+            </div>
+
+            <div>
+              <SocialNetworks
+                socialNetworks={socialNetworks}
+                setSocialNetworks={setSocialNetworks}
+              />
+            </div>
+
+            <div>
+              <ContactInformation
+                contactInfo={contactInfo}
+                setContactInfo={setContactInfo}
+              />
+            </div>
+
+            <button
+              type="button"
+              onClick={handleSubmit}
+              className="lg:w-auto mt-5 py-3 px-8 bg-[#6ad61d] hover:bg-blue-600 text-white  rounded-lg transition duration-300 ease-in-out"
+            >
+              Save Profile
+            </button>
+          </form>
+          <Changepassword setIsLoading={setIsLoading} />
+          <div className=" w-full text-center p-7 bg-white rounded-lg shadow-lg">
+            {/* <h2 className=" text-lg text-[#202124] lg:text-3xl mb-10 font-medium">
+              Logout
+            </h2> */}
+            <button
+              type="button"
+              onClick={() => navigate(`/candidate/dashboard/logout`)}
+              className="w-96  mt-5 py-3 px-8 bg-red-500 hover:bg-red-400 text-white  rounded-lg transition duration-300 ease-in-out"
+            >
+              Logout
+            </button>
           </div>
-
-          <div>
-            <SocialNetworks
-              socialNetworks={socialNetworks}
-              setSocialNetworks={setSocialNetworks}
-            />
-          </div>
-
-          <div>
-            <ContactInformation
-              contactInfo={contactInfo}
-              setContactInfo={setContactInfo}
-            />
-          </div>
-
-          <button
-            type="button"
-            onClick={handleSubmit}
-            className="lg:w-auto mt-5 py-3 px-8 bg-[#6ad61d] hover:bg-blue-600 text-white  rounded-lg transition duration-300 ease-in-out"
-          >
-            Save Profile
-          </button>
         </>
       )}
     </div>

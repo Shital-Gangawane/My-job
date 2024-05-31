@@ -31,17 +31,28 @@ const Register = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    window.recaptchaVerifier = new RecaptchaVerifier(
-      auth,
-      "recaptcha-container",
-      {
-        size: "invisible",
-        callback: (response) => {
-          // reCAPTCHA solved - allowing the user to get OTP
-          console.log("Recaptcha verified", response);
-        },
-      }
-    );
+    if (!auth) {
+      console.error("Firebase auth object not found.");
+      return;
+    }
+
+    try {
+      window.recaptchaVerifier = new RecaptchaVerifier(
+        auth,
+        "recaptcha-container",
+        {
+          size: "invisible",
+          callback: (response) => {
+            console.log("reCAPTCHA verified:", response);
+          },
+          "expired-callback": () => {
+            console.warn("reCAPTCHA expired");
+          },
+        }
+      );
+    } catch (error) {
+      console.error("Error initializing reCAPTCHA:", error);
+    }
   }, []);
 
   const getOtp = async () => {

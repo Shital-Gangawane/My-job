@@ -171,7 +171,7 @@ const Nav = ({ bgColor, employer }) => {
                     </Link>
                   )}
 
-                  <Link
+                  {/* <Link
                     to={`/${sessionStorage.getItem(
                       "userType"
                     )}/dashboard/logout`}
@@ -181,14 +181,14 @@ const Nav = ({ bgColor, employer }) => {
                       size={25}
                       className=" hover:text-[#6ad61d]"
                     />
-                  </Link>
+                  </Link> */}
                 </div>
               ) : (
                 <motion.button
                   onClick={() => navigate("/login")}
                   onMouseOver={() => setIsHoveringLogin(true)}
                   onMouseLeave={() => setIsHoveringLogin(false)}
-                  className="bg-stone-900 hidden xl:block relative  md:max-w-60 rounded-full  hover:bg-stone-500 text-white px-10 whitespace-nowrap py-3 text-sm md:text-sm shadow-md transition duration-300 ease-in-out transform "
+                  className="bg-red-600 hidden xl:block relative  md:max-w-60 rounded-full  hover:bg-stone-500 text-white px-10 whitespace-nowrap py-3 text-sm md:text-sm shadow-md transition duration-300 ease-in-out transform "
                 >
                   Login
                   {isHoveringLogin && (

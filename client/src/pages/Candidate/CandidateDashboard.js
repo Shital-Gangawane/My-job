@@ -76,21 +76,21 @@ const buttons = [
     icon: <GiVideoConference size={25} />,
     path: "/meetings", // Example path for Meetings
   },
-  {
-    name: "Change Password",
-    icon: <RiLockPasswordLine size={25} />,
-    path: "/changepassword", // Example path for Change Password
-  },
+  // {
+  //   name: "Change Password",
+  //   icon: <RiLockPasswordLine size={25} />,
+  //   path: "/changepassword", // Example path for Change Password
+  // },
   // {
   //   name: "Delete Profile",
   //   icon: <RiDeleteBin5Line size={25} />,
   //   path: "deleteprofile", // Example path for Delete Profile
   // },
-  {
-    name: "Logout",
-    icon: <TfiPowerOff size={25} />,
-    path: "/logout", // Example path for Logout
-  },
+  // {
+  //   name: "Logout",
+  //   icon: <TfiPowerOff size={25} />,
+  //   path: "/logout", // Example path for Logout
+  // },
 ];
 
 const CandidateDashboard = () => {
@@ -130,12 +130,10 @@ const CandidateDashboard = () => {
         return <Messages />;
       case 7:
         return <Meeting />;
+
       case 8:
-        return <Changepassword />;
-      case 9:
         return <Deleteprofile />;
-      case 10:
-        return <Logout />;
+
       default:
         return null;
     }

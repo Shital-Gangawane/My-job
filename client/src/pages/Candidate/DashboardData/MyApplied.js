@@ -4,6 +4,7 @@ import { useUserContext } from "../../../context/userContext";
 import { fetchUser } from "../../../api/employer/axios";
 import { Link } from "react-router-dom";
 import Loader from "../../../components/Utility/Loader";
+import PageLoader from "../../../components/Utility/PageLoader";
 
 function MyApplied() {
   const [myApplied, setMyApplied] = useState([]);
@@ -79,7 +80,7 @@ function MyApplied() {
         Applied Jobs
       </h1>
       <div className="w-full relative bg-white rounded-lg shadow-lg p-7">
-        {isLoading && <Loader />}
+        {isLoading && <PageLoader />}
         <div className="flex flex-col lg:flex-row gap-3 lg:justify-between">
           <div className="bg-[#f0f5f7] rounded-lg ps-4 flex items-center gap-2">
             <IoIosSearch color="gray" size={20} />

@@ -32,6 +32,7 @@ function SocialNetworks({ socialNetworks, setSocialNetworks }) {
         ))}
       </div>
       <button
+        type="button"
         className="text-[#6ad61d] bg-[#6ad61d23] rounded-lg transition duration-300 mt-4 ease-in-out focus:outline-none text-sm w-full sm:w-auto px-5 py-3 text-center dark:bg-[#6ad61d23] dark:hover:bg-[#6ad61d] dark:hover:text-white dark:focus:ring-[#6ad61d]"
         onClick={() =>
           setSocialNetworks((prev) => [

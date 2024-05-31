@@ -10,6 +10,7 @@ import {
   updateCandidateStatus,
 } from "../../../api/employer/axios";
 import Loader from "../../../components/Utility/Loader";
+import PageLoader from "../../../components/Utility/PageLoader";
 
 const baseUrl = process.env.REACT_APP_SERVER_API_URL || "http://localhost:8000";
 const statusOptions = [
@@ -149,7 +150,7 @@ function Applicantsjobs() {
         All Applicants
       </h1>
       <div className="w-full relative bg-white rounded-lg shadow-lg p-7">
-        {isLoading && <Loader />}
+        {isLoading && <PageLoader />}
         <div className="flex flex-col lg:flex-row gap-3 lg:justify-between">
           <div className="bg-[#f0f5f7] rounded-lg ps-4 flex items-center gap-2">
             <IoIosSearch color="gray" size={20} />
