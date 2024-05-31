@@ -111,3 +111,16 @@ export const myResume = async (formData, id) => {
     return error.response;
   }
 };
+
+// Follow Employer
+ export const followEmployer =async(candidateId,employerId)=>{
+  try {
+    const res=await axios.put(`${url}/api/candidate/followEmployer`,{
+      candidateId,
+      employerId
+    })
+    return res;
+  } catch (error) {
+    return error.response;
+  }
+ }

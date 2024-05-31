@@ -17,7 +17,7 @@ function ContactInformation({ contactInfo, setContactInfo }) {
       location: { ...prev.location, [name]: value },
     }));
   };
-
+console.log(contactInfo)
   return (
     <div className="bg-white p-6 mt-5 px-10 rounded-lg block">
       <h2 className="text-lg text-[#202124] mb-6 font-bold">
@@ -59,7 +59,7 @@ function ContactInformation({ contactInfo, setContactInfo }) {
             disabled
             type="text"
             name="phoneNumber"
-            value={"+" + contactInfo.phoneNumber || ""}
+            value={"+" + contactInfo?.phoneNumber }
             onChange={handleContactInfoChange}
             className="block w-full p-3 bg-gray-100 border-gray-300 rounded-lg focus:outline-none focus:border-[#6ad61d] focus:ring-[#6ad61d]"
           />

@@ -14,12 +14,9 @@ function MyResume() {
 
   const [resumeInfo, setResumeInfo] = useState({
     resume: null,
-<<<<<<< HEAD
     portfolio:"",
 
-=======
     portfolio: "",
->>>>>>> 22cb39fe47947ab88222f183182f32265aa6cff8
   });
 
   const [educations, setEducations] = useState([
@@ -132,7 +129,6 @@ function MyResume() {
             />
           </div>
 
-<<<<<<< HEAD
       <div className="bg-white p-6 mt-5 px-10 rounded-lg block">
     <h2 className="text-lg text-[#202124] mb-6 font-bold">Portfolio</h2>
     <div className="mb-5">
@@ -146,7 +142,6 @@ function MyResume() {
         </div>
 
     </div>
-=======
           <div className="bg-white p-6 mt-5 px-10 rounded-lg block">
             <h2 className="text-lg text-[#202124] mb-6 font-bold">Portfolio</h2>
             <label className="font-medium">Portfolio link</label>
@@ -162,7 +157,6 @@ function MyResume() {
               className="block w-2/3 p-5 cursor-pointer bg-gray-100 border-gray-300 focus:outline-[#6ad61d] text-gray-900 border rounded-lg text-base focus:ring-[#6ad61d] focus:border-[#6ad61d] dark:bg-gray-100 dark:border-none dark:placeholder-gray-400 dark:gray-900 dark:focus:ring-[#6ad61d] dark:focus:border-[#6ad61d]"
             />
           </div>
->>>>>>> 22cb39fe47947ab88222f183182f32265aa6cff8
 
           <div>
             <Awards awards={awards} setAwards={setAwards} />

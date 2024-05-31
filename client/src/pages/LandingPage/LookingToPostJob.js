@@ -14,9 +14,9 @@ function LookingToPostJob() {
     <motion.div className="grid grid-cols-1 md:grid-cols-2 w-full h-auto  px-10 pb-10 md:px-10 bg-[#F5F2EA] ">
       <div className=" w-full mt-16">
       {sideImg?.map((image, i) => (
-        
+        <div  key={i}>
          <img src= {image.img}/>
-        
+         </div>
       ))}
        
     </div>

@@ -113,6 +113,9 @@ const candidateSchema = new mongoose.Schema({
     type: String,
     default: "",
   },
+  following: {
+    type: Array,
+  },
 
   location: {
     latitude: {
@@ -174,6 +177,12 @@ const candidateSchema = new mongoose.Schema({
   experiences: [experienceSchema],
   awards: [awardSchema],
   portfolio: {
+    type: String,
+  },
+  github: {
+    type: String,
+  },
+  linkedin: {
     type: String,
   },
 });

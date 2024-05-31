@@ -12,9 +12,10 @@ function FindJobWithEasySteps() {
     <section className="grid grid-cols-1 md:grid-cols-2 py-16 w-full h-auto mx-auto px-7 pb-5 md:px-7 bg-white">
       <div className=" w-full mt-7 mb-5">
       {sideImg?.map((image, i) => (
-        
+        <div
+         key={i}>
         <img src= {image.img}/>
-       
+       </div>
      ))}
       
    </div>
