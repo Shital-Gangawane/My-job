@@ -21,6 +21,7 @@ const {
 const {
   fetchFollowingEmployers,
 } = require("../../controllers/candidate/fetchFollowingEmployers.js");
+const { setJobAlert } = require("../../controllers/candidate/setJobAlert.js");
 
 const router = express.Router();
 
@@ -42,9 +43,12 @@ router.put("/candidate/followEmployer", followEmployer);
 //Fetch Following employers
 router.get("/candidate/fetchFollowingEmployers", fetchFollowingEmployers);
 
-router.get("/candidate/searchJobs", searchJobs);
+//Job Alert
+router.put("/candidate/setJobAlert", setJobAlert);
+// router.get("/candidate/fetchJobAlert", fetchJobAlert);
 
 //Job
+router.get("/candidate/searchJobs", searchJobs);
 router.post("/candidate/applyJob", applyJob);
 
 module.exports = router;

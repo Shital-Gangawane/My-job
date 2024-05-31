@@ -43,10 +43,10 @@ function Changepassword() {
   };
 
   return (
-    <div className="relative w-full h-auto lg:mt-14 px-4 lg:px-14 overflow-y-auto py-7 pb-14">
-      <h1 className="text-lg text-[#202124] lg:text-3xl mb-10 font-medium">
+    <div className="relative w-full h-auto   overflow-y-auto pb-14">
+      {/* <h1 className="text-lg text-[#202124] lg:text-3xl mb-7 font-medium">
         Change Password
-      </h1>
+      </h1> */}
       <form
         onSubmit={handleSubmit}
         className="bg-white rounded-lg shadow-lg w-full flex items-center justify-start flex-col p-10 gap-8"
@@ -59,7 +59,7 @@ function Changepassword() {
             value={oldPass}
             onChange={(e) => setOldPass(e.target.value)}
             type="password"
-            className="w-2/3 bg-[#f0f5f7] rounded-lg p-4 focus:outline-none"
+            className="w-full md:w-2/3 bg-[#f0f5f7] rounded-lg p-4 focus:outline-none"
             required
           />
         </div>
@@ -72,7 +72,7 @@ function Changepassword() {
             required
             value={newPass}
             onChange={(e) => setNewPass(e.target.value)}
-            className="w-2/3 bg-[#f0f5f7] rounded-lg p-4 focus:outline-none"
+            className="w-full md:w-2/3 bg-[#f0f5f7] rounded-lg p-4 focus:outline-none"
           />
         </div>
         <div className="w-full">
@@ -84,7 +84,7 @@ function Changepassword() {
             required
             value={confirmPass}
             onChange={(e) => setConfirmPass(e.target.value)}
-            className={`w-2/3 bg-[#f0f5f7] ${
+            className={`w-full md:w-2/3 bg-[#f0f5f7] ${
               newPass === confirmPass ? "border-green-500" : "border-red-500"
             } rounded-lg p-4 focus:outline-none`}
           />

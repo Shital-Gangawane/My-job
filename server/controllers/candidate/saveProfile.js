@@ -55,8 +55,6 @@ module.exports.saveProfile = async (req, res) => {
       updates.location = JSON.parse(updates.location);
     }
 
-    // console.log(updates);
-
     // Update the candidate with the new information
     const updatedCandidate = await Candidate.findByIdAndUpdate(id, updates, {
       new: true,
@@ -64,7 +62,7 @@ module.exports.saveProfile = async (req, res) => {
     });
     res.status(200).json({
       success: true,
-      message: "Profile updated successfully",
+      message: "Profile updated successfully!!!",
       candidate: updatedCandidate,
     });
   } catch (error) {

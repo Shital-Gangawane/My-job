@@ -1,15 +1,17 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useUserContext } from "../../../../context/userContext";
 import SelectLanguage from "./SelectLanguage";
+import SearchableList from "../../../../components/Utility/SearchableList";
+import { qualifications } from "./SelectOptions";
 
-const baseUrl = "http://localhost:8000";
+const baseUrl = process.env.REACT_APP_SERVER_API_URL || "http://localhost:8000";
 function MyProfile({
   profileInfo,
   onChange,
   handleLanguageChange,
   onImageChange,
   ageoptions,
-  categoriesoptions,
+  industryOptions,
   experienceoptions,
   genderoption,
   qualificationoptions,
@@ -18,8 +20,8 @@ function MyProfile({
 }) {
   const [preview, setPreview] = useState({ logoImage: "", coverImage: "" });
   const [searchTerm, setSearchTerm] = useState("");
-  const [selectedQualification, setSelectedQualification] = useState("");
-  const [specializations, setSpecializations] = useState([]);
+  // const [selectedQualification, setSelectedQualification] = useState("");
+  // const [specializations, setSpecializations] = useState([]);
   const { user } = useUserContext();
 
   useEffect(() => {
@@ -40,9 +42,18 @@ function MyProfile({
     };
   }, [preview]);
 
+  const selectedQualification = qualificationoptions.find(
+    (q) => q.label === profileInfo.qualification
+  );
+  const specializations = selectedQualification
+    ? selectedQualification.specializations
+    : [];
+
+  // console.log(selectedQualification);
+
   return (
     <div
-      className="bg-white p-6 px-10 rounded-lg"
+      className="bg-white p-3 md:p-6 md:px-10 rounded-lg rounded-s-none"
       // id="scrollIntoView"
       // ref={targetDivRef}
     >
@@ -203,29 +214,50 @@ function MyProfile({
         </div>
 
         <div className="flex flex-wrap mx-2">
-          <div className="mb-5 w-full md:w-1/2 px-2">
-            <label
-              htmlFor="qualification"
-              className="block text-sm font-bold text-gray-900"
-            >
-              Qualification
-            </label>
-            <select
-              name="qualification"
-              value={profileInfo?.qualification || ""}
-              onChange={onChange}
-              className="block w-full p-5  bg-gray-100 border-gray-300 focus:outline-[#6ad61d] text-gray-900 border rounded-lg text-base focus:ring-[#6ad61d] focus:border-[#6ad61d] dark:bg-gray-100 dark:border-none dark:placeholder-gray-400 dark:gray-900 dark:focus:ring-[#6ad61d] dark:focus:border-[#6ad61d]"
-            >
-              <option value="">None</option>
-              {qualificationoptions.map((option) => (
-                <option key={option.value} value={option.label}>
-                  {option.label}
-                </option>
-              ))}
-            </select>
-          </div>
+          <SearchableList
+            label="Qualification"
+            name="qualification"
+            value={profileInfo?.qualification || ""}
+            onChange={onChange}
+            array={qualificationoptions}
+            required
+          />
+          <SearchableList
+            label="Specialization"
+            value={profileInfo.specialization || ""}
+            onChange={onChange}
+            name="specialization"
+            array={specializations}
+            required
+          />
 
-          <div className="mb-5 w-full md:w-1/2 px-2">
+          {/* <div className="mb-5 w-full md:w-1/2 px-2">
+            <label
+              htmlFor="specialization"
+              className="block mb-2 text-sm font-bold text-gray-900"
+            >
+              Specialization <span className="text-red-600">*</span>
+            </label>
+            <input
+              type="text"
+              name="specialization"
+              value={user?.specialization || ""}
+              onChange={onChange}
+              placeholder="eg. Computer Science or IT"
+              className="block w-full p-5  bg-gray-100 border-gray-300 focus:outline-[#6ad61d] text-gray-900 border rounded-lg text-base focus:ring-[#6ad61d] focus:border-[#6ad61d] dark:bg-gray-100 dark:border-none dark:placeholder-gray-400 dark:gray-900 dark:focus:ring-[#6ad61d] dark:focus:border-[#6ad61d]"
+              required
+            />
+          </div> */}
+
+          <SearchableList
+            label="Experience Time"
+            name="experience"
+            value={profileInfo?.experience || ""}
+            onChange={onChange}
+            array={experienceoptions}
+            required
+          />
+          {/* <div className="mb-5 w-full md:w-1/2 px-2">
             <label
               htmlFor="experience"
               className="block text-sm font-bold text-gray-900"
@@ -246,7 +278,7 @@ function MyProfile({
                 </option>
               ))}
             </select>
-          </div>
+          </div> */}
         </div>
 
         <div className="flex flex-wrap mx-2 ">
@@ -263,8 +295,15 @@ function MyProfile({
               onChange={handleLanguageChange}
             />
           </div>
+          <SearchableList
+            label=" Salary Type"
+            name="salaryType"
+            value={profileInfo?.salaryType || ""}
+            onChange={onChange}
+            array={salaryoptions}
+          />
 
-          <div className="mb-5 w-full md:w-1/2 px-2">
+          {/* <div className="mb-5 w-full md:w-1/2 px-2">
             <label
               htmlFor="salaryType"
               className="block text-sm font-bold text-gray-900"
@@ -284,7 +323,7 @@ function MyProfile({
                 </option>
               ))}
             </select>
-          </div>
+          </div> */}
         </div>
 
         <div className="flex flex-wrap mx-2">
@@ -306,48 +345,43 @@ function MyProfile({
           </div>
           <div className="mb-5 w-full md:w-1/2 px-2">
             <label
-              htmlFor="categories"
-              className="block text-sm font-bold text-gray-900"
+              htmlFor="ctc"
+              className="block mb-2 text-sm font-bold text-gray-900 "
             >
-              Industry
+              CTC(LPA)
             </label>
-            <select
-              name="categories"
-              value={profileInfo?.categories || ""}
+            <input
+              type="text"
+              name="ctc"
+              value={profileInfo?.ctc || ""}
               onChange={onChange}
-              className="block w-full p-5  bg-gray-100 border-gray-300 focus:outline-[#6ad61d] text-gray-900 border rounded-lg text-base focus:ring-[#6ad61d] focus:border-[#6ad61d] dark:bg-gray-100 dark:border-none dark:placeholder-gray-400 dark:gray-900 dark:focus:ring-[#6ad61d] dark:focus:border-[#6ad61d]"
-            >
-              <option value="">None</option>
-              {categoriesoptions.map((option) => (
-                <option key={option.value} value={option.label}>
-                  {option.label}
-                </option>
-              ))}
-            </select>
+              className="block w-full p-5 bg-gray-100 border-gray-300 focus:outline-[#6ad61d] text-gray-900 border rounded-lg text-base focus:ring-[#6ad61d] focus:border-[#6ad61d] dark:bg-gray-100 dark:border-none dark:placeholder-gray-400 dark:gray-900 dark:focus:ring-[#6ad61d] dark:focus:border-[#6ad61d]"
+              placeholder="Enter CTC eg. 5,00,000"
+            />
           </div>
+          <SearchableList
+            label="Industry"
+            name="industry"
+            value={profileInfo?.industry || ""}
+            onChange={onChange}
+            array={industryOptions}
+          />
         </div>
-        <div className="flex flex-wrap mx-2">
-          <div className="mb-5 w-full md:w-1/2 px-2">
-            <label
-              htmlFor="showMyProfile"
-              className="block text-sm font-bold text-gray-900"
-            >
-              Show My Profile
-            </label>
-            <select
-              name="showMyProfile"
-              value={profileInfo?.showMyProfile || ""}
-              onChange={onChange}
-              className="block w-full p-5  bg-gray-100 border-gray-300 focus:outline-[#6ad61d] text-gray-900 border rounded-lg text-base focus:ring-[#6ad61d] focus:border-[#6ad61d] dark:bg-gray-100 dark:border-none dark:placeholder-gray-400 dark:gray-900 dark:focus:ring-[#6ad61d] dark:focus:border-[#6ad61d]"
-            >
-              <option value="">None</option>
-              {showprofileoptions.map((option) => (
-                <option key={option.value} value={option.value}>
-                  {option.label}
-                </option>
-              ))}
-            </select>
-          </div>
+        <div className="mb-5 w-full md:w-1/2 px-2">
+          <label
+            htmlFor="jobTitle"
+            className="block mb-2 text-sm font-bold text-gray-900 "
+          >
+            Job title
+          </label>
+          <input
+            type="text"
+            name="jobTitle"
+            value={profileInfo?.jobTitle || ""}
+            onChange={onChange}
+            className="block w-full p-5 bg-gray-100 border-gray-300 focus:outline-[#6ad61d] text-gray-900 border rounded-lg text-base focus:ring-[#6ad61d] focus:border-[#6ad61d] dark:bg-gray-100 dark:border-none dark:placeholder-gray-400 dark:gray-900 dark:focus:ring-[#6ad61d] dark:focus:border-[#6ad61d]"
+            placeholder="eg. Software developer"
+          />
         </div>
 
         <div className="flex flex-wrap mx-2">

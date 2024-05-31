@@ -57,6 +57,25 @@ const experienceSchema = new mongoose.Schema({
     // required: true,
   },
 });
+
+const jobAlertSchema = new mongoose.Schema({
+  title: {
+    type: String,
+    // required: true,
+  },
+  minSalary: {
+    type: String,
+  },
+  maxSalary: {
+    type: String,
+  },
+  experience: {
+    type: String,
+  },
+  jobLocation: {
+    type: String,
+  },
+});
 const candidateSchema = new mongoose.Schema({
   name: {
     type: String,
@@ -89,9 +108,13 @@ const candidateSchema = new mongoose.Schema({
   salary: {
     type: String,
   },
+  ctc: {
+    type: String,
+  },
   categories: {
     type: String,
   },
+
   email: {
     type: String,
   },
@@ -151,6 +174,10 @@ const candidateSchema = new mongoose.Schema({
     type: String,
   },
 
+  specialization: {
+    type: String,
+  },
+
   appliedJobs: [
     {
       type: mongoose.Schema.Types.ObjectId,
@@ -179,6 +206,7 @@ const candidateSchema = new mongoose.Schema({
   educations: [educationSchema],
   experiences: [experienceSchema],
   awards: [awardSchema],
+  jobAlert: [jobAlertSchema],
   portfolio: {
     type: String,
   },
@@ -186,6 +214,9 @@ const candidateSchema = new mongoose.Schema({
     type: String,
   },
   linkedin: {
+    type: String,
+  },
+  industry: {
     type: String,
   },
 });
