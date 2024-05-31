@@ -320,6 +320,14 @@ export const showprofileoptions = [
   // Add more options as needed
 ];
 
+export const alertoptions = [
+  { label: "Hourly", value: "option1" },
+  { label: " Daily", value: "option2" },
+  { label: "Monthly ", value: "option3" },
+  { label: "Yearly", value: "option4" },
+];
+
+
 function SelectOptions() {
   return <div></div>;
 }

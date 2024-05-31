@@ -50,6 +50,7 @@ function Profile({ candidate, setIsEditing }) {
     jobTitle: "",
     description: "",
     logoImage: "",
+    jobAlert:null,
   });
 
   const [socialNetworks, setSocialNetworks] = useState([
@@ -102,6 +103,7 @@ function Profile({ candidate, setIsEditing }) {
             jobTitle: data.jobTitle || "",
             description: data.description || "",
             logoImage: data.logoImage || null,
+            
           });
 
           setSocialNetworks(data.socialNetworks || []);

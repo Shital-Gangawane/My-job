@@ -17,7 +17,7 @@ function ContactInformation({ contactInfo, setContactInfo }) {
       location: { ...prev.location, [name]: value },
     }));
   };
-
+console.log(contactInfo)
   return (
     <div className="bg-white p-6 mt-5 px-10 rounded-lg block">
       <h2 className="text-lg text-[#202124] mb-6 font-bold">

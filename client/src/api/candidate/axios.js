@@ -124,6 +124,7 @@ export const followEmployer = async (candidateId, employerId) => {
   }
 };
 
+
 export const fetchFollowingEmployers = async (candidateId) => {
   try {
     const res = await axios.get(
@@ -151,3 +152,18 @@ export const changePassword = async (oldPass, newPass, token) => {
     return error.response;
   }
 };
+
+
+// Job Alert
+
+export const myJobAlert= async(candidateId,formData)=>{
+  try {
+    const res= await axios.put(`${url}/api/candidate/setJobAlert`,{
+      candidateId,
+      formData,
+    });
+    return res;
+  } catch (error) {
+    return error.response;
+  }
+}
