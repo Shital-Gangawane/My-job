@@ -45,7 +45,7 @@ export default function SearchPanel({ isSidebarVisible, isMobile, onClose }) {
       exit={{ x: -300 }}
       transition={{ type: "spring", stiffness: 200, damping: 25 }}
       className={`fixed inset-0 z-40 flex lg:relative lg:z-auto ${
-        isMobile ? !isSidebarVisible && "hidden" : " w-1/2 max-w-96 h-full"
+        isMobile ? !isSidebarVisible && "hidden" : " w-11/12 max-w-96 h-full"
       }`}
       style={{
         backgroundColor: isMobile ? "rgba(0, 0, 0, 0.5)" : "transparent",

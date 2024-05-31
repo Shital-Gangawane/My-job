@@ -4,13 +4,22 @@ import SearchPanel from "./SearchPanel";
 import { GiMoneyStack } from "react-icons/gi";
 import { CiLocationOn } from "react-icons/ci";
 import { CiClock2 } from "react-icons/ci";
-import { JobContext } from "../../context/jobContext";
+import JobContextProvider, { JobContext } from "../../context/jobContext";
 import FilterTags from "../../components/Job/FilterTags";
 import { IoMenuSharp } from "react-icons/io5";
+import JobAlert from "./JobAlert";
+import { alertoptions } from "./DashboardData/ProfileComps/SelectOptions";
+import { useUserContext } from "../../context/userContext";
+import { fetchUser } from "../../api/employer/axios";
+import { myJobAlert } from "../../api/candidate/axios";
 
 export default function SearchedJobs() {
+  
   const location = useLocation();
   const navigate = useNavigate();
+  
+  const [Loading, setIsLoading] = useState(false);
+  const { user, setUser } = useUserContext();
   const [isSidebarVisible, setIsSidebarVisible] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
   const {
@@ -20,6 +29,71 @@ export default function SearchedJobs() {
     handleCityChange,
     isLoading,
   } = useContext(JobContext);
+
+  const [alertInfo, setAlertInfo] = useState({
+    jobAlert:null,
+  })
+  const [jobAlrt, setJobAlrt] = useState([
+    {
+      title: "",
+      jobAlert: "",
+    },
+  ]);
+
+  const fetchAlertData = async () => {
+    if (user?._id) {
+      setIsLoading(true);
+      try {
+        const res = await fetchUser("candidate", user?._id);
+        // console.log(res);
+
+        if (res?.data?.success) {
+          const data = res?.data?.candidate;
+  setAlertInfo({
+  jobAlert: data.jobAlert || null,
+});
+setIsLoading(false);
+}
+} catch (error) {
+console.error("Failed to fetch profile data:", error);
+setIsLoading(false);
+}
+}
+};
+useEffect(() => {
+  fetchAlertData();
+}, []);
+
+
+const handleSubmit = async (e) => {
+  e.preventDefault();
+  setIsLoading(true);
+  const formData = new FormData();
+  Object.keys(alertInfo).forEach((key) => {
+    formData.append(key, alertInfo[key]);
+  });
+  console.log(jobAlrt);
+
+  formData.append("jobAlrt", JSON.stringify(jobAlrt));
+
+  const res = await myJobAlert(formData, user?._id);
+  console.log(res);
+  if (res?.data?.success) {
+    sessionStorage.setItem("user", JSON.stringify(res?.data?.candidate));
+    setUser(res?.data?.candidate);
+  }
+  setIsLoading(false);
+};
+
+const handleAlertChange = (e) => {
+  const { name, value } = e.target;
+  setAlertInfo((prev) => ({
+    ...prev,
+    [name]: value,
+  }));
+};
+
+
 
   // Function to navigate to job details page
   const handleJobClick = (job) => {
@@ -70,12 +144,21 @@ export default function SearchedJobs() {
         <p className="text-3xl font-medium">Job List</p>
       </div>
       <div className="flex w-full bg-white h-full xl:ps-20 py-2 xl:py-14">
+       <div className="w-1/3 flex  flex-col">
         <SearchPanel
           isSidebarVisible={isSidebarVisible}
           isMobile={isMobile}
           onClose={toggleSidebar}
         />
-        <div className=" relative w-full bg-white rounded-lg px-10">
+        <JobAlert
+        alertoptions={alertoptions}
+        alertInfo={alertInfo}
+        onChange={handleAlertChange}
+        onClick={handleSubmit}
+        />
+        </div>
+
+        <div className="w-2/3 relative bg-white rounded-lg px-10">
           {isLoading && (
             <div className=" absolute w-full h-full z-10 bg-white bg-opacity-60" />
           )}
