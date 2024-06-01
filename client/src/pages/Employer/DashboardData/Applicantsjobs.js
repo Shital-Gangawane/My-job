@@ -33,11 +33,12 @@ function Applicantsjobs() {
   const { user, setUser } = useUserContext();
   const [appStatus, setAppStatus] = useState("");
   const [note, setNote] = useState("");
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
-      if (user?.applications?.length) {
+      if (user?.applications) {
+        setIsLoading(true);
         try {
           const res = await fetchApplications(user?._id);
           if (res?.data?.success) {

@@ -12,6 +12,8 @@ import { TiSocialFacebook, TiSocialPinterest } from "react-icons/ti";
 import { AiOutlineTwitter } from "react-icons/ai";
 import { CgSandClock } from "react-icons/cg";
 import Loader from "../../../components/Utility/Loader";
+import Login from "../../Login/Login";
+import Register from "../../Register/Register";
 
 function JobDetails() {
   const { jobTitle, id } = useParams();
@@ -21,6 +23,8 @@ function JobDetails() {
   const [isDeleteOn, setIsDeleteOn] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
+  const [isLoggedIn, setIsLoggedIn] = useState(true);
+  const [isRegistered, setIsRegistered] = useState(true);
   const { token, user, setUser } = useUserContext();
 
   const userType = sessionStorage.getItem("userType");
@@ -39,6 +43,10 @@ function JobDetails() {
   };
 
   const applyClickHandler = async (jobId) => {
+    if (!token) {
+      setIsLoggedIn(false);
+      return;
+    }
     setIsLoading(true);
     try {
       if (user?._id && userType && userType === "candidate") {
@@ -87,6 +95,21 @@ function JobDetails() {
       } relative`}
     >
       <Nav bgColor="bg-white  top-0 left-0 w-full z-10 shadow-md" />
+      {!isLoggedIn && (
+        <Login
+          jobApply
+          setIsRegistered={setIsRegistered}
+          setIsLoggedIn={setIsLoggedIn}
+        />
+      )}
+
+      {!isRegistered && (
+        <Register
+          jobApply
+          setIsRegistered={setIsRegistered}
+          setIsLoggedIn={setIsLoggedIn}
+        />
+      )}
       {isLoading ? (
         <Loader />
       ) : (

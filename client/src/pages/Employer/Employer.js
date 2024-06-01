@@ -7,18 +7,20 @@ import { useUserContext } from "../../context/userContext";
 export default function Employer() {
   const navigate = useNavigate();
   const location = useLocation();
-  const { token } = useUserContext();
+  const { token, user } = useUserContext();
   const userType = sessionStorage.getItem("userType");
 
   useEffect(() => {
-    if (!token) {
+    if (!user) {
       navigate("/login");
     } else if (userType !== "employer") {
       navigate("/candidate/dashboard");
-    } else if (location.pathname === "/employer") {
+    }
+
+    if (location.pathname === "/employer") {
       navigate("/employer/dashboard");
     }
-  }, [token, userType, location.pathname, navigate]);
+  }, [user, location.pathname]);
 
   return (
     <div className="w-full h-auto bg-white">

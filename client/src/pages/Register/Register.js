@@ -16,7 +16,7 @@ import Success from "../../components/Register/Success";
 import { RecaptchaVerifier, signInWithPhoneNumber } from "firebase/auth";
 import { auth } from "../../utils/firebaseConfig";
 
-const Register = () => {
+const Register = ({ jobApply, setIsRegistered, setIsLoggedIn }) => {
   const [identity, setIdentity] = useState("candidate");
   const [user, setUser] = useState(null);
   const [phone, setPhone] = useState("");
@@ -106,7 +106,10 @@ const Register = () => {
       const res = await registrationFunction(phone, password);
       if (res?.data?.success) {
         setIsSuccessOn(true);
-        setTimeout(() => navigate("/login"), 2000);
+        setIsRegistered(true);
+        if (!jobApply) {
+          setTimeout(() => navigate("/login"), 2000);
+        }
       } else {
         setError(res?.data?.message);
       }
@@ -118,9 +121,15 @@ const Register = () => {
   };
 
   return (
-    <div className="h-full w-full relative flex justify-center items-center   px-2 sm:px-10">
+    <div
+      className={`${
+        jobApply
+          ? " fixed inset-0 w-screen h-screen bg-black bg-opacity-50"
+          : " w-full h-full"
+      } flex justify-center items-center  px-2 sm:px-10 pt-10 `}
+    >
       {loading && <Loader />}
-      <Nav bgColor={" fixed top-0"} />
+      {!jobApply && <Nav bgColor={" fixed top-0"} />}
       {isSuccessOn ? (
         <Success />
       ) : (
@@ -269,7 +278,19 @@ const Register = () => {
           <p className=" text-center mt-4">
             Already have an account?{" "}
             <span className=" font-bold text-blue-500">
-              <Link to={"/login"}>Login</Link>
+              {!jobApply ? (
+                <Link to={"/login"}>Login</Link>
+              ) : (
+                <span
+                  className=" cursor-pointer"
+                  onClick={() => {
+                    setIsRegistered(true);
+                    setIsLoggedIn(false);
+                  }}
+                >
+                  Login
+                </span>
+              )}
             </span>
           </p>
         </motion.form>
