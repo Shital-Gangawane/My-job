@@ -48,13 +48,13 @@ const SearchableList = ({ label, value, onChange, name, array, required }) => {
           {value ? value : "Select an option"}
         </button>
         {showOptions && (
-          <div className="absolute z-10 w-full bg-white border border-gray-300 rounded-lg mt-1">
+          <div className="absolute z-10 w-full bg-white border border-gray-300 rounded-lg mt-1 p-3">
             <input
               type="text"
               value={search}
               onChange={handleSearchChange}
               placeholder="Search..."
-              className="border p-2 w-full"
+              className="border p-2 w-full rounded-md"
               autoFocus
               required={required}
             />
@@ -62,7 +62,7 @@ const SearchableList = ({ label, value, onChange, name, array, required }) => {
               {filteredOptions.map((option) => (
                 <li
                   key={option.value}
-                  className="p-2 hover:bg-gray-200 cursor-pointer"
+                  className="p-2 hover:bg-gray-50 cursor-pointer hover:text-[#6ad61d]"
                   onMouseDown={() => handleOptionClick(option.label)}
                 >
                   {option.label}

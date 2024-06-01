@@ -36,6 +36,7 @@ function Profile({ candidate, setIsEditing }) {
     gender: null,
     age: null,
     phoneNumber: "",
+    alternateNumbers: [""],
     email: user?.email,
     qualification: null,
     specialization: null,
@@ -50,7 +51,7 @@ function Profile({ candidate, setIsEditing }) {
     jobTitle: "",
     description: "",
     logoImage: "",
-    jobAlert:null,
+    jobAlert: null,
   });
 
   const [socialNetworks, setSocialNetworks] = useState([
@@ -88,6 +89,7 @@ function Profile({ candidate, setIsEditing }) {
             gender: data.gender || "",
             age: data.age || "",
             phoneNumber: data.phoneNumber || "",
+            alternateNumbers: data.alternateNumbers[0]?.split(",") || [""],
             email: user?.email,
             qualification: data.qualification || null,
             specialization: data.specialization || null,
@@ -103,7 +105,6 @@ function Profile({ candidate, setIsEditing }) {
             jobTitle: data.jobTitle || "",
             description: data.description || "",
             logoImage: data.logoImage || null,
-            
           });
 
           setSocialNetworks(data.socialNetworks || []);
@@ -141,6 +142,30 @@ function Profile({ candidate, setIsEditing }) {
     }));
   };
 
+  const handleAlternateNumberChange = (index, value) => {
+    setProfileInfo((prev) => {
+      const newAlternateNumbers = [...prev.alternateNumbers];
+      newAlternateNumbers[index] = value;
+      return { ...prev, alternateNumbers: newAlternateNumbers };
+    });
+  };
+
+  const addNumberClick = () => {
+    setProfileInfo((prev) => ({
+      ...prev,
+      alternateNumbers: [...prev.alternateNumbers, ""],
+    }));
+  };
+
+  const removeNumberClick = (index) => {
+    setProfileInfo((prev) => {
+      const newAlternateNumbers = prev.alternateNumbers.filter(
+        (_, i) => i !== index
+      );
+      return { ...prev, alternateNumbers: newAlternateNumbers };
+    });
+  };
+
   const handleLanguageChange = (language) => {
     // Check if the language is already selected
     if (profileInfo.languages.includes(language)) {
@@ -159,11 +184,26 @@ function Profile({ candidate, setIsEditing }) {
   };
 
   const handleImageChange = (e, imageType) => {
-    console.log(e.target.files[0]);
-    setProfileInfo((prev) => ({
-      ...prev,
-      [imageType]: e.target.files[0],
-    }));
+    const file = e.target.files[0];
+    if (file) {
+      const validFormats = ["image/jpeg", "image/png", "image/gif"];
+      const maxSizeInBytes = 2 * 1024 * 1024; // 2MB
+
+      if (!validFormats.includes(file.type)) {
+        alert("Invalid file format. Only JPEG, PNG, and GIF are allowed.");
+        return;
+      }
+
+      if (file.size > maxSizeInBytes) {
+        alert("File size exceeds the limit of 2MB.");
+        return;
+      }
+
+      setProfileInfo((prev) => ({
+        ...prev,
+        [imageType]: file,
+      }));
+    }
   };
 
   const toggleDropdown = () => {
@@ -263,6 +303,9 @@ function Profile({ candidate, setIsEditing }) {
                   salaryoptions={salaryoptions}
                   industryOptions={industryOptions}
                   showprofileoptions={showprofileoptions}
+                  addNumberClick={addNumberClick}
+                  handleAlternateNumber={handleAlternateNumberChange}
+                  removeNumberClick={removeNumberClick}
                   candidate
                 />
               </div>

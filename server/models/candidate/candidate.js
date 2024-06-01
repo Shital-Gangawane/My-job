@@ -61,7 +61,9 @@ const experienceSchema = new mongoose.Schema({
 const jobAlertSchema = new mongoose.Schema({
   title: {
     type: String,
-    // required: true,
+  },
+  frequency: {
+    type: String,
   },
   minSalary: {
     type: String,
@@ -73,6 +75,9 @@ const jobAlertSchema = new mongoose.Schema({
     type: String,
   },
   jobLocation: {
+    type: String,
+  },
+  keyword: {
     type: String,
   },
 });
@@ -131,7 +136,9 @@ const candidateSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-
+  alternateNumbers: {
+    type: Array,
+  },
   jobTitle: {
     type: String,
     default: "",

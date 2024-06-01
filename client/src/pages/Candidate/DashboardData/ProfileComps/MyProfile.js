@@ -3,6 +3,7 @@ import { useUserContext } from "../../../../context/userContext";
 import SelectLanguage from "./SelectLanguage";
 import SearchableList from "../../../../components/Utility/SearchableList";
 import { qualifications } from "./SelectOptions";
+import AlternateNumber from "./AlternateNumber";
 
 const baseUrl = process.env.REACT_APP_SERVER_API_URL || "http://localhost:8000";
 function MyProfile({
@@ -16,7 +17,9 @@ function MyProfile({
   genderoption,
   qualificationoptions,
   salaryoptions,
-  showprofileoptions,
+  addNumberClick,
+  handleAlternateNumber,
+  removeNumberClick,
 }) {
   const [preview, setPreview] = useState({ logoImage: "", coverImage: "" });
   const [searchTerm, setSearchTerm] = useState("");
@@ -193,24 +196,51 @@ function MyProfile({
               required
             />
           </div>
+        </div>
 
-          <div className="mb-5 w-full md:w-1/2 px-2">
-            <label
-              htmlFor="email"
-              className="block mb-2 text-sm font-bold text-gray-900"
-            >
-              Email <span className="text-red-600">*</span>
-            </label>
-            <input
-              type="email"
-              name="email"
-              value={user?.email || ""}
-              onChange={onChange}
-              placeholder="Enter Email"
-              className="block w-full p-5  bg-gray-100 border-gray-300 focus:outline-[#6ad61d] text-gray-900 border rounded-lg text-base focus:ring-[#6ad61d] focus:border-[#6ad61d] dark:bg-gray-100 dark:border-none dark:placeholder-gray-400 dark:gray-900 dark:focus:ring-[#6ad61d] dark:focus:border-[#6ad61d]"
-              required
+        <div className="mb-5 flex flex-wrap flex-col mx-2 ">
+          <label
+            htmlFor="phoneNumber"
+            className="block mb-2 text-sm font-bold text-gray-900 "
+          >
+            Alternate Phone Number
+          </label>
+          {profileInfo?.alternateNumbers?.map((number, i) => (
+            <AlternateNumber
+              key={i}
+              index={i}
+              onChange={handleAlternateNumber}
+              number={number}
+              onRemove={removeNumberClick}
             />
-          </div>
+          ))}
+          {profileInfo.alternateNumbers.length && (
+            <button
+              className="max-w-44   text-[#6ad61d] bg-[#6ad61d23] rounded-lg transition duration-300 mt-4 ease-in-out focus:outline-none text-sm w-full sm:w-auto px-5 py-3 text-center dark:bg-[#6ad61d23] dark:hover:bg-[#6ad61d] dark:hover:text-white dark:focus:ring-[#6ad61d]"
+              type="button"
+              onClick={addNumberClick}
+            >
+              Add number
+            </button>
+          )}
+        </div>
+
+        <div className="mb-5 w-full md:w-1/2 px-2">
+          <label
+            htmlFor="email"
+            className="block mb-2 text-sm font-bold text-gray-900"
+          >
+            Email <span className="text-red-600">*</span>
+          </label>
+          <input
+            type="email"
+            name="email"
+            value={user?.email || ""}
+            onChange={onChange}
+            placeholder="Enter Email"
+            className="block w-full p-5  bg-gray-100 border-gray-300 focus:outline-[#6ad61d] text-gray-900 border rounded-lg text-base focus:ring-[#6ad61d] focus:border-[#6ad61d] dark:bg-gray-100 dark:border-none dark:placeholder-gray-400 dark:gray-900 dark:focus:ring-[#6ad61d] dark:focus:border-[#6ad61d]"
+            required
+          />
         </div>
 
         <div className="flex flex-wrap mx-2">
@@ -248,7 +278,9 @@ function MyProfile({
               required
             />
           </div> */}
+        </div>
 
+        <div className="flex flex-wrap mx-2 ">
           <SearchableList
             label="Experience Time"
             name="experience"
@@ -257,44 +289,7 @@ function MyProfile({
             array={experienceoptions}
             required
           />
-          {/* <div className="mb-5 w-full md:w-1/2 px-2">
-            <label
-              htmlFor="experience"
-              className="block text-sm font-bold text-gray-900"
-            >
-              Experience Time <span className="text-red-600">*</span>
-            </label>
-            <select
-              name="experience"
-              value={profileInfo?.experience || ""}
-              onChange={onChange}
-              required
-              className="block w-full p-5  bg-gray-100 border-gray-300 focus:outline-[#6ad61d] text-gray-900 border rounded-lg text-base focus:ring-[#6ad61d] focus:border-[#6ad61d] dark:bg-gray-100 dark:border-none dark:placeholder-gray-400 dark:gray-900 dark:focus:ring-[#6ad61d] dark:focus:border-[#6ad61d]"
-            >
-              <option value="">None</option>
-              {experienceoptions.map((option) => (
-                <option key={option.value} value={option.label}>
-                  {option.label}
-                </option>
-              ))}
-            </select>
-          </div> */}
-        </div>
 
-        <div className="flex flex-wrap mx-2 ">
-          <div className="mb-5 w-full md:w-1/2 px-2 relative">
-            <label
-              htmlFor="languages"
-              className="block text-sm font-bold text-gray-900"
-            >
-              Language
-            </label>
-
-            <SelectLanguage
-              value={profileInfo?.languages}
-              onChange={handleLanguageChange}
-            />
-          </div>
           <SearchableList
             label=" Salary Type"
             name="salaryType"
@@ -302,28 +297,6 @@ function MyProfile({
             onChange={onChange}
             array={salaryoptions}
           />
-
-          {/* <div className="mb-5 w-full md:w-1/2 px-2">
-            <label
-              htmlFor="salaryType"
-              className="block text-sm font-bold text-gray-900"
-            >
-              Salary Type
-            </label>
-            <select
-              name="salaryType"
-              value={profileInfo?.salaryType || ""}
-              onChange={onChange}
-              className="block w-full p-5  bg-gray-100 border-gray-300 focus:outline-[#6ad61d] text-gray-900 border rounded-lg text-base focus:ring-[#6ad61d] focus:border-[#6ad61d] dark:bg-gray-100 dark:border-none dark:placeholder-gray-400 dark:gray-900 dark:focus:ring-[#6ad61d] dark:focus:border-[#6ad61d]"
-            >
-              <option value="">None</option>
-              {salaryoptions.map((option) => (
-                <option key={option.value} value={option.label}>
-                  {option.label}
-                </option>
-              ))}
-            </select>
-          </div> */}
         </div>
 
         <div className="flex flex-wrap mx-2">
@@ -366,21 +339,35 @@ function MyProfile({
             onChange={onChange}
             array={industryOptions}
           />
+          <div className="mb-5 w-full md:w-1/2 px-2">
+            <label
+              htmlFor="jobTitle"
+              className="block  text-sm font-bold text-gray-900 "
+            >
+              Job title
+            </label>
+            <input
+              type="text"
+              name="jobTitle"
+              value={profileInfo?.jobTitle || ""}
+              onChange={onChange}
+              className="block w-full p-5 bg-gray-100 border-gray-300 focus:outline-[#6ad61d] text-gray-900 border rounded-lg text-base focus:ring-[#6ad61d] focus:border-[#6ad61d] dark:bg-gray-100 dark:border-none dark:placeholder-gray-400 dark:gray-900 dark:focus:ring-[#6ad61d] dark:focus:border-[#6ad61d]"
+              placeholder="eg. Software developer"
+            />
+          </div>
         </div>
-        <div className="mb-5 w-full md:w-1/2 px-2">
+
+        <div className="mb-5 w-full md:w-1/2 px-2 relative">
           <label
-            htmlFor="jobTitle"
-            className="block mb-2 text-sm font-bold text-gray-900 "
+            htmlFor="languages"
+            className="block text-sm font-bold text-gray-900"
           >
-            Job title
+            Language
           </label>
-          <input
-            type="text"
-            name="jobTitle"
-            value={profileInfo?.jobTitle || ""}
-            onChange={onChange}
-            className="block w-full p-5 bg-gray-100 border-gray-300 focus:outline-[#6ad61d] text-gray-900 border rounded-lg text-base focus:ring-[#6ad61d] focus:border-[#6ad61d] dark:bg-gray-100 dark:border-none dark:placeholder-gray-400 dark:gray-900 dark:focus:ring-[#6ad61d] dark:focus:border-[#6ad61d]"
-            placeholder="eg. Software developer"
+
+          <SelectLanguage
+            value={profileInfo?.languages}
+            onChange={handleLanguageChange}
           />
         </div>
 

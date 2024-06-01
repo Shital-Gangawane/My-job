@@ -3,10 +3,19 @@ import { JobContext } from "../../context/jobContext";
 import { searchJobs } from "../../api/candidate/axios";
 import { Range, getTrackBackground } from "react-range";
 import { motion } from "framer-motion";
+import JobAlert from "./JobAlert";
 
 const experienceArr = [0, 1, 2, 3, 4, 5, 6];
 
-export default function SearchPanel({ isSidebarVisible, isMobile, onClose }) {
+export default function SearchPanel({
+  isSidebarVisible,
+  isMobile,
+  onClose,
+  setJobAlert,
+  jobAlert,
+  alertoptions,
+  onClick,
+}) {
   const {
     keyword,
     city,
@@ -44,14 +53,14 @@ export default function SearchPanel({ isSidebarVisible, isMobile, onClose }) {
       animate={{ x: 0 }}
       exit={{ x: -300 }}
       transition={{ type: "spring", stiffness: 200, damping: 25 }}
-      className={`fixed inset-0 z-40 flex lg:relative lg:z-auto ${
+      className={`fixed inset-0 z-40 flex flex-col gap-7 lg:relative bg-white lg:z-auto ${
         isMobile ? !isSidebarVisible && "hidden" : " w-11/12 max-w-96 h-full"
       }`}
       style={{
         backgroundColor: isMobile ? "rgba(0, 0, 0, 0.5)" : "transparent",
       }}
     >
-      <div className="flex h-auto flex-col gap-8 bg-[#F5F7FC] p-6 py-8 rounded-lg overflow-y-auto w-3/4 lg:w-full ">
+      <div className="flex h-auto flex-col gap-8 bg-[#F5F7FC] p-3 sm:p-6 py-8 rounded-lg overflow-y-auto w-3/4 lg:w-full ">
         <div>
           <label className="font-medium text-lg" htmlFor="keyword">
             Search by Keywords
@@ -209,6 +218,12 @@ export default function SearchPanel({ isSidebarVisible, isMobile, onClose }) {
           </button>
         </div>
       </div>
+      <JobAlert
+        alertoptions={alertoptions}
+        setJobAlert={setJobAlert}
+        jobAlert={jobAlert}
+        onClick={onClick}
+      />
     </motion.div>
   );
 }
