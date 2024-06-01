@@ -106,7 +106,7 @@ const Register = ({ jobApply, setIsRegistered, setIsLoggedIn }) => {
       const res = await registrationFunction(phone, password);
       if (res?.data?.success) {
         setIsSuccessOn(true);
-        setIsRegistered(true);
+        jobApply && setIsRegistered(true);
         if (!jobApply) {
           setTimeout(() => navigate("/login"), 2000);
         }

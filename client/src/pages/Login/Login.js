@@ -38,13 +38,13 @@ const Login = ({ jobApply, setIsRegistered, setIsLoggedIn }) => {
           setUser(res?.data?.user);
           setPackages(res?.data?.packages);
           setToken(res?.data?.token);
-          setIsLoggedIn(true);
+          jobApply && setIsLoggedIn(true);
           if (!jobApply) navigate("/employer/dashboard");
         } else {
           setUser(res?.data?.user);
           setToken(res?.data?.token);
           setPackages(res?.data?.packages);
-          setIsLoggedIn(true);
+          jobApply && setIsLoggedIn(true);
           if (!jobApply) navigate("/candidate/dashboard");
         }
       } else {
