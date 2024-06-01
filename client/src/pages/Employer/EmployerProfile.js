@@ -71,13 +71,19 @@ function EmployerProfile() {
           <h1 className="text-zinc-800 text-3xl font-bold mt-4">
             {employer.companyName}
           </h1>
-          <button
-            type="button"
-            onClick={handleFollowClick}
-            className="lg:w-auto mt-5 py-2 px-8 bg-[#6ad61d] hover:bg-blue-600 text-white  rounded-lg transition duration-300 ease-in-out"
-          >
-            {user?.following?.includes(employerId) ? "Following" : "Follow"}
-          </button>
+          {sessionStorage.getItem("userType") === "candidate" ? (
+            <button
+              type="button"
+              onClick={handleFollowClick}
+              className="lg:w-auto mt-5 py-2 px-8 bg-[#6ad61d] hover:bg-blue-600 text-white  rounded-lg transition duration-300 ease-in-out"
+            >
+              {user?.following?.includes(employerId) ? "Following" : "Follow"}
+            </button>
+          ) : (
+            <p className=" bg-white p-2 rounded-md text-blue-600 shadow-md">
+              Followers: <span className="">{employer?.followers?.length}</span>
+            </p>
+          )}
           {/* <Link to={'/employer/dashboard'}>View Dashboard</Link> */}
         </div>
       </div>

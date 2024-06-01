@@ -53,14 +53,14 @@ export default function SearchPanel({
       animate={{ x: 0 }}
       exit={{ x: -300 }}
       transition={{ type: "spring", stiffness: 200, damping: 25 }}
-      className={`fixed inset-0 z-40 flex flex-col gap-7 lg:relative bg-white lg:z-auto ${
-        isMobile ? !isSidebarVisible && "hidden" : " w-11/12 max-w-96 h-full"
+      className={`fixed inset-0 z-40 flex flex-col gap-7 lg:relative bg-white lg:z-auto overflow-y-auto ${
+        isMobile ? !isSidebarVisible && "hidden" : " w-11/12 max-w-96  h-full"
       }`}
       style={{
         backgroundColor: isMobile ? "rgba(0, 0, 0, 0.5)" : "transparent",
       }}
     >
-      <div className="flex h-auto flex-col gap-8 bg-[#F5F7FC] p-3 sm:p-6 py-8 rounded-lg overflow-y-auto w-3/4 lg:w-full ">
+      <div className="flex h-auto flex-col gap-8 bg-[#F5F7FC] p-3 sm:p-6 py-8 rounded-lg  w-3/4 lg:w-full ">
         <div>
           <label className="font-medium text-lg" htmlFor="keyword">
             Search by Keywords
