@@ -104,7 +104,7 @@ export default function FollowingEmployers() {
                           className="h-14 w-14  rounded-full p-1"
                           src={
                             employer?.logoImage
-                              ? `${baseUrl}/uploads/${employer?.logoImage}`
+                              ? `${baseUrl}/${employer?.logoImage}`
                               : userDp
                           }
                         />

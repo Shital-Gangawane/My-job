@@ -50,7 +50,7 @@ function CandidateProfile() {
       >
         <div className="max-w-7xl h-auto mx-auto flex flex-col items-center">
           <img
-            src={`${baseUrl}/uploads/${candidate?.logoImage}`}
+            src={`${baseUrl}/${candidate?.logoImage}`}
             alt="Candidate Logo"
             className="w-32 h-32 rounded-full border-4 border-white shadow-lg"
           />

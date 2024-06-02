@@ -45,6 +45,10 @@ const {
 const {
   changePassword,
 } = require("../../controllers/employer/changePassword.js");
+const { upload } = require("../../middlewares/multer/docsMulter.js");
+const {
+  upoadDocuments,
+} = require("../../controllers/employer/upoadDocuments.js");
 
 const router = express.Router();
 
@@ -90,5 +94,20 @@ router.get("/employer/fetchPackages/:employerId", fetchPackages);
 
 //Save Profile
 router.put("/employer/saveProfile/:id", cpUpload, saveProfile);
+
+//Save docs
+router.post(
+  "/employers/upload-documents/:employerId",
+  upload.fields([
+    { name: "certificateOfIncorporation", maxCount: 1 },
+    { name: "udyogAadharCertificate", maxCount: 1 },
+    { name: "companyPANCard", maxCount: 1 },
+    { name: "GSTDocument", maxCount: 1 },
+    { name: "officePicture", maxCount: 1 },
+    { name: "visitingCards", maxCount: 1 },
+    { name: "hrProofOfIdentity", maxCount: 1 },
+  ]),
+  upoadDocuments
+);
 
 module.exports = router;

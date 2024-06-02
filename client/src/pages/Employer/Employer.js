@@ -28,7 +28,7 @@ export default function Employer() {
       <div>
         <Outlet />
       </div>
-      <Footer />
+      {/* <Footer /> */}
     </div>
   );
 }

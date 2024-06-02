@@ -77,10 +77,7 @@ function MyProfile({
           {profileInfo?.logoImage && (
             <img
               className=" h-10"
-              src={
-                preview?.logoImage ||
-                `${baseUrl}/uploads/${profileInfo?.logoImage}`
-              }
+              src={preview?.logoImage || `${baseUrl}/${profileInfo?.logoImage}`}
               alt="Logo Preview"
             />
           )}
@@ -105,8 +102,7 @@ function MyProfile({
             <img
               className=" h-10"
               src={
-                preview?.coverImage ||
-                `${baseUrl}/uploads/${profileInfo?.coverImage}`
+                preview?.coverImage || `${baseUrl}/${profileInfo?.coverImage}`
               }
               alt="Cover Preview"
             />

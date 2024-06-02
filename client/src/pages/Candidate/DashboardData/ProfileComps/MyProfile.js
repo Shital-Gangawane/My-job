@@ -80,10 +80,7 @@ function MyProfile({
         {profileInfo?.logoImage && (
           <img
             className=" h-12"
-            src={
-              preview?.logoImage ||
-              `${baseUrl}/uploads/${profileInfo?.logoImage}`
-            }
+            src={preview?.logoImage || `${baseUrl}/${profileInfo?.logoImage}`}
             alt="Logo Preview"
           />
         )}

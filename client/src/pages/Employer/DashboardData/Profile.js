@@ -1,20 +1,23 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import ProfileMembers from "./ProfileComps/ProfileMembers/ProfileMembers";
 import MyProfile from "./ProfileComps/MyProfile";
 import SocialNetworks from "./ProfileComps/SocialNetworks/SocialNetworks";
 import ContactInformation from "./ProfileComps/ContactInformation";
 import { fetchUser, saveProfile } from "../../../api/employer/axios";
 import { useUserContext } from "../../../context/userContext";
-import axios from "axios";
 import Loader from "../../../components/Utility/Loader";
 import Success from "../../../components/Utility/Success";
 import PageLoader from "../../../components/Utility/PageLoader";
+import Changepassword from "./Changepassword";
+import { useNavigate } from "react-router-dom";
+import UploadDocuments from "../../Employer/DashboardData/ProfileComps/UploadDocuments";
 
 function Profile() {
-  const [isOpen, setIsOpen] = useState(false);
+  const [activeTab, setActiveTab] = useState("profile");
   const { user, setUser } = useUserContext();
   const [isLoading, setIsLoading] = useState(false);
   const [onSuccess, setOnSuccess] = useState(false);
+  const navigate = useNavigate();
 
   const [profileInfo, setProfileInfo] = useState({
     name: "",
@@ -30,79 +33,56 @@ function Profile() {
   });
 
   const [members, setMembers] = useState([
-    {
-      name: "",
-      designation: "",
-      experience: "",
-      profileImage: "",
-      fbUrl: "",
-      twitterUrl: "",
-      googleUrl: "",
-      linkedinUrl: "",
-      dribbleUrl: "",
-      description: "",
-    },
+    /* initial member structure */
   ]);
-
   const [socialNetworks, setSocialNetworks] = useState([
-    {
-      network: "",
-      url: "",
-    },
+    /* initial social networks structure */
   ]);
-
   const [contactInfo, setContactInfo] = useState({
-    phoneNumber: "",
-    email: "",
-    address: "",
-    country: "",
-    location: {
-      latitude: "",
-      longitude: "",
-    },
+    /* initial contact info structure */
   });
 
-  // Function to fetch profile data
-  const fetchProfileData = async () => {
-    try {
-      setIsLoading(true);
-      const res = await fetchUser("employer", user?._id);
-      console.log(res);
-      const data = res?.data?.employer;
-      setProfileInfo({
-        name: data.name || "",
-        website: data.website || "",
-        foundedDate: data.foundedDate || "",
-        companySize: data.companySize || "",
-        companyName: data.companyName || "",
-        categories: data.categories[0]?.split(",") || [],
-        introVideoUrl: data.introVideoUrl || "",
-        aboutCompany: data.aboutCompany || "",
-        logoImage: data.logoImage || null,
-        coverImage: data.coverImage || null,
-      });
-      setMembers(data.members || []);
-      setSocialNetworks(data.socialNetworks || []);
-      setContactInfo({
-        phoneNumber: user?.phoneNumber,
-        email: data.email || "",
-        address: data.address || "",
-        country: data.country || "",
-        location: data.location || { latitude: "", longitude: "" },
-      });
-      setIsLoading(false);
-    } catch (error) {
-      console.error("Failed to fetch profile data:", error);
-      setIsLoading(false);
-    }
-  };
-
-  // UseEffect to fetch data on component mount
   useEffect(() => {
+    const fetchProfileData = async () => {
+      try {
+        setIsLoading(true);
+        const res = await fetchUser("employer", user?._id);
+        const data = res?.data?.employer;
+
+        setProfileInfo({
+          name: data.name || "",
+          website: data.website || "",
+          foundedDate: data.foundedDate || "",
+          companySize: data.companySize || "",
+          companyName: data.companyName || "",
+          categories: data.categories[0]?.split(",") || [],
+          introVideoUrl: data.introVideoUrl || "",
+          aboutCompany: data.aboutCompany || "",
+          logoImage: data.logoImage || null,
+          coverImage: data.coverImage || null,
+        });
+
+        setMembers(data.members || []);
+        setSocialNetworks(data.socialNetworks || []);
+        setContactInfo({
+          phoneNumber: user?.phoneNumber,
+          email: data.email || "",
+          address: data.address || "",
+          country: data.country || "",
+          location: data.location || { latitude: "", longitude: "" },
+        });
+
+        setIsLoading(false);
+      } catch (error) {
+        console.error("Failed to fetch profile data:", error);
+        setIsLoading(false);
+      }
+    };
+
     if (user?._id) {
       fetchProfileData();
     }
-  }, [user?._id]); // Ensure this runs only once on mount
+  }, [user?._id]);
 
   const handleProfileChange = (e) => {
     const { name, value } = e.target;
@@ -113,115 +93,142 @@ function Profile() {
   };
 
   const handleCategoryChange = (category) => {
-    // Check if the category is already selected
-    if (profileInfo.categories.includes(category)) {
-      // Remove the category if it's already in the array
-      setProfileInfo((prev) => ({
-        ...prev,
-        categories: prev.categories.filter((cat) => cat !== category),
-      }));
-    } else {
-      // Add the category if it's not in the array
-      setProfileInfo((prev) => ({
-        ...prev,
-        categories: [...prev.categories, category],
-      }));
-    }
+    setProfileInfo((prev) => ({
+      ...prev,
+      categories: prev.categories.includes(category)
+        ? prev.categories.filter((cat) => cat !== category)
+        : [...prev.categories, category],
+    }));
   };
 
   const handleImageChange = (e, imageType) => {
-    console.log(e.target.files[0]);
     setProfileInfo((prev) => ({
       ...prev,
       [imageType]: e.target.files[0],
     }));
   };
 
-  const toggleDropdown = () => {
-    setIsOpen(!isOpen);
-  };
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsLoading(true);
     const formData = new FormData();
-    Object.keys(profileInfo).forEach((key) => {
-      formData.append(key, profileInfo[key]); // For files
 
-      // formData.append(key, JSON.stringify(profileInfo[key])); // For regular fields, ensure conversion to JSON if necessary
+    Object.keys(profileInfo).forEach((key) => {
+      formData.append(key, profileInfo[key]);
     });
 
-    // Append other data
     formData.append("members", JSON.stringify(members));
     formData.append("socialNetworks", JSON.stringify(socialNetworks));
     Object.keys(contactInfo).forEach((key) => {
-      if (contactInfo[key] instanceof Object) {
-        formData.append(key, JSON.stringify(contactInfo[key]));
-      } else {
-        formData.append(key, contactInfo[key]);
-      }
+      formData.append(
+        key,
+        contactInfo[key] instanceof Object
+          ? JSON.stringify(contactInfo[key])
+          : contactInfo[key]
+      );
     });
 
-    const res = await saveProfile(formData, user?._id);
-    console.log(res);
-
-    if (res?.data?.success) {
-      const userData = JSON.stringify(res?.data?.employer);
-      sessionStorage.setItem("user", userData);
-      setUser(res?.data?.employer);
+    try {
+      const res = await saveProfile(formData, user?._id);
+      if (res?.data?.success) {
+        const userData = JSON.stringify(res?.data?.employer);
+        sessionStorage.setItem("user", userData);
+        setUser(res?.data?.employer);
+        setOnSuccess(true);
+        setTimeout(() => setOnSuccess(false), 1000);
+      }
       setIsLoading(false);
-      setOnSuccess(true);
-      setTimeout(() => {
-        setOnSuccess(false);
-      }, 1000);
+    } catch (error) {
+      console.error("Failed to save profile data:", error);
+      setIsLoading(false);
     }
   };
 
   return (
-    <div className=" relative w-full h-auto   lg:mt-14 px-4 lg:px-14 py-7  pb-14">
+    <div className="relative w-full h-auto lg:mt-14 px-4 lg:px-14 py-7 pb-14">
       {isLoading && <PageLoader />}
       {onSuccess && <Success text="Profile Updated!" />}
-      <h2 className=" text-lg text-[#202124] lg:text-3xl mb-10 font-medium">
-        Edit Profile
-      </h2>
-
-      <form onSubmit={handleSubmit}>
-        <MyProfile
-          profileInfo={profileInfo}
-          onChange={handleProfileChange}
-          onImageChange={handleImageChange}
-          handleCategoryChange={handleCategoryChange}
-        />
-
-        {/* <div className="bg-white p-6 mt-5 px-10 rounded-lg">
-        <h2 className=" text-lg text-[#202124]  mb-6 font-bold">
-          Profile Photo
+      <div className="flex md:gap-2">
+        <h2
+          onClick={() => setActiveTab("profile")}
+          className={`text-lg ${
+            activeTab === "profile"
+              ? "border border-b-0 bg-white rounded-md rounded-b-none text-[#202124]"
+              : "text-[#666667]"
+          } font-medium py-2 px-1 md:px-4 cursor-pointer`}
+        >
+          Profile
         </h2>
-        <button
-          type="submit"
-          className="text-[#6ad61d] bg-[#6ad61d23] rounded-lg transition duration-300 ease-in-out focus:ring-4 focus:outline-none focus:ring-[#6ad61d] font-medium  text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-[#6ad61d23] dark:hover:bg-[#6ad61d] dark:hover:text-white dark:focus:ring-[#6ad61d]"
+        <h2
+          onClick={() => setActiveTab("kyc")}
+          className={`text-lg ${
+            activeTab === "kyc"
+              ? "border border-b-0 bg-white rounded-md rounded-b-none text-[#202124]"
+              : "text-[#666667]"
+          } font-medium py-2 px-1 md:px-4 cursor-pointer`}
         >
-          Browser
-        </button>
-      </div> */}
-
-        <ProfileMembers members={members} setMembers={setMembers} />
-        <SocialNetworks
-          socialNetworks={socialNetworks}
-          setSocialNetworks={setSocialNetworks}
-        />
-        <ContactInformation
-          contactInfo={contactInfo}
-          setContactInfo={setContactInfo}
-        />
-
-        <button
-          type="submit"
-          className="lg:w-auto mt-5 py-3 px-8 bg-[#6ad61d] hover:bg-blue-600 text-white  rounded-lg transition duration-300 ease-in-out"
+          KYC
+        </h2>
+        <h2
+          onClick={() => setActiveTab("password")}
+          className={`text-lg ${
+            activeTab === "password"
+              ? "border border-b-0 bg-white rounded-md rounded-b-none text-[#202124]"
+              : "text-[#666667]"
+          } font-medium py-2 px-1 md:px-4 cursor-pointer`}
         >
-          Save Profile
-        </button>
-      </form>
+          Password
+        </h2>
+        <h2
+          onClick={() => setActiveTab("logout")}
+          className={`text-lg ${
+            activeTab === "logout"
+              ? "border border-b-0 bg-white rounded-md rounded-b-none text-[#202124]"
+              : "text-[#666667]"
+          } font-medium py-2 px-1 md:px-4 cursor-pointer`}
+        >
+          Logout
+        </h2>
+      </div>
+
+      {activeTab === "profile" && (
+        <form onSubmit={handleSubmit}>
+          <MyProfile
+            profileInfo={profileInfo}
+            onChange={handleProfileChange}
+            onImageChange={handleImageChange}
+            handleCategoryChange={handleCategoryChange}
+          />
+          <ProfileMembers members={members} setMembers={setMembers} />
+          <SocialNetworks
+            socialNetworks={socialNetworks}
+            setSocialNetworks={setSocialNetworks}
+          />
+          <ContactInformation
+            contactInfo={contactInfo}
+            setContactInfo={setContactInfo}
+          />
+          <button
+            type="submit"
+            className="lg:w-auto mt-5 py-3 px-8 bg-[#6ad61d] hover:bg-blue-600 text-white rounded-lg transition duration-300 ease-in-out"
+          >
+            Save Profile
+          </button>
+        </form>
+      )}
+      {activeTab === "password" && <Changepassword />}
+      {activeTab === "kyc" && <UploadDocuments />}
+      {activeTab === "logout" && (
+        <div className="w-full text-center p-7 bg-white rounded-lg shadow-lg">
+          <button
+            type="button"
+            onClick={() => navigate(`/employer/dashboard/logout`)}
+            className="md:w-96 mt-5 py-3 px-8 bg-red-500 hover:bg-red-400 text-white rounded-lg transition duration-300 ease-in-out"
+          >
+            Logout
+          </button>
+        </div>
+      )}
     </div>
   );
 }

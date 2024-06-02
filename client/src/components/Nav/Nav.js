@@ -184,7 +184,7 @@ const Nav = ({ bgColor }) => {
                       className="h-12 w-12 border rounded-full p-1 hover:border-[#6ad61d]"
                       src={
                         user?.logoImage
-                          ? `${baseUrl}/uploads/${user?.logoImage}`
+                          ? `${baseUrl}/${user?.logoImage}`
                           : userDp
                       }
                       alt="User"

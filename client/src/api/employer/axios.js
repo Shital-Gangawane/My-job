@@ -267,3 +267,21 @@ export const fetchPackages = async (employerId) => {
     return error.response;
   }
 };
+
+//upload documents
+export const uploadDocuments = async (employerId, formData) => {
+  try {
+    const res = await axios.post(
+      `${url}/api/employers/upload-documents/${employerId}`,
+      formData,
+      {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      }
+    );
+    return res;
+  } catch (error) {
+    return error.response;
+  }
+};

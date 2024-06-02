@@ -42,9 +42,7 @@ function Slidebar({
         <div className="flex gap-3 mb-3 mt-4">
           <img
             className="h-14 w-14 cursor-pointer rounded-full p-1 border hover:border-[#6ad61d]"
-            src={
-              user?.logoImage ? `${baseUrl}/uploads/${user?.logoImage}` : userDp
-            }
+            src={user?.logoImage ? `${baseUrl}/${user?.logoImage}` : userDp}
           />
           <span className="gap-2 mt-2 font-bold">
             {" "}
