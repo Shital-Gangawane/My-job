@@ -84,16 +84,16 @@ const buttons = [
     icon: <GiVideoConference size={25} />,
     path: "/meetings", // Example path for Meetings
   },
-  {
-    name: "Change Password",
-    icon: <RiLockPasswordLine size={25} />,
-    path: "/changepassword", // Example path for Change Password
-  },
-  {
-    name: "Logout",
-    icon: <TfiPowerOff size={25} />,
-    path: "/logout", // Example path for Logout
-  },
+  // {
+  //   name: "Change Password",
+  //   icon: <RiLockPasswordLine size={25} />,
+  //   path: "/changepassword", // Example path for Change Password
+  // },
+  // {
+  //   name: "Logout",
+  //   icon: <TfiPowerOff size={25} />,
+  //   path: "/logout", // Example path for Logout
+  // },
 ];
 
 const Empdashboard = () => {

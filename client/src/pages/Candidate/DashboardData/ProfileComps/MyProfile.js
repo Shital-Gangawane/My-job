@@ -1,28 +1,25 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useUserContext } from "../../../../context/userContext";
 import SelectLanguage from "./SelectLanguage";
-import PhoneNumber from "./PhoneNumber";
+import SearchableList from "../../../../components/Utility/SearchableList";
+import { qualifications } from "./SelectOptions";
+import AlternateNumber from "./AlternateNumber";
 
-const baseUrl = "http://localhost:8000";
-
-const phoneNumberInitialState={
-  ulternateNumber:"",
-};
-
+const baseUrl = process.env.REACT_APP_SERVER_API_URL || "http://localhost:8000";
 function MyProfile({
   profileInfo,
   onChange,
   handleLanguageChange,
   onImageChange,
   ageoptions,
-  categoriesoptions,
+  industryOptions,
   experienceoptions,
   genderoption,
   qualificationoptions,
   salaryoptions,
-  showprofileoptions,
-  ulternateNumber,
-  setUlternateNumber
+  addNumberClick,
+  handleAlternateNumber,
+  removeNumberClick,
 }) {
 
   const handlePhoneNumberChange=(index, newState)=>{
@@ -39,8 +36,8 @@ function MyProfile({
 
   const [preview, setPreview] = useState({ logoImage: "", coverImage: "" });
   const [searchTerm, setSearchTerm] = useState("");
-  const [selectedQualification, setSelectedQualification] = useState("");
-  const [specializations, setSpecializations] = useState([]);
+  // const [selectedQualification, setSelectedQualification] = useState("");
+  // const [specializations, setSpecializations] = useState([]);
   const { user } = useUserContext();
 
   useEffect(() => {
@@ -61,9 +58,18 @@ function MyProfile({
     };
   }, [preview]);
 
+  const selectedQualification = qualificationoptions.find(
+    (q) => q.label === profileInfo.qualification
+  );
+  const specializations = selectedQualification
+    ? selectedQualification.specializations
+    : [];
+
+  // console.log(selectedQualification);
+
   return (
     <div
-      className="bg-white p-6 px-10 rounded-lg"
+      className="bg-white p-3 md:p-6 md:px-10 rounded-lg rounded-s-none"
       // id="scrollIntoView"
       // ref={targetDivRef}
     >
@@ -87,10 +93,7 @@ function MyProfile({
         {profileInfo?.logoImage && (
           <img
             className=" h-12"
-            src={
-              preview?.logoImage ||
-              `${baseUrl}/uploads/${profileInfo?.logoImage}`
-            }
+            src={preview?.logoImage || `${baseUrl}/${profileInfo?.logoImage}`}
             alt="Logo Preview"
           />
         )}
@@ -205,141 +208,107 @@ function MyProfile({
             />
              
           </div>
+        </div>
 
-          <div className="mb-5 w-full md:w-1/2 px-2">
+        <div className="mb-5 flex flex-wrap flex-col mx-2 ">
           <label
-              htmlFor="phoneNumber"
-              className="block mb-2 text-sm font-bold text-gray-900 "
-            >
-              Ulternate Number <span className="text-red-600">*</span>
-            </label>
-           
-              <div className="block w-full p-5 bg-gray-100 border-gray-300 focus:outline-[#6ad61d] text-gray-900 border rounded-lg text-base focus:ring-[#6ad61d] focus:border-[#6ad61d] dark:bg-gray-100 dark:border-none dark:placeholder-gray-400 dark:gray-900 dark:focus:ring-[#6ad61d] dark:focus:border-[#6ad61d]"
-           >
-           {ulternateNumber?.map((data,i)=>(
-            <PhoneNumber
-             key={i}
-             index={i}
-             data={data}
-             onChange={handlePhoneNumberChange}
-             setUlternateNumber={setUlternateNumber}
+            htmlFor="phoneNumber"
+            className="block mb-2 text-sm font-bold text-gray-900 "
+          >
+            Alternate Phone Number
+          </label>
+          {profileInfo?.alternateNumbers?.map((number, i) => (
+            <AlternateNumber
+              key={i}
+              index={i}
+              onChange={handleAlternateNumber}
+              number={number}
+              onRemove={removeNumberClick}
             />
-            ))}
-            </div>
-             <button
-             type="button"
-      className="text-[#6ad61d] bg-[#6ad61d23] rounded-lg transition duration-300 mt-4 ease-in-out focus:outline-none text-sm w-full sm:w-auto px-5 py-3 text-center dark:bg-[#6ad61d23] dark:hover:bg-[#6ad61d] dark:hover:text-white dark:focus:ring-[#6ad61d]"
-      onClick={() => setUlternateNumber((prev) => [...prev,  {...phoneNumberInitialState }])
-      }
-    >
-      Add Another Phone Number
-    </button>
-            </div>
-            </div>
+          ))}
+          {profileInfo.alternateNumbers.length && (
+            <button
+              className="max-w-44   text-[#6ad61d] bg-[#6ad61d23] rounded-lg transition duration-300 mt-4 ease-in-out focus:outline-none text-sm w-full sm:w-auto px-5 py-3 text-center dark:bg-[#6ad61d23] dark:hover:bg-[#6ad61d] dark:hover:text-white dark:focus:ring-[#6ad61d]"
+              type="button"
+              onClick={addNumberClick}
+            >
+              Add number
+            </button>
+          )}
+        </div>
 
-            <div className="flex flex-wrap mx-2">
-          <div className="mb-5 w-full md:w-1/2 px-2">
-            <label
-              htmlFor="email"
-              className="block mb-2 text-sm font-bold text-gray-900"
-            >
-              Email <span className="text-red-600">*</span>
-            </label>
-            <input
-              type="email"
-              name="email"
-              value={user?.email || ""}
-              onChange={onChange}
-              placeholder="Enter Email"
-              className="block w-full p-5  bg-gray-100 border-gray-300 focus:outline-[#6ad61d] text-gray-900 border rounded-lg text-base focus:ring-[#6ad61d] focus:border-[#6ad61d] dark:bg-gray-100 dark:border-none dark:placeholder-gray-400 dark:gray-900 dark:focus:ring-[#6ad61d] dark:focus:border-[#6ad61d]"
-              required
-            />
-          </div>
+        <div className="mb-5 w-full md:w-1/2 px-2">
+          <label
+            htmlFor="email"
+            className="block mb-2 text-sm font-bold text-gray-900"
+          >
+            Email <span className="text-red-600">*</span>
+          </label>
+          <input
+            type="email"
+            name="email"
+            value={user?.email || ""}
+            onChange={onChange}
+            placeholder="Enter Email"
+            className="block w-full p-5  bg-gray-100 border-gray-300 focus:outline-[#6ad61d] text-gray-900 border rounded-lg text-base focus:ring-[#6ad61d] focus:border-[#6ad61d] dark:bg-gray-100 dark:border-none dark:placeholder-gray-400 dark:gray-900 dark:focus:ring-[#6ad61d] dark:focus:border-[#6ad61d]"
+            required
+          />
         </div>
 
         <div className="flex flex-wrap mx-2">
-          <div className="mb-5 w-full md:w-1/2 px-2">
-            <label
-              htmlFor="qualification"
-              className="block text-sm font-bold text-gray-900"
-            >
-              Qualification
-            </label>
-            <select
-              name="qualification"
-              value={profileInfo?.qualification || ""}
-              onChange={onChange}
-              className="block w-full p-5  bg-gray-100 border-gray-300 focus:outline-[#6ad61d] text-gray-900 border rounded-lg text-base focus:ring-[#6ad61d] focus:border-[#6ad61d] dark:bg-gray-100 dark:border-none dark:placeholder-gray-400 dark:gray-900 dark:focus:ring-[#6ad61d] dark:focus:border-[#6ad61d]"
-            >
-              <option value="">None</option>
-              {qualificationoptions.map((option) => (
-                <option key={option.value} value={option.label}>
-                  {option.label}
-                </option>
-              ))}
-            </select>
-          </div>
+          <SearchableList
+            label="Qualification"
+            name="qualification"
+            value={profileInfo?.qualification || ""}
+            onChange={onChange}
+            array={qualificationoptions}
+            required
+          />
+          <SearchableList
+            label="Specialization"
+            value={profileInfo.specialization || ""}
+            onChange={onChange}
+            name="specialization"
+            array={specializations}
+            required
+          />
 
-          <div className="mb-5 w-full md:w-1/2 px-2">
+          {/* <div className="mb-5 w-full md:w-1/2 px-2">
             <label
-              htmlFor="experience"
-              className="block text-sm font-bold text-gray-900"
+              htmlFor="specialization"
+              className="block mb-2 text-sm font-bold text-gray-900"
             >
-              Experience Time <span className="text-red-600">*</span>
+              Specialization <span className="text-red-600">*</span>
             </label>
-            <select
-              name="experience"
-              value={profileInfo?.experience || ""}
+            <input
+              type="text"
+              name="specialization"
+              value={user?.specialization || ""}
               onChange={onChange}
-              required
+              placeholder="eg. Computer Science or IT"
               className="block w-full p-5  bg-gray-100 border-gray-300 focus:outline-[#6ad61d] text-gray-900 border rounded-lg text-base focus:ring-[#6ad61d] focus:border-[#6ad61d] dark:bg-gray-100 dark:border-none dark:placeholder-gray-400 dark:gray-900 dark:focus:ring-[#6ad61d] dark:focus:border-[#6ad61d]"
-            >
-              <option value="">None</option>
-              {experienceoptions.map((option) => (
-                <option key={option.value} value={option.label}>
-                  {option.label}
-                </option>
-              ))}
-            </select>
-          </div>
+              required
+            />
+          </div> */}
         </div>
 
         <div className="flex flex-wrap mx-2 ">
-          <div className="mb-5 w-full md:w-1/2 px-2 relative">
-            <label
-              htmlFor="languages"
-              className="block text-sm font-bold text-gray-900"
-            >
-              Language
-            </label>
+          <SearchableList
+            label="Experience Time"
+            name="experience"
+            value={profileInfo?.experience || ""}
+            onChange={onChange}
+            array={experienceoptions}
+            required
+          />
 
-            <SelectLanguage
-              value={profileInfo?.languages}
-              onChange={handleLanguageChange}
-            />
-          </div>
-
-          <div className="mb-5 w-full md:w-1/2 px-2">
-            <label
-              htmlFor="salaryType"
-              className="block text-sm font-bold text-gray-900"
-            >
-              Salary Type
-            </label>
-            <select
-              name="salaryType"
-              value={profileInfo?.salaryType || ""}
-              onChange={onChange}
-              className="block w-full p-5  bg-gray-100 border-gray-300 focus:outline-[#6ad61d] text-gray-900 border rounded-lg text-base focus:ring-[#6ad61d] focus:border-[#6ad61d] dark:bg-gray-100 dark:border-none dark:placeholder-gray-400 dark:gray-900 dark:focus:ring-[#6ad61d] dark:focus:border-[#6ad61d]"
-            >
-              <option value="">None</option>
-              {salaryoptions.map((option) => (
-                <option key={option.value} value={option.label}>
-                  {option.label}
-                </option>
-              ))}
-            </select>
-          </div>
+          <SearchableList
+            label=" Salary Type"
+            name="salaryType"
+            value={profileInfo?.salaryType || ""}
+            onChange={onChange}
+            array={salaryoptions}
+          />
         </div>
 
         <div className="flex flex-wrap mx-2">
@@ -361,48 +330,57 @@ function MyProfile({
           </div>
           <div className="mb-5 w-full md:w-1/2 px-2">
             <label
-              htmlFor="categories"
-              className="block text-sm font-bold text-gray-900"
+              htmlFor="ctc"
+              className="block mb-2 text-sm font-bold text-gray-900 "
             >
-              Industry
+              CTC(LPA)
             </label>
-            <select
-              name="categories"
-              value={profileInfo?.categories || ""}
+            <input
+              type="text"
+              name="ctc"
+              value={profileInfo?.ctc || ""}
               onChange={onChange}
-              className="block w-full p-5  bg-gray-100 border-gray-300 focus:outline-[#6ad61d] text-gray-900 border rounded-lg text-base focus:ring-[#6ad61d] focus:border-[#6ad61d] dark:bg-gray-100 dark:border-none dark:placeholder-gray-400 dark:gray-900 dark:focus:ring-[#6ad61d] dark:focus:border-[#6ad61d]"
-            >
-              <option value="">None</option>
-              {categoriesoptions.map((option) => (
-                <option key={option.value} value={option.label}>
-                  {option.label}
-                </option>
-              ))}
-            </select>
+              className="block w-full p-5 bg-gray-100 border-gray-300 focus:outline-[#6ad61d] text-gray-900 border rounded-lg text-base focus:ring-[#6ad61d] focus:border-[#6ad61d] dark:bg-gray-100 dark:border-none dark:placeholder-gray-400 dark:gray-900 dark:focus:ring-[#6ad61d] dark:focus:border-[#6ad61d]"
+              placeholder="Enter CTC eg. 5,00,000"
+            />
           </div>
-        </div>
-        <div className="flex flex-wrap mx-2">
+          <SearchableList
+            label="Industry"
+            name="industry"
+            value={profileInfo?.industry || ""}
+            onChange={onChange}
+            array={industryOptions}
+          />
           <div className="mb-5 w-full md:w-1/2 px-2">
             <label
-              htmlFor="showMyProfile"
-              className="block text-sm font-bold text-gray-900"
+              htmlFor="jobTitle"
+              className="block  text-sm font-bold text-gray-900 "
             >
-              Show My Profile
+              Job title
             </label>
-            <select
-              name="showMyProfile"
-              value={profileInfo?.showMyProfile || ""}
+            <input
+              type="text"
+              name="jobTitle"
+              value={profileInfo?.jobTitle || ""}
               onChange={onChange}
-              className="block w-full p-5  bg-gray-100 border-gray-300 focus:outline-[#6ad61d] text-gray-900 border rounded-lg text-base focus:ring-[#6ad61d] focus:border-[#6ad61d] dark:bg-gray-100 dark:border-none dark:placeholder-gray-400 dark:gray-900 dark:focus:ring-[#6ad61d] dark:focus:border-[#6ad61d]"
-            >
-              <option value="">None</option>
-              {showprofileoptions.map((option) => (
-                <option key={option.value} value={option.value}>
-                  {option.label}
-                </option>
-              ))}
-            </select>
+              className="block w-full p-5 bg-gray-100 border-gray-300 focus:outline-[#6ad61d] text-gray-900 border rounded-lg text-base focus:ring-[#6ad61d] focus:border-[#6ad61d] dark:bg-gray-100 dark:border-none dark:placeholder-gray-400 dark:gray-900 dark:focus:ring-[#6ad61d] dark:focus:border-[#6ad61d]"
+              placeholder="eg. Software developer"
+            />
           </div>
+        </div>
+
+        <div className="mb-5 w-full md:w-1/2 px-2 relative">
+          <label
+            htmlFor="languages"
+            className="block text-sm font-bold text-gray-900"
+          >
+            Language
+          </label>
+
+          <SelectLanguage
+            value={profileInfo?.languages}
+            onChange={handleLanguageChange}
+          />
         </div>
 
         <div className="flex flex-wrap mx-2">

@@ -1,9 +1,8 @@
-// index.js
-
 const express = require("express");
 const dotenv = require("dotenv").config();
 const cors = require("cors");
 const path = require("path");
+const helmet = require("helmet");
 const { connectDb } = require("./db/db.js");
 const { checkDbConnection } = require("./middlewares/db/checkDbConnection.js");
 const adminRouter = require("./routes/admin/admin.routes.js");
@@ -15,6 +14,7 @@ const app = express();
 
 app.use(cors());
 app.use(express.json());
+// app.use(helmet());
 
 // Serve static files from the build directory
 app.use("/", express.static(path.join(__dirname, "build")));

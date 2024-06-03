@@ -17,32 +17,30 @@ module.exports.saveProfile = async (req, res) => {
 
     // Handle file uploads for logoImage
     if (req.files && req.files["logoImage"]) {
-      const newPath = req.files["logoImage"][0].filename;
-      if (
-        existingCandidate.logoImage &&
-        fs.existsSync(
-          path.join(__dirname, "..", "uploads", existingCandidate.logoImage)
-        )
-      ) {
-        fs.unlinkSync(
-          path.join(__dirname, "..", "uploads", existingCandidate.logoImage)
-        ); // Delete the old file
+      const newPath = req.files["logoImage"][0].path.replace(/\\/g, "/");
+      const oldLogoImagePath = path.join(
+        __dirname,
+        "..",
+        "..",
+        existingCandidate.logoImage
+      );
+      if (existingCandidate.logoImage && fs.existsSync(oldLogoImagePath)) {
+        fs.unlinkSync(oldLogoImagePath); // Delete the old file
       }
       updates.logoImage = newPath; // Set new path to updates
     }
 
     // Handle file uploads for coverImage
     if (req.files && req.files["coverImage"]) {
-      const newPath = req.files["coverImage"][0].filename;
-      if (
-        existingCandidate.coverImage &&
-        fs.existsSync(
-          path.join(__dirname, "..", "uploads", existingCandidate.coverImage)
-        )
-      ) {
-        fs.unlinkSync(
-          path.join(__dirname, "..", "uploads", existingCandidate.coverImage)
-        ); // Delete the old file
+      const newPath = req.files["coverImage"][0].path.replace(/\\/g, "/");
+      const oldCoverImagePath = path.join(
+        __dirname,
+        "..",
+        "..",
+        existingCandidate.coverImage
+      );
+      if (existingCandidate.coverImage && fs.existsSync(oldCoverImagePath)) {
+        fs.unlinkSync(oldCoverImagePath); // Delete the old file
       }
       updates.coverImage = newPath; // Set new path to updates
     }
@@ -55,8 +53,6 @@ module.exports.saveProfile = async (req, res) => {
       updates.location = JSON.parse(updates.location);
     }
 
-    // console.log(updates);
-
     // Update the candidate with the new information
     const updatedCandidate = await Candidate.findByIdAndUpdate(id, updates, {
       new: true,
@@ -64,7 +60,7 @@ module.exports.saveProfile = async (req, res) => {
     });
     res.status(200).json({
       success: true,
-      message: "Profile updated successfully",
+      message: "Profile updated successfully!!!",
       candidate: updatedCandidate,
     });
   } catch (error) {

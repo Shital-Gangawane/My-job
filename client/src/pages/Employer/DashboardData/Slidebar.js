@@ -38,13 +38,11 @@ function Slidebar({
       transition={{ type: "spring", stiffness: 200, damping: 25 }}
       className="w-full lg:w-auto h-full lg:h-auto lg:flex absolute left-0 top-0 bg-gray-800 bg-opacity-20 lg:left-0 lg:top-0 lg:relative z-50 lg:z-0 shadow-lg"
     >
-      <div className="h-full overflow-y-auto flex flex-col pt-10 bg-white w-60 md:w-96 items-center sidebar-content">
+      <div className="h-full overflow-y-auto flex flex-col pt-10 bg-white w-60 md:w-72 items-center sidebar-content">
         <div className="flex gap-3 mb-3 mt-4">
           <img
             className="h-14 cursor-pointer rounded-full p-1 border hover:border-[#6ad61d]"
-            src={
-              user?.logoImage ? `${baseUrl}/uploads/${user?.logoImage}` : userDp
-            }
+            src={user?.logoImage ? `${baseUrl}/${user?.logoImage}` : userDp}
           />
           <span className="gap-2 mt-2 font-bold">
             {user?.name || `User-${data?.phoneNumber}`}

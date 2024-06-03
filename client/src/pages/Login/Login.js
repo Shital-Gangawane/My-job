@@ -8,7 +8,7 @@ import "react-phone-input-2/lib/style.css";
 import Nav from "../../components/Nav/Nav";
 import { useUserContext } from "../../context/userContext";
 
-const Login = () => {
+const Login = ({ jobApply, setIsRegistered, setIsLoggedIn }) => {
   const [phone, setPhone] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
@@ -38,12 +38,14 @@ const Login = () => {
           setUser(res?.data?.user);
           setPackages(res?.data?.packages);
           setToken(res?.data?.token);
-          navigate("/employer/dashboard");
+          jobApply && setIsLoggedIn(true);
+          if (!jobApply) navigate("/employer/dashboard");
         } else {
           setUser(res?.data?.user);
           setToken(res?.data?.token);
           setPackages(res?.data?.packages);
-          navigate("/candidate/dashboard");
+          jobApply && setIsLoggedIn(true);
+          if (!jobApply) navigate("/candidate/dashboard");
         }
       } else {
         setError(res?.data?.message);
@@ -65,9 +67,15 @@ const Login = () => {
   }, []);
 
   return (
-    <div className=" w-full h-full flex justify-center items-center  px-2 sm:px-10 pt-10 ">
+    <div
+      className={`${
+        jobApply
+          ? " fixed inset-0 w-screen h-screen bg-black bg-opacity-50"
+          : " w-full h-full"
+      } flex justify-center items-center  px-2 sm:px-10 pt-10 `}
+    >
       {loading && <Loader />}
-      <Nav bgColor={" fixed top-0"} />
+      {!jobApply && <Nav bgColor={" fixed top-0"} />}
       <motion.form
         initial={{ y: -100 }}
         animate={{ y: 0 }}
@@ -120,7 +128,19 @@ const Login = () => {
         <p className=" text-center mt-4">
           Don't have an account?{" "}
           <span className=" font-bold text-blue-500">
-            <Link to={"/register"}>Register</Link>
+            {!jobApply ? (
+              <Link to={"/register"}>Register</Link>
+            ) : (
+              <span
+                className=" cursor-pointer"
+                onClick={() => {
+                  setIsRegistered(false);
+                  setIsLoggedIn(true);
+                }}
+              >
+                Register
+              </span>
+            )}
           </span>
         </p>
       </motion.form>

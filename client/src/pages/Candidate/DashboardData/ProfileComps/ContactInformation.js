@@ -111,7 +111,7 @@ function ContactInformation({ contactInfo, setContactInfo }) {
         <div className="mb-5 w-full relative">
           <label
             htmlFor="city"
-            className="block  text-sm font-bold text-gray-900 pt-2 px-5 py-2"
+            className="block text-sm font-bold text-gray-900"
           >
             City <span className="text-red-600">*</span>
           </label>

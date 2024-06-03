@@ -9,10 +9,10 @@ import { useUserContext } from "../../../context/userContext";
 import {
   genderoption,
   ageoptions,
-  qualificationOptions,
+  qualifications,
   experienceoptions,
   salaryoptions,
-  categoriesoptions,
+  industryOptions,
   showprofileoptions,
 
 } from "./ProfileComps/SelectOptions";
@@ -26,6 +26,9 @@ function Profile({ candidate, setIsEditing }) {
   const [isOpen, setIsOpen] = useState(false);
   const { user, setUser } = useUserContext();
   const [isLoading, setIsLoading] = useState(false);
+  const [isEdit, setIsEdit] = useState(true);
+  const [isLogout, setIsLogout] = useState(false);
+  const [isChangePass, setIsChangePass] = useState(false);
   const navigate = useNavigate();
 
   const [profileInfo, setProfileInfo] = useState({
@@ -34,19 +37,22 @@ function Profile({ candidate, setIsEditing }) {
     gender: null,
     age: null,
     phoneNumber: "",
-    // ulternateNumber:[""],
+    alternateNumbers: [""],
     email: user?.email,
     qualification: null,
+    specialization: null,
     experience: null,
     languages: [],
     salaryType: null,
     salary: "",
+    ctc: "",
     categories: null,
+    industry: null,
     showMyProfile: true,
     jobTitle: "",
     description: "",
     logoImage: "",
-    jobAlert:null,
+    jobAlert: null,
   });
 
   const [socialNetworks, setSocialNetworks] = useState([
@@ -89,21 +95,23 @@ function Profile({ candidate, setIsEditing }) {
             dob: data.dob || "",
             gender: data.gender || "",
             age: data.age || "",
-            phoneNumber: data.phoneNumber || [],
-            // ulternateNumber:data.ulternateNumber ||[""],
+            phoneNumber: data.phoneNumber || "",
+            alternateNumbers: data.alternateNumbers[0]?.split(",") || [""],
             email: user?.email,
             qualification: data.qualification || null,
+            specialization: data.specialization || null,
             experience: data.experience || null,
             languages: data.languages[0]?.split(",") || [],
             salaryType: data.salaryType || null,
             qualification: data.qualification || null,
             salary: data.salary || "",
+            ctc: data.ctc || "",
             categories: data.categories || "",
+            industry: data.industry || null,
             showMyProfile: data.showMyProfile || true,
             jobTitle: data.jobTitle || "",
             description: data.description || "",
             logoImage: data.logoImage || null,
-            
           });
 
           setSocialNetworks(data.socialNetworks || []);
@@ -135,10 +143,35 @@ function Profile({ candidate, setIsEditing }) {
 
   const handleProfileChange = (e) => {
     const { name, value } = e.target;
+    // console.log(profileInfo);
     setProfileInfo((prev) => ({
       ...prev,
       [name]: value,
     }));
+  };
+
+  const handleAlternateNumberChange = (index, value) => {
+    setProfileInfo((prev) => {
+      const newAlternateNumbers = [...prev.alternateNumbers];
+      newAlternateNumbers[index] = value;
+      return { ...prev, alternateNumbers: newAlternateNumbers };
+    });
+  };
+
+  const addNumberClick = () => {
+    setProfileInfo((prev) => ({
+      ...prev,
+      alternateNumbers: [...prev.alternateNumbers, ""],
+    }));
+  };
+
+  const removeNumberClick = (index) => {
+    setProfileInfo((prev) => {
+      const newAlternateNumbers = prev.alternateNumbers.filter(
+        (_, i) => i !== index
+      );
+      return { ...prev, alternateNumbers: newAlternateNumbers };
+    });
   };
 
   const handleLanguageChange = (language) => {
@@ -159,11 +192,26 @@ function Profile({ candidate, setIsEditing }) {
   };
 
   const handleImageChange = (e, imageType) => {
-    console.log(e.target.files[0]);
-    setProfileInfo((prev) => ({
-      ...prev,
-      [imageType]: e.target.files[0],
-    }));
+    const file = e.target.files[0];
+    if (file) {
+      const validFormats = ["image/jpeg", "image/png", "image/gif"];
+      const maxSizeInBytes = 2 * 1024 * 1024; // 2MB
+
+      if (!validFormats.includes(file.type)) {
+        alert("Invalid file format. Only JPEG, PNG, and GIF are allowed.");
+        return;
+      }
+
+      if (file.size > maxSizeInBytes) {
+        alert("File size exceeds the limit of 2MB.");
+        return;
+      }
+
+      setProfileInfo((prev) => ({
+        ...prev,
+        [imageType]: file,
+      }));
+    }
   };
 
   const toggleDropdown = () => {
@@ -207,65 +255,110 @@ function Profile({ candidate, setIsEditing }) {
         <PageLoader />
       ) : (
         <>
-          <form onSubmit={handleSubmit}>
-            <h2 className=" text-lg text-[#202124] lg:text-3xl mb-10 font-medium">
-              Edit Profile
-            </h2>
-
-            <div>
-              <MyProfile
-                profileInfo={profileInfo}
-                onChange={handleProfileChange}
-                onImageChange={handleImageChange}
-                handleLanguageChange={handleLanguageChange}
-                genderoption={genderoption}
-                ageoptions={ageoptions}
-                qualificationoptions={qualificationOptions}
-                experienceoptions={experienceoptions}
-                salaryoptions={salaryoptions}
-                categoriesoptions={categoriesoptions}
-                showprofileoptions={showprofileoptions}
-                candidate
-                ulternateNumber={ulternateNumber}
-                setUlternateNumber={setUlternateNumber}
-              />
-            </div>
-
-            <div>
-              <SocialNetworks
-                socialNetworks={socialNetworks}
-                setSocialNetworks={setSocialNetworks}
-              />
-            </div>
-
-            <div>
-              <ContactInformation
-                contactInfo={contactInfo}
-                setContactInfo={setContactInfo}
-              />
-            </div>
-
-            <button
-              type="button"
-              onClick={handleSubmit}
-              className="lg:w-auto mt-5 py-3 px-8 bg-[#6ad61d] hover:bg-blue-600 text-white  rounded-lg transition duration-300 ease-in-out"
+          <div className="flex md:gap-2">
+            <h2
+              onClick={() => {
+                setIsEdit(true);
+                setIsChangePass(false);
+                setIsLogout(false);
+              }}
+              className={`text-lg   ${
+                isEdit
+                  ? "border border-b-0 bg-white rounded-md rounded-b-none text-[#202124]"
+                  : " text-[#666667]"
+              }   font-medium py-2 px-1  md:px-4 cursor-pointer`}
             >
-              Save Profile
-            </button>
-          </form>
-          <Changepassword setIsLoading={setIsLoading} />
-          <div className=" w-full text-center p-7 bg-white rounded-lg shadow-lg">
-            {/* <h2 className=" text-lg text-[#202124] lg:text-3xl mb-10 font-medium">
+              Profile
+            </h2>
+            <h2
+              onClick={() => {
+                setIsChangePass(true);
+                setIsEdit(false);
+                setIsLogout(false);
+              }}
+              className={`text-lg   ${
+                isChangePass
+                  ? "border border-b-0 bg-white rounded-md rounded-b-none text-[#202124]"
+                  : " text-[#666667]"
+              }   font-medium py-2 px-1  md:px-4 cursor-pointer`}
+            >
+              Password
+            </h2>
+            <h2
+              onClick={() => {
+                setIsLogout(true);
+                setIsChangePass(false);
+                setIsEdit(false);
+              }}
+              className={`text-lg   ${
+                isLogout
+                  ? "border border-b-0 bg-white rounded-md rounded-b-none text-[#202124]"
+                  : " text-[#666667]"
+              }   font-medium py-2 px-1 md:px-4 cursor-pointer`}
+            >
+              Logout
+            </h2>
+          </div>
+          {isEdit && (
+            <form>
+              <div>
+                <MyProfile
+                  profileInfo={profileInfo}
+                  onChange={handleProfileChange}
+                  onImageChange={handleImageChange}
+                  handleLanguageChange={handleLanguageChange}
+                  genderoption={genderoption}
+                  ageoptions={ageoptions}
+                  qualificationoptions={qualifications}
+                  experienceoptions={experienceoptions}
+                  salaryoptions={salaryoptions}
+                  industryOptions={industryOptions}
+                  showprofileoptions={showprofileoptions}
+                  addNumberClick={addNumberClick}
+                  handleAlternateNumber={handleAlternateNumberChange}
+                  removeNumberClick={removeNumberClick}
+                  candidate
+                />
+              </div>
+
+              <div>
+                <SocialNetworks
+                  socialNetworks={socialNetworks}
+                  setSocialNetworks={setSocialNetworks}
+                />
+              </div>
+
+              <div>
+                <ContactInformation
+                  contactInfo={contactInfo}
+                  setContactInfo={setContactInfo}
+                />
+              </div>
+
+              <button
+                type="button"
+                onClick={handleSubmit}
+                className="lg:w-auto mt-5 py-3 px-8 bg-[#6ad61d] hover:bg-blue-600 text-white  rounded-lg transition duration-300 ease-in-out"
+              >
+                Save Profile
+              </button>
+            </form>
+          )}
+          {isChangePass && <Changepassword setIsLoading={setIsLoading} />}
+          {isLogout && (
+            <div className=" w-full text-center p-7 bg-white rounded-lg shadow-lg">
+              {/* <h2 className=" text-lg text-[#202124] lg:text-3xl mb-10 font-medium">
               Logout
             </h2> */}
-            <button
-              type="button"
-              onClick={() => navigate(`/candidate/dashboard/logout`)}
-              className="w-96  mt-5 py-3 px-8 bg-red-500 hover:bg-red-400 text-white  rounded-lg transition duration-300 ease-in-out"
-            >
-              Logout
-            </button>
-          </div>
+              <button
+                type="button"
+                onClick={() => navigate(`/candidate/dashboard/logout`)}
+                className="md:w-96  mt-5 py-3 px-8 bg-red-500 hover:bg-red-400 text-white  rounded-lg transition duration-300 ease-in-out"
+              >
+                Logout
+              </button>
+            </div>
+          )}
         </>
       )}
     </div>

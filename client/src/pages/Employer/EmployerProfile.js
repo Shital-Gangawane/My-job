@@ -64,20 +64,26 @@ function EmployerProfile() {
       >
         <div className="max-w-7xl h-auto mx-auto flex flex-col items-center">
           <img
-            src={`${baseUrl}/uploads/${employer.logoImage}`}
+            src={`${baseUrl}/${employer.logoImage}`}
             alt="Company Logo"
             className="w-32 h-32 rounded-full border-4 border-white shadow-lg"
           />
           <h1 className="text-zinc-800 text-3xl font-bold mt-4">
             {employer.companyName}
           </h1>
-          <button
-            type="button"
-            onClick={handleFollowClick}
-            className="lg:w-auto mt-5 py-2 px-8 bg-[#6ad61d] hover:bg-blue-600 text-white  rounded-lg transition duration-300 ease-in-out"
-          >
-            {user?.following?.includes(employerId) ? "Following" : "Follow"}
-          </button>
+          {sessionStorage.getItem("userType") === "candidate" ? (
+            <button
+              type="button"
+              onClick={handleFollowClick}
+              className="lg:w-auto mt-5 py-2 px-8 bg-[#6ad61d] hover:bg-blue-600 text-white  rounded-lg transition duration-300 ease-in-out"
+            >
+              {user?.following?.includes(employerId) ? "Following" : "Follow"}
+            </button>
+          ) : (
+            <p className=" bg-white p-2 rounded-md text-blue-600 shadow-md">
+              Followers: <span className="">{employer?.followers?.length}</span>
+            </p>
+          )}
           {/* <Link to={'/employer/dashboard'}>View Dashboard</Link> */}
         </div>
       </div>

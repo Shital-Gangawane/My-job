@@ -49,7 +49,7 @@ function MyApplied() {
         job.jobLocation.toLowerCase().includes(lowerSearchTerm) ||
         job.applications
           .find((el) => el.candidate === user?._id)
-          .status.toLowerCase()
+          ?.status?.toLowerCase()
           .includes(lowerSearchTerm)
     );
 
@@ -57,7 +57,7 @@ function MyApplied() {
       const application = job.applications.find(
         (el) => el.candidate.toString() === user?._id
       );
-      return application ? new Date(application.appliedAt) : new Date(0); // Default to epoch if not found
+      return application ? new Date(application?.appliedAt) : new Date(0); // Default to epoch if not found
     };
 
     switch (sortType) {
@@ -151,14 +151,14 @@ function MyApplied() {
                       className={`py-2 px-4 border ${
                         job?.applications.find(
                           (el) => el.candidate === user?._id
-                        ).status === "Declined"
+                        )?.status === "Declined"
                           ? " text-red-500"
                           : " text-green-400"
                       }`}
                     >
                       {job?.applications.find(
                         (el) => el.candidate === user?._id
-                      ).status || "Pending"}
+                      )?.status || "Pending"}
                     </td>
                     {/* <td className="py-2 px-4 border">
                       {job.isRemote ? "Yes" : "No"}
@@ -168,7 +168,7 @@ function MyApplied() {
                       {new Date(
                         job.applications.find(
                           (el) => el.candidate === user?._id
-                        ).appliedAt
+                        )?.appliedAt
                       ).toLocaleDateString()}
                     </td>
                   </tr>

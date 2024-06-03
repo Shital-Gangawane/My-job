@@ -14,7 +14,7 @@ function AwardForm({ index, data, onChange, setAwards }) {
     <div className="flex flex-col gap-3">
       <p
         onClick={() => setIsDropdownOn(!isDropdownOn)}
-        className="flex flex-wrap gap-3 w-full p-5 cursor-pointer bg-gray-300 border-gray-300 focus:outline-[#6ad61d] text-gray-900 border rounded-lg text-base focus:ring-[#6ad61d] focus:border-[#6ad61d]  dark:border-none dark:placeholder-gray-400 dark:gray-900 dark:focus:ring-[#6ad61d] dark:focus:border-[#6ad61d]"
+        className="flex flex-wrap gap-3 w-full p-5 cursor-pointer bg-gray-200 border-gray-300 focus:outline-[#6ad61d] text-gray-900 border rounded-lg text-base focus:ring-[#6ad61d] focus:border-[#6ad61d]  dark:border-none dark:placeholder-gray-400 dark:gray-900 dark:focus:ring-[#6ad61d] dark:focus:border-[#6ad61d]"
       >
         {index !== 0 && (
           <IoClose

@@ -17,32 +17,30 @@ module.exports.saveProfile = async (req, res) => {
 
     // Handle file uploads for logoImage
     if (req.files && req.files["logoImage"]) {
-      const newPath = req.files["logoImage"][0].filename;
-      if (
-        existingEmployer.logoImage &&
-        fs.existsSync(
-          path.join(__dirname, "..", "uploads", existingEmployer.logoImage)
-        )
-      ) {
-        fs.unlinkSync(
-          path.join(__dirname, "..", "uploads", existingEmployer.logoImage)
-        ); // Delete the old file
+      const newPath = req.files["logoImage"][0].path.replace(/\\/g, "/");
+      const oldLogoImagePath = path.join(
+        __dirname,
+        "..",
+        "..",
+        existingEmployer.logoImage
+      );
+      if (existingEmployer.logoImage && fs.existsSync(oldLogoImagePath)) {
+        fs.unlinkSync(oldLogoImagePath); // Delete the old file
       }
       updates.logoImage = newPath; // Set new path to updates
     }
 
     // Handle file uploads for coverImage
     if (req.files && req.files["coverImage"]) {
-      const newPath = req.files["coverImage"][0].filename;
-      if (
-        existingEmployer.coverImage &&
-        fs.existsSync(
-          path.join(__dirname, "..", "uploads", existingEmployer.coverImage)
-        )
-      ) {
-        fs.unlinkSync(
-          path.join(__dirname, "..", "uploads", existingEmployer.coverImage)
-        ); // Delete the old file
+      const newPath = req.files["coverImage"][0].path.replace(/\\/g, "/");
+      const oldCoverImagePath = path.join(
+        __dirname,
+        "..",
+        "..",
+        existingEmployer.coverImage
+      );
+      if (existingEmployer.coverImage && fs.existsSync(oldCoverImagePath)) {
+        fs.unlinkSync(oldCoverImagePath); // Delete the old file
       }
       updates.coverImage = newPath; // Set new path to updates
     }
