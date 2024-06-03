@@ -8,6 +8,7 @@ const awardsInitialState = {
   };
 
 function Awards({awards, setAwards}) {
+  
     const handleAwardsChange = (index, newState) => {
         const updatedAwards = awards?.map((award, i) => {
           if (i === index) {

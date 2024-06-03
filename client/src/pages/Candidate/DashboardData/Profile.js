@@ -14,6 +14,7 @@ import {
   salaryoptions,
   categoriesoptions,
   showprofileoptions,
+
 } from "./ProfileComps/SelectOptions";
 import { saveProfile } from "../../../api/candidate/axios";
 import { fetchUser } from "../../../api/employer/axios";
@@ -33,6 +34,7 @@ function Profile({ candidate, setIsEditing }) {
     gender: null,
     age: null,
     phoneNumber: "",
+    // ulternateNumber:[""],
     email: user?.email,
     qualification: null,
     experience: null,
@@ -65,6 +67,12 @@ function Profile({ candidate, setIsEditing }) {
       country: "",
     },
   });
+ 
+  const [ulternateNumber, setUlternateNumber] = useState([
+    {
+      ulternateNumber:"",
+    }
+  ]);
 
   // Function to fetch profile data
   const fetchProfileData = async () => {
@@ -81,7 +89,8 @@ function Profile({ candidate, setIsEditing }) {
             dob: data.dob || "",
             gender: data.gender || "",
             age: data.age || "",
-            phoneNumber: data.phoneNumber || "",
+            phoneNumber: data.phoneNumber || [],
+            // ulternateNumber:data.ulternateNumber ||[""],
             email: user?.email,
             qualification: data.qualification || null,
             experience: data.experience || null,
@@ -109,6 +118,7 @@ function Profile({ candidate, setIsEditing }) {
               country: "",
             },
           });
+          setUlternateNumber(data.ulternateNumber || []);
           setIsLoading(false);
         }
       } catch (error) {
@@ -167,8 +177,11 @@ function Profile({ candidate, setIsEditing }) {
     Object.keys(profileInfo).forEach((key) => {
       formData.append(key, profileInfo[key]); // For files
     });
+    console.log(ulternateNumber);
 
     formData.append("socialNetworks", JSON.stringify(socialNetworks));
+    formData.append("ulternateNumber", JSON.stringify(ulternateNumber));
+    
     Object.keys(contactInfo).forEach((key) => {
       if (contactInfo[key] instanceof Object) {
         formData.append(key, JSON.stringify(contactInfo[key]));
@@ -213,6 +226,8 @@ function Profile({ candidate, setIsEditing }) {
                 categoriesoptions={categoriesoptions}
                 showprofileoptions={showprofileoptions}
                 candidate
+                ulternateNumber={ulternateNumber}
+                setUlternateNumber={setUlternateNumber}
               />
             </div>
 

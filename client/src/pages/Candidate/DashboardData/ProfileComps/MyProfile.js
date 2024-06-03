@@ -1,8 +1,14 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useUserContext } from "../../../../context/userContext";
 import SelectLanguage from "./SelectLanguage";
+import PhoneNumber from "./PhoneNumber";
 
 const baseUrl = "http://localhost:8000";
+
+const phoneNumberInitialState={
+  ulternateNumber:"",
+};
+
 function MyProfile({
   profileInfo,
   onChange,
@@ -15,7 +21,22 @@ function MyProfile({
   qualificationoptions,
   salaryoptions,
   showprofileoptions,
+  ulternateNumber,
+  setUlternateNumber
 }) {
+
+  const handlePhoneNumberChange=(index, newState)=>{
+    const updatePhoneNumber= ulternateNumber?.map((phoneNum,i)=>{
+      if (i===index){
+        return{...phoneNum,...newState};
+      }
+      return phoneNum;
+    })
+    setUlternateNumber(updatePhoneNumber);
+    console.log(ulternateNumber);
+ 
+  };
+
   const [preview, setPreview] = useState({ logoImage: "", coverImage: "" });
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedQualification, setSelectedQualification] = useState("");
@@ -171,18 +192,52 @@ function MyProfile({
             >
               Phone Number <span className="text-red-600">*</span>
             </label>
+           
             <input
-              type="text"
-              name="phoneNumber"
-              disabled
-              value={"+" + profileInfo?.phoneNumber || ""}
-              onChange={onChange}
-              className="block w-full p-5 bg-gray-100 border-gray-300 focus:outline-[#6ad61d] text-gray-900 border rounded-lg text-base focus:ring-[#6ad61d] focus:border-[#6ad61d] dark:bg-gray-100 dark:border-none dark:placeholder-gray-400 dark:gray-900 dark:focus:ring-[#6ad61d] dark:focus:border-[#6ad61d]"
-              placeholder="Enter Phone Number"
-              required
+            type="text"
+            name="phoneNumber"
+            disabled
+            value={"+" + profileInfo?.phoneNumber || ""}
+            onChange={onChange}
+            className="block w-full p-5 bg-gray-100 border-gray-300 focus:outline-[#6ad61d] text-gray-900 border rounded-lg text-base focus:ring-[#6ad61d] focus:border-[#6ad61d] dark:bg-gray-100 dark:border-none dark:placeholder-gray-400 dark:gray-900 dark:focus:ring-[#6ad61d] dark:focus:border-[#6ad61d]"
+            placeholder="Enter Phone Number"
+            required
             />
+             
           </div>
 
+          <div className="mb-5 w-full md:w-1/2 px-2">
+          <label
+              htmlFor="phoneNumber"
+              className="block mb-2 text-sm font-bold text-gray-900 "
+            >
+              Ulternate Number <span className="text-red-600">*</span>
+            </label>
+           
+              <div className="block w-full p-5 bg-gray-100 border-gray-300 focus:outline-[#6ad61d] text-gray-900 border rounded-lg text-base focus:ring-[#6ad61d] focus:border-[#6ad61d] dark:bg-gray-100 dark:border-none dark:placeholder-gray-400 dark:gray-900 dark:focus:ring-[#6ad61d] dark:focus:border-[#6ad61d]"
+           >
+           {ulternateNumber?.map((data,i)=>(
+            <PhoneNumber
+             key={i}
+             index={i}
+             data={data}
+             onChange={handlePhoneNumberChange}
+             setUlternateNumber={setUlternateNumber}
+            />
+            ))}
+            </div>
+             <button
+             type="button"
+      className="text-[#6ad61d] bg-[#6ad61d23] rounded-lg transition duration-300 mt-4 ease-in-out focus:outline-none text-sm w-full sm:w-auto px-5 py-3 text-center dark:bg-[#6ad61d23] dark:hover:bg-[#6ad61d] dark:hover:text-white dark:focus:ring-[#6ad61d]"
+      onClick={() => setUlternateNumber((prev) => [...prev,  {...phoneNumberInitialState }])
+      }
+    >
+      Add Another Phone Number
+    </button>
+            </div>
+            </div>
+
+            <div className="flex flex-wrap mx-2">
           <div className="mb-5 w-full md:w-1/2 px-2">
             <label
               htmlFor="email"
