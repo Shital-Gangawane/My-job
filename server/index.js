@@ -12,12 +12,50 @@ require("./models/admin/admin.js");
 
 const app = express();
 
-app.use(cors());
-app.use(express.json());
-// app.use(helmet());
+const allowedOrigins = ["http://localhost:3000", "https://app.projob.co.in"];
 
-// Serve static files from the build directory
-app.use("/", express.static(path.join(__dirname, "build")));
+const corsOptions = {
+  origin: function (origin, callback) {
+    // Check if the request origin is in the allowed origins array
+    if (!origin || allowedOrigins.indexOf(origin) !== -1) {
+      callback(null, true);
+    } else {
+      callback(new Error("Not allowed by CORS"));
+    }
+  },
+  optionsSuccessStatus: 200,
+};
+
+app.use(cors(corsOptions));
+app.use(express.json());
+app.use(
+  helmet({
+    contentSecurityPolicy: {
+      directives: {
+        defaultSrc: ["'self'"],
+        imgSrc: [
+          "'self'",
+          "data:",
+          "http://localhost:8000",
+          "https://app.projob.co.in",
+        ],
+        scriptSrc: [
+          "'self'",
+          "http://localhost:8000",
+          "https://app.projob.co.in",
+        ],
+        styleSrc: [
+          "'self'",
+          "'unsafe-inline'",
+          "http://localhost:8000",
+          "https://app.projob.co.in",
+        ],
+      },
+    },
+    // crossOriginEmbedderPolicy: false, // Disable if it causes issues
+    crossOriginResourcePolicy: { policy: "cross-origin" }, // Allow cross-origin resources
+  })
+);
 
 // Serve static files from the 'uploads' directory
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
