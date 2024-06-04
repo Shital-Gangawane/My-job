@@ -5,9 +5,11 @@ import { navigationLinks } from "./navData";
 import { GoPerson } from "react-icons/go";
 import { MdArrowForwardIos } from "react-icons/md";
 import { RiCloseLine } from "react-icons/ri";
+import { useUserContext } from "../../context/userContext";
 
 const Sidebar = ({ isOpen, onClose, isMobile }) => {
   const navigate = useNavigate();
+  const { token, user } = useUserContext();
   const handleClose = (e) => {
     // Prevent closing the sidebar if clicked inside it
     if (e.target === e.currentTarget) {
@@ -45,7 +47,13 @@ const Sidebar = ({ isOpen, onClose, isMobile }) => {
               key={index}
             >
               <Link
-                to={link.url}
+                to={
+                  link.url === "/employer/dashboard"
+                    ? token
+                      ? "/employer/dashboard"
+                      : "/login"
+                    : link.url
+                }
                 className="block hover:bg-gray-200 py-2 px-2 rounded-md"
               >
                 {link.label}

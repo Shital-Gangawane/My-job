@@ -108,7 +108,13 @@ const Nav = ({ bgColor }) => {
                     onMouseLeave={handleMouseLeave}
                   >
                     <Link
-                      to={link.url}
+                      to={
+                        link.url === "/employer/dashboard"
+                          ? token
+                            ? "/employer/dashboard"
+                            : "/login"
+                          : link.url
+                      }
                       className={`hover:scale-110 transition-all ${
                         location.pathname === "/"
                           ? "hover:text-blue-600"
