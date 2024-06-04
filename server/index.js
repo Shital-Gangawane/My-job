@@ -2,7 +2,7 @@ const express = require("express");
 const dotenv = require("dotenv").config();
 const cors = require("cors");
 const path = require("path");
-const helmet = require("helmet");
+// const helmet = require("helmet");
 const { connectDb } = require("./db/db.js");
 const { checkDbConnection } = require("./middlewares/db/checkDbConnection.js");
 const adminRouter = require("./routes/admin/admin.routes.js");
@@ -28,35 +28,35 @@ const corsOptions = {
 
 app.use(cors());
 app.use(express.json());
-app.use(
-  helmet({
-    contentSecurityPolicy: {
-      directives: {
-        defaultSrc: ["'self'"],
-        imgSrc: [
-          "'self'",
-          "data:",
-          "http://localhost:8000",
-          "https://app.projob.co.in",
-        ],
-        scriptSrc: [
-          "'self'",
-          "http://localhost:8000",
-          "https://app.projob.co.in",
-        ],
-        styleSrc: [
-          "'self'",
-          "'unsafe-inline'",
-          "http://localhost:8000",
-          "https://app.projob.co.in",
-        ],
-        // Example: Adding additional sources if required by crypto or other libraries
-        // scriptSrc: ["'self'", "https://trusted.cdn.com", "'unsafe-inline'"],
-      },
-    },
-    crossOriginResourcePolicy: { policy: "cross-origin" },
-  })
-);
+// app.use(
+//   helmet({
+//     contentSecurityPolicy: {
+//       directives: {
+//         defaultSrc: ["'self'"],
+//         imgSrc: [
+//           "'self'",
+//           "data:",
+//           "http://localhost:8000",
+//           "https://app.projob.co.in",
+//         ],
+//         scriptSrc: [
+//           "'self'",
+//           "http://localhost:8000",
+//           "https://app.projob.co.in",
+//         ],
+//         styleSrc: [
+//           "'self'",
+//           "'unsafe-inline'",
+//           "http://localhost:8000",
+//           "https://app.projob.co.in",
+//         ],
+//         // Example: Adding additional sources if required by crypto or other libraries
+//         // scriptSrc: ["'self'", "https://trusted.cdn.com", "'unsafe-inline'"],
+//       },
+//     },
+//     crossOriginResourcePolicy: { policy: "cross-origin" },
+//   })
+// );
 
 // Serve static files from the 'uploads' directory
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
