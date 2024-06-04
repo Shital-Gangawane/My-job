@@ -32,6 +32,8 @@ app.use(
           "'self'",
           "http://localhost:8000",
           "https://app.projob.co.in",
+          "https://www.google.com",
+          "https://www.gstatic.com",
         ],
         styleSrc: [
           "'self'",
@@ -46,7 +48,10 @@ app.use(
           "http://localhost:8000",
           "https://app.projob.co.in",
           "https://securetoken.googleapis.com",
+          "https://identitytoolkit.googleapis.com",
+          "https://www.google.com",
         ],
+        frameSrc: ["'self'", "https://www.google.com/"],
         // fontSrc:[
 
         // ]
