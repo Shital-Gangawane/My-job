@@ -45,6 +45,7 @@ app.use(
           "'self'",
           "http://localhost:8000",
           "https://app.projob.co.in",
+          "https://securetoken.googleapis.com",
         ],
         // fontSrc:[
 
