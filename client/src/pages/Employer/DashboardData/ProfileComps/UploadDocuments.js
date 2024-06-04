@@ -101,7 +101,7 @@ export default function UploadDocuments() {
       <h1 className="text-lg text-[#202124] lg:text-3xl mb-5 font-medium">
         Upload Company KYC Documents
       </h1>
-      {user?.isApproved && user?.companyKYC && (
+      {!user?.isApproved && user?.companyKYC && (
         <p className="text-yellow-500">
           Documents approval is pending with your HR.
         </p>
