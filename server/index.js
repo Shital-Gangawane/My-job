@@ -26,36 +26,36 @@ const corsOptions = {
   optionsSuccessStatus: 200,
 };
 
-app.use(cors(corsOptions));
+app.use(cors());
 app.use(express.json());
-app.use(
-  helmet({
-    contentSecurityPolicy: {
-      directives: {
-        defaultSrc: ["'self'"],
-        imgSrc: [
-          "'self'",
-          "data:",
-          "http://localhost:8000",
-          "https://app.projob.co.in",
-        ],
-        scriptSrc: [
-          "'self'",
-          "http://localhost:8000",
-          "https://app.projob.co.in",
-        ],
-        styleSrc: [
-          "'self'",
-          "'unsafe-inline'",
-          "http://localhost:8000",
-          "https://app.projob.co.in",
-        ],
-      },
-    },
-    // crossOriginEmbedderPolicy: false, // Disable if it causes issues
-    crossOriginResourcePolicy: { policy: "cross-origin" }, // Allow cross-origin resources
-  })
-);
+// app.use(
+//   helmet({
+//     contentSecurityPolicy: {
+//       directives: {
+//         defaultSrc: ["'self'"],
+//         imgSrc: [
+//           "'self'",
+//           "data:",
+//           "http://localhost:8000",
+//           "https://app.projob.co.in",
+//         ],
+//         scriptSrc: [
+//           "'self'",
+//           "http://localhost:8000",
+//           "https://app.projob.co.in",
+//         ],
+//         styleSrc: [
+//           "'self'",
+//           "'unsafe-inline'",
+//           "http://localhost:8000",
+//           "https://app.projob.co.in",
+//         ],
+//       },
+//     },
+//     // crossOriginEmbedderPolicy: false, // Disable if it causes issues
+//     crossOriginResourcePolicy: { policy: "cross-origin" }, // Allow cross-origin resources
+//   })
+// );
 
 // Serve static files from the 'uploads' directory
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
