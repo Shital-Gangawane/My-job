@@ -1,8 +1,10 @@
+// index.js
+
 const express = require("express");
 const dotenv = require("dotenv").config();
 const cors = require("cors");
+const helmet = require("helmet");
 const path = require("path");
-// const helmet = require("helmet");
 const { connectDb } = require("./db/db.js");
 const { checkDbConnection } = require("./middlewares/db/checkDbConnection.js");
 const adminRouter = require("./routes/admin/admin.routes.js");
@@ -12,51 +14,51 @@ require("./models/admin/admin.js");
 
 const app = express();
 
-const allowedOrigins = ["http://localhost:3000", "https://app.projob.co.in"];
-
-const corsOptions = {
-  origin: function (origin, callback) {
-    // Check if the request origin is in the allowed origins array
-    if (!origin || allowedOrigins.indexOf(origin) !== -1) {
-      callback(null, true);
-    } else {
-      callback(new Error("Not allowed by CORS"));
-    }
-  },
-  optionsSuccessStatus: 200,
-};
-
 app.use(cors());
 app.use(express.json());
-// app.use(
-//   helmet({
-//     contentSecurityPolicy: {
-//       directives: {
-//         defaultSrc: ["'self'"],
-//         imgSrc: [
-//           "'self'",
-//           "data:",
-//           "http://localhost:8000",
-//           "https://app.projob.co.in",
-//         ],
-//         scriptSrc: [
-//           "'self'",
-//           "http://localhost:8000",
-//           "https://app.projob.co.in",
-//         ],
-//         styleSrc: [
-//           "'self'",
-//           "'unsafe-inline'",
-//           "http://localhost:8000",
-//           "https://app.projob.co.in",
-//         ],
-//         // Example: Adding additional sources if required by crypto or other libraries
-//         // scriptSrc: ["'self'", "https://trusted.cdn.com", "'unsafe-inline'"],
-//       },
-//     },
-//     crossOriginResourcePolicy: { policy: "cross-origin" },
-//   })
-// );
+app.use(express.json());
+app.use(
+  helmet({
+    contentSecurityPolicy: {
+      directives: {
+        defaultSrc: ["'self'"],
+        imgSrc: [
+          "'self'",
+          "data:",
+          "http://localhost:8000",
+          "https://app.projob.co.in",
+        ],
+        scriptSrc: [
+          "'self'",
+          "http://localhost:8000",
+          "https://app.projob.co.in",
+        ],
+        styleSrc: [
+          "'self'",
+          "'unsafe-inline'",
+          "http://localhost:8000",
+          "https://app.projob.co.in",
+          "https://fonts.googleapis.com/",
+          "https://cdnjs.cloudflare.com",
+        ],
+        connectSrc: [
+          "'self'",
+          "http://localhost:8000",
+          "https://app.projob.co.in",
+        ],
+        // fontSrc:[
+
+        // ]
+        // Example: Adding additional sources if required by crypto or other libraries
+        // scriptSrc: ["'self'", "https://trusted.cdn.com", "'unsafe-inline'"],
+      },
+    },
+    crossOriginResourcePolicy: { policy: "cross-origin" },
+  })
+);
+
+// Serve static files from the build directory
+app.use("/", express.static(path.join(__dirname, "build")));
 
 // Serve static files from the 'uploads' directory
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
