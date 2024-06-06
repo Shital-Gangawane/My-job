@@ -9,6 +9,8 @@ import bangalore from "../../assets/bangalore.png";
 import hyderabad from "../../assets/hyderabad.png";
 import pune from "../../assets/pune.png";
 import chennai from "../../assets/chennai.png";
+import { motion } from "framer-motion";
+import { fadeIn } from "../../Variants";
 
 
 
@@ -71,6 +73,11 @@ function ListOfCityJobs() {
 
   return (
     <section className="w-full h-auto mx-auto px-10 pb-5 md:px-10 bg-white flex flex-col items-center">
+        <motion.div
+    variants={fadeIn("up",0.2)}
+    initial="hidden"
+    whileInView={"show"}
+    viewport={{once:false,amount:0.7}}>
       <div className="grid grid-cols-1 md:grid-cols-2 text-start w-full mt-16">
         <div>
         <h1 className="font-medium text-2xl lg:text-3xl">List Of City Jobs</h1>
@@ -149,6 +156,7 @@ function ListOfCityJobs() {
           ))}
         </div>
       </div>
+      </motion.div>
       </section>
   )
 }

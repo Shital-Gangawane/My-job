@@ -1,4 +1,5 @@
-import { motion } from 'framer-motion'
+import { motion } from "framer-motion";
+import { fadeIn } from "../../Variants";
 import React, {useState} from 'react'
 import { Link } from "react-router-dom";
 import Card from "react-bootstrap/Card";
@@ -34,8 +35,13 @@ function CareerTips() {
           },
     ]
   return (
-    <motion.div  className="w-full h-auto mx-auto px-2  lg:pb-24 sm:pb-3 md:pb-3 md:px-3 sm:px-3 bg-white flex flex-col items-center">
-    <div className="grid grid-cols-1 md:grid-cols-2 text-start w-full mt-16">
+    <div  className="w-full h-auto mx-auto px-2  lg:pb-24 sm:pb-3 md:pb-3 md:px-3 sm:px-3 bg-white flex flex-col items-center">
+    <motion.div
+    variants={fadeIn("up",0.2)}
+    initial="hidden"
+    whileInView={"show"}
+    viewport={{once:false,amount:0.7}}
+     className="grid grid-cols-1 md:grid-cols-2 text-start w-full mt-16">
      <div>
       <h1 className="font-medium text-2xl lg:text-3xl">Caeer Tips</h1>
       <h2 className="mt-1">Fresh job related news content posted each day.</h2>
@@ -49,9 +55,14 @@ function CareerTips() {
       </Link>
      </div>
      
-    </div>
+    </motion.div>
 
-    <div className="relative w-full h-full py-16">
+    <motion.div
+    variants={fadeIn("up",0.2)}
+    initial="hidden"
+    whileInView={"show"}
+    viewport={{once:false,amount:0.7}}
+     className="relative w-full h-full py-16">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 ">
           {cardData?.map((data, i) => (
             <Col
@@ -76,9 +87,9 @@ function CareerTips() {
             </Col>
           ))}
         </div>
-      </div>
+      </motion.div>
 
-    </motion.div>
+    </div>
   )
 }
 

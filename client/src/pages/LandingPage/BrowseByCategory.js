@@ -9,6 +9,8 @@ import { RiCustomerService2Line } from "react-icons/ri";
 import { PiFirstAidKitLight } from "react-icons/pi";
 import { LiaCarSideSolid } from "react-icons/lia";
 import { MdOutlineArrowOutward } from "react-icons/md";
+import { motion } from "framer-motion";
+import {fadeIn} from "../../Variants";
 
 function BrowseByCategory() {
  
@@ -69,8 +71,15 @@ function BrowseByCategory() {
     },
   ];
   return (
-    <section className="w-full h-auto mx-auto px-10 pb-5 md:px-10 bg-white grid grid-cols-1 items-center">
-      <div className="text-start w-full mt-16">
+    <div
+     className="w-full h-auto mx-auto px-10 pb-5 md:px-10 bg-white grid grid-cols-1 items-center">
+      <motion.div
+    variants={fadeIn("up",0.2)}
+    initial="hidden"
+    whileInView={"show"}
+    viewport={{once:false,amount:0.7}}>
+   <div
+   className="text-start w-full mt-16">
         <h1 className="font-medium text-2xl lg:text-3xl">Browse by Category</h1>
         <Link
           to={"/job/search-results"}
@@ -81,7 +90,7 @@ function BrowseByCategory() {
         <h2>2020 jobs live - 293 added today.</h2>
       </div>
       <div className="relative mx-auto w-full h-full py-16">
-        <div className="grid grid-cols-1 md:grid-cols-6 gap-8">
+      <div className="grid grid-cols-1 md:grid-cols-6 gap-8">
           {statsData?.map((stat, i) => (
             <Col
               key={i}
@@ -111,8 +120,9 @@ function BrowseByCategory() {
             </Col>
           ))}
         </div>
-      </div>
-    </section>
+        </div>
+      </motion.div>
+    </div>
   );
 }
 

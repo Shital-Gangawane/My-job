@@ -21,6 +21,7 @@ import Footer from "./Footer";
 import { RiArrowUpSLine } from "react-icons/ri";
 import CareerTips from "./CareerTips";
 import SubscribeOurNewsletter from "./SubscribeOurNewsletter";
+import RegisterAccount from "./RegisterAccount";
 
 const LandingPage = () => {
   const [selectedCity, setSelectedCity] = useState("");
@@ -154,6 +155,7 @@ const LandingPage = () => {
       <SimpleStepsForSuccessfulJob/>
       <TrendingJobs/>
       <CareerTips/>
+      <RegisterAccount/>
       <SubscribeOurNewsletter/>
       <Footer/>
       {/* <div

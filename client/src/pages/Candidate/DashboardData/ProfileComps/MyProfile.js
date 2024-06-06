@@ -22,18 +22,6 @@ function MyProfile({
   removeNumberClick,
 }) {
 
-  const handlePhoneNumberChange=(index, newState)=>{
-    const updatePhoneNumber= ulternateNumber?.map((phoneNum,i)=>{
-      if (i===index){
-        return{...phoneNum,...newState};
-      }
-      return phoneNum;
-    })
-    setUlternateNumber(updatePhoneNumber);
-    console.log(ulternateNumber);
- 
-  };
-
   const [preview, setPreview] = useState({ logoImage: "", coverImage: "" });
   const [searchTerm, setSearchTerm] = useState("");
   // const [selectedQualification, setSelectedQualification] = useState("");

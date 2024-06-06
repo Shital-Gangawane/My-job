@@ -1,4 +1,5 @@
-import { motion } from 'framer-motion'
+import { motion } from "framer-motion";
+import { fadeIn } from "../../Variants";
 import React, {useState} from 'react'
 import Card from "react-bootstrap/Card";
 import Col from "react-bootstrap/Col";
@@ -33,12 +34,22 @@ function SimpleStepsForSuccessfulJob() {
           },
         ]
   return (
-    <motion.div className="w-full h-auto mx-auto px-10 lg:py-5 pb-5 md:px-10  bg-white flex flex-col items-center">
-    <div className="text-start w-full lg:px-4 mt-12  md:px-32 sm:px-4 sm:mt-16 ">
+    <div className="w-full h-auto mx-auto px-10 lg:py-5 pb-5 md:px-10  bg-white flex flex-col items-center">
+    <motion.div 
+    variants={fadeIn("up",0.2)}
+    initial="hidden"
+    whileInView={"show"}
+    viewport={{once:false,amount:0.7}}
+    className="text-start w-full lg:px-4 mt-12  md:px-32 sm:px-4 sm:mt-16 ">
     <h1 className="font-medium text-4xl text-center text-gray-800  sm:text-3xl  mb-4 sm:mb-5">Few Simple Steps for Successful Job Search</h1>
     <p className='md:px-48 text-md text-center sm:px-4 text-gray-700 sm:text-md sm:mb-10'>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor</p>
-    </div>
-    <div className="relative w-full h-full lg:py-5 sm:py-10 mb-5">
+    </motion.div>
+    <motion.div 
+    variants={fadeIn("up",0.2)}
+    initial="hidden"
+    whileInView={"show"}
+    viewport={{once:false,amount:0.7}}
+    className="relative w-full h-full lg:py-5 sm:py-10 mb-5">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           {cardData?.map((data, i) => (
             <Col
@@ -61,8 +72,8 @@ function SimpleStepsForSuccessfulJob() {
             </Col>
           ))}
         </div>
-      </div>
-    </motion.div>
+      </motion.div>
+    </div>
   )
 }
 

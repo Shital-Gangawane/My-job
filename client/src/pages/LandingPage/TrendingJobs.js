@@ -1,5 +1,6 @@
 import React,{useState} from 'react'
 import { motion } from "framer-motion";
+import { fadeIn } from "../../Variants";
 import Col from "react-bootstrap/Col";
 
 function TrendingJobs() {
@@ -80,8 +81,13 @@ function TrendingJobs() {
         ]
 
   return (
-    <motion.div className="w-full h-auto mx-auto lg:px-10 lg:py-5 sm:py-2 lg:pb-5 sm:pb-2 md:px-5 sm:px-5 bg-white flex flex-col items-center">
-    <div className="text-start w-full px-4 mt-12 mb-8 md:px-32 sm:px-4 sm:mt-16 sm:mb-10">
+    <div className="w-full h-auto mx-auto lg:px-10 lg:py-5 sm:py-2 lg:pb-5 sm:pb-2 md:px-5 sm:px-5 bg-white flex flex-col items-center">
+    <motion.div 
+    variants={fadeIn("up",0.2)}
+    initial="hidden"
+    whileInView={"show"}
+    viewport={{once:false,amount:0.7}}
+    className="text-start w-full px-4 mt-12 mb-8 md:px-32 sm:px-4 sm:mt-16 sm:mb-10">
     <h1 className="font-medium text-4xl text-center text-gray-800  sm:text-3xl lg:text-4xl mb-4 sm:mb-5">Trending Jobs</h1>
     <p className='md:px-48 sm:mb-10 text-md text-center sm:px-4 text-gray-700 sm:text-md'>Explore trending job searches in the India</p>
    
@@ -110,9 +116,9 @@ function TrendingJobs() {
         
     </div>    
     
-</div>
+</motion.div>
       
-    </motion.div>
+    </div>
   )
 }
 

@@ -54,7 +54,7 @@ info@projob.co.in</p>
               </li>
               <li className="mb-4 relative  inline-flex flex-col-2 items-center gap-3">
             <div className="absolute h-0.5 w-0 bg-white group-hover:w-3 transition-all duration-300 ease-in-out"></div>
-              <Link  to={"/job/search-results"} className=" group-hover:text-white hover:ms-2 hover:ps-1.5 hover:overflow-hidden transition-color duration-300 ease-in-out">
+              <Link  to={"/job/search-results"} className="block group-hover:text-white hover:ms-2 hover:ps-1.5 hover:overflow-hidden transition-color duration-300 ease-in-out">
                 Job Alert
               </Link>
               </li>

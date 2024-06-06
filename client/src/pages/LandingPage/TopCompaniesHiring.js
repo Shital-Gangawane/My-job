@@ -3,7 +3,8 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { Link } from "react-router-dom";
-import { motion } from 'framer-motion'
+import { motion } from "framer-motion";
+import { fadeIn } from "../../Variants";
 import Card from "react-bootstrap/Card";
 import Col from "react-bootstrap/Col";
 import { MdOutlineArrowOutward } from "react-icons/md";
@@ -206,8 +207,14 @@ function TopCompaniesHiring() {
       };
     
   return (
-    <motion.div  className="w-full h-auto mx-auto px-2  pb-24 md:px-10 bg-[#F5F2EA] flex flex-col items-center">
-    <div className="grid grid-cols-1 md:grid-cols-1 text-start w-full mt-16">
+    <div  className="w-full h-auto mx-auto px-2  pb-24 md:px-10 bg-[#F5F2EA] flex flex-col items-center">
+       
+    <motion.div 
+    variants={fadeIn("up",0.2)}
+    initial="hidden"
+    whileInView={"show"}
+    viewport={{once:false,amount:0.7}} 
+    className="grid grid-cols-1 md:grid-cols-1 text-start w-full mt-16">
      <div>
       <h1 className="font-medium text-2xl lg:text-3xl">Top Companies Hiring Now</h1>
       <h2 className="mt-1">Over 200 Million Jobs</h2>
@@ -221,9 +228,16 @@ function TopCompaniesHiring() {
       </Link>
      </div>
      
-    </div>
+    </motion.div>
 
-    <div className="relative w-full h-full py-10">
+
+    <motion.div 
+
+    variants={fadeIn("up",0.2)}
+    initial="hidden"
+    whileInView={"show"}
+    viewport={{once:false,amount:0.7}}
+    className="relative w-full h-full py-10">
     
     <Slider  {...settings}
           className=" w-full h-auto py-5 md:px-10 "
@@ -264,8 +278,8 @@ function TopCompaniesHiring() {
           ))}
         {/* </div> */}
         </Slider>
-      </div>
-    </motion.div >
+      </motion.div>
+    </div>
   )
 }
 
