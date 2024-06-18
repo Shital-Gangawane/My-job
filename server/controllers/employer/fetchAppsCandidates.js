@@ -6,7 +6,7 @@ module.exports.fetchAppsCandidates = async (req, res) => {
     // console.log(userId);
 
     const idsArr = ids.split(",");
-    console.log(idsArr);
+    // console.log(idsArr);
     const allCandidates = await Candidate.find({ _id: { $in: idsArr } });
 
     // if(!allCandidates)return res.status(400).json({ success: false, message: "Can" });

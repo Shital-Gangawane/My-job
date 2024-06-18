@@ -271,11 +271,30 @@ const Nav = ({ bgColor }) => {
                 </motion.button>
               )}
               <div className="flex xl:hidden gap-4 pe-2 md:pe-10 items-center">
-                <GoPerson
-                  onClick={() => navigate("/login")}
-                  size={27}
-                  className="text-zinc-700 xl:hover:text-blue-700 hover:text-[#6ad61d]"
-                />
+                {!token && !sessionStorage.getItem("userType") ? (
+                  <GoPerson
+                    onClick={() => navigate("/login")}
+                    size={20}
+                    className="text-zinc-700 xl:hover:text-blue-700 hover:text-[#6ad61d]"
+                  />
+                ) : (
+                  <img
+                    onClick={() =>
+                      navigate(
+                        `${
+                          sessionStorage.getItem("userType") === "candidate"
+                            ? "/candidate/dashboard"
+                            : "/employer/dashboard"
+                        }`
+                      )
+                    }
+                    className="h-9 w-9 border rounded-full p-1 hover:border-[#6ad61d]"
+                    src={
+                      user?.logoImage ? `${baseUrl}/${user?.logoImage}` : userDp
+                    }
+                    alt="User"
+                  />
+                )}
                 <TfiBell
                   size={23}
                   className="text-zinc-700 xl:hover:text-blue-700 hover:text-[#6ad61d]"

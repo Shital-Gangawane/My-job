@@ -11,16 +11,18 @@ import {
 } from "../../../api/employer/axios";
 import Loader from "../../../components/Utility/Loader";
 import PageLoader from "../../../components/Utility/PageLoader";
+import Action from "./Actions/Action";
 
 const baseUrl = process.env.REACT_APP_SERVER_API_URL || "http://localhost:8000";
 const statusOptions = [
+  "Pending",
   "Shortlisted",
-  "Interviewing",
-  "1st round",
-  "2nd round",
-  "Final round",
-  "Offered",
-  "Placed",
+  // "Interviewing",
+  // "1st round",
+  // "2nd round",
+  // "Final round",
+  // "Offered",
+  // "Placed",
   "Declined",
 ];
 function Applicantsjobs() {
@@ -186,14 +188,14 @@ function Applicantsjobs() {
                   <th className="py-3 px-2 ">Experience</th>
                   <th className="py-3 px-2 ">Job Applied</th>
                   <th className="py-3 px-2 ">Location</th>
-                  <th className="py-3 px-2 text-center">Resume</th>
-                  <th className="py-3 px-2 text-center">Shortlist</th>
+                  <th className="py-3 px-2 text-center">Status</th>
+                  {/* <th className="py-3 px-2 text-center">Shortlist</th> */}
                   {/* <th className="py-3 px-2 text-center">Status</th> */}
                   <th className="py-3 px-2 text-center">Action</th>
                 </tr>
               </thead>
               <tbody className="text-gray-600 text-sm font-light">
-                {filteredApplications?.map((app) => (
+                {filteredApplications?.map((app, i) => (
                   <tr
                     key={`${app.candidate._id}-${app.job._id}`}
                     className="border-b border-gray-200 hover:bg-gray-100 text-center"
@@ -208,7 +210,7 @@ function Applicantsjobs() {
                     <td className="py-3 px-2 ">
                       {app.candidate.location.city}
                     </td>
-                    <td className="py-3 px-2 text-center">
+                    {/* <td className="py-3 px-2 text-center">
                       <a
                         href={`${baseUrl}/uploads/resumes/${app.candidate.resume}`}
                         className="bg-blue-500 whitespace-nowrap hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
@@ -249,9 +251,9 @@ function Applicantsjobs() {
                           ? "Shortlisted"
                           : "Shortlist"}
                       </button>
-                    </td>
+                    </td> */}
 
-                    <td className="py-3 px-2 text-center">
+                    {/* <td className="py-3 px-2 text-center">
                       <button
                         onClick={() =>
                           handleDeclineCandidate(app.candidate._id, app.job._id)
@@ -262,8 +264,8 @@ function Applicantsjobs() {
                       >
                         Decline
                       </button>
-                    </td>
-                    {/* <td className="py-3 px-2 text-center">
+                    </td> */}
+                    <td className="py-3 px-2 text-center">
                       <select
                         value={
                           user?.applications?.find(
@@ -282,7 +284,19 @@ function Applicantsjobs() {
                           </option>
                         ))}
                       </select>
-                    </td> */}
+                    </td>
+                    <td className="py-3 px-2 text-center">
+                      <Action
+                        jobId={app?.job?._id}
+                        candidate={app?.candidate}
+                        lastIndex={
+                          i === filteredApplications?.length - 1 ||
+                          i === filteredApplications?.length - 2
+                        }
+                        handleDeclineCandidate={handleDeclineCandidate}
+                        handleShortlistCandidate={handleShortlistCandidate}
+                      />
+                    </td>
                   </tr>
                 ))}
               </tbody>

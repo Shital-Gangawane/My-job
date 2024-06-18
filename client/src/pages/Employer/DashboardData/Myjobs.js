@@ -7,12 +7,15 @@ import { CiClock2, CiLocationOn } from "react-icons/ci";
 import { GiMoneyStack } from "react-icons/gi";
 import Loader from "../../../components/Utility/Loader";
 import PageLoader from "../../../components/Utility/PageLoader";
+import ViewApplications from "../../../components/Employer/DashboardData/ViewApplications";
 
 function Myjobs() {
   const [myJobs, setMyJobs] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [sortType, setSortType] = useState("newest");
   const [isLoading, setIsLoading] = useState(true);
+  const [isViewApplicationOn, setIsViewApplicationOn] = useState(false);
+  const [selectedJob, setSelectedJob] = useState(null);
   const { user } = useUserContext();
 
   useEffect(() => {
@@ -80,6 +83,14 @@ function Myjobs() {
       </h1>
       <div className="w-full relative bg-white rounded-lg shadow-lg p-7 pb-14">
         {isLoading && <PageLoader />}
+        {isViewApplicationOn && (
+          <ViewApplications
+            idArray={selectedJob?.applications?.map((app) => app.candidate)}
+            setIsViewApplicationOn={setIsViewApplicationOn}
+            jobId={selectedJob?._id}
+            myjobs
+          />
+        )}
         <div className="flex flex-col lg:flex-row gap-3 lg:justify-between">
           <div className="bg-[#f0f5f7] rounded-lg p-4 flex items-center gap-2">
             <IoIosSearch color="gray" size={20} />
@@ -144,7 +155,15 @@ function Myjobs() {
                         {job.jobTitle}
                       </Link>
                     </td>
-                    <td className="py-4 px-6">{job?.applications?.length}</td>
+                    <td
+                      className="py-4 px-6 text-blue-600 underline hover:text-blue-500"
+                      onClick={() => {
+                        setSelectedJob(job);
+                        setIsViewApplicationOn(true);
+                      }}
+                    >
+                      {job?.applications?.length}
+                    </td>
                     <td className="py-4 px-6">
                       {job.isRemote ? "Remote" : "Onsite"}
                     </td>

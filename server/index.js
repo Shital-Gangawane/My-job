@@ -12,6 +12,12 @@ require("./models/admin/admin.js");
 
 const app = express();
 
+const corsOptions = {
+  origin: ["http://localhost:3000", "https://app.projob.co.in"],
+  methods: ["GET", "POST", "PUT", "DELETE", "PATCH"],
+  allowedHeaders: ["Content-Type", "Authorization"],
+};
+
 app.use(cors());
 app.use(express.json());
 app.use(express.json());
@@ -64,15 +70,9 @@ app.use(express.json());
 app.use(
   helmet({
     contentSecurityPolicy: false, // Disable CSP entirely
+    crossOriginResourcePolicy: false,
   })
 );
-
-app.use((req, res, next) => {
-  res.on("finish", () => {
-    console.log("Response Headers:", res.getHeaders());
-  });
-  next();
-});
 
 // Serve static files from the build directory
 app.use("/", express.static(path.join(__dirname, "build")));

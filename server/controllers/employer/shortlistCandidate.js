@@ -11,6 +11,25 @@ module.exports.shortlistCandidate = async (req, res) => {
     }
 
     const candidateId = req.params.candidateId;
+
+    const appIndex = employer.applications.findIndex(
+      (c) =>
+        c.candidate.toString() === candidateId &&
+        c.job.toString() === req.body.jobId
+    );
+
+    if (appIndex !== -1) {
+      switch (employer.applications[appIndex].status) {
+        case "Pending":
+          employer.applications[appIndex].status = "Shortlisted";
+          break;
+        case "Shortlisted":
+          employer.applications[appIndex].status = "Pending";
+          break;
+        default:
+          break;
+      }
+    }
     const index = employer.shortlistedCandidates.findIndex(
       (c) =>
         c.candidate.toString() === candidateId &&
