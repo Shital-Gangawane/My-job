@@ -11,7 +11,7 @@ export default function Employer() {
   const userType = sessionStorage.getItem("userType");
 
   useEffect(() => {
-    if (!user) {
+    if (!token && !userType) {
       navigate("/login");
     } else if (userType !== "employer") {
       navigate("/candidate/dashboard");

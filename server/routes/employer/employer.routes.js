@@ -47,7 +47,7 @@ const {
 } = require("../../controllers/employer/changePassword.js");
 const { upload } = require("../../middlewares/multer/docsMulter.js");
 const {
-  upoadDocuments,
+  uploadDocuments,
 } = require("../../controllers/employer/upoadDocuments.js");
 
 const router = express.Router();
@@ -107,7 +107,7 @@ router.post(
     { name: "visitingCards", maxCount: 1 },
     { name: "hrProofOfIdentity", maxCount: 1 },
   ]),
-  upoadDocuments
+  uploadDocuments
 );
 
 module.exports = router;

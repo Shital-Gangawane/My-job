@@ -22,6 +22,8 @@ import { LuUndo2 } from "react-icons/lu";
 import { GrRedo } from "react-icons/gr";
 // import SelectCategories from "./SelectCategories/SelectCategories";
 import SelectCategories from "../SelectCategories/SelectCategories";
+import SearchableList from "../../../../components/Utility/SearchableList";
+import { designations } from "./designationOptions";
 
 const baseUrl = process.env.REACT_APP_SERVER_API_URL || "http://localhost:8000";
 function MyProfile({
@@ -60,9 +62,9 @@ function MyProfile({
 
       <div>
         {/* Logo Image Upload */}
-        <div className="pb-5">
+        <div className="pb-5 mb-3">
           <label
-            htmlFor="logoImage"
+            htmlFor="coverImage"
             className="block text-sm font-bold text-gray-900"
           >
             Logo Image
@@ -72,19 +74,30 @@ function MyProfile({
             name="logoImage"
             id="logoImage"
             onChange={(e) => onImageChange(e, "logoImage")}
-            className="w-full text-sm text-gray-900 py-2.5 px-4 border border-gray-300 rounded-lg focus:outline-none focus:border-[#6ad61d] focus:ring-[#6ad61d]"
+            className="w-full hidden text-sm text-gray-900 py-2.5 px-4 border border-gray-300 rounded-lg focus:outline-none focus:border-[#6ad61d] focus:ring-[#6ad61d]"
           />
-          {profileInfo?.logoImage && (
-            <img
-              className=" h-10"
-              src={preview?.logoImage || `${baseUrl}/${profileInfo?.logoImage}`}
-              alt="Logo Preview"
-            />
-          )}
+          <div className="flex gap-4">
+            <button
+              type="button"
+              onClick={() => document.getElementById("logoImage").click()}
+              className="py-2 px-7 bg-[#6ad61d] hover:bg-blue-500 text-white rounded-lg"
+            >
+              Browse
+            </button>
+            {profileInfo?.logoImage && (
+              <img
+                className=" h-12"
+                src={
+                  preview?.logoImage || `${baseUrl}/${profileInfo?.logoImage}`
+                }
+                alt="Logo Preview"
+              />
+            )}
+          </div>
         </div>
 
         {/* Cover Photo Upload */}
-        <div className="pb-5">
+        <div className="pb-5 mb-3">
           <label
             htmlFor="coverImage"
             className="block text-sm font-bold text-gray-900"
@@ -96,17 +109,26 @@ function MyProfile({
             name="coverImage"
             id="coverImage"
             onChange={(e) => onImageChange(e, "coverImage")}
-            className="w-full text-sm text-gray-900 py-2.5 px-4 border border-gray-300 rounded-lg focus:outline-none focus:border-[#6ad61d] focus:ring-[#6ad61d]"
+            className="w-full hidden text-sm text-gray-900 py-2.5 px-4 border border-gray-300 rounded-lg focus:outline-none focus:border-[#6ad61d] focus:ring-[#6ad61d]"
           />
-          {profileInfo?.coverImage && (
-            <img
-              className=" h-10"
-              src={
-                preview?.coverImage || `${baseUrl}/${profileInfo?.coverImage}`
-              }
-              alt="Cover Preview"
-            />
-          )}
+          <div className="flex  gap-4">
+            <button
+              type="button"
+              onClick={() => document.getElementById("coverImage").click()}
+              className="py-2 px-7 bg-[#6ad61d] hover:bg-blue-500 text-white rounded-lg"
+            >
+              Browse
+            </button>
+            {profileInfo?.coverImage && (
+              <img
+                className=" h-12"
+                src={
+                  preview?.coverImage || `${baseUrl}/${profileInfo?.coverImage}`
+                }
+                alt="Logo Preview"
+              />
+            )}
+          </div>
         </div>
 
         {/* Employer Name Input */}
@@ -146,6 +168,15 @@ function MyProfile({
             required
           />
         </div>
+
+        {/* Designation */}
+        <SearchableList
+          label="Designation"
+          name="designation"
+          value={profileInfo?.designation || ""}
+          onChange={onChange}
+          array={designations}
+        />
 
         {/* Website Input */}
         <div className="mb-5">

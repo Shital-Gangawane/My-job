@@ -18,6 +18,9 @@ const employerSchema = new mongoose.Schema({
   name: {
     type: String,
   },
+  designation: {
+    type: String,
+  },
   foundedDate: {
     type: String,
   },

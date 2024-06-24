@@ -25,6 +25,7 @@ function Profile() {
     website: "",
     foundedDate: "",
     companySize: "",
+    designation: "",
     categories: [],
     introVideoUrl: "",
     aboutCompany: "",
@@ -48,11 +49,14 @@ function Profile() {
         setIsLoading(true);
         const res = await fetchUser("employer", user?._id);
         const data = res?.data?.employer;
+        sessionStorage.setItem("user", JSON.stringify(data));
+        setUser(res?.data?.employer);
 
         setProfileInfo({
           name: data.name || "",
           website: data.website || "",
           foundedDate: data.foundedDate || "",
+          designation: data.designation || "",
           companySize: data.companySize || "",
           companyName: data.companyName || "",
           categories: data.categories[0]?.split(",") || [],

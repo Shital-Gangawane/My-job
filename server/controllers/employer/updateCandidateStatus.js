@@ -33,7 +33,7 @@ module.exports.updateCandidateStatus = async (req, res) => {
       employer.applications[candidateIndex].status = status;
       employer.applications[candidateIndex].note = note;
     } else {
-      return res.status(404).send("Candidate not found in shortlist");
+      return res.status(404).send("Candidate not found in application");
     }
 
     await employer.save();

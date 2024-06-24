@@ -79,8 +79,8 @@ export const navigationLinks = [
   //   ],
   // },
   {
-    label: "Pages",
-    url: "",
+    label: "Resources",
+    url: "#",
     hasDropdown: true,
     dropdownOptions: [
       {
@@ -90,14 +90,14 @@ export const navigationLinks = [
             label: "Blog",
             url: "#",
           },
-          {
-            label: "About Us",
-            url: "#",
-          },
-          {
-            label: "Contact",
-            url: "#",
-          },
+          // {
+          //   label: "About Us",
+          //   url: "#",
+          // },
+          // {
+          //   label: "Contact",
+          //   url: "#",
+          // },
           {
             label: "FAQs",
             url: "#",
@@ -105,5 +105,15 @@ export const navigationLinks = [
         ],
       },
     ],
+  },
+  {
+    label: "About Us",
+    url: "#",
+    hasDropdown: false,
+  },
+  {
+    label: "Contact Us",
+    url: "#",
+    hasDropdown: false,
   },
 ];

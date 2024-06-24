@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useMemo } from "react";
 import {
+  declineCandidates,
   fetchAppliedCandidates,
   shortlistCandidates,
   updateCandidateStatus,
@@ -7,22 +8,25 @@ import {
 import { IoIosSearch } from "react-icons/io";
 import { useUserContext } from "../../../context/userContext";
 import Loader from "../../Utility/Loader";
+import Action from "../../../pages/Employer/DashboardData/Actions/Action";
 
 const baseUrl = process.env.REACT_APP_SERVER_API_URL || "http://localhost:8000";
 const statusOptions = [
+  "Pending",
   "Shortlisted",
-  "Interviewing",
-  "1st round",
-  "2nd round",
-  "Final round",
-  "Offered",
-  "Placed",
+  // "Interviewing",
+  // "1st round",
+  // "2nd round",
+  // "Final round",
+  // "Offered",
+  // "Placed",
   "Declined",
 ];
 export default function ViewApplications({
   idArray,
   setIsViewApplicationOn,
   jobId,
+  myjobs,
 }) {
   const [error, setError] = useState("");
   const [searchTerm, setSearchTerm] = useState("");
@@ -34,9 +38,9 @@ export default function ViewApplications({
 
   useEffect(() => {
     const fetchData = async () => {
-      setIsLoading(true);
       try {
-        if (idArray) {
+        if (idArray.length > 0) {
+          setIsLoading(true);
           console.log(idArray);
           const ids = idArray.join(",");
           const res = await fetchAppliedCandidates(ids);
@@ -119,14 +123,33 @@ export default function ViewApplications({
           );
           return { ...prevUser, applications: updatedApplications };
         });
+        // This local state might be redundant if it's not used elsewhere
+        // setAppStatus(newStatus);
+      }
+    } catch (error) {
+      console.error("Error updating status", error);
+    }
+  };
+
+  const handleDeclineCandidate = async (candidateId, jobId) => {
+    try {
+      const res = await declineCandidates(user._id, candidateId, jobId);
+      console.log(res);
+      if (res?.status === 200) {
+        sessionStorage.setItem("user", JSON.stringify(res?.data?.employer));
+        setUser(res?.data?.employer);
       }
     } catch (error) {
       console.error("Error updating status", error);
     }
   };
   return (
-    <div className=" absolute top-0 left-0 h-full w-full  bg-black bg-opacity-65 p-14 flex justify-center">
-      <div className=" bg-white max-h-full w-full rounded-md p-10 relative text-center">
+    <div
+      className={`${
+        myjobs ? "fixed inset-0 z-50" : "absolute  top-0 left-0"
+      } h-full w-full  bg-black bg-opacity-65 p-2 lg:p-14 flex justify-center items-center`}
+    >
+      <div className=" bg-white h-full w-full rounded-md p-2 md:p-6 lg:p-10 relative text-center ">
         {isLoading && <Loader />}
         <div className="flex flex-col lg:flex-row gap-3 lg:justify-between">
           <div className="bg-[#f0f5f7] rounded-lg ps-4 flex items-center gap-2">
@@ -151,8 +174,8 @@ export default function ViewApplications({
             </select>
           </div> */}
         </div>
-        <div className="p-1 rounded-lg mt-7 overflow-x-auto">
-          {filteredApplications?.length > 0 ? (
+        <div className="p-1 rounded-lg mt-7 overflow-x-auto h-full">
+          {filteredApplications?.length > 0 && idArray?.length > 0 ? (
             <table className="min-w-full leading-normal">
               <thead>
                 <tr className=" text-center">
@@ -161,10 +184,10 @@ export default function ViewApplications({
                   <th className="py-3 px-2 ">Education</th>
                   <th className="py-3 px-2 ">Experience</th>
                   <th className="py-3 px-2 ">Location</th>
-                  <th className="py-3 px-2 text-center">Resume</th>
-                  <th className="py-3 px-2 text-center">Shortlist</th>
                   <th className="py-3 px-2 text-center">Status</th>
-                  {/* <th className="py-3 px-2 text-center">Action</th> */}
+                  {/* <th className="py-3 px-2 text-center">Shortlist</th> */}
+                  {/* <th className="py-3 px-2 text-center">Status</th> */}
+                  <th className="py-3 px-2 text-center">Action</th>
                 </tr>
               </thead>
               <tbody className="text-gray-600 text-sm font-light">
@@ -179,7 +202,7 @@ export default function ViewApplications({
                     <td className="py-3 px-2 ">{candidate?.experience}</td>
 
                     <td className="py-3 px-2 ">{candidate?.location.city}</td>
-                    <td className="py-3 px-2 text-center">
+                    {/* <td className="py-3 px-2 text-center">
                       <a
                         href={`${baseUrl}/uploads/resumes/${candidate?.resume}`}
                         className="bg-blue-500 whitespace-nowrap hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
@@ -214,7 +237,7 @@ export default function ViewApplications({
                           ? "Shortlisted"
                           : "Shortlist"}
                       </button>
-                    </td>
+                    </td> */}
 
                     <td className="py-3 px-2 text-center">
                       <select
@@ -235,6 +258,14 @@ export default function ViewApplications({
                         ))}
                       </select>
                     </td>
+                    <td className="py-3 px-2 text-center">
+                      <Action
+                        jobId={jobId}
+                        candidate={candidate}
+                        handleDeclineCandidate={handleDeclineCandidate}
+                        handleShortlistCandidate={handleShortlistCandidate}
+                      />
+                    </td>
                   </tr>
                 ))}
               </tbody>
@@ -244,12 +275,14 @@ export default function ViewApplications({
           )}
         </div>
 
-        <button
-          className=" bg-gray-800 text-white px-6 py-2 rounded-lg absolute bottom-2 "
-          onClick={() => setIsViewApplicationOn(false)}
-        >
-          Close
-        </button>
+        <div className=" w-full flex justify-center">
+          <button
+            className=" bg-gray-800 text-white px-6 py-2 rounded-lg absolute bottom-2"
+            onClick={() => setIsViewApplicationOn(false)}
+          >
+            Close
+          </button>
+        </div>
       </div>
     </div>
   );

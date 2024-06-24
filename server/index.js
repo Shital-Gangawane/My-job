@@ -1,8 +1,8 @@
 const express = require("express");
 const dotenv = require("dotenv").config();
 const cors = require("cors");
-const path = require("path");
 const helmet = require("helmet");
+const path = require("path");
 const { connectDb } = require("./db/db.js");
 const { checkDbConnection } = require("./middlewares/db/checkDbConnection.js");
 const adminRouter = require("./routes/admin/admin.routes.js");
@@ -12,9 +12,67 @@ require("./models/admin/admin.js");
 
 const app = express();
 
+const corsOptions = {
+  origin: ["http://localhost:3000", "https://app.projob.co.in"],
+  methods: ["GET", "POST", "PUT", "DELETE", "PATCH"],
+  allowedHeaders: ["Content-Type", "Authorization"],
+};
+
 app.use(cors());
 app.use(express.json());
-// app.use(helmet());
+app.use(express.json());
+// app.use(
+//   helmet({
+//     contentSecurityPolicy: {
+//       directives: {
+//         defaultSrc: ["'self'"],
+//         imgSrc: [
+//           "'self'",
+//           "data:",
+//           "http://localhost:8000",
+//           "https://app.projob.co.in",
+//         ],
+//         scriptSrc: [
+//           "'self'",
+//           "http://localhost:8000",
+//           "https://app.projob.co.in",
+//           "https://www.google.com",
+//           "https://www.gstatic.com",
+//         ],
+//         styleSrc: [
+//           "'self'",
+//           "'unsafe-inline'",
+//           "http://localhost:8000",
+//           "https://app.projob.co.in",
+//           "https://fonts.googleapis.com/",
+//           "https://cdnjs.cloudflare.com",
+//         ],
+//         connectSrc: [
+//           "'self'",
+//           "http://localhost:8000",
+//           "https://app.projob.co.in",
+//           "https://securetoken.googleapis.com",
+//           "https://identitytoolkit.googleapis.com",
+//           "https://www.google.com",
+//         ],
+//         frameSrc: ["'self'", "https://www.google.com/"],
+//         // fontSrc:[
+
+//         // ]
+//         // Example: Adding additional sources if required by crypto or other libraries
+//         // scriptSrc: ["'self'", "https://trusted.cdn.com", "'unsafe-inline'"],
+//       },
+//     },
+//     crossOriginResourcePolicy: { policy: "cross-origin" },
+//   })
+// );
+
+app.use(
+  helmet({
+    contentSecurityPolicy: false, // Disable CSP entirely
+    crossOriginResourcePolicy: false,
+  })
+);
 
 // Serve static files from the build directory
 app.use("/", express.static(path.join(__dirname, "build")));

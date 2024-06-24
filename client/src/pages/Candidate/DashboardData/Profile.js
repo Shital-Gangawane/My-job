@@ -23,12 +23,10 @@ import Changepassword from "./Changepassword";
 import { useNavigate } from "react-router-dom";
 
 function Profile({ candidate, setIsEditing }) {
+  const [activeTab, setActiveTab] = useState("profile");
   const [isOpen, setIsOpen] = useState(false);
   const { user, setUser } = useUserContext();
   const [isLoading, setIsLoading] = useState(false);
-  const [isEdit, setIsEdit] = useState(true);
-  const [isLogout, setIsLogout] = useState(false);
-  const [isChangePass, setIsChangePass] = useState(false);
   const navigate = useNavigate();
 
   const [profileInfo, setProfileInfo] = useState({
@@ -257,13 +255,9 @@ function Profile({ candidate, setIsEditing }) {
         <>
           <div className="flex md:gap-2">
             <h2
-              onClick={() => {
-                setIsEdit(true);
-                setIsChangePass(false);
-                setIsLogout(false);
-              }}
+              onClick={() => setActiveTab("profile")}
               className={`text-lg   ${
-                isEdit
+                activeTab === "profile"
                   ? "border border-b-0 bg-white rounded-md rounded-b-none text-[#202124]"
                   : " text-[#666667]"
               }   font-medium py-2 px-1  md:px-4 cursor-pointer`}
@@ -271,13 +265,9 @@ function Profile({ candidate, setIsEditing }) {
               Profile
             </h2>
             <h2
-              onClick={() => {
-                setIsChangePass(true);
-                setIsEdit(false);
-                setIsLogout(false);
-              }}
+              onClick={() => setActiveTab("password")}
               className={`text-lg   ${
-                isChangePass
+                activeTab === "password"
                   ? "border border-b-0 bg-white rounded-md rounded-b-none text-[#202124]"
                   : " text-[#666667]"
               }   font-medium py-2 px-1  md:px-4 cursor-pointer`}
@@ -285,13 +275,9 @@ function Profile({ candidate, setIsEditing }) {
               Password
             </h2>
             <h2
-              onClick={() => {
-                setIsLogout(true);
-                setIsChangePass(false);
-                setIsEdit(false);
-              }}
+              onClick={() => setActiveTab("logout")}
               className={`text-lg   ${
-                isLogout
+                activeTab === "logout"
                   ? "border border-b-0 bg-white rounded-md rounded-b-none text-[#202124]"
                   : " text-[#666667]"
               }   font-medium py-2 px-1 md:px-4 cursor-pointer`}
@@ -299,53 +285,48 @@ function Profile({ candidate, setIsEditing }) {
               Logout
             </h2>
           </div>
-          {isEdit && (
-            <form>
-              <div>
-                <MyProfile
-                  profileInfo={profileInfo}
-                  onChange={handleProfileChange}
-                  onImageChange={handleImageChange}
-                  handleLanguageChange={handleLanguageChange}
-                  genderoption={genderoption}
-                  ageoptions={ageoptions}
-                  qualificationoptions={qualifications}
-                  experienceoptions={experienceoptions}
-                  salaryoptions={salaryoptions}
-                  industryOptions={industryOptions}
-                  showprofileoptions={showprofileoptions}
-                  addNumberClick={addNumberClick}
-                  handleAlternateNumber={handleAlternateNumberChange}
-                  removeNumberClick={removeNumberClick}
-                  candidate
-                />
-              </div>
+          {activeTab === "profile" && (
+            <form onSubmit={handleSubmit}>
+              <MyProfile
+                profileInfo={profileInfo}
+                onChange={handleProfileChange}
+                onImageChange={handleImageChange}
+                handleLanguageChange={handleLanguageChange}
+                genderoption={genderoption}
+                ageoptions={ageoptions}
+                qualificationoptions={qualifications}
+                experienceoptions={experienceoptions}
+                salaryoptions={salaryoptions}
+                industryOptions={industryOptions}
+                showprofileoptions={showprofileoptions}
+                addNumberClick={addNumberClick}
+                handleAlternateNumber={handleAlternateNumberChange}
+                removeNumberClick={removeNumberClick}
+                candidate
+              />
 
-              <div>
-                <SocialNetworks
-                  socialNetworks={socialNetworks}
-                  setSocialNetworks={setSocialNetworks}
-                />
-              </div>
+              <SocialNetworks
+                socialNetworks={socialNetworks}
+                setSocialNetworks={setSocialNetworks}
+              />
 
-              <div>
-                <ContactInformation
-                  contactInfo={contactInfo}
-                  setContactInfo={setContactInfo}
-                />
-              </div>
+              <ContactInformation
+                contactInfo={contactInfo}
+                setContactInfo={setContactInfo}
+              />
 
               <button
-                type="button"
-                onClick={handleSubmit}
+                type="submit"
                 className="lg:w-auto mt-5 py-3 px-8 bg-[#6ad61d] hover:bg-blue-600 text-white  rounded-lg transition duration-300 ease-in-out"
               >
                 Save Profile
               </button>
             </form>
           )}
-          {isChangePass && <Changepassword setIsLoading={setIsLoading} />}
-          {isLogout && (
+          {activeTab === "password" && (
+            <Changepassword setIsLoading={setIsLoading} />
+          )}
+          {activeTab === "logout" && (
             <div className=" w-full text-center p-7 bg-white rounded-lg shadow-lg">
               {/* <h2 className=" text-lg text-[#202124] lg:text-3xl mb-10 font-medium">
               Logout
